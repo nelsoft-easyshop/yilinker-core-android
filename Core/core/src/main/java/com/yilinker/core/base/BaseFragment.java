@@ -6,13 +6,13 @@ import android.support.annotation.Nullable;
 import android.view.View;
 
 /**
- * Created by wagnavu on 8/3/15.
+ * Created by J.Bautista
  *
  * Base class for all fragments
  */
 public abstract class BaseFragment extends Fragment {
 
-    public static Fragment createInstance(Bundle args){
+    public static Fragment createInstance(@Nullable Bundle args){
 
         Fragment fragment = new Fragment();
         fragment.setArguments(args);
