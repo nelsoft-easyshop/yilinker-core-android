@@ -12,14 +12,12 @@ import android.view.View;
  */
 public abstract class BaseFragment extends Fragment {
 
-    /**
-     * Default constructor
-     * @param args
-     */
-    public BaseFragment(@Nullable Bundle args){
+    public static Fragment createInstance(Bundle args){
 
-        setArguments(args);
+        Fragment fragment = new Fragment();
+        fragment.setArguments(args);
 
+        return fragment;
     }
 
     @Override
