@@ -1,5 +1,8 @@
 package com.yilinker.core.model;
 
+import com.google.gson.InstanceCreator;
+
+import java.lang.reflect.Type;
 import java.util.List;
 
 /**
@@ -33,5 +36,14 @@ public class SellerReview {
     @Override
     public String toString() {
         return OBJ_NAME + "[" + KEY_RATING + ", " + KEY_REVIEWS + reviews + "]";
+    }
+
+    public static class SellerReviewInstance implements InstanceCreator<SellerReview> {
+
+        @Override
+        public SellerReview createInstance(Type type) {
+
+            return new SellerReview();
+        }
     }
 }
