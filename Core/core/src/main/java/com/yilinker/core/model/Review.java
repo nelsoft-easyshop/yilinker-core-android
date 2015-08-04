@@ -1,5 +1,9 @@
 package com.yilinker.core.model;
 
+import com.google.gson.InstanceCreator;
+
+import java.lang.reflect.Type;
+
 /**
  * Created by J.Bautista
  */
@@ -51,5 +55,14 @@ public class Review {
     @Override
     public String toString() {
         return OBJ_NAME + "[" + KEY_NAME + name + KEY_IMAGE_URL + imageUrl + ", " + KEY_RATING + rating + ", " + KEY_MESSAGE + message + "]";
+    }
+
+    public static class ReviewInstance implements InstanceCreator<Review> {
+
+        @Override
+        public Review createInstance(Type type) {
+
+            return new Review();
+        }
     }
 }

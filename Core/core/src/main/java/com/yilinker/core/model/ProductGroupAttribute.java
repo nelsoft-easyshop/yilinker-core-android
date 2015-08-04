@@ -1,5 +1,9 @@
 package com.yilinker.core.model;
 
+import com.google.gson.InstanceCreator;
+
+import java.lang.reflect.Type;
+
 /**
  * Created by J.Bautista
  */
@@ -31,5 +35,14 @@ public class ProductGroupAttribute {
     @Override
     public String toString() {
         return OBJ_NAME + "[" + KEY_ID + id + ", " + KEY_NAME + name + "]";
+    }
+
+    public static class ProductGroupAttributeInstance implements InstanceCreator<ProductGroupAttribute> {
+
+        @Override
+        public ProductGroupAttribute createInstance(Type type) {
+
+            return new ProductGroupAttribute();
+        }
     }
 }

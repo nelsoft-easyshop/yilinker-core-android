@@ -1,5 +1,8 @@
 package com.yilinker.core.model;
 
+import com.google.gson.InstanceCreator;
+
+import java.lang.reflect.Type;
 import java.util.List;
 
 /**
@@ -113,5 +116,14 @@ public class Product {
     @Override
     public String toString() {
         return OBJ_NAME + "[" + KEY_ID + id + KEY_TITLE + title + KEY_SHORT_DESCRIPTION + shortDescription + KEY_FULL_DESCRIPTION + fullDescription + KEY_SELLER_ID + sellerId + KEY_ATTRIBUTES + attributes + KEY_AVAILABLE_ATTRIBUTES + availableAttributeCombi + KEY_ORIGINAL_PRICE + originalPrice + KEY_NEW_PRICE + newPrice + KEY_DISCOUNT + discount;
+    }
+
+    public static class ProductInstance implements InstanceCreator<Product> {
+
+        @Override
+        public Product createInstance(Type type) {
+
+            return new Product();
+        }
     }
 }
