@@ -17,7 +17,7 @@ public class Review {
 
     private String name;
     private String imageUrl;
-    private String rating;
+    private int rating;
     private String message;
 
     public String getName() {
@@ -36,11 +36,11 @@ public class Review {
         this.imageUrl = imageUrl;
     }
 
-    public String getRating() {
+    public int getRating() {
         return rating;
     }
 
-    public void setRating(String rating) {
+    public void setRating(int rating) {
         this.rating = rating;
     }
 
