@@ -1,5 +1,6 @@
 package com.yilinker.core.imageloader;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.LruCache;
 
@@ -15,29 +16,43 @@ public class VolleyImageLoader {
     private static VolleyImageLoader instance = null;
     private RequestQueue requestQueue;
     private ImageLoader imageLoader;
+    private Context context;
 
-    private VolleyImageLoader(){
-        requestQueue = Volley.newRequestQueue(BaseApplication.getAppContext());
-        imageLoader = new ImageLoader(this.requestQueue, new ImageLoader.ImageCache() {
-            private final LruCache<String, Bitmap> cache = new LruCache<String, Bitmap>(10);
-            public void putBitmap(String url, Bitmap bitmap) {
-                cache.put(url, bitmap);
-            }
+    private VolleyImageLoader(Context context){
+
+        this.context = context;
+        requestQueue = getRequestQueue();
+        imageLoader = new ImageLoader(requestQueue, new ImageLoader.ImageCache() {
+            LruCache<String, Bitmap> cache = new LruCache<String, Bitmap>(10);
+
+            @Override
             public Bitmap getBitmap(String url) {
                 return cache.get(url);
             }
+            @Override
+            public void putBitmap(String url, Bitmap bitmap) {
+                cache.put(url, bitmap);
+            }
+
         });
     }
 
-    public static VolleyImageLoader getInstance(){
-        if(instance == null){
-            instance = new VolleyImageLoader();
+    public RequestQueue getRequestQueue(){
+
+        if(requestQueue == null){
+
+            requestQueue = Volley.newRequestQueue(context);
         }
-        return instance;
+
+        return requestQueue;
+
     }
 
-    public RequestQueue getRequestQueue(){
-        return this.requestQueue;
+    public static VolleyImageLoader getInstance(Context context){
+        if(instance == null){
+            instance = new VolleyImageLoader(context);
+        }
+        return instance;
     }
 
     public ImageLoader getImageLoader(){
