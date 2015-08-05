@@ -15,7 +15,7 @@ import org.json.JSONObject;
  * Created by Adur Urbano on 8/4/2015.
  */
 public class ProductApi {
-
+    
     public static Request getProductDetails(final int requestCode, String id, final ResponseHandler responseHandler) {
 
         Request request = new JsonObjectRequest("https://restcountries.eu/rest/v1/currency/eur", null, new Response.Listener<JSONObject>() {
