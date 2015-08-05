@@ -5,6 +5,9 @@ package com.yilinker.core.constants;
  */
 public class APIConstants {
 
+    //temp
+    public static final String DOMAIN = "http://demo5257255.mockable.io";
+
     //For Product API
     public static final String PRODUCT_API = "product";
     public static final String PRODUCT_GET_DETAILS = "getProductDetail";
@@ -15,12 +18,11 @@ public class APIConstants {
     public static final String PRODUCT_GET_LIST_PARAM_SELLERID = "sellerId";
     public static final String PRODUCT_GET_LIST_PARAM_PAGE = "page";
 
-    //For Seller API
-    public static final String SELLER_API = "";
-    public static final String SELLER_GET_DETAILS = "";
+    public static final String PRODUCT_GET_REVIEW = "getProductReview";
+    public static final String PRODUCT_GET_REVIEW_PARAM_ID = "productId";
 
-    //For Review API
-    public static final String REVIEW_API = "";
-    public static final String REVIEW_GET_FOR_SELLER = "";
+    //For Seller API
+    public static final String SELLER_API = "seller";
+    public static final String SELLER_GET_DETAILS = "getDetails";
 
 }
