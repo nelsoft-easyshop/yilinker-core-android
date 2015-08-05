@@ -24,13 +24,6 @@ public class BaseApplication extends Application{
     @Override
     public void onCreate() {
         super.onCreate();
-
-        requestQueue = Volley.newRequestQueue(this);
+        this.setAppContext(getApplicationContext());
     }
-
-    public RequestQueue getRequestQueue(){
-
-        return this.requestQueue;
-    }
-
 }
