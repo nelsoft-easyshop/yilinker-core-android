@@ -19,9 +19,9 @@ import org.json.JSONObject;
  */
 public class SellerApi {
 
-    public static Request getSellerDetails(final int requestCode, String id, final ResponseHandler responseHandler) {
+    public static Request getSellerDetails(final int requestCode, int id, final ResponseHandler responseHandler) {
 
-        String url = String.format("%s/%s/%s", APIConstants.DOMAIN, APIConstants.SELLER_API, APIConstants.SELLER_GET_DETAILS);
+        String url = String.format("%s/%s/%s?%s=%d", APIConstants.DOMAIN, APIConstants.SELLER_API, APIConstants.SELLER_GET_DETAILS, APIConstants.SELLER_GET_DETAILS_PARAM_ID, id);
 
         Request request = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
             @Override

@@ -11,6 +11,8 @@ public class APIConstants {
     //For Product API
     public static final String PRODUCT_API = "product";
     public static final String PRODUCT_GET_DETAILS = "getProductDetail";
+    public static final String PRODUCT_GET_DETAILS_PARAM_ID = "productId";
+
     public static final String PRODUCT_GET_LIST = "getProductList";
     public static final String PRODUCT_GET_LIST_PARAM_FILTER = "filterType";
     public static final String PRODUCT_GET_LIST_PARAM_SEARCH_KEY = "searchKey";
@@ -24,5 +26,6 @@ public class APIConstants {
     //For Seller API
     public static final String SELLER_API = "seller";
     public static final String SELLER_GET_DETAILS = "getDetails";
+    public static final String SELLER_GET_DETAILS_PARAM_ID = "sellerId";
 
 }
