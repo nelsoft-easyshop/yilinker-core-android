@@ -31,18 +31,18 @@ public class HomeApi {
                 APIResponse apiResponse = gson.fromJson(GsonUtility.convertJSONObjtoJsonObj(response), APIResponse.class);
 
                 gson = GsonUtility.createGsonBuilder(Home.class, new Home.HomeInstance()).create();
-                try {
+//                try {
 
-                    JSONObject obj = new JSONObject(apiResponse.getData());
+//                    JSONObject obj = new JSONObject(apiResponse.getData());
+//
+//                    Home home = gson.fromJson(GsonUtility.convertJSONObjtoJsonObj(obj), Home.class);
 
-                    Home home = gson.fromJson(GsonUtility.convertJSONObjtoJsonObj(obj), Home.class);
+                    responseHandler.onSuccess(requestCode, apiResponse.getData());
 
-                    responseHandler.onSuccess(requestCode, home);
-
-                } catch (JSONException e) {
-
-                    responseHandler.onFailed(requestCode, "Invalid data");
-                }
+//                } catch (JSONException e) {
+//
+//                    responseHandler.onFailed(requestCode, "Invalid data");
+//                }
 
 
             }

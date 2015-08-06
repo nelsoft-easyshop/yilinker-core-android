@@ -5,7 +5,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.internal.LinkedTreeMap;
+import com.google.gson.reflect.TypeToken;
 import com.yilinker.core.BuildConfig;
 import com.yilinker.core.constants.APIConstants;
 import com.yilinker.core.interfaces.ResponseHandler;
@@ -16,6 +19,9 @@ import com.yilinker.core.utility.GsonUtility;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.lang.reflect.Type;
+import java.util.HashMap;
 
 /**
  * Created by Adur Urbano on 8/4/2015.
@@ -30,25 +36,15 @@ public class ProductApi {
             @Override
             public void onResponse(JSONObject response) {
 
-//                Gson gson = GsonUtility.createGsonBuilder(Product.class, new Product.ProductInstance()).create();
-//                Product product = gson.fromJson("{'id':1000,'title':'adur','shortDescription':'asdh asjdha lkjas','fullDescription':'uiiw kdpo aksjwi jhdu','sellerId':111004179,'attributes':[{'id':100,'name':'groupName','items':[{'id':200,'name':'Samsung'},{'id':300,'name':'Apple'},{'id':400,'name':'Blackberry'}]}],'availableAttributeCombi':[{'combination':[{'id':112233,'id2':332211},{'id':445566,'id2':665544}],'quantity':100,'images':[]}],'originalPrice':0,'newPrice':0,'discount':0.5}", Product.class);
-
                 Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
-                APIResponse apiResponse = gson.fromJson(GsonUtility.convertJSONObjtoJsonObj(response), APIResponse.class);
+                APIResponse<Product> apiResponse = gson.fromJson(response.toString(), APIResponse.class);
 
                 gson = GsonUtility.createGsonBuilder(Product.class, new Product.ProductInstance()).create();
-                try {
+                String jsonString = new Gson().toJson(apiResponse.getData());
+                Product obj = gson.fromJson(jsonString, Product.class);
 
-                    JSONObject obj = new JSONObject(apiResponse.getData());
+                responseHandler.onSuccess(requestCode, obj);
 
-                    Product product = gson.fromJson(GsonUtility.convertJSONObjtoJsonObj(obj), Product.class);
-
-                    responseHandler.onSuccess(requestCode, product);
-
-                } catch (JSONException e) {
-
-                    responseHandler.onFailed(requestCode, "Invalid data");
-                }
 
             }
         }, new Response.ErrorListener() {
@@ -65,33 +61,22 @@ public class ProductApi {
 
     public static Request getProductReview(final int requestCode, int id, final ResponseHandler responseHandler){
 
-        String url = String.format("%s/%s/%s?%s=%d", APIConstants.DOMAIN, APIConstants.PRODUCT_API, APIConstants.PRODUCT_GET_DETAILS, APIConstants.PRODUCT_GET_REVIEW_PARAM_ID, id);
+        String url = String.format("%s/%s/%s?%s=%d", APIConstants.DOMAIN, APIConstants.PRODUCT_API, APIConstants.PRODUCT_GET_REVIEW, APIConstants.PRODUCT_GET_REVIEW_PARAM_ID, id);
 
         Request request = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
 
-//                Gson gson = GsonUtility.createGsonBuilder(ProductReview.class, new ProductReview.ProductReviewInstance()).create();
-//                ProductReview productReview = gson.fromJson("{'rating':5,'reviews':[{'name':'Sir Edyuward','imageUrl':'https://www.edyuward.com','rating':5,'message':'How do I get you alone.'},{'name':'Mayordoma','imageUrl':'https://www.anglakingbaso.com','rating':0,'message':'Ehh kasi po Sir nagready na po ako ng 10 pork chop doon. Ehh hindi po naibigay ni Jona.'},{'name':'Alvin Garcia','imageUrl':'https://www.hindikomakitabaso.com','rating':5,'message':'Ate, san po yung baso?'}]}", ProductReview.class);
-
                 Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
-                APIResponse apiResponse = gson.fromJson(GsonUtility.convertJSONObjtoJsonObj(response), APIResponse.class);
+                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
 
                 gson = GsonUtility.createGsonBuilder(ProductReview.class, new ProductReview.ProductReviewInstance()).create();
-                try {
+                String jsonString = new Gson().toJson(apiResponse.getData());
+                ProductReview obj = gson.fromJson(jsonString, ProductReview.class);
 
-                    JSONObject obj = new JSONObject(apiResponse.getData());
-
-                    ProductReview productReview = gson.fromJson(GsonUtility.convertJSONObjtoJsonObj(obj), ProductReview.class);
-
-                    responseHandler.onSuccess(requestCode, productReview);
-
-                } catch (JSONException e) {
-
-                    responseHandler.onFailed(requestCode, "Invalid data");
-                }
-
+                responseHandler.onSuccess(requestCode, obj);
             }
+
         }, new Response.ErrorListener() {
 
             @Override
