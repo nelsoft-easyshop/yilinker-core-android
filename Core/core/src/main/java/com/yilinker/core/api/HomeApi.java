@@ -9,6 +9,7 @@ import com.yilinker.core.constants.APIConstants;
 import com.yilinker.core.interfaces.ResponseHandler;
 import com.yilinker.core.model.APIResponse;
 import com.yilinker.core.model.Home;
+import com.yilinker.core.model.Product;
 import com.yilinker.core.utility.GsonUtility;
 
 import org.json.JSONException;
@@ -21,7 +22,7 @@ public class HomeApi {
 
     public static Request getHomeDetails (final int requestCode, String id, final ResponseHandler responseHandler){
 
-        String url = String.format("%s/%s/%s", APIConstants.DOMAIN, APIConstants.SELLER_API, APIConstants.SELLER_GET_DETAILS);
+        String url = String.format("%s/%s/%s", APIConstants.DOMAIN, APIConstants.HOME_API, APIConstants.HOME_GET_ITEMS);
 
         Request request = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
             @Override
@@ -31,19 +32,10 @@ public class HomeApi {
                 APIResponse apiResponse = gson.fromJson(GsonUtility.convertJSONObjtoJsonObj(response), APIResponse.class);
 
                 gson = GsonUtility.createGsonBuilder(Home.class, new Home.HomeInstance()).create();
-//                try {
+                String jsonString = new Gson().toJson(apiResponse.getData());
+                Home obj = gson.fromJson(jsonString, Home.class);
 
-//                    JSONObject obj = new JSONObject(apiResponse.getData());
-//
-//                    Home home = gson.fromJson(GsonUtility.convertJSONObjtoJsonObj(obj), Home.class);
-
-                    responseHandler.onSuccess(requestCode, apiResponse.getData());
-
-//                } catch (JSONException e) {
-//
-//                    responseHandler.onFailed(requestCode, "Invalid data");
-//                }
-
+                responseHandler.onSuccess(requestCode, obj);
 
             }
         }, new Response.ErrorListener() {
@@ -57,5 +49,7 @@ public class HomeApi {
         return request;
 
     }
+
+
 
 }
