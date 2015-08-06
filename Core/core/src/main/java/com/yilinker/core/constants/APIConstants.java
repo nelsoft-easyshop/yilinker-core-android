@@ -30,4 +30,8 @@ public class APIConstants {
     public static final String SELLER_GET_DETAILS = "getDetails";
     public static final String SELLER_GET_DETAILS_PARAM_ID = "sellerId";
 
+    //For Home API
+    public static final String HOME_API = "home";
+    public static final String HOME_GET_ITEMS = "getItems";
+
 }
