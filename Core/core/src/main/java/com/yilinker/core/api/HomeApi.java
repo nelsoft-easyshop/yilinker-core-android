@@ -29,7 +29,7 @@ public class HomeApi {
             public void onResponse(JSONObject response) {
 
                 Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
-                APIResponse apiResponse = gson.fromJson(GsonUtility.convertJSONObjtoJsonObj(response), APIResponse.class);
+                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
 
                 gson = GsonUtility.createGsonBuilder(Home.class, new Home.HomeInstance()).create();
                 String jsonString = new Gson().toJson(apiResponse.getData());
