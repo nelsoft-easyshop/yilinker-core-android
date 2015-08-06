@@ -22,7 +22,7 @@ import org.json.JSONObject;
  */
 public class ProductApi {
 
-    public static Request getProductDetails(final int requestCode, String id, final ResponseHandler responseHandler) {
+    public static Request getProductDetails(final int requestCode, int id, final ResponseHandler responseHandler) {
 
         String url = String.format("%s/%s/%s?%s=%d", APIConstants.DOMAIN, APIConstants.PRODUCT_API, APIConstants.PRODUCT_GET_DETAILS, APIConstants.PRODUCT_GET_DETAILS_PARAM_ID, id);
 
