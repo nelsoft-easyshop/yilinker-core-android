@@ -24,7 +24,7 @@ public class ProductApi {
 
     public static Request getProductDetails(final int requestCode, String id, final ResponseHandler responseHandler) {
 
-        String url = String.format("%s/%s/%s?%s=%d", BuildConfig.SERVER_URL, APIConstants.PRODUCT_API, APIConstants.PRODUCT_GET_DETAILS, APIConstants.PRODUCT_GET_DETAILS_PARAM_ID, id);
+        String url = String.format("%s/%s/%s?%s=%d", APIConstants.DOMAIN, APIConstants.PRODUCT_API, APIConstants.PRODUCT_GET_DETAILS, APIConstants.PRODUCT_GET_DETAILS_PARAM_ID, id);
 
         Request request = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
             @Override

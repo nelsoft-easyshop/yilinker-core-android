@@ -1,12 +1,14 @@
 package com.yilinker.core.constants;
 
+import com.yilinker.core.BuildConfig;
+
 /**
  * Created by J.Bautista
  */
 public class APIConstants {
 
     //temp
-    public static final String DOMAIN = "http://demo5257255.mockable.io";
+    public static final String DOMAIN = BuildConfig.SERVER_URL;
 
     //For Product API
     public static final String PRODUCT_API = "product";
