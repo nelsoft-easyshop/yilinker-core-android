@@ -6,6 +6,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.yilinker.core.BuildConfig;
 import com.yilinker.core.constants.APIConstants;
 import com.yilinker.core.interfaces.ResponseHandler;
 import com.yilinker.core.model.APIResponse;
@@ -23,7 +24,7 @@ public class ProductApi {
 
     public static Request getProductDetails(final int requestCode, String id, final ResponseHandler responseHandler) {
 
-        String url = String.format("%s/%s/%s", APIConstants.DOMAIN, APIConstants.PRODUCT_API, APIConstants.PRODUCT_GET_DETAILS);
+        String url = String.format("%s/%s/%s?%s=%d", BuildConfig.SERVER_URL, APIConstants.PRODUCT_API, APIConstants.PRODUCT_GET_DETAILS, APIConstants.PRODUCT_GET_DETAILS_PARAM_ID, id);
 
         Request request = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
             @Override
@@ -62,9 +63,9 @@ public class ProductApi {
 
     }
 
-    public static Request getProductReview(final int requestCode, String id, final ResponseHandler responseHandler){
+    public static Request getProductReview(final int requestCode, int id, final ResponseHandler responseHandler){
 
-        String url = String.format("%s/%s/%s", APIConstants.DOMAIN, APIConstants.PRODUCT_API, APIConstants.PRODUCT_GET_DETAILS);
+        String url = String.format("%s/%s/%s?%s=%d", APIConstants.DOMAIN, APIConstants.PRODUCT_API, APIConstants.PRODUCT_GET_DETAILS, APIConstants.PRODUCT_GET_REVIEW_PARAM_ID, id);
 
         Request request = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
             @Override
