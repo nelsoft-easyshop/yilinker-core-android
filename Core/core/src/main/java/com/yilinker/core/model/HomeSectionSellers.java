@@ -3,6 +3,7 @@ package com.yilinker.core.model;
 import com.google.gson.InstanceCreator;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,8 +15,8 @@ public class HomeSectionSellers {
     private static final String KEY_NEW_SELLERS = "newSellers";
     private static final String KEY_TOP_SELLERS = "topSellers";
 
-    private List<HomeImageLinkItems> newSellers;
-    private List<HomeSellerAvatarItems> topSellers;
+    private List<HomeImageLinkItems> newSellers = new ArrayList<>();
+    private List<HomeSellerAvatarItems> topSellers = new ArrayList<>();
 
     public List<HomeImageLinkItems> getNewSellers() {
         return newSellers;
