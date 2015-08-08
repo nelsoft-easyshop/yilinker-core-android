@@ -21,7 +21,7 @@ public class HomeSellerAvatarItems {
     private String specialty;
     private String sellerName;
     private String target;
-    private List<String> images;
+    private List<HomeSellerAvatarImages> images;
 
     public String getSellerAvatar() {
         return sellerAvatar;
@@ -55,11 +55,11 @@ public class HomeSellerAvatarItems {
         this.target = target;
     }
 
-    public List<String> getImages() {
+    public List<HomeSellerAvatarImages> getImages() {
         return images;
     }
 
-    public void setImages(List<String> images) {
+    public void setImages(List<HomeSellerAvatarImages> images) {
         this.images = images;
     }
 

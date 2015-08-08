@@ -2,12 +2,14 @@ package com.yilinker.core.model;
 
 import com.google.gson.InstanceCreator;
 
+import org.json.JSONObject;
+
 import java.lang.reflect.Type;
 
 /**
- * Created by wagnavu on 8/5/15.
+ * Created by J.Bautista
  */
-public class APIResponse {
+public class APIResponse<T> {
 
     private static final String OBJ_NAME = "APIResponse";
     private static final String KEY_IS_SUCCESSFUL = "isSuccessful";
@@ -15,7 +17,7 @@ public class APIResponse {
     private static final String KEY_MESSAGE = "message";
 
     private boolean isSuccessful;
-    private String data;
+    private T data;
     private String message;
 
     public boolean isSuccessful() {
@@ -26,11 +28,11 @@ public class APIResponse {
         this.isSuccessful = isSuccessful;
     }
 
-    public String getData() {
+    public T getData() {
         return data;
     }
 
-    public void setData(String data) {
+    public void setData(T data) {
         this.data = data;
     }
 
@@ -47,12 +49,14 @@ public class APIResponse {
         return OBJ_NAME + "[" + KEY_IS_SUCCESSFUL + isSuccessful + KEY_DATA + data + KEY_MESSAGE + message + "]";
     }
 
-    public static class APIResponseInstance implements InstanceCreator<APIResponse> {
+    public static class APIResponseInstance<T> implements InstanceCreator<APIResponse<T>> {
 
         @Override
-        public APIResponse createInstance(Type type) {
+        public APIResponse<T> createInstance(Type type) {
 
-            return new APIResponse();
+            return new APIResponse<T>();
         }
     }
+
+
 }
