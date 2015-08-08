@@ -3,6 +3,7 @@ package com.yilinker.core.model;
 import com.google.gson.InstanceCreator;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,7 +20,7 @@ public class HomeCategoryItems {
     private String categoryName;
     private String layoutId;
     private String viewMoreTarget;
-    private List<HomeCategoryProductItems> images;
+    private List<HomeCategoryProductItems> images = new ArrayList<>();
 
     public String getCategoryName() {
         return categoryName;
