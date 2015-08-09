@@ -11,34 +11,34 @@ import java.util.List;
 public class HomeSectionFeatured {
 
     private static final String OBJ_NAME = "HomeSectionFeatured";
-    private static final String KEY_MAIN_BANNER = "mainBanner";
-    private static final String KEY_SUB_BANNER = "subBanners";
+    private static final String KEY_MAIN_BANNER = "mainbanner";
+    private static final String KEY_SUB_BANNER = "subbanners";
     private static final String KEY_PROMO = "promo";
     private static final String KEY_POPULAR_CATEGORIES = "popularCategories";
     private static final String KEY_TRENDING_ITEMS = "trendingItems";
     private static final String KEY_ITEMS_YOU_MAY_LIKE = "itemsYouMayLike";
 
-    private List<HomeImageItems> mainBanner;
-    private List<HomeImageItems> subBanners;
+    private HomeImageItems mainbanner;
+    private List<HomeImageItems> subbanners;
     private List<HomeProductItems> promo;
     private List<HomeCategoryImageItems> popularCategories;
     private List<HomeCategoryImageItems> trendingItems;
     private List<HomeProductItems> itemsYouMayLike;
 
-    public List<HomeImageItems> getMainBanner() {
-        return mainBanner;
+    public HomeImageItems getMainBanner() {
+        return mainbanner;
     }
 
-    public void setMainBanner(List<HomeImageItems> mainBanner) {
-        this.mainBanner = mainBanner;
+    public void setMainBanner(HomeImageItems mainbanner) {
+        this.mainbanner = mainbanner;
     }
 
     public List<HomeImageItems> getSubBanners() {
-        return subBanners;
+        return subbanners;
     }
 
-    public void setSubBanners(List<HomeImageItems> subBanners) {
-        this.subBanners = subBanners;
+    public void setSubBanners(List<HomeImageItems> subbanners) {
+        this.subbanners = subbanners;
     }
 
     public List<HomeProductItems> getPromo() {
@@ -75,7 +75,7 @@ public class HomeSectionFeatured {
 
     @Override
     public String toString() {
-        return OBJ_NAME + "[" + KEY_MAIN_BANNER + mainBanner + ", " + KEY_SUB_BANNER + subBanners + ", " + KEY_PROMO + promo + ", " + KEY_POPULAR_CATEGORIES + popularCategories + ", " + KEY_TRENDING_ITEMS + trendingItems + ", " + KEY_ITEMS_YOU_MAY_LIKE + itemsYouMayLike + "]";
+        return OBJ_NAME + "[" + KEY_MAIN_BANNER + mainbanner + ", " + KEY_SUB_BANNER + subbanners + ", " + KEY_PROMO + promo + ", " + KEY_POPULAR_CATEGORIES + popularCategories + ", " + KEY_TRENDING_ITEMS + trendingItems + ", " + KEY_ITEMS_YOU_MAY_LIKE + itemsYouMayLike + "]";
     }
 
     public static class HomeSectionFeaturedInstance implements InstanceCreator<HomeSectionFeatured> {

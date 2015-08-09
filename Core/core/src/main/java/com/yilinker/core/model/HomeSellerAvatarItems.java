@@ -3,6 +3,7 @@ package com.yilinker.core.model;
 import com.google.gson.InstanceCreator;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,7 +22,7 @@ public class HomeSellerAvatarItems {
     private String specialty;
     private String sellerName;
     private String target;
-    private List<String> images;
+    private List<HomeImageLinkItems> images = new ArrayList<>();
 
     public String getSellerAvatar() {
         return sellerAvatar;
@@ -55,11 +56,11 @@ public class HomeSellerAvatarItems {
         this.target = target;
     }
 
-    public List<String> getImages() {
+    public List<HomeImageLinkItems> getImages() {
         return images;
     }
 
-    public void setImages(List<String> images) {
+    public void setImages(List<HomeImageLinkItems> images) {
         this.images = images;
     }
 
