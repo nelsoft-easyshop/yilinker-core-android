@@ -19,19 +19,20 @@ public class BaseApplication extends Application{
     private static final String KEEP_LOGGED_IN = "keepLoggedIn";
 
     private RequestQueue requestQueue;
-    private static Context appContext;
-
-    public static Context getAppContext() {
-        return appContext;
-    }
-    public void setAppContext(Context appContext) {
-        this.appContext = appContext;
-    }
 
     @Override
     public void onCreate() {
         super.onCreate();
-        this.setAppContext(getApplicationContext());
+
+    }
+
+    public RequestQueue getRequestQueue() {
+
+        if (requestQueue == null) {
+            requestQueue = Volley.newRequestQueue(getApplicationContext());
+        }
+
+        return requestQueue;
     }
 
     public void saveToken(String accessToken, String refreshToken) {
@@ -150,6 +151,7 @@ public class BaseApplication extends Application{
         }
 
         editor.commit();
+
     }
 
 }

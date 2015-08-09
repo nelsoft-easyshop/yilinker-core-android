@@ -3,6 +3,8 @@ apply plugin: 'com.android.library'
 android {
     compileSdkVersion 22
     buildToolsVersion "22.0.1"
+    defaultPublishConfig "debug"
+
 
     defaultConfig {
         minSdkVersion 17
@@ -18,6 +20,14 @@ android {
             buildConfigField "String", "SERVER_URL", '"http://someurl/"'
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        qarelease {
+            debuggable true
+            jniDebuggable false
+            renderscriptDebuggable false
+            minifyEnabled false
+            zipAlignEnabled true
+            buildConfigField "String", "SERVER_URL", '"http://demo5885209.mockable.io/api/v1"'
         }
     }
 }
