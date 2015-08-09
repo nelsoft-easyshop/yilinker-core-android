@@ -25,7 +25,7 @@ public class ExpandedGridView extends GridView {
     }
 
     public boolean isExpanded() {
-        return expanded;
+        return this.expanded;
     }
 
     @Override
