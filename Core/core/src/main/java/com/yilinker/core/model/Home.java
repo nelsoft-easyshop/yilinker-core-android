@@ -16,40 +16,40 @@ public class Home {
     private static final String KEY_NEW_ITEMS = "newItems";
     private static final String KEY_SELLERS = "sellers";
 
-    private List<HomeSectionFeatured> featured;
-    private List<HomeSectionHotItems> hotItems;
-    private List<HomeSectionNewItems> newItems;
-    private List<HomeSectionSellers> sellers;
+    private HomeSectionFeatured featured;
+    private HomeSectionHotItems hotItems;
+    private HomeSectionNewItems newItems;
+    private HomeSectionSellers sellers;
 
-    public List<HomeSectionFeatured> getFeatured() {
+    public HomeSectionFeatured getFeatured() {
         return featured;
     }
 
-    public void setFeatured(List<HomeSectionFeatured> featured) {
+    public void setFeatured(HomeSectionFeatured featured) {
         this.featured = featured;
     }
 
-    public List<HomeSectionHotItems> getHotItems() {
+    public HomeSectionHotItems getHotItems() {
         return hotItems;
     }
 
-    public void setHotItems(List<HomeSectionHotItems> hotItems) {
+    public void setHotItems(HomeSectionHotItems hotItems) {
         this.hotItems = hotItems;
     }
 
-    public List<HomeSectionNewItems> getNewItems() {
+    public HomeSectionNewItems getNewItems() {
         return newItems;
     }
 
-    public void setNewItems(List<HomeSectionNewItems> newItems) {
+    public void setNewItems(HomeSectionNewItems newItems) {
         this.newItems = newItems;
     }
 
-    public List<HomeSectionSellers> getSellers() {
+    public HomeSectionSellers getSellers() {
         return sellers;
     }
 
-    public void setSellers(List<HomeSectionSellers> sellers) {
+    public void setSellers(HomeSectionSellers sellers) {
         this.sellers = sellers;
     }
 

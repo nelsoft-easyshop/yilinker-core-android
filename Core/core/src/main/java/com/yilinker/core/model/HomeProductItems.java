@@ -14,14 +14,14 @@ public class HomeProductItems {
     private static final String KEY_IMAGE = "image";
     private static final String KEY_ORIGINAL_PRICE = "originalPrice";
     private static final String KEY_DISCOUNTED_PRICE = "discountedPrice";
-    private static final String KEY_DISCOUNTED_PERCENTAGE = "discountedPercentage";
+    private static final String KEY_DISCOUNTED_PERCENTAGE = "discountPercentage";
     private static final String KEY_TARGET = "target";
 
     private String productName;
     private String image;
     private double originalPrice;
     private double discountedPrice;
-    private int discountedPercentage;
+    private double discountPercentage;
     private String target;
 
     public String getProductName() {
@@ -56,12 +56,12 @@ public class HomeProductItems {
         this.discountedPrice = discountedPrice;
     }
 
-    public int getDiscountedPercentage() {
-        return discountedPercentage;
+    public double getDiscountPercentage() {
+        return discountPercentage;
     }
 
-    public void setDiscountedPercentage(int discountedPercentage) {
-        this.discountedPercentage = discountedPercentage;
+    public void setDiscountPercentage(double discountPercentage) {
+        this.discountPercentage = discountPercentage;
     }
 
     public String getTarget() {
@@ -74,7 +74,7 @@ public class HomeProductItems {
 
     @Override
     public String toString() {
-        return OBJ_NAME + "[" + KEY_PRODUCT_NAME + productName + ", " + KEY_IMAGE + image + ", " + KEY_ORIGINAL_PRICE + originalPrice + ", " + KEY_DISCOUNTED_PRICE + discountedPrice + ", " + KEY_DISCOUNTED_PERCENTAGE + discountedPercentage + ", " + KEY_TARGET + target + "]";
+        return OBJ_NAME + "[" + KEY_PRODUCT_NAME + productName + ", " + KEY_IMAGE + image + ", " + KEY_ORIGINAL_PRICE + originalPrice + ", " + KEY_DISCOUNTED_PRICE + discountedPrice + ", " + KEY_DISCOUNTED_PERCENTAGE + discountPercentage + ", " + KEY_TARGET + target + "]";
     }
 
     public static class HomeProductItemsInstance implements InstanceCreator<HomeProductItems> {

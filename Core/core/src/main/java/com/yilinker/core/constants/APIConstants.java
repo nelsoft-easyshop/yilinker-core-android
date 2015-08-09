@@ -22,7 +22,7 @@ public class APIConstants {
     public static final String PRODUCT_GET_LIST_PARAM_SELLERID = "sellerId";
     public static final String PRODUCT_GET_LIST_PARAM_PAGE = "page";
 
-    public static final String PRODUCT_GET_REVIEW = "getProductReview";
+    public static final String PRODUCT_GET_REVIEW = "getReviews";
     public static final String PRODUCT_GET_REVIEW_PARAM_ID = "productId";
 
     //For Seller API
@@ -30,4 +30,27 @@ public class APIConstants {
     public static final String SELLER_GET_DETAILS = "getDetails";
     public static final String SELLER_GET_DETAILS_PARAM_ID = "sellerId";
 
+    //For Home API
+    public static final String HOME_API = "home";
+    public static final String HOME_GET_ITEMS = "getItems";
+
+    //For User API
+
+    public static final String USER_API = "user";
+
+    //For Registration API
+    public static final String REG_API = "register";
+    public static final String REG_PARAM_FIRSTNAME = "firstName";
+    public static final String REG_PARAM_LASTNAME = "lastName";
+    public static final String REG_PARAM_EMAIL = "emailAddress";
+    public static final String REG_PARAM_PASSWORD = "password";
+
+    //For Login API
+    public static final String TOKEN_API = "token";
+    public static final String LOGIN_API = "login";
+    public static final String LOGIN_PARAM_CLIENT_ID = "client_id";
+    public static final String LOGIN_PARAM_CLIENT_SECRET = "client_secret";
+    public static final String LOGIN_PARAM_GRANT_TYPE = "grant_type";
+    public static final String LOGIN_PARAM_EMAIL = "email";
+    public static final String LOGIN_PARAM_PASSWORD = "password";
 }
