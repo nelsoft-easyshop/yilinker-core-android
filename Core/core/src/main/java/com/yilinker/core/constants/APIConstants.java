@@ -22,7 +22,7 @@ public class APIConstants {
     public static final String PRODUCT_GET_LIST_PARAM_SELLERID = "sellerId";
     public static final String PRODUCT_GET_LIST_PARAM_PAGE = "page";
 
-    public static final String PRODUCT_GET_REVIEW = "getProductReview";
+    public static final String PRODUCT_GET_REVIEW = "getReviews";
     public static final String PRODUCT_GET_REVIEW_PARAM_ID = "productId";
 
     //For Seller API

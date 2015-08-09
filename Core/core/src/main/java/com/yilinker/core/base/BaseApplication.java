@@ -12,18 +12,20 @@ import com.android.volley.toolbox.Volley;
 public class BaseApplication extends Application{
 
     private RequestQueue requestQueue;
-    private static Context appContext;
-
-    public static Context getAppContext() {
-        return appContext;
-    }
-    public void setAppContext(Context appContext) {
-        this.appContext = appContext;
-    }
 
     @Override
     public void onCreate() {
         super.onCreate();
-        this.setAppContext(getApplicationContext());
+
     }
+
+    public RequestQueue getRequestQueue() {
+
+        if (requestQueue == null) {
+            requestQueue = Volley.newRequestQueue(getApplicationContext());
+        }
+
+        return requestQueue;
+    }
+
 }
