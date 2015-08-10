@@ -13,6 +13,7 @@ public class HomeCategoryImageItems {
     private static final String KEY_CATEGORY_IMAGE = "categoryImage";
     private static final String KEY_TARGET = "target";
 
+
     private String categoryImage;
     private String target;
 

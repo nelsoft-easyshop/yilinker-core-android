@@ -9,20 +9,30 @@ import java.util.List;
 /**
  * Created by Adur Urbano on 8/6/2015.
  */
-public class HomeSellerAvatarItems {
+public class HomeSellerTopSellers {
 
-    private static final String OBJ_NAME = "HomeSellerAvatarItems";
+    private static final String OBJ_NAME = "HomeSellerTopSellers";
+    private static final String KEY_USER_ID = "userId";
     private static final String KEY_SELLER_AVATAR = "sellerAvatar";
     private static final String KEY_SPECIALTY = "specialty";
     private static final String KEY_SELLER_NAME = "sellerName";
     private static final String KEY_TARGET = "target";
-    private static final String KEY_IMAGES = "images";
+    private static final String KEY_PRODUCTS = "products";
 
+    private int userId;
     private String sellerAvatar;
     private String specialty;
     private String sellerName;
     private String target;
-    private List<HomeImageLinkItems> images = new ArrayList<>();
+    private List<HomeProductItems> products = new ArrayList<>();
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
 
     public String getSellerAvatar() {
         return sellerAvatar;
@@ -56,25 +66,25 @@ public class HomeSellerAvatarItems {
         this.target = target;
     }
 
-    public List<HomeImageLinkItems> getImages() {
-        return images;
+    public List<HomeProductItems> getProducts() {
+        return products;
     }
 
-    public void setImages(List<HomeImageLinkItems> images) {
-        this.images = images;
+    public void setProducts(List<HomeProductItems> products) {
+        this.products = products;
     }
 
     @Override
     public String toString() {
-        return OBJ_NAME + "[" + KEY_SELLER_AVATAR + sellerAvatar + ", " + KEY_SPECIALTY + specialty + ", " + KEY_SELLER_NAME + sellerName + ", " + KEY_TARGET + target + ", " + KEY_IMAGES + images + "]";
+        return OBJ_NAME + "[" + KEY_USER_ID + userId + "," + KEY_SELLER_AVATAR + sellerAvatar + ", " + KEY_SPECIALTY + specialty + ", " + KEY_SELLER_NAME + sellerName + ", " + KEY_TARGET + target + ", " + KEY_PRODUCTS + products + "]";
     }
 
-    public static class HomeSellerAvatarItemsInstance implements InstanceCreator<HomeSellerAvatarItems> {
+    public static class HomeSellerTopSellersInstance implements InstanceCreator<HomeSellerTopSellers> {
 
         @Override
-        public HomeSellerAvatarItems createInstance(Type type) {
+        public HomeSellerTopSellers createInstance(Type type) {
 
-            return new HomeSellerAvatarItems();
+            return new HomeSellerTopSellers();
         }
     }
 

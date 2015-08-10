@@ -11,30 +11,30 @@ import java.util.List;
 public class HomeSectionHotItems {
 
     private static final String OBJ_NAME = "HomeSectionHotItems";
-    private static final String KEY_TOP_BANNERS = "topbanners";
-    private static final String KEY_TOP_PICKS = "toppicks";
+    private static final String KEY_TOP_BANNERS = "topBanners";
+    private static final String KEY_TOP_PICKS = "topPicks";
     private static final String KEY_CATEGORIES = "categories";
     private static final String KEY_BOTTOM_BANNER = "bottomBanners";
 
-    private List<HomeImageItems> topbanners;
-    private List<HomeProductItems> toppicks;
+    private List<HomeImageItems> topBanners;
+    private List<HomeProductItems> topPicks;
     private List<HomeCategoryItems> categories;
     private List<HomeImageItems> bottomBanners;
 
     public List<HomeImageItems> getTopBanners() {
-        return topbanners;
+        return topBanners;
     }
 
     public void setTopBanners(List<HomeImageItems> topBanners) {
-        this.topbanners = topbanners;
+        this.topBanners = topBanners;
     }
 
     public List<HomeProductItems> getTopPicks() {
-        return toppicks;
+        return topPicks;
     }
 
     public void setTopPicks(List<HomeProductItems> topPicks) {
-        this.toppicks = toppicks;
+        this.topPicks = topPicks;
     }
 
     public List<HomeCategoryItems> getCategories() {
@@ -55,7 +55,7 @@ public class HomeSectionHotItems {
 
     @Override
     public String toString() {
-        return OBJ_NAME + "[" + KEY_TOP_BANNERS + topbanners + ", " + KEY_TOP_PICKS + toppicks + ", " + KEY_CATEGORIES + categories + ", " + KEY_BOTTOM_BANNER + bottomBanners + "]";
+        return OBJ_NAME + "[" + KEY_TOP_BANNERS + topBanners + ", " + KEY_TOP_PICKS + topPicks + ", " + KEY_CATEGORIES + categories + ", " + KEY_BOTTOM_BANNER + bottomBanners + "]";
     }
 
     public static class HomeSectionHotItemsInstance implements InstanceCreator<HomeSectionHotItems> {
