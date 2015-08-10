@@ -44,6 +44,7 @@ public class APIConstants {
     public static final String REG_PARAM_LASTNAME = "lastName";
     public static final String REG_PARAM_EMAIL = "emailAddress";
     public static final String REG_PARAM_PASSWORD = "password";
+    public static final String REG_PARAM_REFERRAL = "referralCode";
 
     //For Login API
     public static final String TOKEN_API = "token";
@@ -53,4 +54,8 @@ public class APIConstants {
     public static final String LOGIN_PARAM_GRANT_TYPE = "grant_type";
     public static final String LOGIN_PARAM_EMAIL = "email";
     public static final String LOGIN_PARAM_PASSWORD = "password";
+
+    //API Credentials
+    public static final String API_CLIENT_ID = "1_167rxzqvid8g8swggwokcoswococscocc8ck44wo0g88owgkcc";
+    public static final String API_CLIENT_SECRET = "317eq8nohry84ooc0o8woo8000c0k844c4cggws84g80scwwog";
 }

@@ -10,13 +10,21 @@ import java.lang.reflect.Type;
 public class Register {
 
     public final String OBJ_NAME = "Register";
-    public final String KEY_AUTHTOKEN = "authToken";
+    public final String KEY_IS_SUCCESS = "isSuccess";
     public final String KEY_REFRESHTOKEN = "refreshToken";
 
-    private String authToken, refreshToken;
+    private String authToken, refreshToken, isSuccess;
 
     public String getAuthToken() {
         return authToken;
+    }
+
+    public String getIsSuccess() {
+        return isSuccess;
+    }
+
+    public void setIsSuccess(String isSuccess) {
+        this.isSuccess = isSuccess;
     }
 
     public void setAuthToken(String authToken) {
@@ -32,7 +40,8 @@ public class Register {
     }
 
     public String toString(){
-        return OBJ_NAME + "[" + KEY_AUTHTOKEN + authToken + ", " + KEY_REFRESHTOKEN +  refreshToken + "]";
+        return OBJ_NAME + "[" + KEY_IS_SUCCESS + isSuccess + "]";
+//          return OBJ_NAME + "[" + KEY_AUTHTOKEN + authToken + ", " + KEY_REFRESHTOKEN +  refreshToken + "]";
     }
 
     public static class RegisterInstance implements InstanceCreator<Register> {
