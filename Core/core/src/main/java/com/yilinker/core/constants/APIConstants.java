@@ -25,6 +25,10 @@ public class APIConstants {
     public static final String PRODUCT_GET_LIST_PARAM_SELLERID = "sellerId";
     public static final String PRODUCT_GET_LIST_PARAM_PAGE = "page";
 
+    public static final String PRODUCT_UNIT_ID = "unitId";
+    public static final String PRODUCT_QUANTITY = "quantity";
+    public static final String PRODUCT_ID = "productId";
+
     public static final String PRODUCT_GET_REVIEW = "getReviews";
     public static final String PRODUCT_GET_REVIEW_PARAM_ID = "productId";
 
@@ -36,6 +40,7 @@ public class APIConstants {
     //For Cart API
     public static final String CART_API = "cart";
     public static final String CART_UPDATE_DETAILS = "updateCartDetails";
+    public static final String CART_UPDATE_ITEM = "updateCartItem";
 
     //For Home API
     public static final String HOME_API = "home";
