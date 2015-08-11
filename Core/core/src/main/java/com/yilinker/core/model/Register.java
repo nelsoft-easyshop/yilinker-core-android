@@ -10,21 +10,22 @@ import java.lang.reflect.Type;
 public class Register {
 
     public final String OBJ_NAME = "Register";
-    public final String KEY_IS_SUCCESS = "isSuccess";
+    public final String KEY_IS_SUCCESS = "isSuccessful";
     public final String KEY_REFRESHTOKEN = "refreshToken";
 
-    private String authToken, refreshToken, isSuccess;
+    private String authToken, refreshToken;
+    private boolean isSuccessful;
 
     public String getAuthToken() {
         return authToken;
     }
 
-    public String getIsSuccess() {
-        return isSuccess;
+    public boolean isSuccessful() {
+        return isSuccessful;
     }
 
-    public void setIsSuccess(String isSuccess) {
-        this.isSuccess = isSuccess;
+    public void setIsSuccessful(boolean isSuccessful) {
+        this.isSuccessful = isSuccessful;
     }
 
     public void setAuthToken(String authToken) {
@@ -40,7 +41,7 @@ public class Register {
     }
 
     public String toString(){
-        return OBJ_NAME + "[" + KEY_IS_SUCCESS + isSuccess + "]";
+        return OBJ_NAME + "[" + KEY_IS_SUCCESS + isSuccessful + "]";
 //          return OBJ_NAME + "[" + KEY_AUTHTOKEN + authToken + ", " + KEY_REFRESHTOKEN +  refreshToken + "]";
     }
 
