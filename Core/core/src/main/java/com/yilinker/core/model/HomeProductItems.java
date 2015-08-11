@@ -10,12 +10,23 @@ import java.lang.reflect.Type;
 public class HomeProductItems {
 
     private static final String OBJ_NAME = "HomeProductItems";
+    private static final String KEY_PRODUCT_ID = "productId";
     private static final String KEY_PRODUCT_NAME = "productName";
     private static final String KEY_IMAGE = "image";
     private static final String KEY_ORIGINAL_PRICE = "originalPrice";
     private static final String KEY_DISCOUNTED_PRICE = "discountedPrice";
     private static final String KEY_DISCOUNTED_PERCENTAGE = "discountedPercentage";
     private static final String KEY_TARGET = "target";
+
+    private int productId;
+
+    public int getProductId() {
+        return productId;
+    }
+
+    public void setProductId(int productId) {
+        this.productId = productId;
+    }
 
     private String productName;
     private String image;
@@ -74,7 +85,7 @@ public class HomeProductItems {
 
     @Override
     public String toString() {
-        return OBJ_NAME + "[" + KEY_PRODUCT_NAME + productName + ", " + KEY_IMAGE + image + ", " + KEY_ORIGINAL_PRICE + originalPrice + ", " + KEY_DISCOUNTED_PRICE + discountedPrice + ", " + KEY_DISCOUNTED_PERCENTAGE + discountedPercentage + ", " + KEY_TARGET + target + "]";
+        return OBJ_NAME + "[" + KEY_PRODUCT_ID + productId + ", " + KEY_PRODUCT_NAME + productName + ", " + KEY_IMAGE + image + ", " + KEY_ORIGINAL_PRICE + originalPrice + ", " + KEY_DISCOUNTED_PRICE + discountedPrice + ", " + KEY_DISCOUNTED_PERCENTAGE + discountedPercentage + ", " + KEY_TARGET + target + "]";
     }
 
     public static class HomeProductItemsInstance implements InstanceCreator<HomeProductItems> {

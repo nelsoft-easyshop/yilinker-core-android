@@ -12,6 +12,7 @@ import com.yilinker.core.model.Login;
 import com.yilinker.core.model.Register;
 import com.yilinker.core.utility.GsonUtility;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.List;
@@ -23,15 +24,26 @@ public class UserApi {
 
     public static Request register (final int requestCode, String firstName, String lastName, String email, String password, String referral, final ResponseHandler responseHandler){
 
-        String url = String.format("%s/%s/%s?%s=%s&%s=%s&%s=%s&%s=%s&%s=%s",
-                APIConstants.DOMAIN, APIConstants.USER_API, APIConstants.REG_API,
+        String url = String.format("%s/%s?%s=%s&%s=%s&%s=%s&%s=%s&%s=%s",
+                APIConstants.DOMAIN, APIConstants.LOGIN_API,
                 APIConstants.REG_PARAM_FIRSTNAME, firstName,
                 APIConstants.REG_PARAM_LASTNAME, lastName,
                 APIConstants.REG_PARAM_EMAIL, email,
                 APIConstants.REG_PARAM_PASSWORD, password,
                 APIConstants.REG_PARAM_REFERRAL, referral);
 
-        Request request = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
+        JSONObject regParams = new JSONObject();
+        try {
+            regParams.put(APIConstants.REG_PARAM_FIRSTNAME,firstName);
+            regParams.put(APIConstants.REG_PARAM_LASTNAME, lastName);
+            regParams.put(APIConstants.REG_PARAM_EMAIL, email);
+            regParams.put(APIConstants.REG_PARAM_PASSWORD, password);
+            regParams.put(APIConstants.REG_PARAM_REFERRAL, referral);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Request request = new JsonObjectRequest(url, regParams, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
 
