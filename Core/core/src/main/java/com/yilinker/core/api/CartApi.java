@@ -1,5 +1,7 @@
 package com.yilinker.core.api;
 
+import android.provider.SyncStateContract;
+
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -21,6 +23,37 @@ public class CartApi {
     public static Request getCart(final int requestCode, String token, final ResponseHandler responseHandler) {
 
         String url = String.format("%s/%s/%s?%s=%s", APIConstants.DOMAIN, APIConstants.CART_API, APIConstants.CART_UPDATE_DETAILS, APIConstants.ACCESS_TOKEN, token);
+
+        Request request = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+
+                gson = GsonUtility.createGsonBuilder(Cart.class, new Cart.CartInstance()).create();
+                String jsonString = new Gson().toJson(apiResponse.getData());
+                Cart obj = gson.fromJson(jsonString, Cart.class);
+
+                responseHandler.onSuccess(requestCode, obj);
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+
+        return request;
+
+    }
+    public static Request updateCart(final int requestCode, String token, final String productId, int unitId,int quantity, final ResponseHandler responseHandler) {
+
+        String url = String.format("%s/%s/%s?%s=%s?%s=%s?%s=%s?%s=%s", APIConstants.DOMAIN, APIConstants.CART_API,
+                APIConstants.CART_UPDATE_ITEM, APIConstants.ACCESS_TOKEN, token, APIConstants.PRODUCT_ID,productId,
+                APIConstants.PRODUCT_UNIT_ID,unitId,APIConstants.PRODUCT_QUANTITY, quantity);
 
         Request request = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
             @Override
