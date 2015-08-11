@@ -15,14 +15,14 @@ public class HomeSectionNewItems {
     private static final String KEY_SHOP_BY_CATEGORIES = "shopByCategories";
     private static final String KEY_SHOP_BY_NEW_RELEASE = "shopByNewRelease";
 
-    private List<HomeCategoryImageItems> shopByCategories = new ArrayList<>();
+    private List<HomeCategoryProductItems> shopByCategories = new ArrayList<>();
     private List<HomeProductItems> shopByNewRelease = new ArrayList<>();
 
-    public List<HomeCategoryImageItems> getShopByCategories() {
+    public List<HomeCategoryProductItems> getShopByCategories() {
         return shopByCategories;
     }
 
-    public void setShopByCategories(List<HomeCategoryImageItems> shopByCategories) {
+    public void setShopByCategories(List<HomeCategoryProductItems> shopByCategories) {
         this.shopByCategories = shopByCategories;
     }
 

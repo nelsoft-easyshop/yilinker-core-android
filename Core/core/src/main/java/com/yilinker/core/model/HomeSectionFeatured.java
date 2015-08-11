@@ -11,42 +11,42 @@ import java.util.List;
 public class HomeSectionFeatured {
 
     private static final String OBJ_NAME = "HomeSectionFeatured";
-    private static final String KEY_MAIN_BANNER = "mainbanner";
-    private static final String KEY_SUB_BANNER = "subbanners";
-    private static final String KEY_PROMO = "promo";
+    private static final String KEY_MAIN_BANNER = "mainBanner";
+    private static final String KEY_SUB_BANNER = "subBanners";
+    private static final String KEY_PROMOS = "promos";
     private static final String KEY_POPULAR_CATEGORIES = "popularCategories";
     private static final String KEY_TRENDING_ITEMS = "trendingItems";
     private static final String KEY_ITEMS_YOU_MAY_LIKE = "itemsYouMayLike";
 
-    private HomeImageItems mainbanner;
-    private List<HomeImageItems> subbanners;
-    private List<HomeProductItems> promo;
+    private HomeImageItems mainBanner;
+    private List<HomeImageItems> subBanners;
+    private List<HomeProductItems> promos;
     private List<HomeCategoryImageItems> popularCategories;
     private List<HomeCategoryImageItems> trendingItems;
     private List<HomeProductItems> itemsYouMayLike;
 
     public HomeImageItems getMainBanner() {
-        return mainbanner;
+        return mainBanner;
     }
 
-    public void setMainBanner(HomeImageItems mainbanner) {
-        this.mainbanner = mainbanner;
+    public void setMainBanner(HomeImageItems mainBanner) {
+        this.mainBanner = mainBanner;
     }
 
     public List<HomeImageItems> getSubBanners() {
-        return subbanners;
+        return subBanners;
     }
 
-    public void setSubBanners(List<HomeImageItems> subbanners) {
-        this.subbanners = subbanners;
+    public void setSubBanners(List<HomeImageItems> subBanners) {
+        this.subBanners = subBanners;
     }
 
     public List<HomeProductItems> getPromo() {
-        return promo;
+        return promos;
     }
 
     public void setPromo(List<HomeProductItems> promo) {
-        this.promo = promo;
+        this.promos = promos;
     }
 
     public List<HomeCategoryImageItems> getPopularCategories() {
@@ -75,7 +75,7 @@ public class HomeSectionFeatured {
 
     @Override
     public String toString() {
-        return OBJ_NAME + "[" + KEY_MAIN_BANNER + mainbanner + ", " + KEY_SUB_BANNER + subbanners + ", " + KEY_PROMO + promo + ", " + KEY_POPULAR_CATEGORIES + popularCategories + ", " + KEY_TRENDING_ITEMS + trendingItems + ", " + KEY_ITEMS_YOU_MAY_LIKE + itemsYouMayLike + "]";
+        return OBJ_NAME + "[" + KEY_MAIN_BANNER + mainBanner + ", " + KEY_SUB_BANNER + subBanners + ", " + KEY_PROMOS + promos + ", " + KEY_POPULAR_CATEGORIES + popularCategories + ", " + KEY_TRENDING_ITEMS + trendingItems + ", " + KEY_ITEMS_YOU_MAY_LIKE + itemsYouMayLike + "]";
     }
 
     public static class HomeSectionFeaturedInstance implements InstanceCreator<HomeSectionFeatured> {

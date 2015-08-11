@@ -15,22 +15,22 @@ public class HomeSectionSellers {
     private static final String KEY_NEW_SELLERS = "newSellers";
     private static final String KEY_TOP_SELLERS = "topSellers";
 
-    private List<HomeImageLinkItems> newSellers = new ArrayList<>();
-    private List<HomeSellerAvatarItems> topSellers = new ArrayList<>();
+    private List<HomeSellerNewSellers> newSellers = new ArrayList<>();
+    private List<HomeSellerTopSellers> topSellers = new ArrayList<>();
 
-    public List<HomeImageLinkItems> getNewSellers() {
+    public List<HomeSellerNewSellers> getNewSellers() {
         return newSellers;
     }
 
-    public void setNewSellers(List<HomeImageLinkItems> newSellers) {
+    public void setNewSellers(List<HomeSellerNewSellers> newSellers) {
         this.newSellers = newSellers;
     }
 
-    public List<HomeSellerAvatarItems> getTopSellers() {
+    public List<HomeSellerTopSellers> getTopSellers() {
         return topSellers;
     }
 
-    public void setTopSellers(List<HomeSellerAvatarItems> topSellers) {
+    public void setTopSellers(List<HomeSellerTopSellers> topSellers) {
         this.topSellers = topSellers;
     }
 
