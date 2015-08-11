@@ -14,15 +14,15 @@ public class Cart {
     private static final String KEY_CART_ITEM = "cartItem";
     private static final String KEY_TOTAL = "total";
 
-    private List<CartItem> cartItem;
+    private List<CartItem> cartItems;
     private double total;
 
-    public List<CartItem> getCartItem() {
-        return cartItem;
+    public List<CartItem> getCartItems() {
+        return cartItems;
     }
 
-    public void setCartItem(List<CartItem> cartItem) {
-        this.cartItem = cartItem;
+    public void setCartItems(List<CartItem> cartItems) {
+        this.cartItems = cartItems;
     }
 
     public double getTotal() {
@@ -35,7 +35,7 @@ public class Cart {
 
     @Override
     public String toString() {
-        return OBJ_NAME + "[" + KEY_CART_ITEM + cartItem + ", " + KEY_TOTAL + total + "]";
+        return OBJ_NAME + "[" + KEY_CART_ITEM + cartItems + ", " + KEY_TOTAL + total + "]";
     }
 
     public static class CartInstance implements InstanceCreator<Cart> {
