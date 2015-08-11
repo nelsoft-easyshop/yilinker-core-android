@@ -20,7 +20,7 @@ public class CartApi {
 
     public static Request getCart(final int requestCode, String token, final ResponseHandler responseHandler) {
 
-        String url = String.format("%s/%s/%s?%s=%s", APIConstants.DOMAIN, APIConstants.CART_API, APIConstants.CART_GET_DETAILS, APIConstants.ACCESS_TOKEN, token);
+        String url = String.format("%s/%s/%s?%s=%s", APIConstants.DOMAIN, APIConstants.CART_API, APIConstants.CART_UPDATE_DETAILS, APIConstants.ACCESS_TOKEN, token);
 
         Request request = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
             @Override

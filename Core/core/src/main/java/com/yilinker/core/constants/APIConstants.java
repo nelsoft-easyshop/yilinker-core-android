@@ -35,7 +35,7 @@ public class APIConstants {
 
     //For Cart API
     public static final String CART_API = "cart";
-    public static final String CART_GET_DETAILS = "getDetails";
+    public static final String CART_UPDATE_DETAILS = "updateCartDetails";
 
     //For Home API
     public static final String HOME_API = "home";
