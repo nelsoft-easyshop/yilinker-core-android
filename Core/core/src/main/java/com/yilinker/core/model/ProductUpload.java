@@ -6,12 +6,13 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 /**
- * Created by J.Bautista
+ * Created by jaybr_000 on 8/7/2015.
  */
-public class Product {
+public class ProductUpload {
 
-    private static final String OBJ_NAME = "Product";
+    private static final String OBJ_NAME = "ProductUpload";
     private static final String KEY_ID = "id";
+    private static final String KEY_IMAGES = "images";
     private static final String KEY_TITLE = "title";
     private static final String KEY_SHORT_DESCRIPTION = "shortDescription";
     private static final String KEY_FULL_DESCRIPTION = "fullDescription";
@@ -27,6 +28,7 @@ public class Product {
     private String shortDescription;
     private String fullDescription;
     private int sellerId;
+    private List<String> images;
     private List<ProductGroupAttribute> attributes;
     private List<AttributeCombination> availableAttributeCombi;
     private double originalPrice;
@@ -55,6 +57,14 @@ public class Product {
 
     public void setShortDescription(String shortDescription) {
         this.shortDescription = shortDescription;
+    }
+
+    public List<String> getImages() {
+        return images;
+    }
+
+    public void setImages(List<String> images) {
+        this.images = images;
     }
 
     public String getFullDescription() {
@@ -113,17 +123,13 @@ public class Product {
         this.discount = discount;
     }
 
-    @Override
-    public String toString() {
-        return OBJ_NAME + KEY_ID + id + KEY_TITLE + title + KEY_SHORT_DESCRIPTION + shortDescription + KEY_FULL_DESCRIPTION + fullDescription + KEY_SELLER_ID + sellerId + KEY_ATTRIBUTES + attributes + KEY_AVAILABLE_ATTRIBUTES + availableAttributeCombi + KEY_ORIGINAL_PRICE + originalPrice + KEY_NEW_PRICE + newPrice + KEY_DISCOUNT + discount;
-    }
 
-    public static class ProductInstance implements InstanceCreator<Product> {
+    public static class ProductUploadInstance implements InstanceCreator<ProductUpload> {
 
         @Override
-        public Product createInstance(Type type) {
+        public ProductUpload createInstance(Type type) {
 
-            return new Product();
+            return new ProductUpload();
         }
     }
 }

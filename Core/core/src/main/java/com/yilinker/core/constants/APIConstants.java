@@ -7,6 +7,9 @@ import com.yilinker.core.BuildConfig;
  */
 public class APIConstants {
 
+    //access token
+    public static final String ACCESS_TOKEN = "access_token";
+
     //temp
     public static final String DOMAIN = BuildConfig.SERVER_URL;
 
@@ -29,6 +32,10 @@ public class APIConstants {
     public static final String SELLER_API = "seller";
     public static final String SELLER_GET_DETAILS = "getDetails";
     public static final String SELLER_GET_DETAILS_PARAM_ID = "sellerId";
+
+    //For Cart API
+    public static final String CART_API = "cart";
+    public static final String CART_GET_DETAILS = "getDetails";
 
     //For Home API
     public static final String HOME_API = "home";
@@ -59,3 +66,4 @@ public class APIConstants {
     public static final String API_CLIENT_ID = "1_167rxzqvid8g8swggwokcoswococscocc8ck44wo0g88owgkcc";
     public static final String API_CLIENT_SECRET = "317eq8nohry84ooc0o8woo8000c0k844c4cggws84g80scwwog";
 }
+
