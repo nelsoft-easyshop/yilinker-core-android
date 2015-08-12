@@ -1,7 +1,11 @@
 package com.yilinker.core.api;
 
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NoConnectionError;
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
@@ -21,6 +25,11 @@ import org.json.JSONObject;
 public class SellerApi {
 
     public static Request getSellerDetails(final int requestCode, int id, final ResponseHandler responseHandler) {
+
+        int socketTimeout = 5000;
+        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
 
         String url = String.format("%s/%s/%s?%s=%d", APIConstants.DOMAIN, APIConstants.SELLER_API, APIConstants.SELLER_GET_DETAILS, APIConstants.SELLER_GET_DETAILS_PARAM_ID, id);
 
@@ -43,9 +52,12 @@ public class SellerApi {
 
             @Override
             public void onErrorResponse(VolleyError error) {
+                responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
 
             }
         });
+
+        request.setRetryPolicy(policy);
 
         return request;
 

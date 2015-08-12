@@ -154,4 +154,12 @@ public class BaseApplication extends Application{
 
     }
 
+    public boolean isKeepUserLoggedIn() {
+
+        SharedPreferences pref = PreferenceManager
+                .getDefaultSharedPreferences(getApplicationContext());
+
+        return pref.contains(KEEP_LOGGED_IN);
+    }
+
 }
