@@ -51,7 +51,7 @@ public class CartApi {
     }
     public static Request updateCart(final int requestCode, String token, final int productId, int unitId,int quantity, final ResponseHandler responseHandler) {
 
-        String url = String.format("%s/%s/%s?%s=%s$%s=%s$%s=%s$%s=%s",
+        String url = String.format("%s/%s/%s?%s=%s&%s=%s&%s=%s&%s=%s",
                 APIConstants.DOMAIN, APIConstants.CART_API,
                 APIConstants.CART_UPDATE_ITEM,
                 APIConstants.ACCESS_TOKEN, token,
