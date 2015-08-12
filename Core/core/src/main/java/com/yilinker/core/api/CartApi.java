@@ -61,11 +61,15 @@ public class CartApi {
         return request;
 
     }
-    public static Request updateCart(final int requestCode, String token, final String productId, int unitId,int quantity, final ResponseHandler responseHandler) {
+    public static Request updateCart(final int requestCode, String token, final int productId, int unitId,int quantity, final ResponseHandler responseHandler) {
 
-        String url = String.format("%s/%s/%s?%s=%s?%s=%s?%s=%s?%s=%s", APIConstants.DOMAIN, APIConstants.CART_API,
-                APIConstants.CART_UPDATE_ITEM, APIConstants.ACCESS_TOKEN, token, APIConstants.PRODUCT_ID,productId,
-                APIConstants.PRODUCT_UNIT_ID,unitId,APIConstants.PRODUCT_QUANTITY, quantity);
+        String url = String.format("%s/%s/%s?%s=%s&%s=%s&%s=%s&%s=%s",
+                APIConstants.DOMAIN, APIConstants.CART_API,
+                APIConstants.CART_UPDATE_ITEM,
+                APIConstants.ACCESS_TOKEN, token,
+                APIConstants.PRODUCT_ID,productId,
+                APIConstants.PRODUCT_UNIT_ID,unitId,
+                APIConstants.PRODUCT_QUANTITY, quantity);
 
         Request request = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
             @Override
