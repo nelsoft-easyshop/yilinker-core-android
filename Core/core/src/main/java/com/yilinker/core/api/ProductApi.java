@@ -62,9 +62,8 @@ public class ProductApi {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                    responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
-                }
+                responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+
             }
         });
 
@@ -100,10 +99,8 @@ public class ProductApi {
 
             @Override
             public void onErrorResponse(VolleyError error) {
+                responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
 
-                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                    responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
-                }
             }
         });
 
