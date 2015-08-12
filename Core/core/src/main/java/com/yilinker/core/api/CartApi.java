@@ -1,7 +1,11 @@
 package com.yilinker.core.api;
 
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NoConnectionError;
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
@@ -18,7 +22,14 @@ import org.json.JSONObject;
  */
 public class CartApi {
 
+
+
     public static Request getCart(final int requestCode, String token, final ResponseHandler responseHandler) {
+
+        int socketTimeout = 5000;
+        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
 
         String url = String.format("%s/%s/%s?%s=%s", APIConstants.DOMAIN, APIConstants.CART_API, APIConstants.CART_UPDATE_DETAILS, APIConstants.ACCESS_TOKEN, token);
 
@@ -40,12 +51,17 @@ public class CartApi {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                    responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+                }
             }
         });
+
+        request.setRetryPolicy(policy);
 
         return request;
 
     }
+
 
 }
