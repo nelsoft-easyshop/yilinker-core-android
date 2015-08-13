@@ -14,6 +14,7 @@ import com.yilinker.core.model.APIResponse;
 import com.yilinker.core.model.Cart;
 import com.yilinker.core.model.Register;
 import com.yilinker.core.utility.GsonUtility;
+import com.yilinker.core.utility.SocketTimeout;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -54,16 +55,13 @@ public class CartApi {
             }
         });
 
+        requestGetCart.setRetryPolicy(SocketTimeout.getRetryPolicy());
+
         return requestGetCart;
 
     }
 
     public static Request updateCartItems (final int requestCode, String token, int productId, int unitId, int quantity, final ResponseHandler responseHandler){
-
-        int socketTimeout = 5000;//5 seconds - change to what you want
-        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
 
         String url = String.format("%s/%s/%s",
                 APIConstants.DOMAIN, APIConstants.CART_API, APIConstants.CART_UPDATE_DETAILS);
@@ -128,6 +126,8 @@ public class CartApi {
                 responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
             }
         });
+
+        requestUpdateCart.setRetryPolicy(SocketTimeout.getRetryPolicy());
 
         return requestUpdateCart;
     }
