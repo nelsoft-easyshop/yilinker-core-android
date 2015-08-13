@@ -25,6 +25,21 @@ public class APIConstants {
     public static final String PRODUCT_GET_LIST_PARAM_SELLERID = "sellerId";
     public static final String PRODUCT_GET_LIST_PARAM_PAGE = "page";
 
+    public static final String PRODUCT_LIST_TARGET = "target";
+    public static final String PRODUCT_lIST_PRICE_FROM = "priceFrom";
+    public static final String PRODUCT_LIST_PRICE_TO = "priceTo";
+    public static final String PRODUCT_LIST_CATEGORY_ID = "categoryId";
+    public static final String PRODUCT_lIST_SELLER_ID = "sellerId";
+    public static final String PRODUCT_LIST_SORT_TYPE ="sortType";
+    public static final String PRODUCT_LIST_SORT_DIRECTION = "sortDirection";
+    public static final String PRODUCT_lIST_FILTER = "filters";
+    public static final String PRODUCT_LIST_BRAND_ID = "brandId";
+    public static final String PRODUCT_LIST_PAGE = "page";
+
+    public static final String PRODUCT_UNIT_ID = "unitId";
+    public static final String PRODUCT_QUANTITY = "quantity";
+    public static final String PRODUCT_ID = "productId";
+
     public static final String PRODUCT_GET_REVIEW = "getReviews";
     public static final String PRODUCT_GET_REVIEW_PARAM_ID = "productId";
 
