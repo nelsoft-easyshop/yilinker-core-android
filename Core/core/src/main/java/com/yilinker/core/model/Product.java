@@ -23,6 +23,7 @@ public class Product {
     private static final String KEY_DISCOUNT = "discount";
 
     private int id;
+    private String productName;
     private String title;
     private String shortDescription;
     private String fullDescription;
@@ -39,6 +40,14 @@ public class Product {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getProductName(){
+        return  productName;
+    }
+
+    public void setProductName(String productName){
+        this.productName = productName;
     }
 
     public String getTitle() {
