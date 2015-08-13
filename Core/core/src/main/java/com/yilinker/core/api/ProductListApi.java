@@ -24,7 +24,7 @@ public class ProductListApi {
 
     public static Request getProductList(final int requestCode, String target,
                                          int priceFrom, int priceTo,int categoryId,int sellerId,
-                                         String selectedSort, String selectedDirection,List<FilterGroup> filterGroups,
+                                         String selectedSort, String selectedDirection,
                                          int brandId, int loadPage, final ResponseHandler responseHandler) {
         String url;
         if (target.equals("")){
@@ -38,24 +38,28 @@ public class ProductListApi {
                     APIConstants.PRODUCT_lIST_SELLER_ID, Integer.toString(sellerId),
                     APIConstants.PRODUCT_LIST_SORT_TYPE, selectedSort,
                     APIConstants.PRODUCT_LIST_SORT_DIRECTION, selectedDirection,
-                    APIConstants.PRODUCT_lIST_FILTER, filterGroups,
+//                    APIConstants.PRODUCT_lIST_FILTER, filterGroups,
                     APIConstants.PRODUCT_LIST_BRAND_ID,Integer.toString(brandId),
                     APIConstants.PRODUCT_LIST_PAGE, Integer.toString(loadPage));
 
         }else{
-            url = String.format("%s/%s/%s?" +
-                            "%s=%s" +"&%s=%s" +"&%s=%s" +"&%s=%s" +"&%s=%s" +"&%s=%s" +"&%s=%s" +"&%s=%s" +"&%s=%s",
+//            url = String.format("%s/%s/%s?" +
+//                            "%s=%s" +"&%s=%s" +"&%s=%s" +"&%s=%s" +"&%s=%s" +"&%s=%s" +"&%s=%s" +"&%s=%s" +"&%s=%s",
+//                    APIConstants.DOMAIN, APIConstants.PRODUCT_API,
+//                    target,
+//                    APIConstants.PRODUCT_lIST_PRICE_FROM, Integer.toString(priceFrom),
+//                    APIConstants.PRODUCT_LIST_PRICE_TO,Integer.toString(priceTo),
+//                    APIConstants.PRODUCT_LIST_CATEGORY_ID,Integer.toString(categoryId),
+//                    APIConstants.PRODUCT_lIST_SELLER_ID, Integer.toString(sellerId),
+//                    APIConstants.PRODUCT_LIST_SORT_TYPE, selectedSort,
+//                    APIConstants.PRODUCT_LIST_SORT_DIRECTION, selectedDirection,
+////                    APIConstants.PRODUCT_lIST_FILTER, filterGroups,
+//                    APIConstants.PRODUCT_LIST_BRAND_ID,Integer.toString(brandId),
+//                    APIConstants.PRODUCT_LIST_PAGE, Integer.toString(loadPage));
+
+            url = String.format("%s/%s/%s" ,
                     APIConstants.DOMAIN, APIConstants.PRODUCT_API,
-                    target,
-                    APIConstants.PRODUCT_lIST_PRICE_FROM, Integer.toString(priceFrom),
-                    APIConstants.PRODUCT_LIST_PRICE_TO,Integer.toString(priceTo),
-                    APIConstants.PRODUCT_LIST_CATEGORY_ID,Integer.toString(categoryId),
-                    APIConstants.PRODUCT_lIST_SELLER_ID, Integer.toString(sellerId),
-                    APIConstants.PRODUCT_LIST_SORT_TYPE, selectedSort,
-                    APIConstants.PRODUCT_LIST_SORT_DIRECTION, selectedDirection,
-                    APIConstants.PRODUCT_lIST_FILTER, filterGroups,
-                    APIConstants.PRODUCT_LIST_BRAND_ID,Integer.toString(brandId),
-                    APIConstants.PRODUCT_LIST_PAGE, Integer.toString(loadPage));
+                    APIConstants.PRODUCT_GET_LIST);
 
         }
 
@@ -64,11 +68,11 @@ public class ProductListApi {
             public void onResponse(JSONObject response) {
 
                 Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
-                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+                ProductList obj = gson.fromJson(response.toString(), ProductList.class);
 
-                gson = GsonUtility.createGsonBuilder(ProductList.class, new ProductList.ProductListInstance()).create();
-                String jsonString = new Gson().toJson(apiResponse.getData());
-                Cart obj = gson.fromJson(jsonString, Cart.class);
+//                Gson gson = GsonUtility.createGsonBuilder(ProductList.class, new ProductList.ProductListInstance()).create();
+//                String jsonString = new Gson().toJson(apiResponse.getData());
+                //Cart obj = gson.fromJson(jsonString, Cart.class);
 
                 responseHandler.onSuccess(requestCode, obj);
 

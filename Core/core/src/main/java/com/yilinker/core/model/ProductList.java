@@ -10,9 +10,11 @@ import java.util.List;
  */
 public class ProductList {
 
+    private static final String OBJ_NAME = "ProductList";
+    private static final String KEY_PRODUCT_ITEM = "products";
+
     private List<Product> products;
     private int totalResultCount;
-    private List<FilterGroup> filterGroupList;
 
     public List<Product> getProducts() {
         return products;
@@ -30,12 +32,9 @@ public class ProductList {
         this.totalResultCount = totalResultCount;
     }
 
-    public List<FilterGroup> getFilterGroupList() {
-        return filterGroupList;
-    }
-
-    public void setFilterGroupList(List<FilterGroup> filterGroupList) {
-        this.filterGroupList = filterGroupList;
+    @Override
+    public String toString() {
+        return OBJ_NAME + "[" + KEY_PRODUCT_ITEM + products+ "]";
     }
 
     public static class ProductListInstance implements InstanceCreator<ProductList> {
