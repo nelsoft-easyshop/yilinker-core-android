@@ -22,6 +22,7 @@ import com.yilinker.core.model.APIResponse;
 import com.yilinker.core.model.Product;
 import com.yilinker.core.model.ProductReview;
 import com.yilinker.core.utility.GsonUtility;
+import com.yilinker.core.utility.SocketTimeout;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,11 +36,6 @@ import java.util.HashMap;
 public class ProductApi {
 
     public static Request getProductDetails(final int requestCode, int id, final ResponseHandler responseHandler) {
-
-        int socketTimeout = 5000;
-        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
 
         String url = String.format("%s/%s/%s?%s=%d", APIConstants.DOMAIN, APIConstants.PRODUCT_API, APIConstants.PRODUCT_GET_DETAILS, APIConstants.PRODUCT_GET_DETAILS_PARAM_ID, id);
 
@@ -67,17 +63,12 @@ public class ProductApi {
             }
         });
 
-        request.setRetryPolicy(policy);
+        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
         return request;
 
     }
 
     public static Request getProductReview(final int requestCode, int id, final ResponseHandler responseHandler){
-
-        int socketTimeout = 5000;
-        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
 
         String url = String.format("%s/%s/%s?%s=%d", APIConstants.DOMAIN, APIConstants.PRODUCT_API, APIConstants.PRODUCT_GET_REVIEW, APIConstants.PRODUCT_GET_REVIEW_PARAM_ID, id);
 
@@ -104,7 +95,7 @@ public class ProductApi {
             }
         });
 
-        request.setRetryPolicy(policy);
+        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
         return request;
 
     }

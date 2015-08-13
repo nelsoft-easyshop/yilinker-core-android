@@ -15,6 +15,7 @@ import com.yilinker.core.interfaces.ResponseHandler;
 import com.yilinker.core.model.APIResponse;
 import com.yilinker.core.model.Cart;
 import com.yilinker.core.utility.GsonUtility;
+import com.yilinker.core.utility.SocketTimeout;
 
 import org.json.JSONObject;
 
@@ -56,7 +57,7 @@ public class CartApi {
             }
         });
 
-        request.setRetryPolicy(policy);
+        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
 
         return request;
 
@@ -88,6 +89,8 @@ public class CartApi {
                 responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
             }
         });
+
+        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
 
         return request;
 
