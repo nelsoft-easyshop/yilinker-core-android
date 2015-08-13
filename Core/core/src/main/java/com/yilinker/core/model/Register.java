@@ -11,14 +11,19 @@ public class Register {
 
     public final String OBJ_NAME = "Register";
     public final String KEY_IS_SUCCESS = "isSuccessful";
-    public final String KEY_REFRESHTOKEN = "refreshToken";
+    public final String KEY_MESSAGE = "message";
 
-    private String authToken, refreshToken;
-    private boolean isSuccessful;
+    private String message;
 
-    public String getAuthToken() {
-        return authToken;
+    public String getMessage() {
+        return message;
     }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    private boolean isSuccessful;
 
     public boolean isSuccessful() {
         return isSuccessful;
@@ -28,20 +33,8 @@ public class Register {
         this.isSuccessful = isSuccessful;
     }
 
-    public void setAuthToken(String authToken) {
-        this.authToken = authToken;
-    }
-
-    public String getRefreshToken() {
-        return refreshToken;
-    }
-
-    public void setRefreshToken(String refreshToken) {
-        this.refreshToken = refreshToken;
-    }
-
     public String toString(){
-        return OBJ_NAME + "[" + KEY_IS_SUCCESS + isSuccessful + "]";
+        return OBJ_NAME + "[" + KEY_IS_SUCCESS + isSuccessful + ", " + KEY_MESSAGE + message + "]";
 //          return OBJ_NAME + "[" + KEY_AUTHTOKEN + authToken + ", " + KEY_REFRESHTOKEN +  refreshToken + "]";
     }
 

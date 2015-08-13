@@ -15,9 +15,30 @@ public class Login {
     public final String KEY_TOKEN_TYPE = "token_type";
     public final String KEY_SCOPE = "scope";
     public final String KEY_REFRESH_TOKEN = "refresh_token";
+    public final String KEY_ERROR = "error";
+    public final String KEY_ERROR_DESCRIPTION = "error_description";
 
 
     private String access_token, expires_in, token_type, scope, refresh_token;
+    private String error, error_description;
+
+
+
+    public String getError() {
+        return error;
+    }
+
+    public void setError(String error) {
+        this.error = error;
+    }
+
+    public String getError_description() {
+        return error_description;
+    }
+
+    public void setError_description(String error_description) {
+        this.error_description = error_description;
+    }
 
     public String getRefresh_token() {
         return refresh_token;
@@ -62,7 +83,8 @@ public class Login {
 
     @Override
     public String toString() {
-        return OBJ_NAME + "[" + KEY_ACCESS_TOKEN + access_token + ", " + KEY_EXPIRES_IN + expires_in + ", " + KEY_TOKEN_TYPE + token_type + ", " + KEY_SCOPE + scope + ", " + KEY_REFRESH_TOKEN + refresh_token + "]";
+//        return OBJ_NAME + "[" + KEY_ACCESS_TOKEN + access_token + ", " + KEY_EXPIRES_IN + expires_in + ", " + KEY_TOKEN_TYPE + token_type + ", " + KEY_SCOPE + scope + ", " + KEY_REFRESH_TOKEN + refresh_token + "]";
+        return OBJ_NAME + "[" + KEY_ACCESS_TOKEN + access_token + ", " + KEY_EXPIRES_IN + expires_in + ", " + KEY_TOKEN_TYPE + token_type + ", " + KEY_SCOPE + scope + ", " + KEY_REFRESH_TOKEN + refresh_token + ", " + KEY_ERROR + error + ", " + KEY_ERROR_DESCRIPTION + error_description + "]";
     }
 
     public static class LoginInstance implements InstanceCreator<Login> {

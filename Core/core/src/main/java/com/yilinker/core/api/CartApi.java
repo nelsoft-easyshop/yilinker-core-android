@@ -43,7 +43,7 @@ public class CartApi {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
             }
         });
 
@@ -54,7 +54,7 @@ public class CartApi {
     public static Request updateCartItems (final int requestCode, String token, int productId, int unitId, int quantity, final ResponseHandler responseHandler){
 
         String url = String.format("%s/%s/%s?%s=%s&%s=%s&%s=%s&%s=%s",
-                APIConstants.DOMAIN, APIConstants.CART_API, APIConstants.CART_GET_ITEMS,
+                APIConstants.DOMAIN, APIConstants.CART_API, APIConstants.CART_UPDATE_DETAILS,
                 APIConstants.ACCESS_TOKEN, token,
                 APIConstants.PRODUCT_GET_DETAILS_PARAM_ID, productId,
                 APIConstants.CART_UNIT_ID, unitId,

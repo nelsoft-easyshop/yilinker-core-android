@@ -45,14 +45,12 @@ public class APIConstants {
     public static final String HOME_GET_ITEMS = "getItems";
 
     //For User API
-
     public static final String USER_API = "user";
 
     //For Registration API
     public static final String REG_API = "register";
-    public static final String REG_PARAM_FIRSTNAME = "firstName";
-    public static final String REG_PARAM_LASTNAME = "lastName";
-    public static final String REG_PARAM_EMAIL = "emailAddress";
+    public static final String REG_PARAM_FULLNAME = "fullname";
+    public static final String REG_PARAM_EMAIL = "email";
     public static final String REG_PARAM_PASSWORD = "password";
     public static final String REG_PARAM_REFERRAL = "referralCode";
 
@@ -68,5 +66,6 @@ public class APIConstants {
     //API Credentials
     public static final String API_CLIENT_ID = "1_167rxzqvid8g8swggwokcoswococscocc8ck44wo0g88owgkcc";
     public static final String API_CLIENT_SECRET = "317eq8nohry84ooc0o8woo8000c0k844c4cggws84g80scwwog";
-}
+    public static final String API_CONNECTION_PROBLEM = "Problem connecting to the server. Try again later.";
 
+}
