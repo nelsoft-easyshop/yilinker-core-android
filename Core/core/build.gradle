@@ -17,7 +17,7 @@ android {
             buildConfigField "String", "SERVER_URL", '"http://demo5885209.mockable.io/api/v1"'
         }
         release {
-            buildConfigField "String", "SERVER_URL", '"http://someurl/"'
+            buildConfigField "String", "SERVER_URL", '"http://online.api.easydeal.ph/api/v1"'
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -27,7 +27,7 @@ android {
             renderscriptDebuggable false
             minifyEnabled false
             zipAlignEnabled true
-            buildConfigField "String", "SERVER_URL", '"http://demo5885209.mockable.io/api/v1"'
+            buildConfigField "String", "SERVER_URL", '"http://online.api.easydeal.ph/api/v1"'
         }
     }
 }
