@@ -20,11 +20,20 @@ public class BaseApplication extends Application{
     private static final String KEEP_LOGGED_IN = "keepLoggedIn";
 
     private RequestQueue requestQueue;
+    private String domain;
 
     @Override
     public void onCreate() {
         super.onCreate();
 
+    }
+
+    public String getDomain() {
+        return domain;
+    }
+
+    public void setDomain(String domain) {
+        this.domain = domain;
     }
 
     public RequestQueue getRequestQueue() {

@@ -1,5 +1,8 @@
 package com.yilinker.core.model;
 
+import com.google.gson.InstanceCreator;
+
+import java.lang.reflect.Type;
 import java.util.List;
 
 /**
@@ -54,12 +57,12 @@ public class CartItem {
 //        return OBJ_NAME + "[" + KEY_PRODUCT + product + ", " + KEY_UNIT_ID + unitId + ", " + KEY_QUANTITY + quantity + "]";
 //    }
 
-//    public static class CartItemInstance implements InstanceCreator<CartItem> {
-//
-//        @Override
-//        public CartItem createInstance(Type type) {
-//
-//            return new CartItem();
-//        }
-//    }
+    public static class CartItemInstance implements InstanceCreator<CartItem> {
+
+        @Override
+        public CartItem createInstance(Type type) {
+
+            return new CartItem();
+        }
+    }
 }
