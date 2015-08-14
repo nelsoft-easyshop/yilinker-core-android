@@ -78,6 +78,25 @@ public class APIConstants {
     public static final String LOGIN_PARAM_EMAIL = "email";
     public static final String LOGIN_PARAM_PASSWORD = "password";
 
+    //For Product Upload API
+    public static final String PRODUCT_UPLOAD_API="upload";
+    public static final String PRODUCT_UPLOAD_PARAM_IMAGES = "images";
+    public static final String PRODUCT_UPLOAD_PARAM_CATEGORY = "productCategory";
+    public static final String PRODUCT_UPLOAD_PARAM_BRAND = "brand";
+    public static final String PRODUCT_UPLOAD_PARAM_TITLE = "title";
+    public static final String PRODUCT_UPLOAD_PARAM_DESCRIPTION = "description";
+    public static final String PRODUCT_UPLOAD_PARAM_SHORT_DESCRIPTION = "shortDescription";
+    public static final String PRODUCT_UPLOAD_PARAM_CONDITION = "condition";
+    public static final String PRODUCT_UPLOAD_PARAM_LENGTH = "length";
+    public static final String PRODUCT_UPLOAD_PARAM_WIDTH = "width";
+    public static final String PRODUCT_UPLOAD_PARAM_HEIGHT = "height";
+    public static final String PRODUCT_UPLOAD_PARAM_WEIGHT = "weight";
+    public static final String PRODUCT_UPLOAD_PARAM_QUANTITY = "quantity";
+    public static final String PRODUCT_UPLOAD_PARAM_SKU = "sku";
+    public static final String PRODUCT_UPLOAD_PARAM_PRICE = "price";
+    public static final String PRODUCT_UPLOAD_PARAM_DISCOUNTED_PRICE = "discountedPrice";
+    public static final String PRODUCT_UPLOAD_PARAM_PRODUCT_PROPERTIES = "productProperties";
+
     //API Credentials
     public static final String API_CLIENT_ID = "1_167rxzqvid8g8swggwokcoswococscocc8ck44wo0g88owgkcc";
     public static final String API_CLIENT_SECRET = "317eq8nohry84ooc0o8woo8000c0k844c4cggws84g80scwwog";

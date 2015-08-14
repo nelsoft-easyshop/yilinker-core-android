@@ -21,6 +21,7 @@ import com.yilinker.core.interfaces.ResponseHandler;
 import com.yilinker.core.model.APIResponse;
 import com.yilinker.core.model.Product;
 import com.yilinker.core.model.ProductReview;
+import com.yilinker.core.model.ProductUpload;
 import com.yilinker.core.utility.GsonUtility;
 import com.yilinker.core.utility.SocketTimeout;
 
@@ -98,6 +99,40 @@ public class ProductApi {
         request.setRetryPolicy(SocketTimeout.getRetryPolicy());
         return request;
 
+    }
+
+    public static Request uploadProduct(final int requestCode, String token, final ResponseHandler responseHandler) {
+
+        int socketTimeout = 5000;
+        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+
+        String url = String.format("%s/%s/%s",APIConstants.DOMAIN, APIConstants.PRODUCT_API, APIConstants.PRODUCT_UPLOAD_API);
+
+        Request request = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+
+                responseHandler.onSuccess(requestCode, apiResponse);
+            }
+
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+
+            }
+        });
+
+        request.setRetryPolicy(policy);
+
+        return request;
     }
 
 }
