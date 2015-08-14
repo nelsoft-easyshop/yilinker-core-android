@@ -11,12 +11,12 @@ import java.util.List;
 public class ProductGroupAttribute {
 
     private static final String OBJ_NAME = "ProductGroupAttribute";
-    private static final String KEY_ID = "id";
+    private static final String KEY_ID = "productUnitId";
     private static final String KEY_NAME = "name";
     private static final String KEY_ITEMS = "items";
 
     private int id;
-    private String name;
+    private String groupName;
     private List<ProductAttribute> items;
 
     public int getId() {
@@ -28,11 +28,11 @@ public class ProductGroupAttribute {
     }
 
     public String getName() {
-        return name;
+        return groupName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String groupName) {
+        this.groupName = groupName;
     }
 
     public List<ProductAttribute> getItems() {
@@ -45,7 +45,7 @@ public class ProductGroupAttribute {
 
     @Override
     public String toString() {
-        return OBJ_NAME + "[" + KEY_ID + id + ", " + KEY_NAME + name + KEY_ITEMS + items + "]";
+        return OBJ_NAME + "[" + KEY_ID + id + ", " + KEY_NAME + groupName + KEY_ITEMS + items + "]";
     }
 
     public static class ProductGroupAttributeInstance implements InstanceCreator<ProductGroupAttribute> {

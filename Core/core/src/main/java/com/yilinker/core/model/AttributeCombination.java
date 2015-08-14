@@ -3,6 +3,7 @@ package com.yilinker.core.model;
 import com.google.gson.InstanceCreator;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,7 +18,7 @@ public class AttributeCombination {
 
     private int[] combination;
     private int quantity;
-    private List<String> images;
+    private List<String> images = new ArrayList<String>();
 
 
     public int[] getCombination() {

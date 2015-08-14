@@ -13,11 +13,12 @@ public class Product {
     private static final String OBJ_NAME = "Product";
     private static final String KEY_ID = "id";
     private static final String KEY_TITLE = "title";
+    private static final String KEY_IMAGE = "image";
     private static final String KEY_SHORT_DESCRIPTION = "shortDescription";
     private static final String KEY_FULL_DESCRIPTION = "fullDescription";
     private static final String KEY_SELLER_ID = "sellerId";
     private static final String KEY_ATTRIBUTES = "attributes";
-    private static final String KEY_AVAILABLE_ATTRIBUTES = "availableAttributeCombi";
+    private static final String KEY_AVAILABLE_ATTRIBUTES = "productUnits";
     private static final String KEY_ORIGINAL_PRICE = "originalPrice";
     private static final String KEY_NEW_PRICE = "newPrice";
     private static final String KEY_DISCOUNT = "discount";
@@ -25,11 +26,12 @@ public class Product {
     private int id;
     private String productName;
     private String title;
+    private String image;
     private String shortDescription;
     private String fullDescription;
     private int sellerId;
     private List<ProductGroupAttribute> attributes;
-    private List<AttributeCombination> availableAttributeCombi;
+    private List<AttributeCombination> productUnits;
     private double originalPrice;
     private double newPrice;
     private double discount;
@@ -44,6 +46,14 @@ public class Product {
 
     public String getProductName(){
         return  productName;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public void setProductName(String productName){
@@ -91,11 +101,11 @@ public class Product {
     }
 
     public List<AttributeCombination> getAvailableAttributeCombi() {
-        return availableAttributeCombi;
+        return productUnits;
     }
 
-    public void setAvailableAttributeCombi(List<AttributeCombination> availableAttributeCombi) {
-        this.availableAttributeCombi = availableAttributeCombi;
+    public void setAvailableAttributeCombi(List<AttributeCombination> productUnits) {
+        this.productUnits = productUnits;
     }
 
     public double getOriginalPrice() {
@@ -124,15 +134,15 @@ public class Product {
 
     @Override
     public String toString() {
-        return OBJ_NAME + KEY_ID + id + KEY_TITLE + title + KEY_SHORT_DESCRIPTION + shortDescription + KEY_FULL_DESCRIPTION + fullDescription + KEY_SELLER_ID + sellerId + KEY_ATTRIBUTES + attributes + KEY_AVAILABLE_ATTRIBUTES + availableAttributeCombi + KEY_ORIGINAL_PRICE + originalPrice + KEY_NEW_PRICE + newPrice + KEY_DISCOUNT + discount;
+        return OBJ_NAME + KEY_ID + id + KEY_TITLE + title + KEY_SHORT_DESCRIPTION + shortDescription + KEY_FULL_DESCRIPTION + fullDescription + KEY_SELLER_ID + sellerId + KEY_ATTRIBUTES + attributes + KEY_AVAILABLE_ATTRIBUTES + productUnits + KEY_ORIGINAL_PRICE + originalPrice + KEY_NEW_PRICE + newPrice + KEY_DISCOUNT + discount;
     }
 
     public static class ProductInstance implements InstanceCreator<Product> {
 
-        @Override
-        public Product createInstance(Type type) {
+    @Override
+    public Product createInstance(Type type) {
 
-            return new Product();
-        }
+        return new Product();
     }
+}
 }
