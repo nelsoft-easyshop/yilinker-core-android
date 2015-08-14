@@ -10,7 +10,6 @@ import android.net.NetworkInfo;
 public class DeviceHelper {
 
     public static boolean isDeviceConnected(Context context) {
-
         ConnectivityManager manager = (ConnectivityManager) context
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
 

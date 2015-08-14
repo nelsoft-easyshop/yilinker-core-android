@@ -13,14 +13,14 @@ public class HomeSellerTopSellers {
 
     private static final String OBJ_NAME = "HomeSellerTopSellers";
     private static final String KEY_USER_ID = "userId";
-    private static final String KEY_SELLER_AVATAR = "sellerAvatar";
+    private static final String KEY_SELLER_AVATAR = "image";
     private static final String KEY_SPECIALTY = "specialty";
     private static final String KEY_SELLER_NAME = "sellerName";
     private static final String KEY_TARGET = "target";
     private static final String KEY_PRODUCTS = "products";
 
     private int userId;
-    private String sellerAvatar;
+    private String image;
     private String specialty;
     private String sellerName;
     private String target;
@@ -34,12 +34,12 @@ public class HomeSellerTopSellers {
         this.userId = userId;
     }
 
-    public String getSellerAvatar() {
-        return sellerAvatar;
+    public String getImage() {
+        return image;
     }
 
-    public void setSellerAvatar(String sellerAvatar) {
-        this.sellerAvatar = sellerAvatar;
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public String getSpecialty() {
@@ -76,7 +76,7 @@ public class HomeSellerTopSellers {
 
     @Override
     public String toString() {
-        return OBJ_NAME + "[" + KEY_USER_ID + userId + "," + KEY_SELLER_AVATAR + sellerAvatar + ", " + KEY_SPECIALTY + specialty + ", " + KEY_SELLER_NAME + sellerName + ", " + KEY_TARGET + target + ", " + KEY_PRODUCTS + products + "]";
+        return OBJ_NAME + "[" + KEY_USER_ID + userId + "," + KEY_SELLER_AVATAR + image + ", " + KEY_SPECIALTY + specialty + ", " + KEY_SELLER_NAME + sellerName + ", " + KEY_TARGET + target + ", " + KEY_PRODUCTS + products + "]";
     }
 
     public static class HomeSellerTopSellersInstance implements InstanceCreator<HomeSellerTopSellers> {

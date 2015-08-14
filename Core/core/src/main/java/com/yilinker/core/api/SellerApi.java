@@ -15,6 +15,7 @@ import com.yilinker.core.model.APIResponse;
 import com.yilinker.core.model.ProductReview;
 import com.yilinker.core.model.Seller;
 import com.yilinker.core.utility.GsonUtility;
+import com.yilinker.core.utility.SocketTimeout;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,11 +26,6 @@ import org.json.JSONObject;
 public class SellerApi {
 
     public static Request getSellerDetails(final int requestCode, int id, final ResponseHandler responseHandler) {
-
-        int socketTimeout = 5000;
-        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
 
         String url = String.format("%s/%s/%s?%s=%d", APIConstants.DOMAIN, APIConstants.SELLER_API, APIConstants.SELLER_GET_DETAILS, APIConstants.SELLER_GET_DETAILS_PARAM_ID, id);
 
@@ -57,7 +53,7 @@ public class SellerApi {
             }
         });
 
-        request.setRetryPolicy(policy);
+        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
 
         return request;
 

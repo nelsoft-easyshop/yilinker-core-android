@@ -25,6 +25,7 @@ import com.yilinker.core.model.APIResponse;
 import com.yilinker.core.model.Login;
 import com.yilinker.core.model.Register;
 import com.yilinker.core.utility.GsonUtility;
+import com.yilinker.core.utility.SocketTimeout;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -39,11 +40,6 @@ import java.util.Map;
 public class UserApi {
 
     public static Request register (final int requestCode, String firstName, String lastName, String email, String password, final ResponseHandler responseHandler){
-
-        int socketTimeout = 5000;//5 seconds - change to what you want
-        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
 
         String url = String.format("%s/%s/%s",
         APIConstants.DOMAIN, APIConstants.USER_API, APIConstants.REG_API);
@@ -76,17 +72,12 @@ public class UserApi {
             }
     });
 
-        request.setRetryPolicy(policy);
+        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
 
         return request;
     }
 
     public static Request login (final int requestCode, String grantType, String email, String password, final ResponseHandler responseHandler){
-
-        int socketTimeout = 5000;//5 seconds - change to what you want
-        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
 
         String url = String.format("%s/%s/%s?%s=%s&%s=%s&%s=%s&%s=%s&%s=%s",
                 APIConstants.DOMAIN, APIConstants.USER_API, APIConstants.TOKEN_API,
@@ -96,7 +87,7 @@ public class UserApi {
                 APIConstants.LOGIN_PARAM_EMAIL, email,
                 APIConstants.LOGIN_PARAM_PASSWORD, password);
 
-        //To test server api
+//        //To test server api
 //        String url = String.format("%s?%s=%s&%s=%s&%s=%s&%s=%s&%s=%s",
 //                "http://online.api.easydeal.ph/api/v1/login",
 //                APIConstants.LOGIN_PARAM_CLIENT_ID, APIConstants.API_CLIENT_ID,
@@ -130,7 +121,7 @@ public class UserApi {
             }
         });
 
-        request.setRetryPolicy(policy);
+        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
         return request;
     }
 }

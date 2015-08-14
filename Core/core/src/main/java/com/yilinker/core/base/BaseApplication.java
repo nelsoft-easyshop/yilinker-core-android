@@ -7,6 +7,7 @@ import android.preference.PreferenceManager;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.yilinker.core.helper.FileHelper;
 
 /**
  * Created by J.Bautista
@@ -19,11 +20,20 @@ public class BaseApplication extends Application{
     private static final String KEEP_LOGGED_IN = "keepLoggedIn";
 
     private RequestQueue requestQueue;
+    private String domain;
 
     @Override
     public void onCreate() {
         super.onCreate();
 
+    }
+
+    public String getDomain() {
+        return domain;
+    }
+
+    public void setDomain(String domain) {
+        this.domain = domain;
     }
 
     public RequestQueue getRequestQueue() {
@@ -122,6 +132,7 @@ public class BaseApplication extends Application{
 
             editor.remove(ACCESS_TOKEN);
             editor.remove(REFRESH_TOKEN);
+            editor.remove(USER_FULLNAME);
 
             editor.commit();
         }
@@ -147,7 +158,7 @@ public class BaseApplication extends Application{
         if(loggedIn == true) {
             editor.putBoolean(KEEP_LOGGED_IN, true);
         } else {
-            editor.putBoolean(KEEP_LOGGED_IN, false);
+            editor.remove(KEEP_LOGGED_IN);
         }
 
         editor.commit();
