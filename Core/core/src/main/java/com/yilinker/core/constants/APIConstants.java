@@ -1,6 +1,7 @@
 package com.yilinker.core.constants;
 
 import com.yilinker.core.BuildConfig;
+import com.yilinker.core.base.BaseApplication;
 
 /**
  * Created by J.Bautista
@@ -11,7 +12,7 @@ public class APIConstants {
     public static final String ACCESS_TOKEN = "access_token";
 
     //temp
-    public static final String DOMAIN = BuildConfig.SERVER_URL;
+    public static final String DOMAIN = BaseApplication.getDomainURL();
 
     //For Product API
     public static final String PRODUCT_API = "product";
@@ -57,7 +58,7 @@ public class APIConstants {
 
     //For Home API
     public static final String HOME_API = "home";
-    public static final String HOME_GET_ITEMS = "getItems";
+    public static final String HOME_GET_ITEMS = "getData";
 
     //For User API
     public static final String USER_API = "user";

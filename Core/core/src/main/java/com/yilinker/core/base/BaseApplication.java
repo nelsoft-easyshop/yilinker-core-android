@@ -14,6 +14,8 @@ import com.yilinker.core.helper.FileHelper;
  */
 public class BaseApplication extends Application{
 
+    private static BaseApplication instance;
+
     private static final String ACCESS_TOKEN = "accessToken";
     private static final String REFRESH_TOKEN = "refreshToken";
     private static final String USER_FULLNAME = "fullname";
@@ -25,6 +27,22 @@ public class BaseApplication extends Application{
     @Override
     public void onCreate() {
         super.onCreate();
+
+        instance = this;
+
+    }
+
+    public static BaseApplication getInstance(){
+
+        return instance;
+
+    }
+
+    public static String getDomainURL(){
+
+        BaseApplication application = getInstance();
+
+        return application.getDomain();
 
     }
 
