@@ -13,14 +13,14 @@ public class ProductList {
     private static final String OBJ_NAME = "ProductList";
     private static final String KEY_PRODUCT_ITEM = "products";
 
-    private List<Product> products;
+    private List<ProductListItem> products;
     private int totalResultCount;
 
-    public List<Product> getProducts() {
+    public List<ProductListItem> getProducts() {
         return products;
     }
 
-    public void setProducts(List<Product> products) {
+    public void setProducts(List<ProductListItem> products) {
         this.products = products;
     }
 

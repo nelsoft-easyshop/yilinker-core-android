@@ -10,6 +10,7 @@ import com.yilinker.core.interfaces.ResponseHandler;
 import com.yilinker.core.model.APIResponse;
 import com.yilinker.core.model.Cart;
 import com.yilinker.core.model.FilterGroup;
+import com.yilinker.core.model.Product;
 import com.yilinker.core.model.ProductList;
 import com.yilinker.core.utility.GsonUtility;
 
@@ -68,11 +69,11 @@ public class ProductListApi {
             public void onResponse(JSONObject response) {
 
                 Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
-                ProductList obj = gson.fromJson(response.toString(), ProductList.class);
+                APIResponse<ProductList> apiResponse = gson.fromJson(response.toString(), APIResponse.class);
 
-//                Gson gson = GsonUtility.createGsonBuilder(ProductList.class, new ProductList.ProductListInstance()).create();
-//                String jsonString = new Gson().toJson(apiResponse.getData());
-                //Cart obj = gson.fromJson(jsonString, Cart.class);
+                gson = GsonUtility.createGsonBuilder(Product.class, new ProductList.ProductListInstance()).create();
+                String jsonString = new Gson().toJson(apiResponse.getData());
+                ProductList obj = gson.fromJson(jsonString, ProductList.class);
 
                 responseHandler.onSuccess(requestCode, obj);
 

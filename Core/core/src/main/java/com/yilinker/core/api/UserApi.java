@@ -79,8 +79,8 @@ public class UserApi {
 
     public static Request login (final int requestCode, String grantType, String email, String password, final ResponseHandler responseHandler){
 
-        String url = String.format("%s/%s/%s?%s=%s&%s=%s&%s=%s&%s=%s&%s=%s",
-                APIConstants.DOMAIN, APIConstants.USER_API, APIConstants.TOKEN_API,
+        String url = String.format("%s/%s?%s=%s&%s=%s&%s=%s&%s=%s&%s=%s",
+                APIConstants.DOMAIN, APIConstants.LOGIN_API,
                 APIConstants.LOGIN_PARAM_CLIENT_ID, APIConstants.API_CLIENT_ID,
                 APIConstants.LOGIN_PARAM_CLIENT_SECRET, APIConstants.API_CLIENT_SECRET,
                 APIConstants.LOGIN_PARAM_GRANT_TYPE, grantType,

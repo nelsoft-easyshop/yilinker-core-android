@@ -50,7 +50,6 @@ public class ProductApi {
                 gson = GsonUtility.createGsonBuilder(Product.class, new Product.ProductInstance()).create();
                 String jsonString = new Gson().toJson(apiResponse.getData());
                 Product obj = gson.fromJson(jsonString, Product.class);
-
                 responseHandler.onSuccess(requestCode, obj);
 
 
