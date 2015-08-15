@@ -14,11 +14,11 @@ public class AttributeCombination {
     private static final String OBJ_NAME = "AttributeCombination";
     private static final String KEY_COMBINATION = "combination";
     private static final String KEY_QUANTITY = "quantity";
-    private static final String KEY_IMAGES = "images";
+    private static final String KEY_IMAGES = "imageIds";
 
     private int[] combination;
     private int quantity;
-    private List<String> images = new ArrayList<String>();
+    private List<String> imageIds = new ArrayList<String>();
 
 
     public int[] getCombination() {
@@ -38,16 +38,16 @@ public class AttributeCombination {
     }
 
     public List<String> getImages() {
-        return images;
+        return imageIds;
     }
 
     public void setImages(List<String> images) {
-        this.images = images;
+        this.imageIds = imageIds;
     }
 
     @Override
     public String toString() {
-        return OBJ_NAME + "[" + KEY_COMBINATION + combination + ", " + KEY_QUANTITY + quantity + ", " + KEY_IMAGES + images + "]";
+        return OBJ_NAME + "[" + KEY_COMBINATION + combination + ", " + KEY_QUANTITY + quantity + ", " + KEY_IMAGES + imageIds + "]";
     }
 
     public static class AttributeCombinationInstance implements InstanceCreator<AttributeCombination>{
