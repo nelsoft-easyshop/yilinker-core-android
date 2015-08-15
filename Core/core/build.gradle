@@ -3,6 +3,8 @@ apply plugin: 'com.android.library'
 android {
     compileSdkVersion 22
     buildToolsVersion "22.0.1"
+    defaultPublishConfig "debug"
+
 
     defaultConfig {
         minSdkVersion 17
@@ -11,9 +13,21 @@ android {
         versionName "1.0"
     }
     buildTypes {
+        debug {
+            buildConfigField "String", "SERVER_URL", '"http://demo5885209.mockable.io/api/v1"'
+        }
         release {
+            buildConfigField "String", "SERVER_URL", '"http://someurl/"'
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        qarelease {
+            debuggable true
+            jniDebuggable false
+            renderscriptDebuggable false
+            minifyEnabled false
+            zipAlignEnabled true
+            buildConfigField "String", "SERVER_URL", '"http://demo5885209.mockable.io/api/v1"'
         }
     }
 }
@@ -24,4 +38,7 @@ dependencies {
     compile 'com.mcxiaoke.volley:library:1.0.18'
     compile 'com.android.support:recyclerview-v7:22.2.0'
     compile 'de.hdodenhof:circleimageview:1.3.0'
+    compile 'com.google.code.gson:gson:2.3.1'
+    compile 'com.daimajia.swipelayout:library:1.2.0@aar'
+    compile 'com.dlazaro66.qrcodereaderview:qrcodereaderview:1.0.0'
 }

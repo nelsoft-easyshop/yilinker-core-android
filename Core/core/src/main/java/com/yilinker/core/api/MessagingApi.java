@@ -5,6 +5,6 @@ package com.yilinker.core.api;
  *
  * Includes methods for api requests and response parsers related to messaging
  */
-public class Messaging {
+public class MessagingApi {
 
 }
