@@ -27,14 +27,24 @@ public class Product {
     private String productName;
     private String title;
     private String image;
+    private List<ProductImages> images;
     private String shortDescription;
     private String fullDescription;
+
     private int sellerId;
     private List<ProductGroupAttribute> attributes;
     private List<AttributeCombination> productUnits;
     private double originalPrice;
     private double newPrice;
     private double discount;
+
+    public List<ProductImages> getImages() {
+        return images;
+    }
+
+    public void setImages(List<ProductImages> images) {
+        this.images = images;
+    }
 
     public int getId() {
         return id;
