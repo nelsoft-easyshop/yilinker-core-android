@@ -83,4 +83,18 @@ public class APIConstants {
     public static final String API_CLIENT_SECRET = "317eq8nohry84ooc0o8woo8000c0k844c4cggws84g80scwwog";
     public static final String API_CONNECTION_PROBLEM = "Problem connecting to the server. Try again later.";
 
+    //Store Address
+    public static final String STORE_ADDRESS = "storeAddress";
+    public static final String STORE_ADDRESS_ADD = "addStoreAddress";
+    public static final String ADDRESS_TITLE = "addressTitle";
+    public static final String ADDRESS_LINE1 = "addressLine1";
+    public static final String ADDRESS_LINE2 = "addressLine2";
+    public static final String ADDRESS_ADDITIONAL_INFO = "additionalInfo";
+
+    //Mobile Verification
+    public static final String AUTH = "auth/sms";
+    public static final String GET_CODE = "getCode";
+    public static final String VERIFY = "verify";
+    public static final String VERIFY_PARAM_VERIFICATION_CODE = "code";
+
 }
