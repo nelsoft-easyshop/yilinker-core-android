@@ -79,6 +79,11 @@ public class UserApi {
 
     public static Request login (final int requestCode, String grantType, String email, String password, final ResponseHandler responseHandler){
 
+        int socketTimeout = 5000;//5 seconds - change to what you want
+        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+
         String url = String.format("%s/%s?%s=%s&%s=%s&%s=%s&%s=%s&%s=%s",
                 APIConstants.DOMAIN, APIConstants.LOGIN_API,
                 APIConstants.LOGIN_PARAM_CLIENT_ID, APIConstants.API_CLIENT_ID,

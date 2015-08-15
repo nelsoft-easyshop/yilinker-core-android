@@ -188,7 +188,7 @@ public class BaseApplication extends Application{
         SharedPreferences pref = PreferenceManager
                 .getDefaultSharedPreferences(getApplicationContext());
 
-        return pref.contains(KEEP_LOGGED_IN);
+        return pref.getBoolean(KEEP_LOGGED_IN, false);
     }
 
 }
