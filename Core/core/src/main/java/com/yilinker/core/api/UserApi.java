@@ -79,29 +79,18 @@ public class UserApi {
 
     public static Request login (final int requestCode, String grantType, String email, String password, final ResponseHandler responseHandler){
 
-        int socketTimeout = 5000;//5 seconds - change to what you want
-        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        String url = String.format("%s/%s",
+                APIConstants.DOMAIN,
+                APIConstants.LOGIN_API);
 
-        String url = String.format("%s/%s?%s=%s&%s=%s&%s=%s&%s=%s&%s=%s",
-                APIConstants.DOMAIN, APIConstants.LOGIN_API,
-                APIConstants.LOGIN_PARAM_CLIENT_ID, APIConstants.API_CLIENT_ID,
-                APIConstants.LOGIN_PARAM_CLIENT_SECRET, APIConstants.API_CLIENT_SECRET,
-                APIConstants.LOGIN_PARAM_GRANT_TYPE, grantType,
-                APIConstants.LOGIN_PARAM_EMAIL, email,
-                APIConstants.LOGIN_PARAM_PASSWORD, password);
+        Map<String,String> params = new HashMap<String,String>();
+        params.put(APIConstants.LOGIN_PARAM_CLIENT_ID, APIConstants.API_CLIENT_ID);
+        params.put(APIConstants.LOGIN_PARAM_CLIENT_SECRET, APIConstants.API_CLIENT_SECRET);
+        params.put(APIConstants.LOGIN_PARAM_GRANT_TYPE, grantType);
+        params.put(APIConstants.LOGIN_PARAM_EMAIL, email);
+        params.put(APIConstants.LOGIN_PARAM_PASSWORD, password);
 
-//        //To test server api
-//        String url = String.format("%s?%s=%s&%s=%s&%s=%s&%s=%s&%s=%s",
-//                "http://online.api.easydeal.ph/api/v1/login",
-//                APIConstants.LOGIN_PARAM_CLIENT_ID, APIConstants.API_CLIENT_ID,
-//                APIConstants.LOGIN_PARAM_CLIENT_SECRET, APIConstants.API_CLIENT_SECRET,
-//                APIConstants.LOGIN_PARAM_GRANT_TYPE, grantType,
-//                APIConstants.LOGIN_PARAM_EMAIL, email,
-//                APIConstants.LOGIN_PARAM_PASSWORD, password);
-
-        Request request = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
+        VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
 
