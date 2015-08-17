@@ -15,7 +15,7 @@ public class APIConstants {
     public static final String UPLOAD_TOKEN = "upload_token";
 
     //temp
-    public static final String DOMAIN = BaseApplication.getDomainURL();
+    public static final String DOMAIN = "http://merchant.online.api.easydeal.ph/api/v1";
 
     //For Product API
     public static final String PRODUCT_API = "product";
@@ -121,5 +121,16 @@ public class APIConstants {
     public static final String GET_CODE = "getCode";
     public static final String VERIFY = "verify";
     public static final String VERIFY_PARAM_VERIFICATION_CODE = "code";
+
+    //Update User Info
+    public static final String UPDATE_USER_API = "user";
+    public static final String USER_UPDATE_API = "update";
+    public static final String PROFILE_PHOTO_PARAM = "profilePhoto";
+    public static final String COVER_PHOTO_PARAM = "coverPhoto";
+    public static final String STORE_NAME_PARAM = "storeName";
+    public static final String STORE_DESCRIPTION_PARAM = "storeDescription";
+    public static final String STREET_ADDRESS_PARAM = "streetAddress";
+
+
 
 }
