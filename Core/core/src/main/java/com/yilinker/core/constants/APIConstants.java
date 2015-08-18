@@ -58,6 +58,7 @@ public class APIConstants {
     public static final String CART_UPDATE_DETAILS = "updateCartDetails";
     public static final String CART_UNIT_ID = "unitId";
     public static final String CART_QUANTITY = "quantity";
+    public static final String WISH_LIST_GET_ITEMS = "wishlist";
 
     //For Home API
     public static final String HOME_API = "home";
