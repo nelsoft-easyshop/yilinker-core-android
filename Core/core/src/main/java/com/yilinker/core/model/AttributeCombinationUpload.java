@@ -20,6 +20,7 @@ public class AttributeCombinationUpload extends AttributeCombination {
     private List<String> combinationList, images;
     private int quantity;
     private double retailPrice, discountedPrice;
+    private String sku;
 
 
     public List<String> getCombinationList() {
@@ -44,6 +45,34 @@ public class AttributeCombinationUpload extends AttributeCombination {
 
     public void setDiscountedPrice(double discountedPrice) {
         this.discountedPrice = discountedPrice;
+    }
+
+    @Override
+    public List<String> getImages() {
+        return images;
+    }
+
+    @Override
+    public void setImages(List<String> images) {
+        this.images = images;
+    }
+
+    @Override
+    public int getQuantity() {
+        return quantity;
+    }
+
+    @Override
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public String getSku() {
+        return sku;
+    }
+
+    public void setSku(String sku) {
+        this.sku = sku;
     }
 
     public static class AttributeCombinationUploadInstance implements InstanceCreator<AttributeCombinationUpload> {
