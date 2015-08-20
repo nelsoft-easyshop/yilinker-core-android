@@ -84,7 +84,7 @@ public class APIConstants {
 
     //For Product Upload API
     public static final String PRODUCT_UPLOAD_API="upload";
-    public static final String PRODUCT_UPLOAD_PARAM_IMAGES = "images";
+    public static final String PRODUCT_UPLOAD_PARAM_IMAGES = "images[]";
     public static final String PRODUCT_UPLOAD_PARAM_CATEGORY = "productCategory";
     public static final String PRODUCT_UPLOAD_PARAM_BRAND = "brand";
     public static final String PRODUCT_UPLOAD_PARAM_TITLE = "title";
@@ -102,6 +102,16 @@ public class APIConstants {
     public static final String PRODUCT_UPLOAD_PARAM_DISCOUNTED_PRICE = "discountedPrice";
     public static final String PRODUCT_UPLOAD_PARAM_PRODUCT_PROPERTIES = "productProperties";
     public static final String PRODUCT_UPLOAD_PARAM_CUSTOM_BRAND = "customBrand";
+
+    public static final String PRODUCT_UPLOAD_GET_BRAND = "getBrands";
+    public static final String PRODUCT_UPLOAD_GET_BRAND_PARAM_BRAND_KEYWORD = "brandKeyword";
+
+    public static final String PRODUCT_UPLOAD_GET_CATEGORIES = "getCategories";
+    public static final String PRODUCT_UPLOAD_GET_CATEGORIES_PARAM_PARENT_ID = "parentId";
+
+    public static final String PRODUCT_UPLOAD_GET_CONDITIONS = "getProductConditions";
+
+
 
     //API Credentials
     public static final String API_CLIENT_ID = "1_167rxzqvid8g8swggwokcoswococscocc8ck44wo0g88owgkcc";
