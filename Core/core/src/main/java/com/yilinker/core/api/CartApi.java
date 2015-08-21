@@ -1,9 +1,7 @@
 package com.yilinker.core.api;
 
-import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
-import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
@@ -11,12 +9,10 @@ import com.yilinker.core.constants.APIConstants;
 import com.yilinker.core.helper.VolleyPostHelper;
 import com.yilinker.core.interfaces.ResponseHandler;
 import com.yilinker.core.model.APIResponse;
-import com.yilinker.core.model.Cart;
-import com.yilinker.core.model.Register;
+import com.yilinker.core.model.buyer.Cart;
 import com.yilinker.core.utility.GsonUtility;
 import com.yilinker.core.utility.SocketTimeout;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -29,8 +25,41 @@ public class CartApi {
 
     public static Request getCart(final int requestCode, String token, final ResponseHandler responseHandler) {
 
-        String url = String.format("%s/%s/%s?%s=%s",
-                APIConstants.DOMAIN, APIConstants.CART_API, APIConstants.CART_GET_ITEMS,
+
+        //POST
+
+//        String url = String.format("%s/%s/%s",
+//                APIConstants.DOMAIN, APIConstants.CART_API, APIConstants.CART_GET_ITEMS);
+
+//        Map<String,String> params = new HashMap<>();
+//        params.put(APIConstants.ACCESS_TOKEN, token);
+//
+//        VolleyPostHelper requestGetCart = new VolleyPostHelper(Request.Method.POST,url, params, new Response.Listener<JSONObject>() {
+//            @Override
+//            public void onResponse(JSONObject response) {
+//
+//                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+//                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+//
+//                gson = GsonUtility.createGsonBuilder(Cart.class, new Cart.CartInstance()).create();
+//                String jsonString = new Gson().toJson(apiResponse.getData());
+//                Cart obj = gson.fromJson(jsonString, Cart.class);
+//
+//                responseHandler.onSuccess(requestCode, obj);
+//
+//            }
+//        }, new Response.ErrorListener() {
+//
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+//            }
+//        });
+
+        //GET
+
+        String url = String.format("%s/%s/%s/%s?%s=%s",
+                APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.CART_API, APIConstants.CART_GET_ITEMS,
                 APIConstants.ACCESS_TOKEN, token);
 
         Request requestGetCart = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
@@ -54,6 +83,7 @@ public class CartApi {
                 responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
             }
         });
+
 
         requestGetCart.setRetryPolicy(SocketTimeout.getRetryPolicy());
 

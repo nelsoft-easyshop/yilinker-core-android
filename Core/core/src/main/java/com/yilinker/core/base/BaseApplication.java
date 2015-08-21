@@ -20,6 +20,10 @@ public class BaseApplication extends Application{
     private static final String REFRESH_TOKEN = "refreshToken";
     private static final String USER_FULLNAME = "fullname";
     private static final String KEEP_LOGGED_IN = "keepLoggedIn";
+    private static final String DELIVERY_ADDRESS = "deliveryAddress";
+    private static final String DELIVERY_TITLE = "deliveryTitle";
+    private static final String DEFAULT_PAYMENT_OPTION = "defaultPaymentOption";
+    private static final String SAVE_PAYMENT_OPTION = "savePaymentOption";
 
     private RequestQueue requestQueue;
     private String domain;
@@ -189,6 +193,86 @@ public class BaseApplication extends Application{
                 .getDefaultSharedPreferences(getApplicationContext());
 
         return pref.getBoolean(KEEP_LOGGED_IN, false);
+    }
+
+    public void saveDeliveryAddress(String deliveryAddress, String deliveryTitle){
+
+        SharedPreferences pref = PreferenceManager
+                .getDefaultSharedPreferences(getApplicationContext());
+
+        SharedPreferences.Editor editor = pref.edit();
+
+        editor.putString(DELIVERY_ADDRESS, deliveryAddress);
+        editor.putString(DELIVERY_TITLE, deliveryTitle);
+
+        editor.commit();
+    }
+
+    public String getDeliveryAddress(){
+
+        SharedPreferences pref = PreferenceManager
+                .getDefaultSharedPreferences(getApplicationContext());
+
+        return pref.getString(DELIVERY_ADDRESS, null);
+    }
+
+    public String getDeliveryTitle(){
+
+        SharedPreferences pref = PreferenceManager
+                .getDefaultSharedPreferences(getApplicationContext());
+
+        return pref.getString(DELIVERY_TITLE, null);
+
+    }
+
+    public void savePaymentOption(){
+        SharedPreferences pref = PreferenceManager
+                .getDefaultSharedPreferences(getApplicationContext());
+
+        SharedPreferences.Editor editor = pref.edit();
+
+        editor.putBoolean(SAVE_PAYMENT_OPTION, true);
+
+        editor.commit();
+    }
+
+    public void setDefaultPaymentOption(String defaultPaymentOption){
+
+        SharedPreferences pref = PreferenceManager
+                .getDefaultSharedPreferences(getApplicationContext());
+
+        SharedPreferences.Editor editor = pref.edit();
+
+        editor.putString(DEFAULT_PAYMENT_OPTION, defaultPaymentOption);
+
+        editor.commit();
+    }
+
+    public void deletePaymentOption(){
+        SharedPreferences pref = PreferenceManager
+                .getDefaultSharedPreferences(getApplicationContext());
+
+        SharedPreferences.Editor editor = pref.edit();
+
+        editor.remove(DEFAULT_PAYMENT_OPTION);
+
+        editor.commit();
+    }
+
+    public String getPaymentOption(){
+
+        SharedPreferences pref = PreferenceManager
+                .getDefaultSharedPreferences(getApplicationContext());
+
+        return pref.getString(DEFAULT_PAYMENT_OPTION, null);
+    }
+
+    public boolean isPaymentOptionSaved(){
+
+        SharedPreferences pref = PreferenceManager
+                .getDefaultSharedPreferences(getApplicationContext());
+
+        return pref.contains(SAVE_PAYMENT_OPTION);
     }
 
 }
