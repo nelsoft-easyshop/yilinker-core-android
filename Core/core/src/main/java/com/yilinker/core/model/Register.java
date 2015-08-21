@@ -35,7 +35,6 @@ public class Register {
 
     public String toString(){
         return OBJ_NAME + "[" + KEY_IS_SUCCESS + isSuccessful + ", " + KEY_MESSAGE + message + "]";
-//          return OBJ_NAME + "[" + KEY_AUTHTOKEN + authToken + ", " + KEY_REFRESHTOKEN +  refreshToken + "]";
     }
 
     public static class RegisterInstance implements InstanceCreator<Register> {
