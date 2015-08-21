@@ -9,13 +9,11 @@ public class APIConstants {
 
     //access token
     public static final String ACCESS_TOKEN = "access_token";
-
-
     //upload token
     public static final String UPLOAD_TOKEN = "upload_token";
 
-    //temp
     public static final String DOMAIN = BaseApplication.getDomainURL();
+    public static final String AUTH_API = "auth";
 
     //For Product API
     public static final String PRODUCT_API = "product";
@@ -118,14 +116,23 @@ public class APIConstants {
     public static final String API_CLIENT_ID = "1_167rxzqvid8g8swggwokcoswococscocc8ck44wo0g88owgkcc";
     public static final String API_CLIENT_SECRET = "317eq8nohry84ooc0o8woo8000c0k844c4cggws84g80scwwog";
     public static final String API_CONNECTION_PROBLEM = "Problem connecting to the server. Try again later.";
+    public static final String API_CONNECTION_AUTH_ERROR = "OAuth Error";
+    public static final String API_GRANT_TYPE_REFRESH_TOKEN = "refresh_token";
 
-    //Store Address
+    //Address
     public static final String STORE_ADDRESS = "storeAddress";
     public static final String STORE_ADDRESS_ADD = "addStoreAddress";
-    public static final String ADDRESS_TITLE = "addressTitle";
-    public static final String ADDRESS_LINE1 = "addressLine1";
-    public static final String ADDRESS_LINE2 = "addressLine2";
-    public static final String ADDRESS_ADDITIONAL_INFO = "additionalInfo";
+    public static final String ADDRESS_PARAMS_TITLE = "addressTitle";
+    public static final String ADDRESS_PARAMS_UNIT_NUMBER = "unitNumber";
+    public static final String ADDRESS_PARAMS_BUILDING_NAME = "buildingName";
+    public static final String ADDRESS_PARAMS_STREET_NUMBER = "streetNumber";
+    public static final String ADDRESS_PARAMS_STREET_NAME = "streetName";
+    public static final String ADDRESS_PARAMS_SUBDIVISION = "subdivision";
+    public static final String ADDRESS_PARAMS_BARANGAY = "barangay";
+    public static final String ADDRESS_PARAMS_CITY = "city";
+    public static final String ADDRESS_PARAMS_PROVINCE = "province";
+    public static final String ADDRESS_PARAMS_ZIPCODE = "zipCode";
+    public static final String ADDRESS_PARAMS_ADDITIONAL_INFO = "additionalInfo";
 
     //Mobile Verification
     public static final String AUTH = "auth/sms";
@@ -142,6 +149,21 @@ public class APIConstants {
     public static final String STORE_DESCRIPTION_PARAM = "storeDescription";
     public static final String STREET_ADDRESS_PARAM = "streetAddress";
 
+
+    //Checkout Buyer
+
+    public static final String CHECKOUT_PAYMENT_API = "payment";
+    public static final String CHECKOUT_PAYMENT_COD = "doPaymentCod";
+    public static final String CHECKOUT_PAYMENT_PESOPAY = "doPesoPay";
+    public static final String CHECKOUT_PAYMENT_OVERVIEW = "checkoutOverview";
+    public static final String CHECKOUT_PARAMS_TRANSACTION_ID = "transactionId";
+
+    //Checkout Address
+
+    public static final String ADDRESS_GET_ADDRESSES = "getAddresses";
+    public static final String ADDRESS_ADD_ADDRESS = "addAddress";
+    public static final String ADDRESS_SET_ADDRESS = "setAddress";
+    public static final String ADDRESS_PARAM_ID = "address_id";
 
 
 }
