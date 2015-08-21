@@ -102,7 +102,6 @@ public class UserApi {
                 } else {
                     responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
                 }
-
             }
         });
 
