@@ -3,7 +3,6 @@ package com.yilinker.core.api;
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
-import com.android.volley.NetworkResponse;
 import com.android.volley.NoConnectionError;
 import com.android.volley.ParseError;
 import com.android.volley.Request;
@@ -13,9 +12,9 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
 import com.yilinker.core.constants.APIConstants;
+import com.yilinker.core.helper.FileUploadRequest;
 import com.yilinker.core.helper.MultiPartRequest;
 import com.yilinker.core.helper.VolleyPostHelper;
 import com.yilinker.core.interfaces.ResponseHandler;
@@ -26,9 +25,10 @@ import com.yilinker.core.model.ProductCondition;
 import com.yilinker.core.model.ProductUpload;
 import com.yilinker.core.utility.GsonUtility;
 
+import org.apache.http.entity.mime.content.StringBody;
 import org.json.JSONObject;
 
-import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -49,42 +49,38 @@ public class ProductUploadApi {
         Map<String,String> params = new HashMap<String,String>();
         params.put(APIConstants.ACCESS_TOKEN, accessToken);
         params.put(APIConstants.PRODUCT_UPLOAD_PARAM_CATEGORY, String.valueOf(productUpload.getCategoryId()));
-//        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_CATEGORY, productUpload.getCategoryId());
         params.put(APIConstants.PRODUCT_UPLOAD_PARAM_BRAND,String.valueOf(productUpload.getBrandId()));
-//        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_BRAND,productUpload.getBrandId());
         params.put(APIConstants.PRODUCT_UPLOAD_PARAM_TITLE,productUpload.getTitle());
         params.put(APIConstants.PRODUCT_UPLOAD_PARAM_DESCRIPTION,productUpload.getFullDescription());
         params.put(APIConstants.PRODUCT_UPLOAD_PARAM_SHORT_DESCRIPTION,productUpload.getShortDescription());
         params.put(APIConstants.PRODUCT_UPLOAD_PARAM_CONDITION,String.valueOf(productUpload.getConditionId()));
-//        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_CONDITION,productUpload.getConditionId());
         params.put(APIConstants.PRODUCT_UPLOAD_PARAM_ISFREESHIPPING,String.valueOf(false));
-//        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_ISFREESHIPPING,false);
         params.put(APIConstants.PRODUCT_UPLOAD_PARAM_LENGTH,String.valueOf(productUpload.getLength()));
         params.put(APIConstants.PRODUCT_UPLOAD_PARAM_WEIGHT,String.valueOf(productUpload.getWeight()));
         params.put(APIConstants.PRODUCT_UPLOAD_PARAM_HEIGHT,String.valueOf(productUpload.getHeight()));
         params.put(APIConstants.PRODUCT_UPLOAD_PARAM_WIDTH,String.valueOf(productUpload.getWidth()));
-//        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_LENGTH,productUpload.getLength());
-//        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_WEIGHT,productUpload.getWeight());
-//        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_HEIGHT,productUpload.getHeight());
-//        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_WIDTH,productUpload.getWidth());
         params.put(APIConstants.PRODUCT_UPLOAD_PARAM_CUSTOM_BRAND,productUpload.getCustomBrand());
         params.put(APIConstants.PRODUCT_UPLOAD_PARAM_QUANTITY,String.valueOf(productUpload.getQuantity()));
-//        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_QUANTITY,productUpload.getQuantity());
         params.put(APIConstants.PRODUCT_UPLOAD_PARAM_PRICE,String.valueOf(productUpload.getPrice()));
         params.put(APIConstants.PRODUCT_UPLOAD_PARAM_DISCOUNTED_PRICE,String.valueOf(productUpload.getDiscountedPrice()));
-//        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_PRICE,productUpload.getPrice());
-//        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_DISCOUNTED_PRICE,productUpload.getDiscountedPrice());
         params.put(APIConstants.PRODUCT_UPLOAD_PARAM_SKU,productUpload.getSku());
-        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_PRODUCT_PROPERTIES,productUpload.getProductProperties().toString());
-//        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_PRODUCT_PROPERTIES,productUpload.getProductProperties());
         params.put(APIConstants.PRODUCT_UPLOAD_PARAM_IMAGES, new Gson().toJson(productUpload.getImages()));
+        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_PRODUCT_PROPERTIES,productUpload.getProductProperties().toString());
+
 
         JSONObject jsonObject = new JSONObject(params);
         String stringJSON = jsonObject.toString();
         System.out.print(stringJSON);
 
+        StringBuilder stringBuilder = new StringBuilder();
 
-        MultiPartRequest multiPartRequest = new MultiPartRequest(url,productUpload,APIResponse.class,params,new Response.Listener<JSONObject>() {
+        for(String key:params.keySet()) {
+            stringBuilder.append(key+"="+params.get(key)+"&");
+        }
+
+        url = String.format("%s?%s",url,stringBuilder.toString());
+
+        MultiPartRequest multiPartRequest = new MultiPartRequest(url,productUpload, APIResponse.class,params, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
 
@@ -114,37 +110,7 @@ public class ProductUploadApi {
             }
         });
 
-//        VolleyPostHelper requestUploadProduct = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
-//            @Override
-//            public void onResponse(JSONObject response) {
-//
-//                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
-//                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
-//
-//                responseHandler.onSuccess(requestCode, apiResponse);
-//
-//            }
-//        }, new Response.ErrorListener() {
-//
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                String message = "An error occured.";
-//                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-//                    message = "No connection available.";
-//                } else if (error instanceof AuthFailureError) {
-//                    message = "Authentication Failure.";
-//                } else if (error instanceof ServerError) {
-//                    message = "Server error.";
-//                } else if (error instanceof NetworkError) {
-//                    message = "Network Error.";
-//                } else if (error instanceof ParseError) {
-//                    message = "Parse error.";
-//                }
-//                responseHandler.onFailed(requestCode,message);
-//            }
-//        });
-
-//        multiPartRequest.setRetryPolicy(policy);
+        multiPartRequest.setRetryPolicy(policy);
 
         return multiPartRequest;
     }

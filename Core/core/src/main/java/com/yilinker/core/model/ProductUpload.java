@@ -200,42 +200,37 @@ public class ProductUpload {
 
         final JSONArray arrayProductProperties = new JSONArray();
 
-        new AsyncTask<Void, Void, Void>() {
+        try {
+            for (int i = 0; i < attributeCombinationUploadList.size(); i++) {
 
-            @Override
-            protected Void doInBackground(Void... params) {
-                try {
-                    for (int i = 0; i < attributeCombinationUploadList.size(); i++) {
+                AttributeCombinationUpload attributeCombinationUpload = attributeCombinationUploadList.get(i);
 
-                        AttributeCombinationUpload attributeCombinationUpload = attributeCombinationUploadList.get(i);
+                JSONObject jsonProductProperty = new JSONObject();
+                JSONArray arrayAttributes = new JSONArray();
+                for (int j = 0; j < productGroupAttributeList.size(); j++) {
 
-                        JSONObject jsonProductProperty = new JSONObject();
-                        JSONArray arrayAttributes = new JSONArray();
-                        for (int j = 0; j < productGroupAttributeList.size(); j++) {
+                    JSONObject jsonAttribute = new JSONObject();
 
-                            JSONObject jsonAttribute = new JSONObject();
+                    jsonAttribute.put("name", productGroupAttributeList.get(j).getName());
+                    jsonAttribute.put("value", attributeCombinationUpload.getCombinationList().get(j));
+                    arrayAttributes.put(jsonAttribute);
 
-                            jsonAttribute.put("name", productGroupAttributeList.get(j).getName());
-                            jsonAttribute.put("value", attributeCombinationUpload.getCombinationList().get(j));
-                            arrayAttributes.put(jsonAttribute);
-
-                        }
-
-                        jsonProductProperty.put("attribute", arrayAttributes);
-                        jsonProductProperty.put("price", attributeCombinationUpload.getRetailPrice());
-                        jsonProductProperty.put("discountedPrice", attributeCombinationUpload.getDiscountedPrice());
-                        jsonProductProperty.put("sku",attributeCombinationUpload.getSku());
-                        jsonProductProperty.put("images", attributeCombinationUpload.getImages());
-
-                        arrayProductProperties.put(jsonProductProperty);
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
                 }
-                return null;
+
+                jsonProductProperty.put("attribute", arrayAttributes);
+                jsonProductProperty.put("price", attributeCombinationUpload.getRetailPrice());
+                jsonProductProperty.put("discountedPrice", attributeCombinationUpload.getDiscountedPrice());
+                jsonProductProperty.put("sku",attributeCombinationUpload.getSku());
+                jsonProductProperty.put("images", attributeCombinationUpload.getImages());
+                jsonProductProperty.put("quantity",attributeCombinationUpload.getQuantity());
+
+                arrayProductProperties.put(jsonProductProperty);
             }
-        }.execute();
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
 
         return arrayProductProperties;
     }

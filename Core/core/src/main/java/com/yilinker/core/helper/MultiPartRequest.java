@@ -22,6 +22,8 @@ import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -101,6 +103,7 @@ public class MultiPartRequest extends Request {
         MultipartEntityBuilder builder = MultipartEntityBuilder.create();
         for(String image:productUpload.getImages()) {
             builder.addBinaryBody(KEY_PICTURE, new File(uploadDirectory,image),ContentType.create("image/jpeg"),image);
+//            builder.addPart(KEY_PICTURE, new FileBody(new File(uploadDirectory,image),ContentType.create("image/jpeg"),image));
         }
 
         if(productUpload.getAttributeCombinationUploadList().size() !=  0){
@@ -110,7 +113,7 @@ public class MultiPartRequest extends Request {
                 for(String image2:attributeCombinationUpload.getImages()){
 
                     builder.addBinaryBody(KEY_PICTURE, new File(uploadDirectory,image2),ContentType.create("image/jpeg"),image2);
-
+//                    builder.addPart(KEY_PICTURE, new FileBody(new File(uploadDirectory,image2),ContentType.create("image/jpeg"),image2));
                 }
 
             }
@@ -118,6 +121,11 @@ public class MultiPartRequest extends Request {
 
         for (Map.Entry<String, String> entry : mHeaders.entrySet()) {
             builder.addTextBody(entry.getKey(), entry.getValue());
+//            try {
+//                builder.addPart(entry.getKey(),new StringBody(entry.getValue()));
+//            } catch (UnsupportedEncodingException e) {
+//                e.printStackTrace();
+//            }
         }
 
         builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
@@ -128,16 +136,16 @@ public class MultiPartRequest extends Request {
     @Override
     public Map<String, String> getHeaders() throws AuthFailureError {
 
-        mHeaders.put("Content-Type", "multipart/form-data; boundary=" + "BOUNDARY"  + "; charset=utf-8");
-//        mHeaders.put("Content-Type","multipart/form-data; charset=utf-8");
-//        return mHeaders != null ? mHeaders : super.getHeaders();
-        return mHeaders;
+//        mHeaders.put("Content-Type", "multipart/form-data; boundary=" + "BOUNDARY"  + "; charset=utf-8");
+        mHeaders.put("Content-Type","multipart/form-data; charset=utf-8");
+        return mHeaders != null ? mHeaders : super.getHeaders();
+//        return mHeaders;
     }
 
     @Override
     public String getBodyContentType() {
-//        return mHttpEntity.getContentType().getValue();
-        return "multipart/form-data; boundary=" +  "BOUNDARY" + "; charset=utf-8";
+        return mHttpEntity.getContentType().getValue();
+//        return "multipart/form-data; boundary=" +  "BOUNDARY" + "; charset=utf-8";
     }
 
     @Override
@@ -153,19 +161,15 @@ public class MultiPartRequest extends Request {
 
     @Override
     protected Response parseNetworkResponse(NetworkResponse response) {
-        String json;
         try {
-            json = new String(response.data, HttpHeaderParser.parseCharset(response.headers));
+            String jsonString = new String(response.data,
+                    HttpHeaderParser.parseCharset(response.headers));
+            return Response.success(new JSONObject(jsonString),
+                    HttpHeaderParser.parseCacheHeaders(response));
         } catch (UnsupportedEncodingException e) {
-            Log.e(TAG, String.format("Encoding problem parsing API response. NetworkResponse:%s", response.toString()), e);
             return Response.error(new ParseError(e));
-        }
-        try {
-            return Response.success(gson.fromJson(json, mClass), HttpHeaderParser.parseCacheHeaders(response));
-        } catch (JsonSyntaxException e) {
-            Log.e(TAG, String.format("Couldn't API parse JSON response. NetworkResponse:%s", response.toString()), e);
-            Log.e(TAG, String.format("Couldn't API parse JSON response. Json dump: %s", json));
-            return Response.error(new ParseError(e));
+        } catch (JSONException je) {
+            return Response.error(new ParseError(je));
         }
     }
 
