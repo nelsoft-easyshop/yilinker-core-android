@@ -1,7 +1,6 @@
 package com.yilinker.core.helper;
 
 import android.os.Environment;
-import android.util.Log;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
@@ -11,17 +10,13 @@ import com.android.volley.Response;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
-import com.yilinker.core.model.AttributeCombinationUpload;
-import com.yilinker.core.model.ProductUpload;
+import com.yilinker.core.model.seller.ProductUpload;
+import com.yilinker.core.model.seller.AttributeCombinationUpload;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.HttpMultipartMode;
-import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
-import org.apache.http.entity.mime.content.FileBody;
-import org.apache.http.entity.mime.content.StringBody;
 import org.json.JSONException;
 import org.json.JSONObject;
 
