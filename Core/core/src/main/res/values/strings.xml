@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Core</string>
+
+    <!-- Begin Error Messages -->
+    <string name="generic_server_down">Server Down</string>
+    <string name="no_internet">No Internet</string>
+    <string name="error">Error</string>
+    <string name="generic_error">Generic Error</string>
+    <string name="generic_server_timeout">Generic Server Timeout</string>
+    <string name="authentication_failed">Authentication Failed</string>
+    <string name="no_network_connection">No Network Connection</string>
+    <string name="parsing_failed">Parsing Failed</string>
+    <string name="auth_failed">Authentication Failed</string>
+    <!-- End Error Messages -->
 </resources>
