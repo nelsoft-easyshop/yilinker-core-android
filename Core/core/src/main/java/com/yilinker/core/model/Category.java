@@ -1,20 +1,24 @@
 package com.yilinker.core.model;
 
+import com.google.gson.InstanceCreator;
+
+import java.lang.reflect.Type;
+
 /**
  * Created by Patrick on 8/17/2015.
  */
 public class Category {
 
-    private int categoryId;
+    private int productCategoryId;
     private String name;
-    private boolean hasChild;
+    private String hasChildren;
 
-    public int getCategoryId() {
-        return categoryId;
+    public int getProductCategoryId() {
+        return productCategoryId;
     }
 
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
+    public void setProductCategoryId(int productCategoryId) {
+        this.productCategoryId = productCategoryId;
     }
 
     public String getName() {
@@ -25,11 +29,20 @@ public class Category {
         this.name = name;
     }
 
-    public boolean isHasChild(){
-        return hasChild;
+    public String getHasChildren() {
+        return hasChildren;
     }
 
-    public void setHasChild(boolean hasChild){
-        this.hasChild = hasChild;
+    public void setHasChildren(String hasChildren) {
+        this.hasChildren = hasChildren;
+    }
+
+    public static class CategoryInstance implements InstanceCreator<Category> {
+
+        @Override
+        public Category createInstance(Type type) {
+
+            return new Category();
+        }
     }
 }

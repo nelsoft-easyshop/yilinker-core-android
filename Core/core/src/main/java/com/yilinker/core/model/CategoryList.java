@@ -1,5 +1,8 @@
 package com.yilinker.core.model;
 
+import com.google.gson.InstanceCreator;
+
+import java.lang.reflect.Type;
 import java.util.List;
 
 /**
@@ -16,5 +19,14 @@ public class CategoryList {
 
     public void setCategories(List<Category> categories) {
         this.categories = categories;
+    }
+
+    public static class CategoryListInstance implements InstanceCreator<CategoryList> {
+
+        @Override
+        public CategoryList createInstance(Type type) {
+
+            return new CategoryList();
+        }
     }
 }
