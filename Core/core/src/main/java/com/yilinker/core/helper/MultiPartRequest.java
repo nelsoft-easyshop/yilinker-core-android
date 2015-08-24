@@ -10,8 +10,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.google.gson.Gson;
-import com.yilinker.core.model.seller.ProductUpload;
 import com.yilinker.core.model.seller.AttributeCombinationUpload;
+import com.yilinker.core.model.seller.ProductUpload;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.entity.ContentType;

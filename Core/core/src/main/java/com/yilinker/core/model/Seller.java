@@ -19,28 +19,64 @@ public class Seller {
     private static final String KEY_DESCRIPTION = "description";
     private static final String KEY_CONTACT_NO = "contactNo";
 
-    private int id;
-    private String name;
+    private int sellerId;
+    private String fullName;
+    private String storeName;
+    private String profileImageUrl;
+    private boolean isFollowed;
+    private String dateFollowed;
+
     private String specialty;
-    private String logoUrl;
     private List<String> images;
     private String description;
     private String contactNo;
 
-    public int getId() {
-        return id;
+    public int getSellerId() {
+        return sellerId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setSellerId(int sellerId) {
+        this.sellerId = sellerId;
     }
 
-    public String getName() {
-        return name;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getStoreName() {
+        return storeName;
+    }
+
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
+    }
+
+    public String getProfileImageUrl() {
+        return profileImageUrl;
+    }
+
+    public void setProfileImageUrl(String profileImageUrl) {
+        this.profileImageUrl = profileImageUrl;
+    }
+
+    public boolean isFollowed() {
+        return isFollowed;
+    }
+
+    public void setIsFollowed(boolean isFollowed) {
+        this.isFollowed = isFollowed;
+    }
+
+    public String getDateFollowed() {
+        return dateFollowed;
+    }
+
+    public void setDateFollowed(String dateFollowed) {
+        this.dateFollowed = dateFollowed;
     }
 
     public String getSpecialty() {
@@ -49,14 +85,6 @@ public class Seller {
 
     public void setSpecialty(String specialty) {
         this.specialty = specialty;
-    }
-
-    public String getLogoUrl() {
-        return logoUrl;
-    }
-
-    public void setLogoUrl(String logoUrl) {
-        this.logoUrl = logoUrl;
     }
 
     public List<String> getImages() {
@@ -83,10 +111,10 @@ public class Seller {
         this.contactNo = contactNo;
     }
 
-    @Override
-    public String toString() {
-        return OBJ_NAME + "[" + KEY_ID + id + ", " + KEY_NAME + name + ", " + KEY_SPECIALTY + specialty + ", " + KEY_LOGO_URL + logoUrl + ", " + KEY_IMAGES + images + ", " + KEY_DESCRIPTION + description + ", " + KEY_CONTACT_NO + contactNo + "]";
-    }
+    //    @Override
+//    public String toString() {
+//        return OBJ_NAME + "[" + KEY_ID + id + ", " + KEY_NAME + name + ", " + KEY_SPECIALTY + specialty + ", " + KEY_LOGO_URL + logoUrl + ", " + KEY_IMAGES + images + ", " + KEY_DESCRIPTION + description + ", " + KEY_CONTACT_NO + contactNo + "]";
+//    }
 
     public static class SellerInstance implements InstanceCreator<Seller> {
 

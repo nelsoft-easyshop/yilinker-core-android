@@ -49,6 +49,14 @@ public class APIConstants {
     public static final String SELLER_API = "seller";
     public static final String SELLER_GET_DETAILS = "getDetails";
     public static final String SELLER_GET_DETAILS_PARAM_ID = "sellerId";
+    public static final String SELLER_GET_FOLLOWED_SELLERS = "getFollowedSellers";
+    public static final String SELLER_GET_FOLLOW_HISTORY = "getFollowHistory";
+    public static final String SELLER_FOLLOW_SELLER = "followSeller";
+    public static final String SELLER_UNFOLLOW_SELLER = "unfollowSeller";
+    public static final String SELLER_PARAMS_PAGE = "page";
+    public static final String SELLER_PARAMS_LIMIT = "limit";
+    public static final String SELLER_PARAMS_KEYWORD = "keyword";
+
 
     //For Cart API
     public static final String CART_API = "cart";
@@ -69,7 +77,7 @@ public class APIConstants {
     public static final String REG_API = "register";
     public static final String REG_PARAM_FULLNAME = "fullname";
     public static final String REG_PARAM_EMAIL = "email";
-    public static final String REG_PARAM_PASSWORD = "password";
+    public static final String REG_PARAM_PASSWORD = "plainPassword";
     public static final String REG_PARAM_REFERRAL = "referralCode";
 
     //For Login API
@@ -80,6 +88,7 @@ public class APIConstants {
     public static final String LOGIN_PARAM_GRANT_TYPE = "grant_type";
     public static final String LOGIN_PARAM_EMAIL = "email";
     public static final String LOGIN_PARAM_PASSWORD = "password";
+    public static final String LOGIN_PARAM_REFRESH_TOKEN = "refresh_token";
 
     //For Product Upload API
     public static final String PRODUCT_UPLOAD_API="upload";
@@ -115,6 +124,7 @@ public class APIConstants {
     //API Credentials
     public static final String API_CLIENT_ID = "1_167rxzqvid8g8swggwokcoswococscocc8ck44wo0g88owgkcc";
     public static final String API_CLIENT_SECRET = "317eq8nohry84ooc0o8woo8000c0k844c4cggws84g80scwwog";
+    public static final String API_GRANT_TYPE = "refresh_token";
     public static final String API_CONNECTION_PROBLEM = "Problem connecting to the server. Try again later.";
     public static final String API_CONNECTION_AUTH_ERROR = "OAuth Error";
     public static final String API_GRANT_TYPE_REFRESH_TOKEN = "refresh_token";
@@ -135,7 +145,7 @@ public class APIConstants {
     public static final String ADDRESS_PARAMS_ADDITIONAL_INFO = "additionalInfo";
 
     //Mobile Verification
-    public static final String AUTH = "auth/sms";
+    public static final String SMS_API = "sms";
     public static final String GET_CODE = "getCode";
     public static final String VERIFY = "verify";
     public static final String VERIFY_PARAM_VERIFICATION_CODE = "code";
@@ -160,10 +170,12 @@ public class APIConstants {
 
     //Checkout Address
 
+    public static final String ADDRESS_API = "address";
     public static final String ADDRESS_GET_ADDRESSES = "getAddresses";
-    public static final String ADDRESS_ADD_ADDRESS = "addAddress";
-    public static final String ADDRESS_SET_ADDRESS = "setAddress";
-    public static final String ADDRESS_PARAM_ID = "address_id";
+    public static final String ADDRESS_ADD_ADDRESS = "addNewAddress";
+    public static final String ADDRESS_SET_ADDRESS = "setDefaultAddress";
+    public static final String ADDRESS_DELETE_ADDRESS = "deleteUserAddress";
+    public static final String ADDRESS_PARAM_ID = "userAddressId";
 
 
 }
