@@ -1,9 +1,7 @@
-package com.yilinker.core.model.buyer;
-
-import android.os.AsyncTask;
+package com.yilinker.core.model.seller;
 
 import com.google.gson.InstanceCreator;
-import com.yilinker.core.model.seller.AttributeCombinationUpload;
+import com.yilinker.core.model.buyer.ProductGroupAttribute;
 
 import org.json.JSONArray;
 import org.json.JSONException;
