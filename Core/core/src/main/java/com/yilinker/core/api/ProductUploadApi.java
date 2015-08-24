@@ -23,10 +23,9 @@ import com.yilinker.core.model.ProductCondition;
 import com.yilinker.core.model.seller.ProductUpload;
 import com.yilinker.core.utility.GsonUtility;
 
-import org.apache.http.entity.mime.content.StringBody;
 import org.json.JSONObject;
 
-import java.io.UnsupportedEncodingException;
+
 import java.util.HashMap;
 import java.util.Map;
 

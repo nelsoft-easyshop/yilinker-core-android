@@ -1,7 +1,6 @@
 package com.yilinker.core.helper;
 
 import android.os.Environment;
-import android.util.Log;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
@@ -17,10 +16,7 @@ import com.yilinker.core.model.seller.ProductUpload;
 import org.apache.http.HttpEntity;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.HttpMultipartMode;
-import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
-import org.apache.http.entity.mime.content.FileBody;
-import org.apache.http.entity.mime.content.StringBody;
 import org.json.JSONException;
 import org.json.JSONObject;
 
