@@ -5,7 +5,6 @@ android {
     buildToolsVersion "22.0.1"
     defaultPublishConfig "debug"
 
-
     defaultConfig {
         minSdkVersion 17
         targetSdkVersion 22
@@ -17,7 +16,7 @@ android {
             buildConfigField "String", "SERVER_URL", '"http://demo5885209.mockable.io/api/v1"'
         }
         release {
-            buildConfigField "String", "SERVER_URL", '"http://someurl/"'
+            buildConfigField "String", "SERVER_URL", '"http://online.api.easydeal.ph/api/v1"'
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -27,7 +26,7 @@ android {
             renderscriptDebuggable false
             minifyEnabled false
             zipAlignEnabled true
-            buildConfigField "String", "SERVER_URL", '"http://demo5885209.mockable.io/api/v1"'
+            buildConfigField "String", "SERVER_URL", '"http://online.api.easydeal.ph/api/v1"'
         }
     }
 }
@@ -41,4 +40,6 @@ dependencies {
     compile 'com.google.code.gson:gson:2.3.1'
     compile 'com.daimajia.swipelayout:library:1.2.0@aar'
     compile 'com.dlazaro66.qrcodereaderview:qrcodereaderview:1.0.0'
+    compile 'org.apache.httpcomponents:httpcore:4.3.2'
+    compile 'org.apache.httpcomponents:httpmime:4.3.5'
 }
