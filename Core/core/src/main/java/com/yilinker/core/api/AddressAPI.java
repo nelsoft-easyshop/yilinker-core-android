@@ -80,7 +80,7 @@ public class AddressAPI {
     public static Request getAddresses(final int requestCode, String token, final ResponseHandler responseHandler) {
 
         String url = String.format("%s/%s/%s/%s", APIConstants.DOMAIN,
-                APIConstants.AUTH_API, APIConstants.ADDRESS_API, APIConstants.ADDRESS_GET_ADDRESSES);
+                APIConstants.AUTH_API, APIConstants.ADDRESS_API, APIConstants.GET_STORE_ADDRESS);
 
         Map<String, String> params = new HashMap<String,String>();
         params.put(APIConstants.ACCESS_TOKEN, token);

@@ -132,6 +132,7 @@ public class APIConstants {
     //Address
     public static final String STORE_ADDRESS = "storeAddress";
     public static final String STORE_ADDRESS_ADD = "addStoreAddress";
+    public static final String GET_STORE_ADDRESS = "getUserAddresses";
     public static final String ADDRESS_PARAMS_TITLE = "addressTitle";
     public static final String ADDRESS_PARAMS_UNIT_NUMBER = "unitNumber";
     public static final String ADDRESS_PARAMS_BUILDING_NAME = "buildingName";
@@ -167,8 +168,17 @@ public class APIConstants {
     public static final String STORE_INFO_MERCHANT = "merchant";
     public static final String GET_STORE_INFO = "getUserInfo";
     public static final String CHANGE_PASSWORD_API = "changePassword";
-    
 
+    //Bank
+    public static final String BANK_API = "bank";
+    public static final String BANK_ACCOUNT_API = "account";
+    public static final String GET_BANK_ACCOUNTS = "getBankAccounts";
+    public static final String GET_BANK_LIST = "getEnabledBanks";
+    public static final String ADD_BANK_ACCOUNT = "addBankAccount";
+    public static final String BANK_PARAMS_ACCOUNT_TITLE = "accountTitle";
+    public static final String BANK_PARAMS_ACCOUNT_NUMBER = "accountNumber";
+    public static final String BANK_PARAMS_ACCOUNT_NAME = "accountName";
+    public static final String BANK_PARAMS_BANK_ID = "bankId";
     //Checkout Buyer
 
     public static final String CHECKOUT_PAYMENT_API = "payment";
