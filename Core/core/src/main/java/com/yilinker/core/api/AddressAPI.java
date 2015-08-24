@@ -32,8 +32,8 @@ public class AddressAPI {
                                       String additionalInfo,
                                       final ResponseHandler responseHandler){
 
-        String url = String.format("%s/%s/%s",
-                APIConstants.DOMAIN, APIConstants.STORE_ADDRESS, APIConstants.STORE_ADDRESS_ADD);
+        String url = String.format("%s/%s/%s/%s",
+                APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.ADDRESS_API, APIConstants.STORE_ADDRESS_ADD);
 
         Map<String, String> params = new HashMap<String, String>();
         params.put(APIConstants.ACCESS_TOKEN, token);
@@ -79,7 +79,7 @@ public class AddressAPI {
 
     public static Request getAddresses(final int requestCode, String token, final ResponseHandler responseHandler) {
 
-        String url = String.format("%s/%s/%s", APIConstants.DOMAIN, APIConstants.USER_API, APIConstants.ADDRESS_GET_ADDRESSES);
+        String url = String.format("%s/%s/%s/%s", APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.ADDRESS_API, APIConstants.ADDRESS_GET_ADDRESSES);
 
         Map<String, String> params = new HashMap<String,String>();
         params.put(APIConstants.ACCESS_TOKEN, token);
@@ -111,7 +111,8 @@ public class AddressAPI {
 
     public static Request requestSetAddress(final int requestCode, String token, String addressId, final ResponseHandler responseHandler){
 
-        String url = String.format("%s/%s/%s", APIConstants.DOMAIN, APIConstants.USER_API, APIConstants.ADDRESS_SET_ADDRESS);
+        String url = String.format("%s/%s/%s/%s", APIConstants.DOMAIN, APIConstants.AUTH_API,
+                APIConstants.ADDRESS_API, APIConstants.ADDRESS_SET_ADDRESS);
 
         Map<String, String> params = new HashMap<String, String>();
         params.put(APIConstants.ACCESS_TOKEN, token);
@@ -136,6 +137,34 @@ public class AddressAPI {
 
         return setAddress;
 
+    }
+
+    public static Request deleteAddress(final int requestCode, String token, int userAddressId, final ResponseHandler responseHandler) {
+
+        String url = String.format("%s/%s/%s/%s?%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API,
+                APIConstants.ADDRESS_API, APIConstants.ADDRESS_DELETE_ADDRESS, APIConstants.ACCESS_TOKEN, token);
+
+        Map<String, String> params = new HashMap<>();
+        params.put(APIConstants.ADDRESS_PARAM_ID, String.valueOf(userAddressId));
+
+        VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+
+                responseHandler.onSuccess(requestCode, apiResponse);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+            }
+        });
+
+        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
+
+        return request;
     }
 
 }

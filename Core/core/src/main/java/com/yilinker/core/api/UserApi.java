@@ -106,16 +106,45 @@ public class UserApi {
         });
 
         request.setRetryPolicy(SocketTimeout.getRetryPolicy());
+
+        return request;
+    }
+
+    public static Request refreshToken(final int requestCode, String refreshToken, final ResponseHandler responseHandler){
+
+        String url = String.format("%s/%s", APIConstants.DOMAIN, APIConstants.LOGIN_API);
+
+        Map<String, String> params = new HashMap<>();
+        params.put(APIConstants.LOGIN_PARAM_CLIENT_ID, APIConstants.API_CLIENT_ID);
+        params.put(APIConstants.LOGIN_PARAM_CLIENT_SECRET, APIConstants.API_CLIENT_SECRET);
+        params.put(APIConstants.LOGIN_PARAM_GRANT_TYPE, APIConstants.API_GRANT_TYPE);
+        params.put(APIConstants.LOGIN_PARAM_REFRESH_TOKEN, refreshToken);
+
+        VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+
+                Gson gson =  GsonUtility.createGsonBuilder(Login.class, new Login.LoginInstance()).create();
+                Login obj = gson.fromJson(response.toString(), Login.class);
+
+                responseHandler.onSuccess(requestCode, obj);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+            }
+        });
+
+        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
+
         return request;
     }
 
     public static Request updateUserInfo(final int requestCode, UpdateUserInfo updateUserInfo,
                                          String accessToken, final ResponseHandler responseHandler){
 
-        int socketTimeout = 5000;
-        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
 
         String url = String.format("%s/%s/%s",APIConstants.DOMAIN, APIConstants.UPDATE_USER_API, APIConstants.USER_UPDATE_API);
 
@@ -164,7 +193,7 @@ public class UserApi {
             }
         });
 
-        requestUpdateUserInfo.setRetryPolicy(policy);
+        requestUpdateUserInfo.setRetryPolicy(SocketTimeout.getRetryPolicy());
 
         return requestUpdateUserInfo;
 

@@ -14,15 +14,13 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
 import com.yilinker.core.constants.APIConstants;
-import com.yilinker.core.helper.FileUploadRequest;
 import com.yilinker.core.helper.MultiPartRequest;
-import com.yilinker.core.helper.VolleyPostHelper;
 import com.yilinker.core.interfaces.ResponseHandler;
 import com.yilinker.core.model.APIResponse;
 import com.yilinker.core.model.ProductBrand;
 import com.yilinker.core.model.ProductCategory;
 import com.yilinker.core.model.ProductCondition;
-import com.yilinker.core.model.ProductUpload;
+import com.yilinker.core.model.seller.ProductUpload;
 import com.yilinker.core.utility.GsonUtility;
 
 import org.apache.http.entity.mime.content.StringBody;
