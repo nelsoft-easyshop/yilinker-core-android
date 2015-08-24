@@ -167,7 +167,7 @@ public class APIConstants {
     public static final String STORE_INFO_MERCHANT = "merchant";
     public static final String GET_STORE_INFO = "getUserInfo";
     public static final String CHANGE_PASSWORD_API = "changePassword";
-
+    
 
     //Checkout Buyer
 
@@ -180,7 +180,7 @@ public class APIConstants {
     //Checkout Address
 
     public static final String ADDRESS_API = "address";
-    public static final String ADDRESS_GET_ADDRESSES = "getUserAddresses";
+    public static final String ADDRESS_GET_ADDRESSES = "getAddresses";
     public static final String ADDRESS_ADD_ADDRESS = "addNewAddress";
     public static final String ADDRESS_SET_ADDRESS = "setDefaultAddress";
     public static final String ADDRESS_DELETE_ADDRESS = "deleteUserAddress";

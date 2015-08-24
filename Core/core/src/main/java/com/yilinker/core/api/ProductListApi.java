@@ -8,15 +8,11 @@ import com.google.gson.Gson;
 import com.yilinker.core.constants.APIConstants;
 import com.yilinker.core.interfaces.ResponseHandler;
 import com.yilinker.core.model.APIResponse;
-import com.yilinker.core.model.Cart;
-import com.yilinker.core.model.FilterGroup;
-import com.yilinker.core.model.Product;
-import com.yilinker.core.model.ProductList;
+import com.yilinker.core.model.buyer.Product;
+import com.yilinker.core.model.buyer.ProductList;
 import com.yilinker.core.utility.GsonUtility;
 
 import org.json.JSONObject;
-
-import java.util.List;
 
 /**
  * Created by Patrick on 8/13/2015.

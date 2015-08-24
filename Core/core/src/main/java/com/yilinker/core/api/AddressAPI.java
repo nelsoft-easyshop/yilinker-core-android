@@ -79,8 +79,8 @@ public class AddressAPI {
 
     public static Request getAddresses(final int requestCode, String token, final ResponseHandler responseHandler) {
 
-        String url = String.format("%s/%s/%s/%s", APIConstants.DOMAIN, APIConstants.AUTH_API,
-                APIConstants.ADDRESS_API, APIConstants.ADDRESS_GET_ADDRESSES);
+        String url = String.format("%s/%s/%s/%s", APIConstants.DOMAIN,
+                APIConstants.AUTH_API, APIConstants.ADDRESS_API, APIConstants.ADDRESS_GET_ADDRESSES);
 
         Map<String, String> params = new HashMap<String,String>();
         params.put(APIConstants.ACCESS_TOKEN, token);
@@ -95,6 +95,7 @@ public class AddressAPI {
                 gson = GsonUtility.createGsonBuilder(AddressList.class, new AddressList.AddressListInstance()).create();
                 String jsonString = new Gson().toJson(apiResponse.getData());
                 Address[] obj = gson.fromJson(jsonString, Address[].class);
+
 
                 responseHandler.onSuccess(requestCode, obj);
             }

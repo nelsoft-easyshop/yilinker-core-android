@@ -5,7 +5,6 @@ android {
     buildToolsVersion "22.0.1"
     defaultPublishConfig "debug"
 
-
     defaultConfig {
         minSdkVersion 17
         targetSdkVersion 22
@@ -41,4 +40,6 @@ dependencies {
     compile 'com.google.code.gson:gson:2.3.1'
     compile 'com.daimajia.swipelayout:library:1.2.0@aar'
     compile 'com.dlazaro66.qrcodereaderview:qrcodereaderview:1.0.0'
+    compile 'org.apache.httpcomponents:httpcore:4.3.2'
+    compile 'org.apache.httpcomponents:httpmime:4.3.5'
 }
