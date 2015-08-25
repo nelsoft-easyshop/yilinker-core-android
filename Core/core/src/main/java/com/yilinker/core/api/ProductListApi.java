@@ -19,46 +19,10 @@ import org.json.JSONObject;
  */
 public class ProductListApi {
 
-    public static Request getProductList(final int requestCode, String target,
-                                         int priceFrom, int priceTo,int categoryId,int sellerId,
-                                         String selectedSort, String selectedDirection,
-                                         int brandId, int loadPage, final ResponseHandler responseHandler) {
-        String url;
-        if (target.equals("")){
-            url = String.format("%s/%s/%s?" +
-                            "%s=%s" +"&%s=%s" +"&%s=%s" +"&%s=%s" +"&%s=%s" +"&%s=%s" +"&%s=%s" +"&%s=%s" +"&%s=%s",
-                    APIConstants.DOMAIN, APIConstants.PRODUCT_API,
-                    APIConstants.PRODUCT_GET_LIST,
-                    APIConstants.PRODUCT_lIST_PRICE_FROM, Integer.toString(priceFrom),
-                    APIConstants.PRODUCT_LIST_PRICE_TO,Integer.toString(priceTo),
-                    APIConstants.PRODUCT_LIST_CATEGORY_ID,Integer.toString(categoryId),
-                    APIConstants.PRODUCT_lIST_SELLER_ID, Integer.toString(sellerId),
-                    APIConstants.PRODUCT_LIST_SORT_TYPE, selectedSort,
-                    APIConstants.PRODUCT_LIST_SORT_DIRECTION, selectedDirection,
-//                    APIConstants.PRODUCT_lIST_FILTER, filterGroups,
-                    APIConstants.PRODUCT_LIST_BRAND_ID,Integer.toString(brandId),
-                    APIConstants.PRODUCT_LIST_PAGE, Integer.toString(loadPage));
-
-        }else{
-//            url = String.format("%s/%s/%s?" +
-//                            "%s=%s" +"&%s=%s" +"&%s=%s" +"&%s=%s" +"&%s=%s" +"&%s=%s" +"&%s=%s" +"&%s=%s" +"&%s=%s",
-//                    APIConstants.DOMAIN, APIConstants.PRODUCT_API,
-//                    target,
-//                    APIConstants.PRODUCT_lIST_PRICE_FROM, Integer.toString(priceFrom),
-//                    APIConstants.PRODUCT_LIST_PRICE_TO,Integer.toString(priceTo),
-//                    APIConstants.PRODUCT_LIST_CATEGORY_ID,Integer.toString(categoryId),
-//                    APIConstants.PRODUCT_lIST_SELLER_ID, Integer.toString(sellerId),
-//                    APIConstants.PRODUCT_LIST_SORT_TYPE, selectedSort,
-//                    APIConstants.PRODUCT_LIST_SORT_DIRECTION, selectedDirection,
-////                    APIConstants.PRODUCT_lIST_FILTER, filterGroups,
-//                    APIConstants.PRODUCT_LIST_BRAND_ID,Integer.toString(brandId),
-//                    APIConstants.PRODUCT_LIST_PAGE, Integer.toString(loadPage));
-
-            url = String.format("%s/%s/%s" ,
-                    APIConstants.DOMAIN, APIConstants.PRODUCT_API,
-                    APIConstants.PRODUCT_GET_LIST);
-
-        }
+    public static Request getProductList(final int requestCode, String target,final ResponseHandler responseHandler) {
+        String url= String.format("%s/%s" ,
+                    APIConstants.DOMAIN,
+                    target);
 
         Request request = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
             @Override
