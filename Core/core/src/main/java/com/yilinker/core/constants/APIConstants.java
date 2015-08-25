@@ -12,6 +12,7 @@ public class APIConstants {
     //upload token
     public static final String UPLOAD_TOKEN = "upload_token";
 
+    //temp
     public static final String DOMAIN = BaseApplication.getDomainURL();
     public static final String AUTH_API = "auth";
 
@@ -47,8 +48,11 @@ public class APIConstants {
 
     //For Seller API
     public static final String SELLER_API = "seller";
+    public static final String SELLER_USER_ID = "userId";
     public static final String SELLER_GET_DETAILS = "getDetails";
     public static final String SELLER_GET_DETAILS_PARAM_ID = "sellerId";
+    public static final String SELLER_GET_SELLER_REVIEWS = "getReviews";
+    public static final String SELLER_GET_STORE_INFO = "getStoreInfo";
     public static final String SELLER_GET_FOLLOWED_SELLERS = "getFollowedSellers";
     public static final String SELLER_GET_FOLLOW_HISTORY = "getFollowHistory";
     public static final String SELLER_FOLLOW_SELLER = "followSeller";
@@ -61,9 +65,10 @@ public class APIConstants {
     //For Cart API
     public static final String CART_API = "cart";
     public static final String CART_GET_ITEMS = "getCart";
-    public static final String CART_UPDATE_DETAILS = "updateCartDetails";
+    public static final String CART_UPDATE_DETAILS = "updateCartItem";
     public static final String CART_UNIT_ID = "unitId";
     public static final String CART_QUANTITY = "quantity";
+    public static final String CART_ITEM_ID = "itemId";
     public static final String WISH_LIST_GET_ITEMS = "wishlist";
 
     //For Home API
@@ -179,6 +184,13 @@ public class APIConstants {
     public static final String BANK_PARAMS_ACCOUNT_NUMBER = "accountNumber";
     public static final String BANK_PARAMS_ACCOUNT_NAME = "accountName";
     public static final String BANK_PARAMS_BANK_ID = "bankId";
+    public static final String STREET_ADDRESS_PARAM = "streetAddress";
+
+    /***Category*/
+    public static final String GET_CATEGORY ="getCategories";
+    public static final String PARENT_ID = "parentId";
+
+
     //Checkout Buyer
 
     public static final String CHECKOUT_PAYMENT_API = "payment";
