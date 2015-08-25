@@ -33,10 +33,12 @@ public class Product {
 
     private int sellerId;
     private List<ProductGroupAttribute> attributes;
-    private List<AttributeCombination> productUnits;
-    private double originalPrice;
-    private double newPrice;
-    private double discount;
+//    private List<AttributeCombination> productUnits;
+    private List<AttributeCombination2> productUnits;
+//    private double originalPrice;
+//    private double newPrice;
+//    private double discount;
+
 
     public List<ProductImages> getImages() {
         return images;
@@ -110,42 +112,52 @@ public class Product {
         this.attributes = attributes;
     }
 
-    public List<AttributeCombination> getAvailableAttributeCombi() {
+
+
+    //    public List<AttributeCombination> getAvailableAttributeCombi() {
+//        return productUnits;
+//    }
+//
+//    public void setAvailableAttributeCombi(List<AttributeCombination> productUnits) {
+//        this.productUnits = productUnits;
+//    }
+
+    public List<AttributeCombination2> getAvailableAttributeCombi() {
         return productUnits;
     }
 
-    public void setAvailableAttributeCombi(List<AttributeCombination> productUnits) {
+    public void setAvailableAttributeCombi(List<AttributeCombination2> productUnits) {
         this.productUnits = productUnits;
     }
 
-    public double getOriginalPrice() {
-        return originalPrice;
-    }
+//    public double getOriginalPrice() {
+//        return originalPrice;
+//    }
+//
+//    public void setOriginalPrice(double originalPrice) {
+//        this.originalPrice = originalPrice;
+//    }
+//
+//    public double getNewPrice() {
+//        return newPrice;
+//    }
+//
+//    public void setNewPrice(double newPrice) {
+//        this.newPrice = newPrice;
+//    }
+//
+//    public double getDiscount() {
+//        return discount;
+//    }
+//
+//    public void setDiscount(double discount) {
+//        this.discount = discount;
+//    }
 
-    public void setOriginalPrice(double originalPrice) {
-        this.originalPrice = originalPrice;
-    }
-
-    public double getNewPrice() {
-        return newPrice;
-    }
-
-    public void setNewPrice(double newPrice) {
-        this.newPrice = newPrice;
-    }
-
-    public double getDiscount() {
-        return discount;
-    }
-
-    public void setDiscount(double discount) {
-        this.discount = discount;
-    }
-
-    @Override
-    public String toString() {
-        return OBJ_NAME + KEY_ID + id + KEY_TITLE + title + KEY_SHORT_DESCRIPTION + shortDescription + KEY_FULL_DESCRIPTION + fullDescription + KEY_SELLER_ID + sellerId + KEY_ATTRIBUTES + attributes + KEY_AVAILABLE_ATTRIBUTES + productUnits + KEY_ORIGINAL_PRICE + originalPrice + KEY_NEW_PRICE + newPrice + KEY_DISCOUNT + discount;
-    }
+//    @Override
+//    public String toString() {
+//        return OBJ_NAME + KEY_ID + id + KEY_TITLE + title + KEY_SHORT_DESCRIPTION + shortDescription + KEY_FULL_DESCRIPTION + fullDescription + KEY_SELLER_ID + sellerId + KEY_ATTRIBUTES + attributes + KEY_AVAILABLE_ATTRIBUTES + productUnits + KEY_ORIGINAL_PRICE + originalPrice + KEY_NEW_PRICE + newPrice + KEY_DISCOUNT + discount;
+//    }
 
     public static class ProductInstance implements InstanceCreator<Product> {
 
