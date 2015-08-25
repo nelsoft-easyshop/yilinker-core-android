@@ -30,9 +30,9 @@ public class HomeProductItems {
 
     private String productName;
     private String image;
-    private double originalPrice;
-    private double discountedPrice;
-    private double discountedPercentage;
+    private String originalPrice;
+    private String discountedPrice;
+    private int discountedPercentage;
     private String target;
 
     public String getProductName() {
@@ -51,27 +51,27 @@ public class HomeProductItems {
         this.image = image;
     }
 
-    public double getOriginalPrice() {
+    public String getOriginalPrice() {
         return originalPrice;
     }
 
-    public void setOriginalPrice(double originalPrice) {
+    public void setOriginalPrice(String originalPrice) {
         this.originalPrice = originalPrice;
     }
 
-    public double getDiscountedPrice() {
+    public String getDiscountedPrice() {
         return discountedPrice;
     }
 
-    public void setDiscountedPrice(double discountedPrice) {
+    public void setDiscountedPrice(String discountedPrice) {
         this.discountedPrice = discountedPrice;
     }
 
-    public double getDiscountedPercentage() {
+    public int getDiscountedPercentage() {
         return discountedPercentage;
     }
 
-    public void setDiscountedPercentage(double discountedPercentage) {
+    public void setDiscountedPercentage(int discountedPercentage) {
         this.discountedPercentage = discountedPercentage;
     }
 

@@ -3,6 +3,7 @@ package com.yilinker.core.model.buyer;
 import com.google.gson.InstanceCreator;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,10 +21,10 @@ public class HomeSectionFeatured {
 
     private HomeImageItems mainBanner;
     private List<HomeImageItems> subBanners;
-    private List<HomeProductItems> promos;
+    private List<HomeProductItems> promos = new ArrayList<>();
     private List<HomeCategoryImageItems> popularCategories;
     private List<HomeCategoryImageItems> trendingItems;
-    private List<HomeProductItems> itemsYouMayLike;
+    private List<HomeProductItems> itemsYouMayLike = new ArrayList<>();
 
     public HomeImageItems getMainBanner() {
         return mainBanner;

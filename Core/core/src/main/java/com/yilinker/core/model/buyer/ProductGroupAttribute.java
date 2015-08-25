@@ -17,6 +17,8 @@ public class ProductGroupAttribute {
 
     private int id;
     private String groupName;
+
+    private int selectedAttributeId;
     private List<ProductAttribute> items;
 
     public int getId() {
@@ -36,11 +38,19 @@ public class ProductGroupAttribute {
     }
 
     public List<ProductAttribute> getItems() {
-        return items;
+        return this.items;
     }
 
     public void setItems(List<ProductAttribute> items) {
         this.items = items;
+    }
+
+    public int getSelectedAttributeId() {
+        return selectedAttributeId;
+    }
+
+    public void setSelectedAttributeId(int selectedAttributeId) {
+        this.selectedAttributeId = selectedAttributeId;
     }
 
     @Override
