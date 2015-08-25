@@ -12,6 +12,7 @@ public class APIConstants {
     //upload token
     public static final String UPLOAD_TOKEN = "upload_token";
 
+    //temp
     public static final String DOMAIN = BaseApplication.getDomainURL();
     public static final String AUTH_API = "auth";
 
@@ -158,6 +159,10 @@ public class APIConstants {
     public static final String STORE_NAME_PARAM = "storeName";
     public static final String STORE_DESCRIPTION_PARAM = "storeDescription";
     public static final String STREET_ADDRESS_PARAM = "streetAddress";
+
+    /***Category*/
+    public static final String GET_CATEGORY ="getCategories";
+    public static final String PARENT_ID = "parentId";
 
 
     //Checkout Buyer
