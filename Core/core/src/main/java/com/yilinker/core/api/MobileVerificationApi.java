@@ -24,7 +24,7 @@ public class MobileVerificationApi {
     public static Request requestVerificationCode (final int requestCode, String token, final ResponseHandler responseHandler){
 
         String url = String.format("%s/%s/%s/%s",
-                APIConstants.DOMAIN, APIConstants.ACCESS_TOKEN, APIConstants.AUTH, APIConstants.GET_CODE);
+                APIConstants.DOMAIN, APIConstants.ACCESS_TOKEN, APIConstants.AUTH_API, APIConstants.GET_CODE);
 
         Map<String, String> params = new HashMap<String, String>();
         params.put(APIConstants.ACCESS_TOKEN, token);
@@ -56,7 +56,7 @@ public class MobileVerificationApi {
     public static Request requestVerifyCode (final int requestCode, String token, String code, final ResponseHandler responseHandler){
 
         String url = String.format("%s/%s/%s/%s",
-                APIConstants.DOMAIN, APIConstants.ACCESS_TOKEN, APIConstants.AUTH, APIConstants.VERIFY);
+                APIConstants.DOMAIN, APIConstants.ACCESS_TOKEN, APIConstants.AUTH_API, APIConstants.VERIFY);
 
         Map<String, String> params = new HashMap<String, String>();
         params.put(APIConstants.ACCESS_TOKEN, token);

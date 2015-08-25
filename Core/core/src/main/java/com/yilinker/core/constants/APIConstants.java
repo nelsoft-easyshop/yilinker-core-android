@@ -48,8 +48,11 @@ public class APIConstants {
 
     //For Seller API
     public static final String SELLER_API = "seller";
+    public static final String SELLER_USER_ID = "userId";
     public static final String SELLER_GET_DETAILS = "getDetails";
     public static final String SELLER_GET_DETAILS_PARAM_ID = "sellerId";
+    public static final String SELLER_GET_SELLER_REVIEWS = "getReviews";
+    public static final String SELLER_GET_STORE_INFO = "getStoreInfo";
     public static final String SELLER_GET_FOLLOWED_SELLERS = "getFollowedSellers";
     public static final String SELLER_GET_FOLLOW_HISTORY = "getFollowHistory";
     public static final String SELLER_FOLLOW_SELLER = "followSeller";
