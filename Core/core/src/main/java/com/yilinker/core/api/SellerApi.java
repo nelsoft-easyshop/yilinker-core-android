@@ -87,7 +87,6 @@ public class SellerApi {
                 Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
                 APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
 //
-//
 //                gson = GsonUtility.createGsonBuilder(Seller.class, new Seller.SellerInstance()).create();
 //                String jsonString = new Gson().toJson(apiResponse.getData());
 //                Seller obj = gson.fromJson(jsonString, Seller.class);
