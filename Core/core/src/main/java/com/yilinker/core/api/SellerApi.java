@@ -78,7 +78,7 @@ public class SellerApi {
         String url = String.format("%s/%s/%s", APIConstants.DOMAIN, "auth", follow);
 
         Map<String, String > params = new HashMap<>();
-        params.put( APIConstants.SELLER_USER_ID,String.valueOf(id));
+        params.put( APIConstants.SELLER_GET_DETAILS_PARAM_ID,String.valueOf(id));
         params.put(APIConstants.ACCESS_TOKEN, accessToken);
 
         VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
