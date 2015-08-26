@@ -185,7 +185,7 @@ public class Address {
         this.isDefault = isDefault;
     }
 
-    public static class StoreAddressInstance implements InstanceCreator<Address> {
+    public static class AddressInstance implements InstanceCreator<Address> {
 
         @Override
         public Address createInstance(Type type) {

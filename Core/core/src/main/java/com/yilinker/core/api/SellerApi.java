@@ -13,13 +13,16 @@ import com.yilinker.core.helper.MultiPartRequest;
 import com.yilinker.core.helper.VolleyPostHelper;
 import com.yilinker.core.interfaces.ResponseHandler;
 import com.yilinker.core.model.APIResponse;
+import com.yilinker.core.model.Address;
 import com.yilinker.core.model.FollowedSellers;
 import com.yilinker.core.model.Seller;
 import com.yilinker.core.model.UpdateUserInfo;
 import com.yilinker.core.model.buyer.ProductReview;
+import com.yilinker.core.model.seller.Bank;
 import com.yilinker.core.utility.GsonUtility;
 import com.yilinker.core.utility.SocketTimeout;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -154,15 +157,29 @@ public class SellerApi {
         VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
         @Override
         public void onResponse(JSONObject response) {
-        Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
-        APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
 
-        gson = GsonUtility.createGsonBuilder(UpdateUserInfo.class, new UpdateUserInfo.UpdateUserInfoInstance()).create();
-        String jsonString = new Gson().toJson(apiResponse.getData());
-        UpdateUserInfo obj = gson.fromJson(jsonString, UpdateUserInfo.class);
+                gson = GsonUtility.createGsonBuilder(UpdateUserInfo.class, new UpdateUserInfo.UpdateUserInfoInstance()).create();
+                String jsonString = new Gson().toJson(apiResponse.getData());
+                UpdateUserInfo obj = gson.fromJson(jsonString, UpdateUserInfo.class);
+
+                gson = GsonUtility.createGsonBuilder(Bank.class, new Bank.BankInstance()).create();
+            try {
+                JSONObject jsonObject = new JSONObject(jsonString);
+                String json = jsonObject.getJSONObject("bankAccount").toString();
+                String json2 = jsonObject.getJSONObject("userAddress").toString();
+                Bank bankAccount = gson.fromJson(json, Bank.class);
+                Address address = gson.fromJson(json2, Address.class);
+                obj.setAddress(address);
+                obj.setBankAccount(bankAccount);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
             responseHandler.onSuccess(requestCode, obj);
 
-        }
+            }
         }, new Response.ErrorListener() {
 
             @Override

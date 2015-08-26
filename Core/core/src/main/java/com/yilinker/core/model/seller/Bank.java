@@ -9,6 +9,7 @@ import java.lang.reflect.Type;
  */
 public class Bank {
 
+    private int bankAccountId;
     private int bankId;
     private String accountTitle;
     private String accountNumber;
@@ -64,6 +65,14 @@ public class Bank {
 
     public void setBankId(int bankId) {
         this.bankId = bankId;
+    }
+
+    public int getBankAccountId() {
+        return bankAccountId;
+    }
+
+    public void setBankAccountId(int bankAccountId) {
+        this.bankAccountId = bankAccountId;
     }
 
     public static class BankInstance implements InstanceCreator<Bank> {
