@@ -126,7 +126,7 @@ public class CartApi {
 
     }
 
-    public static Request updateCartItems (final int requestCode, String token, int productId, int unitId, int quantity, int itemId, final ResponseHandler responseHandler){
+    public static Request updateCartItems (final int requestCode, String token, int productId, int unitId, int quantity, int itemId, boolean wishList, final ResponseHandler responseHandler){
 
         String url = String.format("%s/%s/%s/%s",
                 APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.CART_API, APIConstants.CART_UPDATE_DETAILS);
@@ -137,6 +137,8 @@ public class CartApi {
         params.put(APIConstants.CART_UNIT_ID, String.valueOf(unitId));
         params.put(APIConstants.CART_QUANTITY, String.valueOf(quantity));
         params.put(APIConstants.CART_ITEM_ID, String.valueOf(itemId));
+        if (wishList)
+            params.put(APIConstants.WISH_LIST_GET_ITEMS, String.valueOf(true));
 
         VolleyPostHelper requestUpdateCart = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
 

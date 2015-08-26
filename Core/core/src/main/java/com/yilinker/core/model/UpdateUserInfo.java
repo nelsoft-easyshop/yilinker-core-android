@@ -1,5 +1,9 @@
 package com.yilinker.core.model;
 
+import com.google.gson.InstanceCreator;
+
+import java.lang.reflect.Type;
+
 /**
  * Created by Administrator on 8/17/2015.
  */
@@ -9,12 +13,15 @@ public class UpdateUserInfo {
     private String coverPhoto;
     private String storeName;
     private String storeDescription;
-    private String streetAddress;
-    private String cityId;
-    private String regionId;
     private String email;
-    private String oldPassword;
-    private String newPassword;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public String getProfilePhoto() {
         return profilePhoto;
@@ -48,51 +55,12 @@ public class UpdateUserInfo {
         this.storeDescription = storeDescription;
     }
 
-    public String getStreetAddress() {
-        return streetAddress;
-    }
+    public static class UpdateUserInfoInstance implements InstanceCreator<UpdateUserInfo> {
 
-    public void setStreetAddress(String streetAddress) {
-        this.streetAddress = streetAddress;
-    }
+        @Override
+        public UpdateUserInfo createInstance(Type type) {
 
-    public String getCityId() {
-        return cityId;
-    }
-
-    public void setCityId(String cityId) {
-        this.cityId = cityId;
-    }
-
-    public String getRegionId() {
-        return regionId;
-    }
-
-    public void setRegionId(String regionId) {
-        this.regionId = regionId;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getOldPassword() {
-        return oldPassword;
-    }
-
-    public void setOldPassword(String oldPassword) {
-        this.oldPassword = oldPassword;
-    }
-
-    public String getNewPassword() {
-        return newPassword;
-    }
-
-    public void setNewPassword(String newPassword) {
-        this.newPassword = newPassword;
+            return new UpdateUserInfo();
+        }
     }
 }
