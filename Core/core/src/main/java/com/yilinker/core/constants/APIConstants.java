@@ -71,6 +71,10 @@ public class APIConstants {
     public static final String CART_ITEM_ID = "itemId";
     public static final String WISH_LIST_GET_ITEMS = "wishlist";
 
+    //For Profile API
+    public static final String PROFILE_API = "user";
+    public static final String PROFILE_GET_DETAILS = "getUser";
+
     //For Home API
     public static final String HOME_API = "home";
     public static final String HOME_GET_ITEMS = "getData";
@@ -207,6 +211,5 @@ public class APIConstants {
     public static final String ADDRESS_SET_ADDRESS = "setDefaultAddress";
     public static final String ADDRESS_DELETE_ADDRESS = "deleteUserAddress";
     public static final String ADDRESS_PARAM_ID = "userAddressId";
-
 
 }
