@@ -11,6 +11,7 @@ import com.yilinker.core.interfaces.ResponseHandler;
 import com.yilinker.core.model.APIResponse;
 import com.yilinker.core.model.FollowedSellers;
 import com.yilinker.core.model.Seller;
+import com.yilinker.core.model.buyer.ProductReview;
 import com.yilinker.core.utility.GsonUtility;
 import com.yilinker.core.utility.SocketTimeout;
 
