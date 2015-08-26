@@ -190,6 +190,10 @@ public class APIConstants {
     public static final String GET_CATEGORY ="getCategories";
     public static final String PARENT_ID = "parentId";
 
+    /***Search*/
+    public static final String GET_SEARCH ="getSearchKeywords";
+    public static final String SEARCH_QUERY ="queryString";
+
 
     //Checkout Buyer
 
