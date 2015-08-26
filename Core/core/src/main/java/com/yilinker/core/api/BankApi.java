@@ -109,7 +109,7 @@ public class BankApi {
         params.put(APIConstants.BANK_PARAMS_ACCOUNT_NAME, accountName);
         params.put(APIConstants.BANK_PARAMS_BANK_ID, bankId);
 
-        VolleyPostHelper requestAddStoreAddress = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
+        VolleyPostHelper requestAddBank = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject response) {
@@ -129,9 +129,85 @@ public class BankApi {
             }
         });
 
-        requestAddStoreAddress.setRetryPolicy(SocketTimeout.getRetryPolicy());
+        requestAddBank.setRetryPolicy(SocketTimeout.getRetryPolicy());
 
-        return requestAddStoreAddress;
+        return requestAddBank;
+    }
+
+    public static Request setBankAccount (final int requestCode, String token,
+                                          String bankAccountId,
+                                          final ResponseHandler responseHandler){
+
+        String url = String.format("%s/%s/%s/%s/%s",
+                APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.BANK_API, APIConstants.BANK_ACCOUNT_API,
+                APIConstants.SET_DEFAULT_BANK);
+
+        Map<String, String> params = new HashMap<String, String>();
+        params.put(APIConstants.ACCESS_TOKEN, token);
+        params.put(APIConstants.BANK_PARAMS_BANK_ACCOUNT_ID, bankAccountId);
+
+
+        VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+
+                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+                if(apiResponse.isSuccessful()) {
+                    responseHandler.onSuccess(requestCode, apiResponse);
+                }
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+            }
+        });
+
+        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
+
+        return request;
+    }
+
+    public static Request deleteBankAccount (final int requestCode, String token,
+                                          String bankAccountId,
+                                          final ResponseHandler responseHandler){
+
+        String url = String.format("%s/%s/%s/%s/%s",
+                APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.BANK_API, APIConstants.BANK_ACCOUNT_API,
+                APIConstants.DELETE_BANK_ACCOUNT);
+
+        Map<String, String> params = new HashMap<String, String>();
+        params.put(APIConstants.ACCESS_TOKEN, token);
+        params.put(APIConstants.BANK_PARAMS_BANK_ACCOUNT_ID, bankAccountId);
+
+
+        VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+
+                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+                if(apiResponse.isSuccessful()) {
+                    responseHandler.onSuccess(requestCode, apiResponse);
+                }
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+            }
+        });
+
+        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
+
+        return request;
     }
 
 }
