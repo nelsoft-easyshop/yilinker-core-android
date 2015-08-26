@@ -40,7 +40,8 @@ public class UserApi {
 
         String fullname = String.format("%s %s",firstName,lastName);
         Map<String, String> params = new HashMap<String, String>();
-        params.put(APIConstants.REG_PARAM_FULLNAME,fullname);
+        params.put(APIConstants.REG_PARAM_FIRST_NAME,firstName);
+        params.put(APIConstants.REG_PARAM_LAST_NAME, lastName);
         params.put(APIConstants.REG_PARAM_EMAIL, email);
         params.put(APIConstants.REG_PARAM_PASSWORD, password);
 
