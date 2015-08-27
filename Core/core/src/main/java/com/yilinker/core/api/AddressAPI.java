@@ -4,6 +4,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.yilinker.core.constants.APIConstants;
 import com.yilinker.core.helper.VolleyPostHelper;
 import com.yilinker.core.interfaces.ResponseHandler;
@@ -18,7 +19,10 @@ import com.yilinker.core.utility.SocketTimeout;
 
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -104,6 +108,42 @@ public class AddressAPI {
 
         return getAddresses;
     }
+
+    public static Request checkoutGetAddresses(final int requestCode, String token, final ResponseHandler responseHandler) {
+
+        String url = String.format("%s/%s/%s/%s", APIConstants.DOMAIN,
+                APIConstants.AUTH_API, APIConstants.ADDRESS_API, APIConstants.GET_STORE_ADDRESS);
+
+        Map<String, String> params = new HashMap<String,String>();
+        params.put(APIConstants.ACCESS_TOKEN, token);
+
+        VolleyPostHelper getAddresses =  new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+
+                gson = GsonUtility.createGsonBuilder(AddressList.class, new AddressList.AddressListInstance()).create();
+                String jsonString = new Gson().toJson(apiResponse.getData());
+                Type listType = new TypeToken<ArrayList<Address>>(){}.getType();
+                List<Address> obj = gson.fromJson(jsonString, listType);
+
+                responseHandler.onSuccess(requestCode, obj);
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+            }
+        });
+
+        getAddresses.setRetryPolicy(SocketTimeout.getRetryPolicy());
+
+        return getAddresses;
+    }
+
 
     public static Request requestSetAddress(final int requestCode, String token, String addressId, final ResponseHandler responseHandler){
 

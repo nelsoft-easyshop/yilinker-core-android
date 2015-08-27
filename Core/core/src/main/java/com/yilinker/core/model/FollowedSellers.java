@@ -3,6 +3,7 @@ package com.yilinker.core.model;
 import com.google.gson.InstanceCreator;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -10,13 +11,13 @@ import java.util.List;
  */
 public class FollowedSellers {
 
-    private List<Seller> sellers;
+    private List<FollowedSeller> sellers = new ArrayList<>();
 
-    public List<Seller> getSellers() {
+    public List<FollowedSeller> getSellers() {
         return sellers;
     }
 
-    public void setSellers(List<Seller> sellers) {
+    public void setSellers(List<FollowedSeller> sellers) {
         this.sellers = sellers;
     }
 
