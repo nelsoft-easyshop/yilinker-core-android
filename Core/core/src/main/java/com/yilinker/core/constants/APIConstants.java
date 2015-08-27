@@ -44,6 +44,7 @@ public class APIConstants {
     public static final String PRODUCT_ID = "productId";
 
     public static final String PRODUCT_GET_REVIEW = "getReviews";
+    public static final String PRODUCT_GET_PRODUCT_REVIEW = "getProductReviews";
     public static final String PRODUCT_GET_REVIEW_PARAM_ID = "productId";
 
     //For Seller API
