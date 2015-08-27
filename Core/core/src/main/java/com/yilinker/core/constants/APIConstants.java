@@ -71,6 +71,10 @@ public class APIConstants {
     public static final String CART_ITEM_ID = "itemId";
     public static final String WISH_LIST_GET_ITEMS = "wishlist";
 
+    //For Profile API
+    public static final String PROFILE_API = "user";
+    public static final String PROFILE_GET_DETAILS = "getUser";
+
     //For Home API
     public static final String HOME_API = "home";
     public static final String HOME_GET_ITEMS = "getData";
@@ -81,8 +85,11 @@ public class APIConstants {
     //For Registration API
     public static final String REG_API = "register";
     public static final String REG_PARAM_FULLNAME = "fullname";
+    public static final String REG_PARAM_FIRST_NAME = "firstName";
+    public static final String REG_PARAM_LAST_NAME = "lastName";
+    public static final String REG_PARAM_MOBILE = "mobile";
     public static final String REG_PARAM_EMAIL = "email";
-    public static final String REG_PARAM_PASSWORD = "plainPassword";
+    public static final String REG_PARAM_PASSWORD = "password";
     public static final String REG_PARAM_REFERRAL = "referralCode";
 
     //For Login API
@@ -136,7 +143,7 @@ public class APIConstants {
 
     //Address
     public static final String STORE_ADDRESS = "storeAddress";
-    public static final String STORE_ADDRESS_ADD = "addStoreAddress";
+    public static final String STORE_ADDRESS_ADD = "addNewAddress";
     public static final String GET_STORE_ADDRESS = "getUserAddresses";
     public static final String ADDRESS_PARAMS_TITLE = "addressTitle";
     public static final String ADDRESS_PARAMS_UNIT_NUMBER = "unitNumber";
@@ -179,21 +186,31 @@ public class APIConstants {
     public static final String BANK_ACCOUNT_API = "account";
     public static final String GET_BANK_ACCOUNTS = "getBankAccounts";
     public static final String GET_BANK_LIST = "getEnabledBanks";
+    public static final String SET_DEFAULT_BANK = "setDefaultBankAccount";
+    public static final String DELETE_BANK_ACCOUNT = "deleteBankAccount";
     public static final String ADD_BANK_ACCOUNT = "addBankAccount";
     public static final String BANK_PARAMS_ACCOUNT_TITLE = "accountTitle";
     public static final String BANK_PARAMS_ACCOUNT_NUMBER = "accountNumber";
     public static final String BANK_PARAMS_ACCOUNT_NAME = "accountName";
     public static final String BANK_PARAMS_BANK_ID = "bankId";
-    public static final String STREET_ADDRESS_PARAM = "streetAddress";
+    public static final String LOCATION_API = "location";
+    public static final String ADDRESS_GET_ALL_PROVINCES = "getAllProvinces";
+    public static final String ADDRESS_GET_CHILD_CITIES = "getChildCities";
+    public static final String ADDRESS_PARAMS_PROVINCE_ID = "provinceId";
+    public static final String ADDRESS_PARAMS_CITY_ID = "cityId";
+    public static final String ADDRESS_GET_CHILD_BARANGGAY = "getBarangaysByCity";
+    public static final String SET_DEFAULT_ADDRESS = "setDefaultAddress";
+    public static final String ADDRESS_PARAMS_USER_ADDRESS_ID = "userAddressId";
 
     /***Category*/
     public static final String GET_CATEGORY ="getCategories";
     public static final String PARENT_ID = "parentId";
+    public static final String BANK_PARAMS_BANK_ACCOUNT_ID = "bankAccountId";
+
 
     /***Search*/
     public static final String GET_SEARCH ="getSearchKeywords";
     public static final String SEARCH_QUERY ="queryString";
-
 
     //Checkout Buyer
 
@@ -211,6 +228,5 @@ public class APIConstants {
     public static final String ADDRESS_SET_ADDRESS = "setDefaultAddress";
     public static final String ADDRESS_DELETE_ADDRESS = "deleteUserAddress";
     public static final String ADDRESS_PARAM_ID = "userAddressId";
-
 
 }

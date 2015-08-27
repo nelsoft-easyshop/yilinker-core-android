@@ -1,6 +1,7 @@
 package com.yilinker.core.model;
 
 import com.google.gson.InstanceCreator;
+import com.yilinker.core.model.seller.Bank;
 
 import java.lang.reflect.Type;
 
@@ -13,7 +14,27 @@ public class UpdateUserInfo {
     private String coverPhoto;
     private String storeName;
     private String storeDescription;
+    private String contactNumber;
     private String email;
+
+    private Bank bankAccount;
+    private Address address;
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public Bank getBankAccount() {
+        return bankAccount;
+    }
+
+    public void setBankAccount(Bank bankAccount) {
+        this.bankAccount = bankAccount;
+    }
 
     public String getEmail() {
         return email;
@@ -55,6 +76,15 @@ public class UpdateUserInfo {
         this.storeDescription = storeDescription;
     }
 
+    public String getContactNumber() {
+        return contactNumber;
+    }
+
+    public void setContactNumber(String contactNumber) {
+        this.contactNumber = contactNumber;
+    }
+
+
     public static class UpdateUserInfoInstance implements InstanceCreator<UpdateUserInfo> {
 
         @Override
@@ -62,5 +92,9 @@ public class UpdateUserInfo {
 
             return new UpdateUserInfo();
         }
+    }
+
+    class bankAccount {
+
     }
 }
