@@ -73,6 +73,10 @@ public class APIConstants {
     public static final String CART_ITEM_ID = "itemId";
     public static final String WISH_LIST_GET_ITEMS = "wishlist";
 
+    //For Profile API
+    public static final String PROFILE_API = "user";
+    public static final String PROFILE_GET_DETAILS = "getUser";
+
     //For Home API
     public static final String HOME_API = "home";
     public static final String HOME_GET_ITEMS = "getData";
@@ -224,7 +228,6 @@ public class APIConstants {
     public static final String ADDRESS_DELETE_ADDRESS = "deleteUserAddress";
     public static final String ADDRESS_PARAM_ID = "userAddressId";
 
-
     // Messaging API
     public static final String MESSAGING_API                    = "message";
     // Method
@@ -257,4 +260,5 @@ public class APIConstants {
     public static final String DEVICE_PARAM_OLD_REGISTRATION_ID = "oldRegistrationId";
     public static final String DEVICE_PARAM_NEW_REGISTRATION_ID = "newRegistrationId";
     public static final String DEVICE_IS_IDLE                   = "isIdle";
+
 }
