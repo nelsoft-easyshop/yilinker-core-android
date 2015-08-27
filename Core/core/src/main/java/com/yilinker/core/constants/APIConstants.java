@@ -85,8 +85,11 @@ public class APIConstants {
     //For Registration API
     public static final String REG_API = "register";
     public static final String REG_PARAM_FULLNAME = "fullname";
+    public static final String REG_PARAM_FIRST_NAME = "firstName";
+    public static final String REG_PARAM_LAST_NAME = "lastName";
+    public static final String REG_PARAM_MOBILE = "mobile";
     public static final String REG_PARAM_EMAIL = "email";
-    public static final String REG_PARAM_PASSWORD = "plainPassword";
+    public static final String REG_PARAM_PASSWORD = "password";
     public static final String REG_PARAM_REFERRAL = "referralCode";
 
     //For Login API
