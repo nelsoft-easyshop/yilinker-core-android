@@ -8,6 +8,7 @@ import com.yilinker.core.constants.APIConstants;
 import com.yilinker.core.helper.VolleyPostHelper;
 import com.yilinker.core.interfaces.ResponseHandler;
 import com.yilinker.core.model.APIResponse;
+import com.yilinker.core.model.seller.MobileVerificationCode;
 import com.yilinker.core.utility.GsonUtility;
 import com.yilinker.core.utility.SocketTimeout;
 
@@ -21,24 +22,35 @@ import java.util.Map;
  */
 public class MobileVerificationApi {
 
-    public static Request requestVerificationCode (final int requestCode, String token, final ResponseHandler responseHandler){
+    public static Request changeContactNumber (final int requestCode, String token,
+                                               String oldContactNumber, String newContactNumber,
+                                               final ResponseHandler responseHandler){
 
         String url = String.format("%s/%s/%s/%s",
-                APIConstants.DOMAIN, APIConstants.ACCESS_TOKEN, APIConstants.AUTH_API, APIConstants.GET_CODE);
+                APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.USER_API, APIConstants.CHANGE_CONTACT_NUMBER);
 
         Map<String, String> params = new HashMap<String, String>();
         params.put(APIConstants.ACCESS_TOKEN, token);
+        params.put(APIConstants.SMS_PARAMS_OLD_CONTACT_NUMBER, oldContactNumber);
+        params.put(APIConstants.SMS_PARAMS_NEW_CONTACT_NUMBER, newContactNumber);
 
-        VolleyPostHelper requestVerificationCode = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
+        VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject response) {
 
                 Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
                 APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+
+                gson = GsonUtility.createGsonBuilder(MobileVerificationApi.class,
+                        new MobileVerificationCode.MobileVerificationCodeInstance()).create();
+                String jsonStr = new Gson().toJson(apiResponse.getData());
+                MobileVerificationCode obj = gson.fromJson(jsonStr, MobileVerificationCode.class);
+
                 if(apiResponse.isSuccessful()) {
-                    responseHandler.onSuccess(requestCode, apiResponse.getMessage());
+                    responseHandler.onSuccess(requestCode, obj);
                 }
+
             }
         }, new Response.ErrorListener() {
 
@@ -48,21 +60,21 @@ public class MobileVerificationApi {
             }
         });
 
-        requestVerificationCode.setRetryPolicy(SocketTimeout.getRetryPolicy());
+        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
 
-        return requestVerificationCode;
+        return request;
     }
 
-    public static Request requestVerifyCode (final int requestCode, String token, String code, final ResponseHandler responseHandler){
+    public static Request sendVerificationCode (final int requestCode, String token, String code, final ResponseHandler responseHandler){
 
         String url = String.format("%s/%s/%s/%s",
-                APIConstants.DOMAIN, APIConstants.ACCESS_TOKEN, APIConstants.AUTH_API, APIConstants.VERIFY);
+                APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.SMS_API, APIConstants.SMS_VERIFY);
 
         Map<String, String> params = new HashMap<String, String>();
         params.put(APIConstants.ACCESS_TOKEN, token);
-        params.put(APIConstants.VERIFY_PARAM_VERIFICATION_CODE, String.valueOf(code));
+        params.put(APIConstants.SMS_VERIFICATION_CODE, code);
 
-        VolleyPostHelper requestVerificationCode = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
+        VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject response) {
@@ -72,12 +84,9 @@ public class MobileVerificationApi {
 
                 if(apiResponse.isSuccessful()) {
                     responseHandler.onSuccess(requestCode, apiResponse.getMessage());
+                }else{
+                    responseHandler.onFailed(requestCode, apiResponse.getMessage());
                 }
-                else{
-
-
-                }
-
             }
         }, new Response.ErrorListener() {
 
@@ -87,8 +96,8 @@ public class MobileVerificationApi {
             }
         });
 
-        requestVerificationCode.setRetryPolicy(SocketTimeout.getRetryPolicy());
+        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
 
-        return requestVerificationCode;
+        return request;
     }
 }

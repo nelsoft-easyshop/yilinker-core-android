@@ -138,7 +138,8 @@ public class APIConstants {
 
     //Address
     public static final String STORE_ADDRESS = "storeAddress";
-    public static final String STORE_ADDRESS_ADD = "addStoreAddress";
+    public static final String STORE_ADDRESS_ADD = "addNewAddress";
+    public static final String GET_STORE_ADDRESS = "getUserAddresses";
     public static final String ADDRESS_PARAMS_TITLE = "addressTitle";
     public static final String ADDRESS_PARAMS_UNIT_NUMBER = "unitNumber";
     public static final String ADDRESS_PARAMS_BUILDING_NAME = "buildingName";
@@ -157,19 +158,54 @@ public class APIConstants {
     public static final String VERIFY = "verify";
     public static final String VERIFY_PARAM_VERIFICATION_CODE = "code";
 
-    //Update User Info
+    public static final String CHANGE_CONTACT_NUMBER = "changeContactNumber";
+    public static final String SMS_VERIFY = "verify";
+    public static final String SMS_VERIFICATION_CODE = "code";
+    public static final String SMS_PARAMS_OLD_CONTACT_NUMBER = "oldContactNumber";
+    public static final String SMS_PARAMS_NEW_CONTACT_NUMBER = "newContactNumber";
+
+    //Store User Info
     public static final String UPDATE_USER_API = "user";
     public static final String USER_UPDATE_API = "update";
+    public static final String UPDATE_STORE_INFO_API = "updateUserInfo";
     public static final String PROFILE_PHOTO_PARAM = "profilePhoto";
     public static final String COVER_PHOTO_PARAM = "coverPhoto";
     public static final String STORE_NAME_PARAM = "storeName";
     public static final String STORE_DESCRIPTION_PARAM = "storeDescription";
-    public static final String STREET_ADDRESS_PARAM = "streetAddress";
+    public static final String STORE_INFO_MERCHANT = "merchant";
+    public static final String GET_STORE_INFO = "getUserInfo";
+    public static final String CHANGE_PASSWORD_API = "changePassword";
+
+    //Bank
+    public static final String BANK_API = "bank";
+    public static final String BANK_ACCOUNT_API = "account";
+    public static final String GET_BANK_ACCOUNTS = "getBankAccounts";
+    public static final String GET_BANK_LIST = "getEnabledBanks";
+    public static final String SET_DEFAULT_BANK = "setDefaultBankAccount";
+    public static final String DELETE_BANK_ACCOUNT = "deleteBankAccount";
+    public static final String ADD_BANK_ACCOUNT = "addBankAccount";
+    public static final String BANK_PARAMS_ACCOUNT_TITLE = "accountTitle";
+    public static final String BANK_PARAMS_ACCOUNT_NUMBER = "accountNumber";
+    public static final String BANK_PARAMS_ACCOUNT_NAME = "accountName";
+    public static final String BANK_PARAMS_BANK_ID = "bankId";
+    public static final String LOCATION_API = "location";
+    public static final String ADDRESS_GET_ALL_PROVINCES = "getAllProvinces";
+    public static final String ADDRESS_GET_CHILD_CITIES = "getChildCities";
+    public static final String ADDRESS_PARAMS_PROVINCE_ID = "provinceId";
+    public static final String ADDRESS_PARAMS_CITY_ID = "cityId";
+    public static final String ADDRESS_GET_CHILD_BARANGGAY = "getBarangaysByCity";
+    public static final String SET_DEFAULT_ADDRESS = "setDefaultAddress";
+    public static final String ADDRESS_PARAMS_USER_ADDRESS_ID = "userAddressId";
 
     /***Category*/
     public static final String GET_CATEGORY ="getCategories";
     public static final String PARENT_ID = "parentId";
+    public static final String BANK_PARAMS_BANK_ACCOUNT_ID = "bankAccountId";
 
+
+    /***Search*/
+    public static final String GET_SEARCH ="getSearchKeywords";
+    public static final String SEARCH_QUERY ="queryString";
 
     //Checkout Buyer
 
