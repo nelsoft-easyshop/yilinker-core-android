@@ -1,5 +1,6 @@
 package com.yilinker.core.api;
 
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -11,14 +12,16 @@ import com.yilinker.core.interfaces.ResponseHandler;
 import com.yilinker.core.model.APIResponse;
 import com.yilinker.core.model.Address;
 import com.yilinker.core.model.AddressList;
-import com.yilinker.core.model.seller.BaranggayAddress;
-import com.yilinker.core.model.seller.CityAddress;
-import com.yilinker.core.model.seller.ProvinceAddress;
+import com.yilinker.core.model.BaranggayAddress;
+import com.yilinker.core.model.CityAddress;
+import com.yilinker.core.model.ProvinceAddress;
 import com.yilinker.core.utility.GsonUtility;
 import com.yilinker.core.utility.SocketTimeout;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -45,8 +48,8 @@ public class AddressAPI {
         params.put(APIConstants.ADDRESS_PARAMS_STREET_NAME, String.valueOf(address.getStreetName()));
         params.put(APIConstants.ADDRESS_PARAMS_BARANGAY, String.valueOf(address.getBarangay()));
         params.put(APIConstants.ADDRESS_PARAMS_SUBDIVISION, String.valueOf(address.getSubdivision()));
-        /*params.put(APIConstants.ADDRESS_PARAMS_CITY, city);
-        params.put(APIConstants.ADDRESS_PARAMS_PROVINCE, province);*/
+        params.put(APIConstants.ADDRESS_PARAMS_CITY, String.valueOf(address.getCity()));
+        params.put(APIConstants.ADDRESS_PARAMS_PROVINCE, String.valueOf(address.getProvince()));
         params.put(APIConstants.ADDRESS_PARAMS_ZIPCODE, String.valueOf(address.getZipCode()));
 
         VolleyPostHelper requestAddStoreAddress = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
@@ -56,11 +59,61 @@ public class AddressAPI {
 
                 Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
                 APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
-                if(apiResponse.isSuccessful()) {
-                    responseHandler.onSuccess(requestCode, apiResponse);
-                }else{
-                    responseHandler.onSuccess(requestCode, apiResponse);
+
+                responseHandler.onSuccess(requestCode, apiResponse);
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                try {
+                    String responseBody = new String(error.networkResponse.data, "utf-8" );
+                    JSONObject jsonObject = new JSONObject( responseBody );
+                } catch ( JSONException e ) {
+                    //Handle a malformed json response
+                } catch (UnsupportedEncodingException e){
+
                 }
+                responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+            }
+        });
+
+        requestAddStoreAddress.setRetryPolicy(SocketTimeout.getRetryPolicy());
+
+        return requestAddStoreAddress;
+    }
+
+    public static Request editAddress (final int requestCode, String token, Address address,
+                                      final ResponseHandler responseHandler){
+
+        String url = String.format("%s/%s/%s/%s",
+                APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.ADDRESS_API, APIConstants.STORE_ADDRESS_ADD);
+
+        Map<String, String> params = new HashMap<String, String>();
+        params.put(APIConstants.ACCESS_TOKEN, token);
+        params.put(APIConstants.ADDRESS_PARAM_ID, String.valueOf(address.getUserAddressId()));
+        params.put(APIConstants.ADDRESS_PARAMS_TITLE, String.valueOf(address.getAddressTitle()));
+        params.put(APIConstants.ADDRESS_PARAMS_UNIT_NUMBER, String.valueOf(address.getUnitNumber()));
+        params.put(APIConstants.ADDRESS_PARAMS_BUILDING_NAME, String.valueOf(address.getBuildingName()));
+        params.put(APIConstants.ADDRESS_PARAMS_STREET_NUMBER, String.valueOf(address.getStreetNumber()));
+        params.put(APIConstants.ADDRESS_PARAMS_STREET_NAME, String.valueOf(address.getStreetName()));
+        params.put(APIConstants.ADDRESS_PARAMS_BARANGAY, String.valueOf(address.getBarangay()));
+        params.put(APIConstants.ADDRESS_PARAMS_SUBDIVISION, String.valueOf(address.getSubdivision()));
+        /*params.put(APIConstants.ADDRESS_PARAMS_CITY, city);
+        params.put(APIConstants.ADDRESS_PARAMS_PROVINCE, province);*/
+        params.put(APIConstants.ADDRESS_PARAMS_ZIPCODE, String.valueOf(address.getZipCode()));
+
+        VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+
+                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+
+                responseHandler.onSuccess(requestCode, apiResponse);
+
             }
         }, new Response.ErrorListener() {
 
@@ -70,10 +123,12 @@ public class AddressAPI {
             }
         });
 
-        requestAddStoreAddress.setRetryPolicy(SocketTimeout.getRetryPolicy());
+        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
 
-        return requestAddStoreAddress;
+        return request;
     }
+
+
 
     public static Request getAddresses(final int requestCode, String token, final ResponseHandler responseHandler) {
 
@@ -145,7 +200,7 @@ public class AddressAPI {
     }
 
 
-    public static Request requestSetAddress(final int requestCode, String token, String addressId, final ResponseHandler responseHandler){
+    public static Request setDefaultAddress(final int requestCode, String token, String addressId, final ResponseHandler responseHandler){
 
         String url = String.format("%s/%s/%s/%s", APIConstants.DOMAIN, APIConstants.AUTH_API,
                 APIConstants.ADDRESS_API, APIConstants.ADDRESS_SET_ADDRESS);
@@ -160,7 +215,12 @@ public class AddressAPI {
                 Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
                 APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
 
-                responseHandler.onSuccess(requestCode, apiResponse);
+                gson = GsonUtility.createGsonBuilder(Address.class, new Address.AddressInstance()).create();
+                String jsonString = new Gson().toJson(apiResponse.getData());
+//                Type listType = new TypeToken<ArrayList<Address>>(){}.getType();
+                Address obj = gson.fromJson(jsonString, Address.class);
+
+                responseHandler.onSuccess(requestCode, obj);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -199,6 +259,14 @@ public class AddressAPI {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                try {
+                    String responseBody = new String(error.networkResponse.data, "utf-8" );
+                    JSONObject jsonObject = new JSONObject( responseBody );
+                } catch ( JSONException e ) {
+                    //Handle a malformed json response
+                } catch (UnsupportedEncodingException e){
+
+                }
                 responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
             }
         });

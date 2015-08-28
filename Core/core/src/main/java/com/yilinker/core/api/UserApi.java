@@ -1,10 +1,8 @@
 package com.yilinker.core.api;
 
-import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NoConnectionError;
 import com.android.volley.Request;
 import com.android.volley.Response;
-import com.android.volley.RetryPolicy;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
@@ -34,9 +32,6 @@ public class UserApi {
 
         String url = String.format("%s/%s/%s",
         APIConstants.DOMAIN, APIConstants.USER_API, APIConstants.REG_API);
-
-        //test server
-//        String url = "http://online.api.easydeal.ph/api/v1/user/register";
 
         String fullname = String.format("%s %s",firstName,lastName);
         Map<String, String> params = new HashMap<String, String>();
