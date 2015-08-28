@@ -146,7 +146,7 @@ public class APIConstants {
     public static final String STORE_ADDRESS = "storeAddress";
     public static final String STORE_ADDRESS_ADD = "addNewAddress";
     public static final String GET_STORE_ADDRESS = "getUserAddresses";
-    public static final String ADDRESS_PARAMS_TITLE = "addressTitle";
+    public static final String ADDRESS_PARAMS_TITLE = "title";
     public static final String ADDRESS_PARAMS_UNIT_NUMBER = "unitNumber";
     public static final String ADDRESS_PARAMS_BUILDING_NAME = "buildingName";
     public static final String ADDRESS_PARAMS_STREET_NUMBER = "streetNumber";
