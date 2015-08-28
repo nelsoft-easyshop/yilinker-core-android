@@ -7,6 +7,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
 import com.yilinker.core.constants.APIConstants;
+import com.yilinker.core.helper.VolleyPostHelper;
 import com.yilinker.core.interfaces.ResponseHandler;
 import com.yilinker.core.model.APIResponse;
 import com.yilinker.core.model.buyer.Product;
@@ -15,6 +16,9 @@ import com.yilinker.core.utility.GsonUtility;
 import com.yilinker.core.utility.SocketTimeout;
 
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -56,12 +60,14 @@ public class ProductApi {
 
     public static Request getProductReview(final int requestCode, int id, final ResponseHandler responseHandler){
 
-        String url = String.format("%s/%s/%s?%s=%d", APIConstants.DOMAIN, APIConstants.PRODUCT_API, APIConstants.PRODUCT_GET_REVIEW, APIConstants.PRODUCT_GET_REVIEW_PARAM_ID, id);
+        String url = String.format("%s/%s/%s", APIConstants.DOMAIN, APIConstants.PRODUCT_API, APIConstants.PRODUCT_GET_PRODUCT_REVIEW);
 
-        Request request = new JsonObjectRequest(url, null, new Listener<JSONObject>() {
+        Map<String, String > params = new HashMap<>();
+        params.put( APIConstants.PRODUCT_ID,String.valueOf(id));
+
+        VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-
                 Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
                 APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
 
@@ -70,8 +76,8 @@ public class ProductApi {
                 ProductReview obj = gson.fromJson(jsonString, ProductReview.class);
 
                 responseHandler.onSuccess(requestCode, obj);
-            }
 
+            }
         }, new Response.ErrorListener() {
 
             @Override
@@ -82,7 +88,34 @@ public class ProductApi {
         });
 
         request.setRetryPolicy(SocketTimeout.getRetryPolicy());
+
         return request;
+
+//        Request request = new JsonObjectRequest(url, null, new Listener<JSONObject>() {
+//            @Override
+//            public void onResponse(JSONObject response) {
+//
+//                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+//                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+//
+//                gson = GsonUtility.createGsonBuilder(ProductReview.class, new ProductReview.ProductReviewInstance()).create();
+//                String jsonString = new Gson().toJson(apiResponse.getData());
+//                ProductReview obj = gson.fromJson(jsonString, ProductReview.class);
+//
+//                responseHandler.onSuccess(requestCode, obj);
+//            }
+//
+//        }, new Response.ErrorListener() {
+//
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+//
+//            }
+//        });
+//
+//        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
+//        return request;
 
     }
 
