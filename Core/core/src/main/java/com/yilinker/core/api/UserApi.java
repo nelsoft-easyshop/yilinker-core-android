@@ -1,12 +1,7 @@
 package com.yilinker.core.api;
 
-import android.util.Log;
-
-import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.NetworkError;
 import com.android.volley.NoConnectionError;
-import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.RetryPolicy;
@@ -14,26 +9,20 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import com.yilinker.core.constants.APIConstants;
 import com.yilinker.core.helper.VolleyPostHelper;
 import com.yilinker.core.interfaces.ResponseHandler;
 import com.yilinker.core.model.APIResponse;
 import com.yilinker.core.model.Login;
-import com.yilinker.core.model.ProductUpload;
 import com.yilinker.core.model.Register;
 import com.yilinker.core.model.UpdateUserInfo;
 import com.yilinker.core.utility.GsonUtility;
 import com.yilinker.core.utility.SocketTimeout;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -51,7 +40,8 @@ public class UserApi {
 
         String fullname = String.format("%s %s",firstName,lastName);
         Map<String, String> params = new HashMap<String, String>();
-        params.put(APIConstants.REG_PARAM_FULLNAME,fullname);
+        params.put(APIConstants.REG_PARAM_FIRST_NAME,firstName);
+        params.put(APIConstants.REG_PARAM_LAST_NAME, lastName);
         params.put(APIConstants.REG_PARAM_EMAIL, email);
         params.put(APIConstants.REG_PARAM_PASSWORD, password);
 
@@ -113,21 +103,49 @@ public class UserApi {
                 } else {
                     responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
                 }
-
             }
         });
 
         request.setRetryPolicy(SocketTimeout.getRetryPolicy());
+
+        return request;
+    }
+
+    public static Request refreshToken(final int requestCode, String refreshToken, final ResponseHandler responseHandler){
+
+        String url = String.format("%s/%s", APIConstants.DOMAIN, APIConstants.LOGIN_API);
+
+        Map<String, String> params = new HashMap<>();
+        params.put(APIConstants.LOGIN_PARAM_CLIENT_ID, APIConstants.API_CLIENT_ID);
+        params.put(APIConstants.LOGIN_PARAM_CLIENT_SECRET, APIConstants.API_CLIENT_SECRET);
+        params.put(APIConstants.LOGIN_PARAM_GRANT_TYPE, APIConstants.API_GRANT_TYPE);
+        params.put(APIConstants.LOGIN_PARAM_REFRESH_TOKEN, refreshToken);
+
+        VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+
+                Gson gson =  GsonUtility.createGsonBuilder(Login.class, new Login.LoginInstance()).create();
+                Login obj = gson.fromJson(response.toString(), Login.class);
+
+                responseHandler.onSuccess(requestCode, obj);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+            }
+        });
+
+        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
+
         return request;
     }
 
     public static Request updateUserInfo(final int requestCode, UpdateUserInfo updateUserInfo,
                                          String accessToken, final ResponseHandler responseHandler){
 
-        int socketTimeout = 5000;
-        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
 
         String url = String.format("%s/%s/%s",APIConstants.DOMAIN, APIConstants.UPDATE_USER_API, APIConstants.USER_UPDATE_API);
 
@@ -176,7 +194,7 @@ public class UserApi {
             }
         });
 
-        requestUpdateUserInfo.setRetryPolicy(policy);
+        requestUpdateUserInfo.setRetryPolicy(SocketTimeout.getRetryPolicy());
 
         return requestUpdateUserInfo;
 
