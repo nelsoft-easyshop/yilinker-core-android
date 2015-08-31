@@ -17,7 +17,7 @@ import com.yilinker.core.model.APIResponse;
 import com.yilinker.core.model.Login;
 import com.yilinker.core.model.Register;
 import com.yilinker.core.model.UpdateUserInfo;
-import com.yilinker.core.model.seller.OAuthentication;
+import com.yilinker.core.model.OAuthentication;
 import com.yilinker.core.utility.GsonUtility;
 import com.yilinker.core.utility.SocketTimeout;
 

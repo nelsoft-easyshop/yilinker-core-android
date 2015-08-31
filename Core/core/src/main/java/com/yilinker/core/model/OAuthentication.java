@@ -1,4 +1,4 @@
-package com.yilinker.core.model.seller;
+package com.yilinker.core.model;
 
 /**
  * Created by J.Bautista

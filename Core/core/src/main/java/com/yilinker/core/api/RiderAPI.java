@@ -15,7 +15,7 @@ import com.yilinker.core.model.APIResponse;
 import com.yilinker.core.model.Address;
 import com.yilinker.core.model.Login;
 import com.yilinker.core.model.express.internal.Rider;
-import com.yilinker.core.model.seller.OAuthentication;
+import com.yilinker.core.model.OAuthentication;
 import com.yilinker.core.utility.GsonUtility;
 import com.yilinker.core.utility.SocketTimeout;
 
