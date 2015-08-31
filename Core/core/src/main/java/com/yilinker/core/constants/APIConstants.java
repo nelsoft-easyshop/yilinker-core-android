@@ -101,7 +101,10 @@ public class APIConstants {
     public static final String LOGIN_PARAM_GRANT_TYPE = "grant_type";
     public static final String LOGIN_PARAM_EMAIL = "email";
     public static final String LOGIN_PARAM_PASSWORD = "password";
+
+    public static final String LOGIN_PARAM_USERNAME = "username";
     public static final String LOGIN_PARAM_REFRESH_TOKEN = "refresh_token";
+
 
     //For Product Upload API
     public static final String PRODUCT_UPLOAD_API="upload";
@@ -225,9 +228,27 @@ public class APIConstants {
 
     public static final String ADDRESS_API = "address";
     public static final String ADDRESS_GET_ADDRESSES = "getAddresses";
+
+//    public static final String ADDRESS_ADD_ADDRESS = "addAddress";
+//    public static final String ADDRESS_SET_ADDRESS = "setAddress";
+//    public static final String ADDRESS_PARAM_ID = "address_id";
+
+    //For Rider
+    public static final String RIDER_GET_TOKEN = "token";
+
+    public static final String RIDER_API = "riders";
+    public static final String RIDER_GET_INFO = "get-rider-info";
+    public static final String RIDER_GET_INFO_PARAM_TOKEN = "access_token";
+
+
+    public static final String RIDER_GET_JOB_ORDERS = "get-job-orders";
+    public static final String RIDER_GET_JOB_ORDERS_PARAM_TOKEN = "access_token";
+    public static final String RIDER_GET_JOB_ORDERS_PARAM_STATUS = "status";
+
     public static final String ADDRESS_ADD_ADDRESS = "addNewAddress";
     public static final String ADDRESS_SET_ADDRESS = "setDefaultAddress";
     public static final String ADDRESS_DELETE_ADDRESS = "deleteUserAddress";
     public static final String ADDRESS_PARAM_ID = "userAddressId";
+
 
 }
