@@ -1,5 +1,10 @@
 package com.yilinker.core.model;
 
+import com.google.gson.InstanceCreator;
+import com.yilinker.core.model.seller.Bank;
+
+import java.lang.reflect.Type;
+
 /**
  * Created by Administrator on 8/17/2015.
  */
@@ -9,12 +14,35 @@ public class UpdateUserInfo {
     private String coverPhoto;
     private String storeName;
     private String storeDescription;
-    private String streetAddress;
-    private String cityId;
-    private String regionId;
+    private String contactNumber;
     private String email;
-    private String oldPassword;
-    private String newPassword;
+
+    private Bank bankAccount;
+    private Address address;
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public Bank getBankAccount() {
+        return bankAccount;
+    }
+
+    public void setBankAccount(Bank bankAccount) {
+        this.bankAccount = bankAccount;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public String getProfilePhoto() {
         return profilePhoto;
@@ -48,51 +76,25 @@ public class UpdateUserInfo {
         this.storeDescription = storeDescription;
     }
 
-    public String getStreetAddress() {
-        return streetAddress;
+    public String getContactNumber() {
+        return contactNumber;
     }
 
-    public void setStreetAddress(String streetAddress) {
-        this.streetAddress = streetAddress;
+    public void setContactNumber(String contactNumber) {
+        this.contactNumber = contactNumber;
     }
 
-    public String getCityId() {
-        return cityId;
+
+    public static class UpdateUserInfoInstance implements InstanceCreator<UpdateUserInfo> {
+
+        @Override
+        public UpdateUserInfo createInstance(Type type) {
+
+            return new UpdateUserInfo();
+        }
     }
 
-    public void setCityId(String cityId) {
-        this.cityId = cityId;
-    }
+    class bankAccount {
 
-    public String getRegionId() {
-        return regionId;
-    }
-
-    public void setRegionId(String regionId) {
-        this.regionId = regionId;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getOldPassword() {
-        return oldPassword;
-    }
-
-    public void setOldPassword(String oldPassword) {
-        this.oldPassword = oldPassword;
-    }
-
-    public String getNewPassword() {
-        return newPassword;
-    }
-
-    public void setNewPassword(String newPassword) {
-        this.newPassword = newPassword;
     }
 }

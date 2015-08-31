@@ -15,15 +15,15 @@ public class ProductReview {
     private static final String KEY_RATING = "rating";
     private static final String KEY_REVIEWS = "reviews";
 
-    private int rating;
+    private float ratingAverage;
     private List<Review> reviews;
 
-    public int getRating() {
-        return rating;
+    public float getRatingAverage() {
+        return ratingAverage;
     }
 
-    public void setRating(int rating) {
-        this.rating = rating;
+    public void setRatingAverage(float ratingAverage) {
+        this.ratingAverage = ratingAverage;
     }
 
     public List<Review> getReviews() {

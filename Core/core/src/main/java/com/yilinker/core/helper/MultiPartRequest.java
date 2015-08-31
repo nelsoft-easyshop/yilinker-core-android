@@ -10,8 +10,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.google.gson.Gson;
+import com.yilinker.core.model.UpdateUserInfo;
 import com.yilinker.core.model.seller.ProductUpload;
 import com.yilinker.core.model.seller.AttributeCombinationUpload;
+import com.yilinker.core.model.seller.ProductUpload;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.entity.ContentType;
@@ -31,6 +33,8 @@ import java.util.Map;
  */
 public class MultiPartRequest extends Request {
     private static final String KEY_PICTURE = "images[]";
+    private static final String KEY_PROFILE = "profilePhoto";
+    private static final String KEY_COVER = "coverPhoto";
     private static final String TAG = "MutliPartRequest";
     public final static String uploadDirectory = String.format("%s/%s", Environment.getExternalStorageDirectory().toString(), "Online Seller Temp");
 
@@ -40,6 +44,7 @@ public class MultiPartRequest extends Request {
     private Map<String, String> mHeaders;
     private final Gson gson;
     private ProductUpload productUpload;
+    private UpdateUserInfo updateUserInfo;
 
     public MultiPartRequest(String url, File file,
                             Class clazz,
@@ -66,6 +71,20 @@ public class MultiPartRequest extends Request {
         gson = new Gson();
         this.productUpload = productUpload;
         mHttpEntity = buildMultipartEntity();
+    }
+
+    public MultiPartRequest(String url, UpdateUserInfo updateUserInfo,
+                            Class clazz,
+                            Map<String, String> headers,
+                            Response.Listener listener,
+                            Response.ErrorListener errorListener) {
+        super(Request.Method.POST, url, errorListener);
+        mHeaders = headers;
+        mClass = clazz;
+        mListener = listener;
+        gson = new Gson();
+        this.updateUserInfo = updateUserInfo;
+        mHttpEntity = buildMultipartEntityStoreInfo();
     }
 
     public MultiPartRequest(String url, String path,
@@ -116,13 +135,31 @@ public class MultiPartRequest extends Request {
 
         for (Map.Entry<String, String> entry : mHeaders.entrySet()) {
             builder.addTextBody(entry.getKey(), entry.getValue());
-//            try {
-//                builder.addPart(entry.getKey(),new StringBody(entry.getValue()));
-//            } catch (UnsupportedEncodingException e) {
-//                e.printStackTrace();
-//            }
         }
 
+        builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
+        builder.setBoundary("BOUNDARY");
+        return builder.build();
+    }
+
+    private HttpEntity buildMultipartEntityStoreInfo() {
+
+        MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+        String coverPhoto = updateUserInfo.getCoverPhoto();
+        if(coverPhoto!=null){
+            builder.addBinaryBody(KEY_COVER, new File(updateUserInfo.getCoverPhoto()),
+                    ContentType.create("image/jpeg"),updateUserInfo.getCoverPhoto());
+        }
+
+        String profilePhoto = updateUserInfo.getProfilePhoto();
+        if(profilePhoto!=null){
+            builder.addBinaryBody(KEY_PROFILE, new File(updateUserInfo.getProfilePhoto()),
+                    ContentType.create("image/jpeg"),updateUserInfo.getProfilePhoto());
+        }
+
+        for (Map.Entry<String, String> entry : mHeaders.entrySet()) {
+            builder.addTextBody(entry.getKey(), entry.getValue());
+        }
         builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
         builder.setBoundary("BOUNDARY");
         return builder.build();

@@ -9,33 +9,28 @@ import java.lang.reflect.Type;
  */
 public class Address {
 
-    private int address_id;
-    private String addressTitle;
-    private String unitNumber, buildingName, streetNumber, streetName, barangay, city, province, zipCode;
-    private String additionalInfo;
+    private int userAddressId;
+    private String title;
+    private String unitNumber, buildingName, streetNumber, streetName,
+            subdivision, zipCode, streetAddress, longitude, latitude,
+            landline, locationId, country, island, region, province, city, municipality,
+            barangay;
+    private boolean isDefault;
 
-    public int getAddress_id() {
-        return address_id;
+    public int getUserAddressId() {
+        return userAddressId;
     }
 
-    public void setAddress_id(int address_id) {
-        this.address_id = address_id;
-    }
-
-    public String getStreetName() {
-        return streetName;
-    }
-
-    public void setStreetName(String streetName) {
-        this.streetName = streetName;
+    public void setUserAddressId(int userAddressId) {
+        this.userAddressId = userAddressId;
     }
 
     public String getAddressTitle() {
-        return addressTitle;
+        return title;
     }
 
-    public void setAddressTitle(String addressTitle) {
-        this.addressTitle = addressTitle;
+    public void setAddressTitle(String title) {
+        this.title = title;
     }
 
     public String getUnitNumber() {
@@ -62,28 +57,20 @@ public class Address {
         this.streetNumber = streetNumber;
     }
 
-    public String getBarangay() {
-        return barangay;
+    public String getStreetName() {
+        return streetName;
     }
 
-    public void setBarangay(String barangay) {
-        this.barangay = barangay;
+    public void setStreetName(String streetName) {
+        this.streetName = streetName;
     }
 
-    public String getCity() {
-        return city;
+    public String getSubdivision() {
+        return subdivision;
     }
 
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getProvince() {
-        return province;
-    }
-
-    public void setProvince(String province) {
-        this.province = province;
+    public void setSubdivision(String subdivision) {
+        this.subdivision = subdivision;
     }
 
     public String getZipCode() {
@@ -94,15 +81,111 @@ public class Address {
         this.zipCode = zipCode;
     }
 
-    public String getAdditionalInfo() {
-        return additionalInfo;
+    public String getStreetAddress() {
+        return streetAddress;
     }
 
-    public void setAdditionalInfo(String additionalInfo) {
-        this.additionalInfo = additionalInfo;
+    public void setStreetAddress(String streetAddress) {
+        this.streetAddress = streetAddress;
     }
 
-    public static class StoreAddressInstance implements InstanceCreator<Address> {
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLandline() {
+        return landline;
+    }
+
+    public void setLandline(String landline) {
+        this.landline = landline;
+    }
+
+    public String getLocationId() {
+        return locationId;
+    }
+
+    public void setLocationId(String locationId) {
+        this.locationId = locationId;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getIsland() {
+        return island;
+    }
+
+    public void setIsland(String island) {
+        this.island = island;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getMunicipality() {
+        return municipality;
+    }
+
+    public void setMunicipality(String municipality) {
+        this.municipality = municipality;
+    }
+
+    public String getBarangay() {
+        return barangay;
+    }
+
+    public void setBarangay(String barangay) {
+        this.barangay = barangay;
+    }
+
+    public boolean isDefault() {
+        return isDefault;
+    }
+
+    public void setIsDefault(boolean isDefault) {
+        this.isDefault = isDefault;
+    }
+
+    public static class AddressInstance implements InstanceCreator<Address> {
 
         @Override
         public Address createInstance(Type type) {
