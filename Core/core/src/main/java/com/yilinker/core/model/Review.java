@@ -15,46 +15,78 @@ public class Review {
     private static final String KEY_RATING = "rating";
     private static final String KEY_MESSAGE = "message";
 
-    private String name;
-    private String imageUrl;
-    private int rating;
-    private String message;
+    private int userId;
+    private String title;
+    private String review;
+    private float rating;
+    private String fullName;
+    private String profileImageUrl;
+    private String dateAdded;
 
-    public String getName() {
-        return name;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public String getTitle() {
+        return title;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public int getRating() {
+    public String getReview() {
+        return review;
+    }
+
+    public void setReview(String review) {
+        this.review = review;
+    }
+
+    public float getRating() {
         return rating;
     }
 
-    public void setRating(int rating) {
+    public void setRating(float rating) {
         this.rating = rating;
     }
 
-    public String getMessage() {
-        return message;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
+
+    public String getProfileImageUrl() {
+        return profileImageUrl;
+    }
+
+    public void setProfileImageUrl(String profileImageUrl) {
+        this.profileImageUrl = profileImageUrl;
+    }
+
+    public String getDateAdded() {
+        return dateAdded;
+    }
+
+    public void setDateAdded(String dateAdded) {
+        this.dateAdded = dateAdded;
+    }
+
+//    @Override
+//    public String toString() {
+//        return OBJ_NAME + "[" + KEY_NAME + name + KEY_IMAGE_URL + imageUrl + ", " + KEY_RATING + rating + ", " + KEY_MESSAGE + message + "]";
+//    }
 
     @Override
     public String toString() {
-        return OBJ_NAME + "[" + KEY_NAME + name + KEY_IMAGE_URL + imageUrl + ", " + KEY_RATING + rating + ", " + KEY_MESSAGE + message + "]";
+        return OBJ_NAME;
     }
 
     public static class ReviewInstance implements InstanceCreator<Review> {

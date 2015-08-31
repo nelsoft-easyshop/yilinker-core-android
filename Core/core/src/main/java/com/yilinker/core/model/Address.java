@@ -10,7 +10,7 @@ import java.lang.reflect.Type;
 public class Address {
 
     private int userAddressId;
-    private String addressTitle;
+    private String title;
     private String unitNumber, buildingName, streetNumber, streetName,
             subdivision, zipCode, streetAddress, longitude, latitude,
             landline, locationId, country, island, region, province, city, municipality,
@@ -26,11 +26,11 @@ public class Address {
     }
 
     public String getAddressTitle() {
-        return addressTitle;
+        return title;
     }
 
-    public void setAddressTitle(String addressTitle) {
-        this.addressTitle = addressTitle;
+    public void setAddressTitle(String title) {
+        this.title = title;
     }
 
     public String getUnitNumber() {

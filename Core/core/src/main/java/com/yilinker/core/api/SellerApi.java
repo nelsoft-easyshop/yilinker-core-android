@@ -80,7 +80,7 @@ public class SellerApi {
         String url = String.format("%s/%s/%s", APIConstants.DOMAIN, "auth", follow);
 
         Map<String, String > params = new HashMap<>();
-        params.put( APIConstants.SELLER_USER_ID,String.valueOf(id));
+        params.put( APIConstants.SELLER_GET_DETAILS_PARAM_ID,String.valueOf(id));
         params.put(APIConstants.ACCESS_TOKEN, accessToken);
 
         VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
@@ -88,7 +88,6 @@ public class SellerApi {
             public void onResponse(JSONObject response) {
                 Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
                 APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
-//
 //
 //                gson = GsonUtility.createGsonBuilder(Seller.class, new Seller.SellerInstance()).create();
 //                String jsonString = new Gson().toJson(apiResponse.getData());
