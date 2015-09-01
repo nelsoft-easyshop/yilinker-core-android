@@ -1,4 +1,4 @@
-package com.yilinker.core.model.seller;
+package com.yilinker.core.model;
 
 import com.google.gson.InstanceCreator;
 
