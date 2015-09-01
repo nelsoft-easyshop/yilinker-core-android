@@ -13,8 +13,10 @@ public class APIConstants {
     public static final String UPLOAD_TOKEN = "upload_token";
 
     //temp
-    public static final String DOMAIN = BaseApplication.getDomainURL();
+
+//    public static final String DOMAIN = BaseApplication.getDomainURL();
     public static final String AUTH_API = "auth";
+    public static final String DOMAIN = "http://online.api.easydeal.ph/api/v1";
 
     //For Product API
     public static final String PRODUCT_API = "product";
@@ -257,5 +259,37 @@ public class APIConstants {
     public static final String ADDRESS_DELETE_ADDRESS = "deleteUserAddress";
     public static final String ADDRESS_PARAM_ID = "userAddressId";
 
+    // Messaging API
+    public static final String MESSAGING_API                    = "message";
+    // Method
+    public static final String SEND_MESSAGE                     = "sendMessage";
+    public static final String GET_CONVERSATION_HEAD            = "getConversationHead";
+    public static final String GET_CONTACTS                     = "getContacts";
+    public static final String GET_CONVERSATION_MESSAGES        = "getConversationMessages";
+    public static final String SET_CONVERSATION_AS_READ         = "setConversationAsRead";
+    public static final String IMAGE_ATTACH                     = "imageAttach";
+    // Param
+    public static final String MESSAGING_PARAM_MESSAGE          = "message";
+    public static final String MESSAGING_PARAM_RECIPIENT_ID     = "recipientId";
+    public static final String MESSAGING_PARAM_IS_IMAGE         = "isImage";
+    public static final String MESSAGING_PARAM_ACCESS_TOKEN     = "access_token";
+    public static final String MESSAGING_PARAM_PAGE             = "page";
+    public static final String MESSAGING_PARAM_LIMIT            = "limit";
+    public static final String MESSAGING_PARAM_KEYWORD          = "keyword";
+    public static final String MESSAGING_PARAM_USER_ID          = "userId";
+    public static final String MESSAGING_PARAM_IMAGE            = "image";
+
+    // Device API
+    public static final String DEVICE_API                       = "auth/device";
+    //Method
+    public static final String ADD_REGISTRATION_ID              = "addRegistrationId";
+    public static final String DELETE_REGISTRATION_ID           = "deleteRegistrationId";
+    public static final String UPDATE_REGISTRATION_ID           = "updateRegistrationId";
+    // Param
+    public static final String DEVICE_PARAM_REGISTRATION_ID     = "registrationId";
+    public static final String DEVICE_PARAM_ACCESS_TOKEN        = "access_token";
+    public static final String DEVICE_PARAM_OLD_REGISTRATION_ID = "oldRegistrationId";
+    public static final String DEVICE_PARAM_NEW_REGISTRATION_ID = "newRegistrationId";
+    public static final String DEVICE_IS_IDLE                   = "isIdle";
 
 }
