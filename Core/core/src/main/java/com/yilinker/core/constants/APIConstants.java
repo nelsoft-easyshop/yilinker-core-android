@@ -152,6 +152,8 @@ public class APIConstants {
     public static final String STORE_ADDRESS = "storeAddress";
     public static final String STORE_ADDRESS_ADD = "addNewAddress";
     public static final String GET_STORE_ADDRESS = "getUserAddresses";
+    public static final String EDIT_USER_ADDRESS = "editUserAddress";
+    public static final String ADDRESS_PARAMS_ADDRESS_TITLE = "addressTitle";
     public static final String ADDRESS_PARAMS_TITLE = "title";
     public static final String ADDRESS_PARAMS_UNIT_NUMBER = "unitNumber";
     public static final String ADDRESS_PARAMS_BUILDING_NAME = "buildingName";
@@ -159,6 +161,7 @@ public class APIConstants {
     public static final String ADDRESS_PARAMS_STREET_NAME = "streetName";
     public static final String ADDRESS_PARAMS_SUBDIVISION = "subdivision";
     public static final String ADDRESS_PARAMS_BARANGAY = "barangay";
+    public static final String ADDRESS_PARAMS_LOCATIONID = "locationId";
     public static final String ADDRESS_PARAMS_CITY = "city";
     public static final String ADDRESS_PARAMS_PROVINCE = "province";
     public static final String ADDRESS_PARAMS_ZIPCODE = "zipCode";
@@ -196,6 +199,7 @@ public class APIConstants {
     public static final String SET_DEFAULT_BANK = "setDefaultBankAccount";
     public static final String DELETE_BANK_ACCOUNT = "deleteBankAccount";
     public static final String ADD_BANK_ACCOUNT = "addBankAccount";
+    public static final String EDIT_BANK_ACCOUNT = "editBankAccount";
     public static final String BANK_PARAMS_ACCOUNT_TITLE = "accountTitle";
     public static final String BANK_PARAMS_ACCOUNT_NUMBER = "accountNumber";
     public static final String BANK_PARAMS_ACCOUNT_NAME = "accountName";

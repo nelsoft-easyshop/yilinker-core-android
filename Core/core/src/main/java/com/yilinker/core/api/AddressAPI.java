@@ -41,12 +41,13 @@ public class AddressAPI {
 
         Map<String, String> params = new HashMap<String, String>();
         params.put(APIConstants.ACCESS_TOKEN, token);
-        params.put(APIConstants.ADDRESS_PARAMS_TITLE, String.valueOf(address.getAddressTitle()));
+        params.put(APIConstants.ADDRESS_PARAMS_ADDRESS_TITLE, String.valueOf(address.getAddressTitle()));
         params.put(APIConstants.ADDRESS_PARAMS_UNIT_NUMBER, String.valueOf(address.getUnitNumber()));
         params.put(APIConstants.ADDRESS_PARAMS_BUILDING_NAME, String.valueOf(address.getBuildingName()));
         params.put(APIConstants.ADDRESS_PARAMS_STREET_NUMBER, String.valueOf(address.getStreetNumber()));
         params.put(APIConstants.ADDRESS_PARAMS_STREET_NAME, String.valueOf(address.getStreetName()));
         params.put(APIConstants.ADDRESS_PARAMS_BARANGAY, String.valueOf(address.getBarangay()));
+        params.put(APIConstants.ADDRESS_PARAMS_LOCATIONID, String.valueOf(address.getLocationId()));
         params.put(APIConstants.ADDRESS_PARAMS_SUBDIVISION, String.valueOf(address.getSubdivision()));
         params.put(APIConstants.ADDRESS_PARAMS_CITY, String.valueOf(address.getCity()));
         params.put(APIConstants.ADDRESS_PARAMS_PROVINCE, String.valueOf(address.getProvince()));
@@ -406,6 +407,54 @@ public class AddressAPI {
                     responseHandler.onSuccess(requestCode, apiResponse);
                 }
 
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+            }
+        });
+
+        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
+
+        return request;
+    }
+
+
+    public static Request editStoreAddress (final int requestCode, String token, Address address,
+                                      final ResponseHandler responseHandler){
+
+        String url = String.format("%s/%s/%s/%s",
+                APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.ADDRESS_API, APIConstants.EDIT_USER_ADDRESS);
+
+        Map<String, String> params = new HashMap<String, String>();
+        params.put(APIConstants.ACCESS_TOKEN, token);
+        params.put(APIConstants.ADDRESS_PARAMS_USER_ADDRESS_ID, String.valueOf(address.getUserAddressId()));
+        params.put(APIConstants.ADDRESS_PARAMS_TITLE, String.valueOf(address.getAddressTitle()));
+        params.put(APIConstants.ADDRESS_PARAMS_UNIT_NUMBER, String.valueOf(address.getUnitNumber()));
+        params.put(APIConstants.ADDRESS_PARAMS_BUILDING_NAME, String.valueOf(address.getBuildingName()));
+        params.put(APIConstants.ADDRESS_PARAMS_STREET_NUMBER, String.valueOf(address.getStreetNumber()));
+        params.put(APIConstants.ADDRESS_PARAMS_STREET_NAME, String.valueOf(address.getStreetName()));
+        params.put(APIConstants.ADDRESS_PARAMS_BARANGAY, String.valueOf(address.getBarangay()));
+        params.put(APIConstants.ADDRESS_PARAMS_LOCATIONID, String.valueOf(address.getLocationId()));
+        params.put(APIConstants.ADDRESS_PARAMS_SUBDIVISION, String.valueOf(address.getSubdivision()));
+        /*params.put(APIConstants.ADDRESS_PARAMS_CITY, city);
+        params.put(APIConstants.ADDRESS_PARAMS_PROVINCE, province);*/
+        params.put(APIConstants.ADDRESS_PARAMS_ZIPCODE, String.valueOf(address.getZipCode()));
+
+        VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+
+                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+                if(apiResponse.isSuccessful()) {
+                    responseHandler.onSuccess(requestCode, apiResponse);
+                }else{
+                    responseHandler.onSuccess(requestCode, apiResponse);
+                }
             }
         }, new Response.ErrorListener() {
 
