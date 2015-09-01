@@ -3,6 +3,7 @@ package com.yilinker.core.model;
 import com.google.gson.InstanceCreator;
 
 import java.lang.reflect.Type;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -10,22 +11,23 @@ import java.util.List;
  */
 public class Profile {
 
-    private String lastName;
+    private String fullName;
     private String firstName;
+    private String lastName;
     private String email;
     private String contactNumber;
     private String profileImageUrl;
     private String coverPhoto;
     private String gender;
-    private String birthDate;
-    private List<Address> address;
+    private Date birthDate;
+    private Address address;
 
-    public String getLastName() {
-        return lastName;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getFirstName() {
@@ -34,6 +36,14 @@ public class Profile {
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getEmail() {
@@ -76,19 +86,19 @@ public class Profile {
         this.gender = gender;
     }
 
-    public String getBirthDate() {
+    public Date getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(String birthDate) {
+    public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
     }
 
-    public List<Address> getAddress() {
+    public Address getAddress() {
         return address;
     }
 
-    public void setAddress(List<Address> address) {
+    public void setAddress(Address address) {
         this.address = address;
     }
 
