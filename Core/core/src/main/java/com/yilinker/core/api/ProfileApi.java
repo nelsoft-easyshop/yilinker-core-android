@@ -22,7 +22,7 @@ public class ProfileApi {
     public static Request getUserDetails(final int requestCode, String token, final ResponseHandler responseHandler) {
 
         String url = String.format("%s/%s/%s/%s?%s=%s",
-                APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.PRODUCT_API, APIConstants.PROFILE_GET_DETAILS,
+                APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.PROFILE_API, APIConstants.PROFILE_GET_DETAILS,
                 APIConstants.ACCESS_TOKEN, token);
 
         Request requestGetCart = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
