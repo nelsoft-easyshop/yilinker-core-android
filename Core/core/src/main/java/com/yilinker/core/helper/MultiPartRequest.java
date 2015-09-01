@@ -26,6 +26,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -99,6 +100,23 @@ public class MultiPartRequest extends Request {
         gson = new Gson();
         mHttpEntity = buildMultipartEntity(path);
     }
+
+    public MultiPartRequest(String url, Class clazz, File file, Response.Listener listener, Response.ErrorListener errorListener) {
+        super(Method.POST, url, errorListener);
+
+        this.mHeaders = new HashMap<>();
+        this.mClass = clazz;
+        this.mListener = listener;
+        gson = new Gson();
+
+        MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+        String fileName = file.getName();
+        builder.addBinaryBody("image", file, ContentType.create("image/jpeg"), fileName);
+
+        mHttpEntity = builder.build();
+
+    }
+
 
     private HttpEntity buildMultipartEntity(String path) {
         File file = new File(path);

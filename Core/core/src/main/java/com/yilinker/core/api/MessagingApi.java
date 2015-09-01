@@ -3,17 +3,21 @@ package com.yilinker.core.api;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.google.gson.Gson;
 import com.yilinker.core.base.BaseApplication;
 import com.yilinker.core.constants.APIConstants;
 import com.yilinker.core.helper.GsonRequest;
+import com.yilinker.core.helper.MultiPartRequest;
 import com.yilinker.core.helper.VolleyErrorHelper;
 import com.yilinker.core.interfaces.ResponseHandler;
 import com.yilinker.core.responses.EvBaseResp;
 import com.yilinker.core.responses.EvGetContactsResp;
 import com.yilinker.core.responses.EvGetConversationHeadResp;
 import com.yilinker.core.responses.EvGetConversationMessagesResp;
+import com.yilinker.core.responses.EvImageAttachResp;
 import com.yilinker.core.responses.EvSendMessageResp;
 import com.yilinker.core.responses.EvSetConversationAsReadResp;
+import com.yilinker.core.utility.GsonUtility;
 import com.yilinker.core.utility.SocketTimeout;
 
 import java.io.File;
@@ -38,9 +42,8 @@ public class MessagingApi
     public static final int RC_SET_CONVERSATION_AS_READ = 2204;
     public static final int RC_IMAGE_ATTACH = 2205;
 
-
     public static Request sendMessage(String accessToken, Integer recipientId, String message,
-                                      boolean isImage, final ResponseHandler handler)
+                                      boolean image, final ResponseHandler handler)
     {
         // Build endpoint
         String endpoint = String.format("%s/%s/%s",
@@ -51,6 +54,11 @@ public class MessagingApi
         params.put(APIConstants.MESSAGING_PARAM_ACCESS_TOKEN, accessToken);
         params.put(APIConstants.MESSAGING_PARAM_RECIPIENT_ID, Integer.toString(recipientId));
         params.put(APIConstants.MESSAGING_PARAM_MESSAGE, message);
+        if(image == true){
+            params.put(APIConstants.MESSAGING_PARAM_IS_IMAGE, "1");
+        }else{
+            params.put(APIConstants.MESSAGING_PARAM_IS_IMAGE, "0");
+        }
         /**
          * TODO Include when server is fixed
          */
@@ -256,5 +264,30 @@ public class MessagingApi
         request.setRetryPolicy(SocketTimeout.getRetryPolicy());
 
         return request;
+    }
+
+    public static Request attachImage(String accessToken, File file, final int requestCode,final ResponseHandler responseHandler) {
+
+        String url = String.format("%s/%s/%s?%s=%s",
+                APIConstants.DOMAIN, APIConstants.MESSAGING_API, APIConstants.IMAGE_ATTACH, APIConstants.ACCESS_TOKEN, accessToken);
+
+        MultiPartRequest multiPartRequest = new MultiPartRequest(url, EvImageAttachResp.class, file, new Response.Listener() {
+            @Override
+            public void onResponse(Object response) {
+                Gson gson = GsonUtility.createGsonBuilder(EvImageAttachResp.class, new EvImageAttachResp.EvImageAttachRespInstance()).create();
+                EvImageAttachResp evImageAttachResp = gson.fromJson(response.toString(), EvImageAttachResp.class);
+
+                responseHandler.onSuccess(requestCode, evImageAttachResp);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+            }
+        });
+
+        multiPartRequest.setRetryPolicy(SocketTimeout.getRetryPolicy());
+
+        return multiPartRequest;
     }
 }
