@@ -19,7 +19,7 @@ public class Profile {
     private String profileImageUrl;
     private String coverPhoto;
     private String gender;
-    private Date birthDate;
+    private String birthDate;
     private Address address;
 
     public String getFullName() {
@@ -86,11 +86,11 @@ public class Profile {
         this.gender = gender;
     }
 
-    public Date getBirthDate() {
+    public String getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(String birthDate) {
         this.birthDate = birthDate;
     }
 
