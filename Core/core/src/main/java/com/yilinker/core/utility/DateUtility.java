@@ -45,4 +45,25 @@ public class DateUtility {
 
         return strDate;
     }
+
+    public static Date transactionDateParser(String dateString){
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+
+        try {
+            return simpleDateFormat.parse(dateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static String formatTransactionDate(Date date){
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMMM dd, yyyy");
+
+        return simpleDateFormat.format(date);
+
+    }
+
 }
