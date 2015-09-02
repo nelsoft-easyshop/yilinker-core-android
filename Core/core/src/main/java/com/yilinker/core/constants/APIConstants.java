@@ -14,7 +14,7 @@ public class APIConstants {
 
     //temp
 
-//    public static final String DOMAIN = BaseApplication.getDomainURL();
+    //public static final String DOMAIN = BaseApplication.getDomainURL();
     public static final String AUTH_API = "auth";
     public static final String DOMAIN = "http://online.api.easydeal.ph/api/v1";
 
@@ -67,7 +67,6 @@ public class APIConstants {
     public static final String SELLER_PARAMS_LIMIT = "limit";
     public static final String SELLER_PARAMS_KEYWORD = "keyword";
 
-
     //For Cart API
     public static final String CART_API = "cart";
     public static final String CART_GET_ITEMS = "getCart";
@@ -80,6 +79,32 @@ public class APIConstants {
     //For Profile API
     public static final String PROFILE_API = "user";
     public static final String PROFILE_GET_DETAILS = "getUser";
+    public static final String PROFILE_EDIT_DETAILS = "editProfile";
+    public static final String PROFILE_PHOTO = "profilePhoto";
+    public static final String PROFILE_COVER_PHOTO = "coverPhoto";
+    public static final String PROFILE_FIRST_NAME = "firstName";
+    public static final String PROFILE_LAST_NAME = "lastName";
+    public static final String PROFILE_CONTACT_NUMBER = "contactNumber";
+    public static final String PROFILE_GENDER = "gender";
+    public static final String PROFILE_BIRTH_DATE = "birthdate";
+    public static final String PROFILE_NICK_NAME = "nickname";
+    public static final String PROFILE_SLUG = "slug";
+    public static final String PROFILE_OLD_PASSWORD = "oldPassword";
+    public static final String PROFILE_NEW_PASSWORD = "newPassword";
+    public static final String PROFILE_NEW_PASSWORD_CONFIRMED = "newPasswordConfirm";
+    public static final String PROFILE_USER_ADDRESS_ID = "userAddressId";
+    public static final String PROFILE_LOCATION_ID = "locationId";
+    public static final String PROFILE_TITLE = "title";
+    public static final String PROFILE_UNIT_NUMBER = "unitNumber";
+    public static final String PROFILE_BUILDING_NAME = "buildingName";
+    public static final String PROFILE_STREET_NUMBER = "streetNumber";
+    public static final String PROFILE_STREET_NAME = "streetName";
+    public static final String PROFILE_SUBDIVISION = "subdivision";
+    public static final String PROFILE_ZIP_CODE = "zipCode";
+    public static final String PROFILE_STREET_ADDRESS = "streetAddress";
+    public static final String PROFILE_LONGITUDE = "longitude";
+    public static final String PROFILE_LATITUDE = "latitude";
+    public static final String PROFILE_LANDLINE = "landline";
 
     //For Home API
     public static final String HOME_API = "home";
@@ -106,10 +131,8 @@ public class APIConstants {
     public static final String LOGIN_PARAM_GRANT_TYPE = "grant_type";
     public static final String LOGIN_PARAM_EMAIL = "email";
     public static final String LOGIN_PARAM_PASSWORD = "password";
-
     public static final String LOGIN_PARAM_USERNAME = "username";
     public static final String LOGIN_PARAM_REFRESH_TOKEN = "refresh_token";
-
 
     //For Product Upload API
     public static final String PRODUCT_UPLOAD_API="upload";
@@ -131,16 +154,11 @@ public class APIConstants {
     public static final String PRODUCT_UPLOAD_PARAM_DISCOUNTED_PRICE = "discountedPrice";
     public static final String PRODUCT_UPLOAD_PARAM_PRODUCT_PROPERTIES = "productProperties";
     public static final String PRODUCT_UPLOAD_PARAM_CUSTOM_BRAND = "customBrand";
-
     public static final String PRODUCT_UPLOAD_GET_BRAND = "getBrands";
     public static final String PRODUCT_UPLOAD_GET_BRAND_PARAM_BRAND_KEYWORD = "brandKeyword";
-
     public static final String PRODUCT_UPLOAD_GET_CATEGORIES = "getCategories";
     public static final String PRODUCT_UPLOAD_GET_CATEGORIES_PARAM_PARENT_ID = "parentId";
-
     public static final String PRODUCT_UPLOAD_GET_CONDITIONS = "getProductConditions";
-
-
 
     //API Credentials
     public static final String API_CLIENT_ID = "1_167rxzqvid8g8swggwokcoswococscocc8ck44wo0g88owgkcc";
@@ -174,7 +192,6 @@ public class APIConstants {
     public static final String GET_CODE = "getCode";
     public static final String VERIFY = "verify";
     public static final String VERIFY_PARAM_VERIFICATION_CODE = "code";
-
     public static final String CHANGE_CONTACT_NUMBER = "changeContactNumber";
     public static final String SMS_VERIFY = "verify";
     public static final String SMS_VERIFICATION_CODE = "code";
@@ -220,13 +237,11 @@ public class APIConstants {
     public static final String PARENT_ID = "parentId";
     public static final String BANK_PARAMS_BANK_ACCOUNT_ID = "bankAccountId";
 
-
     /***Search*/
     public static final String GET_SEARCH ="getSearchKeywords";
     public static final String SEARCH_QUERY ="queryString";
 
     //Checkout Buyer
-
     public static final String CHECKOUT_PAYMENT_API = "payment";
     public static final String CHECKOUT_PAYMENT_COD = "doPaymentCod";
     public static final String CHECKOUT_PAYMENT_PESOPAY = "doPesoPay";
@@ -234,7 +249,6 @@ public class APIConstants {
     public static final String CHECKOUT_PARAMS_TRANSACTION_ID = "transactionId";
 
     //Checkout Address
-
     public static final String ADDRESS_API = "address";
     public static final String ADDRESS_GET_ADDRESSES = "getAddresses";
 
@@ -244,7 +258,6 @@ public class APIConstants {
 
     //For Rider
     public static final String RIDER_GET_TOKEN = "token";
-
     public static final String RIDER_API = "riders";
     public static final String RIDER_GET_INFO = "get-rider-info";
     public static final String RIDER_GET_INFO_PARAM_TOKEN = "access_token";
