@@ -13,10 +13,11 @@ public class APIConstants {
     public static final String UPLOAD_TOKEN = "upload_token";
 
     //temp
+    
+    public static final String DOMAIN = BaseApplication.getDomainURL();
 
-    //public static final String DOMAIN = BaseApplication.getDomainURL();
     public static final String AUTH_API = "auth";
-    public static final String DOMAIN = "http://online.api.easydeal.ph/api/v1";
+    //public static final String DOMAIN = "http://online.api.easydeal.ph/api/v1";
 
     //For Product API
     public static final String PRODUCT_API = "product";
@@ -231,6 +232,20 @@ public class APIConstants {
     public static final String ADDRESS_GET_CHILD_BARANGGAY = "getBarangaysByCity";
     public static final String SET_DEFAULT_ADDRESS = "setDefaultAddress";
     public static final String ADDRESS_PARAMS_USER_ADDRESS_ID = "userAddressId";
+
+
+    //Customized Category
+    public static final String CATEGORY_API = "category";
+    public static final String ADD_CUSTOM_CATEGORY = "addCustomCategory";
+    public static final String GET_CUSTOM_CATEGORIES = "getCustomCategories";
+    public static final String CATEGORY_PARAMS_CATEGORY_NAME = "categoryName";
+    public static final String CATEGORY_PARAMS_PARENT_ID = "parentId";
+    public static final String CATEGORY_PARAMS_PRODUCTS = "productsId";
+    public static final String CATEGORY_PARAMS_SUBCATEGORIES = "subCategories";
+
+
+
+
 
     /***Category*/
     public static final String GET_CATEGORY ="getCategories";
