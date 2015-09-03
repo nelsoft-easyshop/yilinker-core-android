@@ -109,4 +109,42 @@ public class CustomizedCategoryApi {
 
         return request;
     }
+
+    public static Request getCategoryDetails(final int requestCode, String token, int id, final ResponseHandler responseHandler) {
+
+        String url = String.format("%s/%s/%s/%s", APIConstants.DOMAIN,
+                APIConstants.AUTH_API, APIConstants.CATEGORY_API, APIConstants.GET_CATEGORY_DETAILS);
+
+        Map<String, String> params = new HashMap<String,String>();
+        params.put(APIConstants.ACCESS_TOKEN, token);
+        params.put(APIConstants.CATEGORY_PARAMS_CATEGORY_ID, String.valueOf(id));
+
+        VolleyPostHelper request =  new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+
+                gson = GsonUtility.createGsonBuilder(CustomizedCategory.class, new CustomizedCategory.CustomizedCategoryInstance()).create();
+                String jsonString = new Gson().toJson(apiResponse.getData());
+                CustomizedCategory obj = gson.fromJson(jsonString, CustomizedCategory.class);
+
+                if(apiResponse.isSuccessful()) {
+                    responseHandler.onSuccess(requestCode, obj);
+                }else{
+                    responseHandler.onFailed(requestCode, apiResponse.getMessage());
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+            }
+        });
+
+        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
+
+        return request;
+    }
 }

@@ -237,10 +237,20 @@ public class APIConstants {
     public static final String CATEGORY_API = "category";
     public static final String ADD_CUSTOM_CATEGORY = "addCustomCategory";
     public static final String GET_CUSTOM_CATEGORIES = "getCustomCategories";
+    public static final String GET_CATEGORY_DETAILS = "getCategoryDetails";
+    public static final String CATEGORY_PARAMS_CATEGORY_ID = "categoryId";
     public static final String CATEGORY_PARAMS_CATEGORY_NAME = "categoryName";
     public static final String CATEGORY_PARAMS_PARENT_ID = "parentId";
-    public static final String CATEGORY_PARAMS_PRODUCTS = "productsId";
-    public static final String CATEGORY_PARAMS_SUBCATEGORIES = "subCategories";
+    public static final String CATEGORY_PARAMS_PRODUCTS = "products";
+    public static final String CATEGORY_PARAMS_SUBCATEGORIES = "subcategories";
+
+    //Product Management
+    public static final String PRODUCT_MANAGEMENT_API = "product";
+    public static final String GET_PRODUCT_LIST = "getProductList";
+    public static final String UPDATE_PRODUCT_STATUS = "updateProductStatus";
+    public static final String PRODUCT_MANAGEMENT_PARAMS_STATUS = "status";
+    public static final String PRODUCT_MANAGEMENT_PARAMS_KEYWORD = "keyword";
+    public static final String PRODUCT_MANAGEMENT_PARAMS_PRODUCT_ID = "productId";
 
 
 
