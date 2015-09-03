@@ -16,10 +16,19 @@ public class CustomizedCategory {
 
     private String categoryName;
     private int parentId;
-    private List<String> products;
+    private List<String> productsAdd;
     private int categoryId;
     private String name;
-    private List<SubCategory> subCategoryList;
+    private List<SubCategoryUpload> subcategories;
+    private List<CategoryProducts> products;
+
+    public List<CategoryProducts> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<CategoryProducts> products) {
+        this.products = products;
+    }
 
     public int getCategoryId() {
         return categoryId;
@@ -37,12 +46,12 @@ public class CustomizedCategory {
         this.name = name;
     }
 
-    public List<String> getProducts() {
-        return products;
+    public List<String> getProductsAdd() {
+        return productsAdd;
     }
 
-    public void setProducts(List<String> products) {
-        this.products = products;
+    public void setProductsAdd(List<String> productsAdd) {
+        this.productsAdd = productsAdd;
     }
 
     public String getCategoryName() {
@@ -61,28 +70,28 @@ public class CustomizedCategory {
         this.parentId = parentId;
     }
 
-    public List<SubCategory> getSubCategoryList() {
-        return subCategoryList;
+    public List<SubCategoryUpload> getSubCategoryList() {
+        return subcategories;
     }
 
-    public void setSubCategoryList(List<SubCategory> subCategories) {
-        this.subCategoryList = subCategories;
+    public void setSubCategoryList(List<SubCategoryUpload> subCategories) {
+        this.subcategories = subCategories;
     }
 
     public JSONArray getSubCategoryArrayList(){
         final JSONArray arraySubCategoryList = new JSONArray();
 
         try {
-            for (int i = 0; i < subCategoryList.size(); i++) {
+            for (int i = 0; i < subcategories.size(); i++) {
 
-                SubCategory subCategory = subCategoryList.get(i);
+                SubCategoryUpload subCategoryUploadUpload = subcategories.get(i);
 
                 JSONObject jsonSubCategory = new JSONObject();
                 JSONArray arrayAttributes = new JSONArray();
-                jsonSubCategory.put("categoryId", subCategory.getCategoryId());
-                jsonSubCategory.put("categoryName", subCategory.getCategoryName());
-                //jsonProductProperty.put("parentId", subCategory.getCategoryId());
-                jsonSubCategory.put("products",subCategory.getProducts());
+                jsonSubCategory.put("categoryId", subCategoryUploadUpload.getCategoryId());
+                jsonSubCategory.put("categoryName", subCategoryUploadUpload.getCategoryName());
+                //jsonProductProperty.put("parentId", subCategoryUploadUpload.getCategoryId());
+                jsonSubCategory.put("products", subCategoryUploadUpload.getProducts());
 
 
                 arraySubCategoryList.put(jsonSubCategory);
