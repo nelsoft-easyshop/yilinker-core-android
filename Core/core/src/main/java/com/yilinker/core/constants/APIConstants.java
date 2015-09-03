@@ -18,6 +18,7 @@ public class APIConstants {
     public static final String AUTH_API = "auth";
     public static final String DOMAIN = "http://online.api.easydeal.ph/api/v1";
 
+
     //For Product API
     public static final String PRODUCT_API = "product";
     public static final String PRODUCT_GET_DETAILS = "getProductDetail";
@@ -232,15 +233,32 @@ public class APIConstants {
     public static final String CHECKOUT_PAYMENT_PESOPAY = "doPesoPay";
     public static final String CHECKOUT_PAYMENT_OVERVIEW = "checkoutOverview";
     public static final String CHECKOUT_PARAMS_TRANSACTION_ID = "transactionId";
+    public static final String CHECKCOUT_ADDRESS_SET_ADDRESS = "setAddress";
+    public static final String CHECKOUT_SELECT_ITEMS = "cartToCheckout";
+
+
+    //Checkout Guest
+
+    public static final String GUEST_CHECKOUT_API = "guestUser";
+    public static final String GUEST_FIRST_NAME = "firstName";
+    public static final String GUEST_LAST_NAME = "lastName";
+    public static final String GUEST_EMAIL = "email";
+    public static final String GUEST_CONTACT_NUMBER = "contactNumber";
+    public static final String GUEST_ADDRESS_TITLE = "title";
+    public static final String GUEST_ADDRESS_UNIT_NUMBER = "unitNumber";
+    public static final String GUEST_ADDRESS_BUILDING_NAME = "buildingName";
+    public static final String GUEST_ADDRESS_SUBDIVISION = "subdivision";
+    public static final String GUEST_ADDRESS_ZIPCODE = "zipCode";
+//    public static final String GUEST_ADDRESS_STREET_A
 
     //Checkout Address
 
     public static final String ADDRESS_API = "address";
     public static final String ADDRESS_GET_ADDRESSES = "getAddresses";
-
+    public static final String ADDRESS_PARAM_ADDRESS_ID = "address_id";
 //    public static final String ADDRESS_ADD_ADDRESS = "addAddress";
 //    public static final String ADDRESS_SET_ADDRESS = "setAddress";
-//    public static final String ADDRESS_PARAM_ID = "address_id";
+
 
     //For Rider
     public static final String RIDER_GET_TOKEN = "token";
@@ -258,6 +276,7 @@ public class APIConstants {
     public static final String ADDRESS_SET_ADDRESS = "setDefaultAddress";
     public static final String ADDRESS_DELETE_ADDRESS = "deleteUserAddress";
     public static final String ADDRESS_PARAM_ID = "userAddressId";
+
 
     // Messaging API
     public static final String MESSAGING_API                    = "message";
@@ -285,6 +304,7 @@ public class APIConstants {
     public static final String ADD_REGISTRATION_ID              = "addRegistrationId";
     public static final String DELETE_REGISTRATION_ID           = "deleteRegistrationId";
     public static final String UPDATE_REGISTRATION_ID           = "updateRegistrationId";
+
     // Param
     public static final String DEVICE_PARAM_REGISTRATION_ID     = "registrationId";
     public static final String DEVICE_PARAM_ACCESS_TOKEN        = "access_token";
