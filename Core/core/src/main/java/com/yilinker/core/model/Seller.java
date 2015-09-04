@@ -20,7 +20,7 @@ public class Seller {
     private static final String KEY_CONTACT_NO = "contactNo";
 
     private String specialty;/***missing*/
-    private String contactNo;/***images*/
+    private String contactNumber;/***images*/
     private String address;/***missing*/
     private int id;/***sellerId*/
     private String profilePhoto;
@@ -40,11 +40,11 @@ public class Seller {
     }
 
     public String getContactNo() {
-        return contactNo;
+        return contactNumber;
     }
 
-    public void setContactNo(String contactNo) {
-        this.contactNo = contactNo;
+    public void setContactNo(String contactNumber) {
+        this.contactNumber = contactNumber;
     }
 
     public String getAddress() {
