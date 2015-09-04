@@ -20,8 +20,6 @@ public class BaseApplication extends Application{
     private static final String REFRESH_TOKEN = "refreshToken";
     private static final String USER_FULLNAME = "fullname";
     private static final String KEEP_LOGGED_IN = "keepLoggedIn";
-    private static final String DELIVERY_ADDRESS = "deliveryAddress";
-    private static final String DELIVERY_TITLE = "deliveryTitle";
 
     private RequestQueue requestQueue;
     private String domain;
@@ -191,36 +189,6 @@ public class BaseApplication extends Application{
                 .getDefaultSharedPreferences(getApplicationContext());
 
         return pref.getBoolean(KEEP_LOGGED_IN, false);
-    }
-
-    public void saveDeliveryAddress(String deliveryAddress, String deliveryTitle){
-
-        SharedPreferences pref = PreferenceManager
-                .getDefaultSharedPreferences(getApplicationContext());
-
-        SharedPreferences.Editor editor = pref.edit();
-
-        editor.putString(DELIVERY_ADDRESS, deliveryAddress);
-        editor.putString(DELIVERY_TITLE, deliveryTitle);
-
-        editor.commit();
-    }
-
-    public String getDeliveryAddress(){
-
-        SharedPreferences pref = PreferenceManager
-                .getDefaultSharedPreferences(getApplicationContext());
-
-        return pref.getString(DELIVERY_ADDRESS, null);
-    }
-
-    public String getDeliveryTitle(){
-
-        SharedPreferences pref = PreferenceManager
-                .getDefaultSharedPreferences(getApplicationContext());
-
-        return pref.getString(DELIVERY_TITLE, null);
-
     }
 
 }

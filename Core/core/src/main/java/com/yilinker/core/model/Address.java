@@ -15,6 +15,7 @@ public class Address {
             subdivision, zipCode, streetAddress, longitude, latitude,
             landline, locationId, country, island, region, province, city, municipality,
             barangay;
+    private String fullLocation;
     private boolean isDefault;
 
     public int getUserAddressId() {
@@ -175,6 +176,14 @@ public class Address {
 
     public void setBarangay(String barangay) {
         this.barangay = barangay;
+    }
+
+    public String getFullLocation() {
+        return fullLocation;
+    }
+
+    public void setFullLocation(String fullLocation) {
+        this.fullLocation = fullLocation;
     }
 
     public boolean isDefault() {
