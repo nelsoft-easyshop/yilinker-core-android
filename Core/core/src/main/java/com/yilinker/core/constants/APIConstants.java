@@ -13,11 +13,9 @@ public class APIConstants {
     public static final String UPLOAD_TOKEN = "upload_token";
 
     //temp
-    
     public static final String DOMAIN = BaseApplication.getDomainURL();
     public static final String AUTH_API = "auth";
     //public static final String DOMAIN = "http://online.api.easydeal.ph/api/v1";
-
 
     //For Product API
     public static final String PRODUCT_API = "product";

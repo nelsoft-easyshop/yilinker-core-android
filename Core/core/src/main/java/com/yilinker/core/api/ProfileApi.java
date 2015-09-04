@@ -6,16 +6,17 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
 import com.yilinker.core.constants.APIConstants;
+import com.yilinker.core.helper.MultiPartRequest;
 import com.yilinker.core.helper.VolleyPostHelper;
 import com.yilinker.core.interfaces.ResponseHandler;
 import com.yilinker.core.model.APIResponse;
 import com.yilinker.core.model.Profile;
-import com.yilinker.core.model.ProfileEdit;
 import com.yilinker.core.utility.GsonUtility;
 import com.yilinker.core.utility.SocketTimeout;
 
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -59,7 +60,7 @@ public class ProfileApi {
 
     }
 
-    public static Request updateUserDetails (final int requestCode, String token, String profilePicture, String coverPhoto,
+    public static Request updateUserDetails (final int requestCode, String token, File profilePhoto, String coverPhoto,
                                              String firstName, String lastName, String contactNumber, String gender,
                                              String birthDate, String nickName, String slug, String oldPassword,
                                              String newPassword, String newPasswordConfirm, String userAddressId,
@@ -72,14 +73,14 @@ public class ProfileApi {
                 APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.PROFILE_API, APIConstants.PROFILE_EDIT_DETAILS);
 
         Map<String, String> params = new HashMap<String, String>();
-        params.put(APIConstants.ACCESS_TOKEN, token);
-        params.put(APIConstants.PROFILE_PHOTO, profilePicture);
+        //params.put(APIConstants.ACCESS_TOKEN, token);
+        params.put(APIConstants.PROFILE_PHOTO, profilePhoto.getName());
         //params.put(APIConstants.PROFILE_COVER_PHOTO, coverPhoto);
         params.put(APIConstants.PROFILE_FIRST_NAME, firstName);
         params.put(APIConstants.PROFILE_LAST_NAME, lastName);
         params.put(APIConstants.PROFILE_CONTACT_NUMBER, contactNumber);
-        //params.put(APIConstants.PROFILE_GENDER, gender);
-        params.put(APIConstants.PROFILE_BIRTH_DATE, birthDate);
+        params.put(APIConstants.PROFILE_GENDER, gender);
+//        params.put(APIConstants.PROFILE_BIRTH_DATE, birthDate);
 //        params.put(APIConstants.PROFILE_NICK_NAME, nickName);
 //        params.put(APIConstants.PROFILE_SLUG, slug);
 //        params.put(APIConstants.PROFILE_OLD_PASSWORD, oldPassword);
@@ -87,43 +88,80 @@ public class ProfileApi {
 //        params.put(APIConstants.PROFILE_NEW_PASSWORD_CONFIRMED, newPasswordConfirm);
 //        params.put(APIConstants.PROFILE_USER_ADDRESS_ID, userAddressId);
 //        params.put(APIConstants.PROFILE_LOCATION_ID, locationId);
-//        params.put(APIConstants.PROFILE_TITLE, title);
-//        params.put(APIConstants.PROFILE_UNIT_NUMBER, unitNumber);
-//        params.put(APIConstants.PROFILE_BUILDING_NAME, buildingName);
-//        params.put(APIConstants.PROFILE_STREET_NUMBER, streetNumber);
-//        params.put(APIConstants.PROFILE_STREET_NAME, streetName);
-//        params.put(APIConstants.PROFILE_SUBDIVISION, subdivision);
-//        params.put(APIConstants.PROFILE_ZIP_CODE, zipCode);
+        params.put(APIConstants.PROFILE_TITLE, title);
+        params.put(APIConstants.PROFILE_UNIT_NUMBER, unitNumber);
+        params.put(APIConstants.PROFILE_BUILDING_NAME, buildingName);
+        params.put(APIConstants.PROFILE_STREET_NUMBER, streetNumber);
+        params.put(APIConstants.PROFILE_STREET_NAME, streetName);
+        params.put(APIConstants.PROFILE_SUBDIVISION, subdivision);
+        params.put(APIConstants.PROFILE_ZIP_CODE, zipCode);
 //        params.put(APIConstants.PROFILE_STREET_ADDRESS, streetAddress);
 //        params.put(APIConstants.PROFILE_LONGITUDE, longitude);
 //        params.put(APIConstants.PROFILE_LATITUDE, latitude);
 //        params.put(APIConstants.PROFILE_LANDLINE, landline);
 
-        VolleyPostHelper requestUpdateCart = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
+        StringBuilder stringBuilder = new StringBuilder();
 
+        for(String key:params.keySet()) {
+            stringBuilder.append(key+"="+params.get(key)+"&");
+        }
+
+        url = String.format("%s?%s=%s",url,APIConstants.ACCESS_TOKEN, token);
+
+        MultiPartRequest multiPartRequest = new MultiPartRequest(url,  profilePhoto.getPath(), APIResponse.class , params, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
 
                 Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
                 APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
 
-                gson = GsonUtility.createGsonBuilder(ProfileEdit.class, new ProfileEdit.ProfileEditInstance()).create();
-                String jsonString = new Gson().toJson(apiResponse.getData());
-                ProfileEdit obj = gson.fromJson(jsonString, ProfileEdit.class);
-
-                responseHandler.onSuccess(requestCode, obj);
+                if(apiResponse.isSuccessful()) {
+                    responseHandler.onSuccess(requestCode, apiResponse.isSuccessful());
+                }
+                else{
+                    responseHandler.onFailed(requestCode, apiResponse.getMessage());
+                }
 
             }
         }, new Response.ErrorListener() {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+
+                responseHandler.onFailed(requestCode,APIConstants.API_CONNECTION_PROBLEM);
             }
         });
 
-        requestUpdateCart.setRetryPolicy(SocketTimeout.getRetryPolicy());
+        multiPartRequest.setRetryPolicy(SocketTimeout.getRetryPolicy());
 
-        return requestUpdateCart;
-    }
+        return multiPartRequest;
+
+//        VolleyPostHelper requestUpdateCart = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
+//
+//            @Override
+//            public void onResponse(JSONObject response) {
+//
+//                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+//                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+//
+//                if(apiResponse.isSuccessful()) {
+//                    responseHandler.onSuccess(requestCode, apiResponse.isSuccessful());
+//                }
+//                else{
+//                    responseHandler.onFailed(requestCode, apiResponse.getMessage());
+//                }
+//
+//            }
+//        }, new Response.ErrorListener() {
+//
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+//            }
+//        });
+//
+//        requestUpdateCart.setRetryPolicy(SocketTimeout.getRetryPolicy());
+//
+//        return requestUpdateCart;
+   }
 }
