@@ -1,6 +1,7 @@
 package com.yilinker.core.helper;
 
 import android.os.Environment;
+import android.util.Log;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
@@ -10,6 +11,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.google.gson.Gson;
+import com.yilinker.core.constants.APIConstants;
 import com.yilinker.core.model.UpdateUserInfo;
 import com.yilinker.core.model.seller.ProductUpload;
 import com.yilinker.core.model.seller.AttributeCombinationUpload;
@@ -98,7 +100,30 @@ public class MultiPartRequest extends Request {
         mClass = clazz;
         mListener = listener;
         gson = new Gson();
-        mHttpEntity = buildMultipartEntity(path);
+
+        if (url.contains(APIConstants.PROFILE_EDIT_DETAILS)) {
+
+            MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+            File file  = new File(path);
+            String fileName = file.getName();
+            builder.addBinaryBody("profilePhoto", file, ContentType.create("image/*"), fileName);
+
+            for (Map.Entry<String, String> entry : mHeaders.entrySet()) {
+                builder.addTextBody(entry.getKey(), entry.getValue());
+            }
+
+            builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
+            builder.setBoundary("BOUNDARY");
+
+            mHttpEntity = builder.build();
+
+            Log.i("editProfile", builder.toString());
+
+        } else {
+
+            mHttpEntity = buildMultipartEntity(path);
+
+        }
     }
 
     public MultiPartRequest(String url, Class clazz, File file, Response.Listener listener, Response.ErrorListener errorListener) {
@@ -112,7 +137,6 @@ public class MultiPartRequest extends Request {
         MultipartEntityBuilder builder = MultipartEntityBuilder.create();
         String fileName = file.getName();
         builder.addBinaryBody("image", file, ContentType.create("image/jpeg"), fileName);
-
         mHttpEntity = builder.build();
 
     }
