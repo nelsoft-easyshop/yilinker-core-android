@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class ProductList {
 
-    private static final String OBJ_NAME = "ProductList";
+    private static final String OBJ_NAME = "CategoryProductList";
     private static final String KEY_PRODUCT_ITEM = "products";
 
     private List<ProductListItem> products;

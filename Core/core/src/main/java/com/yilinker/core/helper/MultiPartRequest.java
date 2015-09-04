@@ -136,7 +136,7 @@ public class MultiPartRequest extends Request {
 
         MultipartEntityBuilder builder = MultipartEntityBuilder.create();
         String fileName = file.getName();
-        builder.addBinaryBody("image", file, ContentType.create("image/jpeg"), fileName);
+        builder.addBinaryBody("image", file, ContentType.create("image/*"), fileName);
         mHttpEntity = builder.build();
 
     }
@@ -150,7 +150,7 @@ public class MultiPartRequest extends Request {
     private HttpEntity buildMultipartEntity(File file) {
         MultipartEntityBuilder builder = MultipartEntityBuilder.create();
         String fileName = file.getName();
-        builder.addBinaryBody(KEY_PICTURE, file, ContentType.create("image/jpeg"), fileName);
+        builder.addBinaryBody(KEY_PICTURE, file, ContentType.create("image/*"), fileName);
         return builder.build();
     }
 
@@ -158,7 +158,7 @@ public class MultiPartRequest extends Request {
 
         MultipartEntityBuilder builder = MultipartEntityBuilder.create();
         for(String image:productUpload.getImages()) {
-            builder.addBinaryBody(KEY_PICTURE, new File(uploadDirectory,image),ContentType.create("image/jpeg"),image);
+            builder.addBinaryBody(KEY_PICTURE, new File(uploadDirectory,image),ContentType.create("image/*"),image);
 //            builder.addPart(KEY_PICTURE, new FileBody(new File(uploadDirectory,image),ContentType.create("image/jpeg"),image));
         }
 
@@ -168,7 +168,7 @@ public class MultiPartRequest extends Request {
 
                 for(String image2:attributeCombinationUpload.getImages()){
 
-                    builder.addBinaryBody(KEY_PICTURE, new File(uploadDirectory,image2),ContentType.create("image/jpeg"),image2);
+                    builder.addBinaryBody(KEY_PICTURE, new File(uploadDirectory,image2),ContentType.create("image/*"),image2);
 //                    builder.addPart(KEY_PICTURE, new FileBody(new File(uploadDirectory,image2),ContentType.create("image/jpeg"),image2));
                 }
 
@@ -190,13 +190,13 @@ public class MultiPartRequest extends Request {
         String coverPhoto = updateUserInfo.getCoverPhoto();
         if(coverPhoto!=null){
             builder.addBinaryBody(KEY_COVER, new File(updateUserInfo.getCoverPhoto()),
-                    ContentType.create("image/jpeg"),updateUserInfo.getCoverPhoto());
+                    ContentType.create("image/*"),updateUserInfo.getCoverPhoto());
         }
 
         String profilePhoto = updateUserInfo.getProfilePhoto();
         if(profilePhoto!=null){
             builder.addBinaryBody(KEY_PROFILE, new File(updateUserInfo.getProfilePhoto()),
-                    ContentType.create("image/jpeg"),updateUserInfo.getProfilePhoto());
+                    ContentType.create("image/*"),updateUserInfo.getProfilePhoto());
         }
 
         for (Map.Entry<String, String> entry : mHeaders.entrySet()) {

@@ -11,7 +11,8 @@ import java.util.List;
 public class CheckoutPayment {
 
     private int transactionId;
-    private String url, returnUrl, cancelUrl;
+    private String paymentUrl;
+    private String returnUrl, cancelUrl;
     private List<CartItem> cartData;
 
     public int getTransactionId() {
@@ -22,12 +23,12 @@ public class CheckoutPayment {
         this.transactionId = transactionId;
     }
 
-    public String getUrl() {
-        return url;
+    public String getPaymentUrl() {
+        return paymentUrl;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setPaymentUrl(String paymentUrl) {
+        this.paymentUrl = paymentUrl;
     }
 
     public String getReturnUrl() {

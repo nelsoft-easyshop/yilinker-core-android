@@ -13,7 +13,6 @@ public class APIConstants {
     public static final String UPLOAD_TOKEN = "upload_token";
 
     //temp
-
     public static final String DOMAIN = BaseApplication.getDomainURL();
     public static final String AUTH_API = "auth";
     //public static final String DOMAIN = "http://online.api.easydeal.ph/api/v1";
@@ -232,6 +231,30 @@ public class APIConstants {
     public static final String SET_DEFAULT_ADDRESS = "setDefaultAddress";
     public static final String ADDRESS_PARAMS_USER_ADDRESS_ID = "userAddressId";
 
+
+    //Customized Category
+    public static final String CATEGORY_API = "category";
+    public static final String ADD_CUSTOM_CATEGORY = "addCustomCategory";
+    public static final String GET_CUSTOM_CATEGORIES = "getCustomCategories";
+    public static final String GET_CATEGORY_DETAILS = "getCategoryDetails";
+    public static final String CATEGORY_PARAMS_CATEGORY_ID = "categoryId";
+    public static final String CATEGORY_PARAMS_CATEGORY_NAME = "categoryName";
+    public static final String CATEGORY_PARAMS_PARENT_ID = "parentId";
+    public static final String CATEGORY_PARAMS_PRODUCTS = "products";
+    public static final String CATEGORY_PARAMS_SUBCATEGORIES = "subcategories";
+
+    //Product Management
+    public static final String PRODUCT_MANAGEMENT_API = "product";
+    public static final String GET_PRODUCT_LIST = "getProductList";
+    public static final String UPDATE_PRODUCT_STATUS = "updateProductStatus";
+    public static final String PRODUCT_MANAGEMENT_PARAMS_STATUS = "status";
+    public static final String PRODUCT_MANAGEMENT_PARAMS_KEYWORD = "keyword";
+    public static final String PRODUCT_MANAGEMENT_PARAMS_PRODUCT_ID = "productId";
+
+
+
+
+
     /***Category*/
     public static final String GET_CATEGORY ="getCategories";
     public static final String PARENT_ID = "parentId";
@@ -247,14 +270,31 @@ public class APIConstants {
     public static final String CHECKOUT_PAYMENT_PESOPAY = "doPesoPay";
     public static final String CHECKOUT_PAYMENT_OVERVIEW = "checkoutOverview";
     public static final String CHECKOUT_PARAMS_TRANSACTION_ID = "transactionId";
+    public static final String CHECKCOUT_ADDRESS_SET_ADDRESS = "setAddress";
+    public static final String CHECKOUT_SELECT_ITEMS = "cartToCheckout";
+
+
+    //Checkout Guest
+
+    public static final String GUEST_CHECKOUT_API = "guestUser";
+    public static final String GUEST_FIRST_NAME = "firstName";
+    public static final String GUEST_LAST_NAME = "lastName";
+    public static final String GUEST_EMAIL = "email";
+    public static final String GUEST_CONTACT_NUMBER = "contactNumber";
+    public static final String GUEST_ADDRESS_TITLE = "title";
+    public static final String GUEST_ADDRESS_UNIT_NUMBER = "unitNumber";
+    public static final String GUEST_ADDRESS_BUILDING_NAME = "buildingName";
+    public static final String GUEST_ADDRESS_SUBDIVISION = "subdivision";
+    public static final String GUEST_ADDRESS_ZIPCODE = "zipCode";
+//    public static final String GUEST_ADDRESS_STREET_A
 
     //Checkout Address
     public static final String ADDRESS_API = "address";
     public static final String ADDRESS_GET_ADDRESSES = "getAddresses";
-
+    public static final String ADDRESS_PARAM_ADDRESS_ID = "address_id";
 //    public static final String ADDRESS_ADD_ADDRESS = "addAddress";
 //    public static final String ADDRESS_SET_ADDRESS = "setAddress";
-//    public static final String ADDRESS_PARAM_ID = "address_id";
+
 
     //For Rider
     public static final String RIDER_GET_TOKEN = "token";
@@ -271,6 +311,7 @@ public class APIConstants {
     public static final String ADDRESS_SET_ADDRESS = "setDefaultAddress";
     public static final String ADDRESS_DELETE_ADDRESS = "deleteUserAddress";
     public static final String ADDRESS_PARAM_ID = "userAddressId";
+
 
     // Messaging API
     public static final String MESSAGING_API                    = "message";
@@ -298,11 +339,15 @@ public class APIConstants {
     public static final String ADD_REGISTRATION_ID              = "addRegistrationId";
     public static final String DELETE_REGISTRATION_ID           = "deleteRegistrationId";
     public static final String UPDATE_REGISTRATION_ID           = "updateRegistrationId";
+
     // Param
     public static final String DEVICE_PARAM_REGISTRATION_ID     = "registrationId";
     public static final String DEVICE_PARAM_ACCESS_TOKEN        = "access_token";
     public static final String DEVICE_PARAM_OLD_REGISTRATION_ID = "oldRegistrationId";
     public static final String DEVICE_PARAM_NEW_REGISTRATION_ID = "newRegistrationId";
     public static final String DEVICE_IS_IDLE                   = "isIdle";
+
+    //Seller Transaction API
+    public static final String SELLER_TRANSACTION_API           = "getTransactionList";
 
 }
