@@ -12,6 +12,7 @@ public class Category {
     private int productCategoryId;
     private String name;
     private String hasChildren;
+    private String image;
 
     public int getProductCategoryId() {
         return productCategoryId;
@@ -31,6 +32,14 @@ public class Category {
 
     public String getHasChildren() {
         return hasChildren;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public void setHasChildren(String hasChildren) {
