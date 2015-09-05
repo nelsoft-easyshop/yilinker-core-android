@@ -14,9 +14,9 @@ public class Address {
     private String unitNumber, buildingName, streetNumber, streetName,
             subdivision, zipCode, streetAddress, longitude, latitude,
             landline, locationId, country, island, region, province, city, municipality,
-            barangay;
-    private String fullLocation;
+            barangay, fullLocation;
     private boolean isDefault;
+    private int provinceId, barangayId, cityId;
 
     public int getUserAddressId() {
         return userAddressId;
@@ -178,6 +178,14 @@ public class Address {
         this.barangay = barangay;
     }
 
+    public boolean isDefault() {
+        return isDefault;
+    }
+
+    public void setIsDefault(boolean isDefault) {
+        this.isDefault = isDefault;
+    }
+
     public String getFullLocation() {
         return fullLocation;
     }
@@ -186,12 +194,36 @@ public class Address {
         this.fullLocation = fullLocation;
     }
 
-    public boolean isDefault() {
-        return isDefault;
+    public int getCityId() {
+        return cityId;
     }
 
-    public void setIsDefault(boolean isDefault) {
-        this.isDefault = isDefault;
+    public void setCityId(int cityId) {
+        this.cityId = cityId;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public int getProvinceId() {
+        return provinceId;
+    }
+
+    public void setProvinceId(int provinceId) {
+        this.provinceId = provinceId;
+    }
+
+    public int getBarangayId() {
+        return barangayId;
+    }
+
+    public void setBarangayId(int barangayId) {
+        this.barangayId = barangayId;
     }
 
     public static class AddressInstance implements InstanceCreator<Address> {
