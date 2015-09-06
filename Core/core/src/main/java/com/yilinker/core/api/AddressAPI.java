@@ -100,9 +100,8 @@ public class AddressAPI {
         params.put(APIConstants.ADDRESS_PARAMS_STREET_NUMBER, String.valueOf(address.getStreetNumber()));
         params.put(APIConstants.ADDRESS_PARAMS_STREET_NAME, String.valueOf(address.getStreetName()));
         params.put(APIConstants.ADDRESS_PARAMS_BARANGAY, String.valueOf(address.getBarangay()));
+        params.put(APIConstants.ADDRESS_PARAMS_LOCATIONID, String.valueOf(address.getLocationId()));
         params.put(APIConstants.ADDRESS_PARAMS_SUBDIVISION, String.valueOf(address.getSubdivision()));
-        /*params.put(APIConstants.ADDRESS_PARAMS_CITY, city);
-        params.put(APIConstants.ADDRESS_PARAMS_PROVINCE, province);*/
         params.put(APIConstants.ADDRESS_PARAMS_ZIPCODE, String.valueOf(address.getZipCode()));
 
         VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {

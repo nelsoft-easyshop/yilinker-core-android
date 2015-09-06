@@ -17,6 +17,9 @@ public class UpdateUserInfo {
     private String contactNumber;
     private String email;
 
+    private int productCount, transactionCount;
+    private String totalSales;
+
     private Bank bankAccount;
     private Address address;
 
@@ -84,6 +87,29 @@ public class UpdateUserInfo {
         this.contactNumber = contactNumber;
     }
 
+    public int getProductCount() {
+        return productCount;
+    }
+
+    public void setProductCount(int productCount) {
+        this.productCount = productCount;
+    }
+
+    public int getTransactionCount() {
+        return transactionCount;
+    }
+
+    public void setTransactionCount(int transactionCount) {
+        this.transactionCount = transactionCount;
+    }
+
+    public String getTotalSales() {
+        return totalSales;
+    }
+
+    public void setTotalSales(String totalSales) {
+        this.totalSales = totalSales;
+    }
 
     public static class UpdateUserInfoInstance implements InstanceCreator<UpdateUserInfo> {
 
@@ -92,9 +118,5 @@ public class UpdateUserInfo {
 
             return new UpdateUserInfo();
         }
-    }
-
-    class bankAccount {
-
     }
 }

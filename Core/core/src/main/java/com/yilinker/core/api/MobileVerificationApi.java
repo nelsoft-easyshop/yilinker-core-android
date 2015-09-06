@@ -42,14 +42,22 @@ public class MobileVerificationApi {
                 Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
                 APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
 
+
    /*             gson = GsonUtility.createGsonBuilder(MobileVerificationApi.class,
                         new MobileVerificationCode.MobileVerificationCodeInstance()).create();
                 String jsonStr = new Gson().toJson(apiResponse.getData(sileVerificationCode.class);*/
 
-                if(apiResponse.isSuccessful()) {
+                if (apiResponse.isSuccessful()) {
                     responseHandler.onSuccess(requestCode, apiResponse);
-                }
 
+                    if (apiResponse.isSuccessful()) {
+                        responseHandler.onSuccess(requestCode, apiResponse.isSuccessful());
+                    } else {
+                        responseHandler.onFailed(requestCode, apiResponse.getMessage());
+
+                    }
+
+                }
             }
         }, new Response.ErrorListener() {
 

@@ -1,7 +1,13 @@
 package com.yilinker.core.api;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 import com.yilinker.core.constants.APIConstants;
@@ -36,7 +42,7 @@ public class ProductManagementApi {
         Map<String,String> params = new HashMap<String,String>();
         params.put(APIConstants.ACCESS_TOKEN, token);
         params.put(APIConstants.PRODUCT_MANAGEMENT_PARAMS_STATUS, String.valueOf(status));
-        params.put(APIConstants.PRODUCT_MANAGEMENT_PARAMS_KEYWORD, "");
+        params.put(APIConstants.PRODUCT_MANAGEMENT_PARAMS_KEYWORD, (keyword.isEmpty() || keyword == null) ? "" : keyword);
 
         VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
             @Override
@@ -44,9 +50,21 @@ public class ProductManagementApi {
                 Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
                 APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
 
-                gson = GsonUtility.createGsonBuilder(ProductList.class, new ProductList.ProductListInstance()).create();
-                String jsonString = new Gson().toJson(apiResponse.getData());
-                ProductList obj = gson.fromJson(jsonString, ProductList.class);
+                if (apiResponse.isSuccessful()) {
+
+                    gson = GsonUtility.createGsonBuilder(ProductList.class, new ProductList.ProductListInstance()).create();
+                    String jsonString = new Gson().toJson(apiResponse.getData());
+                    ProductList obj = gson.fromJson(jsonString, ProductList.class);
+
+                    responseHandler.onSuccess(requestCode, obj);
+                } else {
+
+
+                    responseHandler.onFailed(requestCode, apiResponse.getMessage());
+
+                }
+
+
 
 //                gson = GsonUtility.createGsonBuilder(CategoryProducts.class, new CategoryProducts.ProductsInstance()).create();
 //                try {
@@ -58,14 +76,26 @@ public class ProductManagementApi {
 //                    e.printStackTrace();
 //                }
 
-                responseHandler.onSuccess(requestCode, obj);
+
 
             }
         }, new Response.ErrorListener() {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+                String message = "An error occured.";
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                    message = "No connection available.";
+                } else if (error instanceof AuthFailureError) {
+                    message = "Authentication Failure.";
+                } else if (error instanceof ServerError) {
+                    message = "Server error.";
+                } else if (error instanceof NetworkError) {
+                    message = "Network Error.";
+                } else if (error instanceof ParseError) {
+                    message = "Parse error.";
+                }
+                responseHandler.onFailed(requestCode,message);
             }
         });
 

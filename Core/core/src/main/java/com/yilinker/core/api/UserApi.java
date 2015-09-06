@@ -234,6 +234,48 @@ public class UserApi {
         requestUpdateUserInfo.setRetryPolicy(SocketTimeout.getRetryPolicy());
 
         return requestUpdateUserInfo;
+    }
+    public static Request changePassword (final int requestCode, String token, String oldPassword, String newPassword,
+                                          String newPasswordConfirm, final ResponseHandler responseHandler) {
 
+        String url = String.format("%s/%s/%s/%s?%s=%s",
+                APIConstants.DOMAIN,
+                APIConstants.AUTH_API,
+                APIConstants.USER_API,
+                APIConstants.CHANGE_PASSWORD_API,
+                APIConstants.ACCESS_TOKEN, token);
+
+        Map<String, String> params = new HashMap<String, String>();
+        params.put(APIConstants.PROFILE_OLD_PASSWORD, oldPassword);
+        params.put(APIConstants.PROFILE_NEW_PASSWORD, newPassword);
+        params.put(APIConstants.PROFILE_NEW_PASSWORD_CONFIRMED, newPasswordConfirm);
+
+        VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+                Gson gson = GsonUtility.createGsonBuilder(Login.class, new Login.LoginInstance()).create();
+                Login obj = gson.fromJson(response.toString(), Login.class);
+
+                responseHandler.onSuccess(requestCode, obj);
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                    responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+                } else if (error instanceof ServerError) {
+                    responseHandler.onFailed(requestCode, "Wrong Email or Password");
+                } else {
+                    responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+                }
+            }
+        });
+
+        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
+
+        return request;
     }
 }
