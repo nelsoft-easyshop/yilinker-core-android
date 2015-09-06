@@ -173,7 +173,7 @@ public class APIConstants {
     public static final String STORE_ADDRESS_ADD = "addNewAddress";
     public static final String GET_STORE_ADDRESS = "getUserAddresses";
     public static final String EDIT_USER_ADDRESS = "editUserAddress";
-    public static final String ADDRESS_PARAMS_ADDRESS_TITLE = "addressTitle";
+    public static final String ADDRESS_PARAMS_ADDRESS_TITLE = "title";
     public static final String ADDRESS_PARAMS_TITLE = "title";
     public static final String ADDRESS_PARAMS_UNIT_NUMBER = "unitNumber";
     public static final String ADDRESS_PARAMS_BUILDING_NAME = "buildingName";
@@ -238,11 +238,13 @@ public class APIConstants {
     public static final String ADD_CUSTOM_CATEGORY = "addCustomCategory";
     public static final String GET_CUSTOM_CATEGORIES = "getCustomCategories";
     public static final String GET_CATEGORY_DETAILS = "getCategoryDetails";
+    public static final String UPDATE_CUSTOM_CATEGORY = "updateCustomCategory";
     public static final String CATEGORY_PARAMS_CATEGORY_ID = "categoryId";
     public static final String CATEGORY_PARAMS_CATEGORY_NAME = "categoryName";
     public static final String CATEGORY_PARAMS_PARENT_ID = "parentId";
     public static final String CATEGORY_PARAMS_PRODUCTS = "products";
     public static final String CATEGORY_PARAMS_SUBCATEGORIES = "subcategories";
+    public static final String CATEGORY_PARAMS_CATEGORIES = "categories";
 
     //Product Management
     public static final String PRODUCT_MANAGEMENT_API = "product";

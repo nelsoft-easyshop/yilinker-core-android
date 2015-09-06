@@ -42,13 +42,12 @@ public class MobileVerificationApi {
                 Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
                 APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
 
-                gson = GsonUtility.createGsonBuilder(MobileVerificationApi.class,
+   /*             gson = GsonUtility.createGsonBuilder(MobileVerificationApi.class,
                         new MobileVerificationCode.MobileVerificationCodeInstance()).create();
-                String jsonStr = new Gson().toJson(apiResponse.getData());
-                MobileVerificationCode obj = gson.fromJson(jsonStr, MobileVerificationCode.class);
+                String jsonStr = new Gson().toJson(apiResponse.getData(sileVerificationCode.class);*/
 
                 if(apiResponse.isSuccessful()) {
-                    responseHandler.onSuccess(requestCode, obj);
+                    responseHandler.onSuccess(requestCode, apiResponse);
                 }
 
             }
