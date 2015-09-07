@@ -106,6 +106,9 @@ public class APIConstants {
     public static final String PROFILE_LATITUDE = "latitude";
     public static final String PROFILE_LANDLINE = "landline";
 
+    //For Activity Log
+    public static final String ACTIVITY_LOG_GET_ITEMS = "activityLog";
+
     //For Home API
     public static final String HOME_API = "home";
     public static final String HOME_GET_ITEMS = "getData";
