@@ -21,9 +21,11 @@ import com.yilinker.core.model.seller.Bank;
 import com.yilinker.core.utility.GsonUtility;
 import com.yilinker.core.utility.SocketTimeout;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -97,13 +99,30 @@ public class SellerApi {
 
             }
         }, new Response.ErrorListener() {
-
             @Override
             public void onErrorResponse(VolleyError error) {
-                responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+                String message = APIConstants.API_CONNECTION_PROBLEM;
+                try {
+                    String responseBody = new String(error.networkResponse.data, "utf-8" );
+                    JSONObject jsonObject = new JSONObject( responseBody );
+                    message = jsonObject.getString("message");
 
-            }
-        });
+                } catch ( JSONException e ) {
+                    //Handle a malformed json response
+                } catch (UnsupportedEncodingException e){
+
+                }
+                responseHandler.onFailed(requestCode, message);
+            }});
+
+//                , new Response.ErrorListener() {
+//
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+//
+//            }
+//        });
 
         request.setRetryPolicy(SocketTimeout.getRetryPolicy());
 
