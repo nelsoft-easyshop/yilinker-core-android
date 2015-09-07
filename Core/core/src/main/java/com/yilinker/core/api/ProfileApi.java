@@ -67,14 +67,15 @@ public class ProfileApi {
                                              String locationId, String title, String unitNumber, String buildingName,
                                              String streetNumber, String streetName, String subdivision, String zipCode,
                                              String streetAddress, String longitude, String latitude, String landline,
-                                             final ResponseHandler responseHandler){
+                                             boolean isProfilePictureEmpty, final ResponseHandler responseHandler){
 
         String url = String.format("%s/%s/%s/%s",
                 APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.PROFILE_API, APIConstants.PROFILE_EDIT_DETAILS);
 
         Map<String, String> params = new HashMap<String, String>();
         //params.put(APIConstants.ACCESS_TOKEN, token);
-        params.put(APIConstants.PROFILE_PHOTO, profilePhoto.getName());
+        if (!isProfilePictureEmpty)
+            params.put(APIConstants.PROFILE_PHOTO, profilePhoto.getName());
         //params.put(APIConstants.PROFILE_COVER_PHOTO, coverPhoto);
         params.put(APIConstants.PROFILE_FIRST_NAME, firstName);
         params.put(APIConstants.PROFILE_LAST_NAME, lastName);
@@ -86,8 +87,8 @@ public class ProfileApi {
 //        params.put(APIConstants.PROFILE_OLD_PASSWORD, oldPassword);
 //        params.put(APIConstants.PROFILE_NEW_PASSWORD, newPassword);
 //        params.put(APIConstants.PROFILE_NEW_PASSWORD_CONFIRMED, newPasswordConfirm);
-//        params.put(APIConstants.PROFILE_USER_ADDRESS_ID, userAddressId);
-//        params.put(APIConstants.PROFILE_LOCATION_ID, locationId);
+        params.put(APIConstants.PROFILE_USER_ADDRESS_ID, userAddressId);
+        params.put(APIConstants.PROFILE_LOCATION_ID, locationId);
         params.put(APIConstants.PROFILE_TITLE, title);
         params.put(APIConstants.PROFILE_UNIT_NUMBER, unitNumber);
         params.put(APIConstants.PROFILE_BUILDING_NAME, buildingName);
@@ -108,60 +109,61 @@ public class ProfileApi {
 
         url = String.format("%s?%s=%s",url,APIConstants.ACCESS_TOKEN, token);
 
-        MultiPartRequest multiPartRequest = new MultiPartRequest(url,  profilePhoto.getPath(), APIResponse.class , params, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
+        if (!isProfilePictureEmpty) {
+            MultiPartRequest multiPartRequest = new MultiPartRequest(url, profilePhoto.getPath(), APIResponse.class, params, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
 
-                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
-                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+                    Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                    APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
 
-                if(apiResponse.isSuccessful()) {
-                    responseHandler.onSuccess(requestCode, apiResponse.isSuccessful());
+                    if (apiResponse.isSuccessful()) {
+                        responseHandler.onSuccess(requestCode, apiResponse.isSuccessful());
+                    } else {
+                        responseHandler.onFailed(requestCode, apiResponse.getMessage());
+                    }
+
                 }
-                else{
-                    responseHandler.onFailed(requestCode, apiResponse.getMessage());
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                    responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
                 }
+            });
 
-            }
-        }, new Response.ErrorListener() {
+            multiPartRequest.setRetryPolicy(SocketTimeout.getRetryPolicy());
 
-            @Override
-            public void onErrorResponse(VolleyError error) {
+            return multiPartRequest;
+        }
+        else {
+            VolleyPostHelper requestUpdateCart = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
 
-                responseHandler.onFailed(requestCode,APIConstants.API_CONNECTION_PROBLEM);
-            }
-        });
+                @Override
+                public void onResponse(JSONObject response) {
 
-        multiPartRequest.setRetryPolicy(SocketTimeout.getRetryPolicy());
+                    Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                    APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
 
-        return multiPartRequest;
+                    if (apiResponse.isSuccessful()) {
+                        responseHandler.onSuccess(requestCode, apiResponse.isSuccessful());
+                    } else {
+                        responseHandler.onFailed(requestCode, apiResponse.getMessage());
+                    }
 
-//        VolleyPostHelper requestUpdateCart = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
-//
-//            @Override
-//            public void onResponse(JSONObject response) {
-//
-//                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
-//                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
-//
-//                if(apiResponse.isSuccessful()) {
-//                    responseHandler.onSuccess(requestCode, apiResponse.isSuccessful());
-//                }
-//                else{
-//                    responseHandler.onFailed(requestCode, apiResponse.getMessage());
-//                }
-//
-//            }
-//        }, new Response.ErrorListener() {
-//
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
-//            }
-//        });
-//
-//        requestUpdateCart.setRetryPolicy(SocketTimeout.getRetryPolicy());
-//
-//        return requestUpdateCart;
-   }
+                }
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+                }
+            });
+
+            requestUpdateCart.setRetryPolicy(SocketTimeout.getRetryPolicy());
+
+            return requestUpdateCart;
+        }
+    }
 }

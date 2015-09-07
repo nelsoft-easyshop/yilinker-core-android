@@ -20,6 +20,11 @@ public class Profile {
     private String coverPhoto;
     private String gender;
     private String birthDate;
+    private int transactionCount;
+    private int wishlistCount;
+    private int cartCount;
+    private int messageCount;
+    private int followingCount;
     private Address address;
 
     public String getFullName() {
@@ -92,6 +97,46 @@ public class Profile {
 
     public void setBirthDate(String birthDate) {
         this.birthDate = birthDate;
+    }
+
+    public int getTransactionCount() {
+        return transactionCount;
+    }
+
+    public void setTransactionCount(int transactionCount) {
+        this.transactionCount = transactionCount;
+    }
+
+    public int getWishlistCount() {
+        return wishlistCount;
+    }
+
+    public void setWishlistCount(int wishlistCount) {
+        this.wishlistCount = wishlistCount;
+    }
+
+    public int getCartCount() {
+        return cartCount;
+    }
+
+    public void setCartCount(int cartCount) {
+        this.cartCount = cartCount;
+    }
+
+    public int getMessageCount() {
+        return messageCount;
+    }
+
+    public void setMessageCount(int messageCount) {
+        this.messageCount = messageCount;
+    }
+
+    public int getFollowingCount() {
+        return followingCount;
+    }
+
+    public void setFollowingCount(int followingCount) {
+        this.followingCount = followingCount;
     }
 
     public Address getAddress() {

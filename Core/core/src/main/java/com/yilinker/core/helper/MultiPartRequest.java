@@ -116,13 +116,8 @@ public class MultiPartRequest extends Request {
             builder.setBoundary("BOUNDARY");
 
             mHttpEntity = builder.build();
-
-            Log.i("editProfile", builder.toString());
-
         } else {
-
             mHttpEntity = buildMultipartEntity(path);
-
         }
     }
 
