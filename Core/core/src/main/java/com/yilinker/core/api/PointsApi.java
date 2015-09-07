@@ -8,95 +8,51 @@ import com.yilinker.core.constants.APIConstants;
 import com.yilinker.core.helper.VolleyPostHelper;
 import com.yilinker.core.interfaces.ResponseHandler;
 import com.yilinker.core.model.APIResponse;
-import com.yilinker.core.model.seller.MobileVerificationCode;
+import com.yilinker.core.model.seller.CustomizedCategory;
+import com.yilinker.core.model.seller.Points;
+import com.yilinker.core.model.seller.PointsDateAdded;
 import com.yilinker.core.utility.GsonUtility;
 import com.yilinker.core.utility.SocketTimeout;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by Bryan on 8/14/2015.
+ * Created by Bryan on 9/7/2015.
  */
-public class MobileVerificationApi {
+public class PointsApi {
 
-    public static Request changeContactNumber (final int requestCode, String token,
-                                               String oldContactNumber, String newContactNumber,
-                                               final ResponseHandler responseHandler){
+    public static Request getPoints(final int requestCode, String token, final ResponseHandler responseHandler) {
 
-        String url = String.format("%s/%s/%s/%s",
-                APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.USER_API, APIConstants.CHANGE_CONTACT_NUMBER);
+        String url = String.format("%s/%s/%s/%s", APIConstants.DOMAIN,
+                APIConstants.AUTH_API, APIConstants.USER_API, APIConstants.GET_POINTS);
 
-        Map<String, String> params = new HashMap<String, String>();
+        Map<String, String> params = new HashMap<String,String>();
         params.put(APIConstants.ACCESS_TOKEN, token);
-        params.put(APIConstants.SMS_PARAMS_OLD_CONTACT_NUMBER, oldContactNumber);
-        params.put(APIConstants.SMS_PARAMS_NEW_CONTACT_NUMBER, newContactNumber);
 
-        VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
+        VolleyPostHelper request =  new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject response) {
-
                 Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
                 APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
 
-
-   /*             gson = GsonUtility.createGsonBuilder(MobileVerificationApi.class,
-                        new MobileVerificationCode.MobileVerificationCodeInstance()).create();
-                String jsonStr = new Gson().toJson(apiResponse.getData(sileVerificationCode.class);*/
-
-                if (apiResponse.isSuccessful()) {
-                    responseHandler.onSuccess(requestCode, apiResponse);
-
-                    if (apiResponse.isSuccessful()) {
-                        responseHandler.onSuccess(requestCode, apiResponse.isSuccessful());
-                    } else {
-                        responseHandler.onFailed(requestCode, apiResponse.getMessage());
-
-                    }
-
-                }
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
-            }
-        });
-
-        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
-
-        return request;
-    }
-
-    public static Request sendVerificationCode (final int requestCode, String token, String code, final ResponseHandler responseHandler){
-
-        String url = String.format("%s/%s/%s/%s",
-                APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.SMS_API, APIConstants.SMS_VERIFY);
-
-        Map<String, String> params = new HashMap<String, String>();
-        params.put(APIConstants.ACCESS_TOKEN, token);
-        params.put(APIConstants.SMS_VERIFICATION_CODE, code);
-
-        VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
-
-            @Override
-            public void onResponse(JSONObject response) {
-
-                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
-                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+/*
+                gson = GsonUtility.createGsonBuilder(Points.class, new Points.PointsInstance()).create();
+                String jsonString = new Gson().toJson(apiResponse.getData());
+                Points obj = gson.fromJson(jsonString, Points.class);
+*/
 
                 if(apiResponse.isSuccessful()) {
-                    responseHandler.onSuccess(requestCode, apiResponse.getMessage());
+                    responseHandler.onSuccess(requestCode, apiResponse);
                 }else{
                     responseHandler.onFailed(requestCode, apiResponse.getMessage());
                 }
             }
         }, new Response.ErrorListener() {
-
             @Override
             public void onErrorResponse(VolleyError error) {
                 responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
@@ -107,4 +63,43 @@ public class MobileVerificationApi {
 
         return request;
     }
+
+    public static Request getPointsHistory(final int requestCode, String token, final ResponseHandler responseHandler) {
+
+        String url = String.format("%s/%s/%s/%s", APIConstants.DOMAIN,
+                APIConstants.AUTH_API, APIConstants.USER_API, APIConstants.GET_POINT_HISTORY);
+
+        Map<String, String> params = new HashMap<String,String>();
+        params.put(APIConstants.ACCESS_TOKEN, token);
+
+        VolleyPostHelper request =  new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+
+
+                gson = GsonUtility.createGsonBuilder(Points.class, new Points.PointsInstance()).create();
+                String jsonString = new Gson().toJson(apiResponse.getData());
+                Points[] obj = gson.fromJson(jsonString, Points[].class);
+
+                if(apiResponse.isSuccessful()) {
+                    responseHandler.onSuccess(requestCode, obj);
+                }else{
+                    responseHandler.onFailed(requestCode, apiResponse.getMessage());
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+            }
+        });
+
+        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
+
+        return request;
+    }
+
 }
