@@ -15,6 +15,7 @@ public class APIConstants {
     //temp
     public static final String DOMAIN = BaseApplication.getDomainURL();
     public static final String AUTH_API = "auth";
+    public static final String MERCHANT_API = "merchant";
     //public static final String DOMAIN = "http://online.api.easydeal.ph/api/v1";
 
     //For Product API
@@ -349,5 +350,10 @@ public class APIConstants {
 
     //Seller Transaction API
     public static final String SELLER_TRANSACTION_API           = "getTransactionList";
+
+    //Sales Report API
+    public static final String SALES_REPORT_API                 = "getSalesReport";
+    public static final String SALES_REPORT_PARAM_DATE_TO       = "dateTo";
+    public static final String SALES_REPORT_PARAM_DATE_FROM     = "dateFrom";
 
 }
