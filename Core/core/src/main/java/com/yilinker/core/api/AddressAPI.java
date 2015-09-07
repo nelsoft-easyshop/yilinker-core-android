@@ -18,6 +18,7 @@ import com.yilinker.core.model.ProvinceAddress;
 import com.yilinker.core.utility.GsonUtility;
 import com.yilinker.core.utility.SocketTimeout;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -41,17 +42,17 @@ public class AddressAPI {
 
         Map<String, String> params = new HashMap<String, String>();
         params.put(APIConstants.ACCESS_TOKEN, token);
-        params.put(APIConstants.ADDRESS_PARAMS_ADDRESS_TITLE, String.valueOf(address.getAddressTitle()));
+        params.put(APIConstants.ADDRESS_PARAMS_TITLE, String.valueOf(address.getAddressTitle()));
         params.put(APIConstants.ADDRESS_PARAMS_UNIT_NUMBER, String.valueOf(address.getUnitNumber()));
         params.put(APIConstants.ADDRESS_PARAMS_BUILDING_NAME, String.valueOf(address.getBuildingName()));
         params.put(APIConstants.ADDRESS_PARAMS_STREET_NUMBER, String.valueOf(address.getStreetNumber()));
         params.put(APIConstants.ADDRESS_PARAMS_STREET_NAME, String.valueOf(address.getStreetName()));
-        params.put(APIConstants.ADDRESS_PARAMS_BARANGAY, String.valueOf(address.getBarangay()));
-        params.put(APIConstants.ADDRESS_PARAMS_LOCATIONID, String.valueOf(address.getLocationId()));
+//        params.put(APIConstants.ADDRESS_PARAMS_BARANGAY, String.valueOf(address.getBarangay()));
         params.put(APIConstants.ADDRESS_PARAMS_SUBDIVISION, String.valueOf(address.getSubdivision()));
-        params.put(APIConstants.ADDRESS_PARAMS_CITY, String.valueOf(address.getCity()));
-        params.put(APIConstants.ADDRESS_PARAMS_PROVINCE, String.valueOf(address.getProvince()));
+//        params.put(APIConstants.ADDRESS_PARAMS_CITY, String.valueOf(address.getCity()));
+//        params.put(APIConstants.ADDRESS_PARAMS_PROVINCE, String.valueOf(address.getProvince()));
         params.put(APIConstants.ADDRESS_PARAMS_ZIPCODE, String.valueOf(address.getZipCode()));
+        params.put(APIConstants.ADDRESS_PARAMS_LOCATIONID, String.valueOf(address.getLocationId()));
 
         VolleyPostHelper requestAddStoreAddress = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
 
@@ -89,7 +90,7 @@ public class AddressAPI {
                                       final ResponseHandler responseHandler){
 
         String url = String.format("%s/%s/%s/%s",
-                APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.ADDRESS_API, APIConstants.STORE_ADDRESS_ADD);
+                APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.ADDRESS_API, APIConstants.EDIT_USER_ADDRESS);
 
         Map<String, String> params = new HashMap<String, String>();
         params.put(APIConstants.ACCESS_TOKEN, token);
@@ -119,6 +120,14 @@ public class AddressAPI {
 
             @Override
             public void onErrorResponse(VolleyError error) {
+                try {
+                    String responseBody = new String(error.networkResponse.data, "utf-8");
+                    JSONObject jsonObject = new JSONObject(responseBody);
+                } catch (JSONException e) {
+                    //Handle a malformed json response
+                } catch (UnsupportedEncodingException e) {
+
+                }
                 responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
             }
         });
@@ -259,15 +268,20 @@ public class AddressAPI {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                String message = APIConstants.API_CONNECTION_PROBLEM;
                 try {
                     String responseBody = new String(error.networkResponse.data, "utf-8" );
                     JSONObject jsonObject = new JSONObject( responseBody );
+                    jsonObject = jsonObject.getJSONObject("data");
+                    JSONArray errors = jsonObject.getJSONArray("errors");
+                    message = errors.getString(0);
+
                 } catch ( JSONException e ) {
                     //Handle a malformed json response
                 } catch (UnsupportedEncodingException e){
 
                 }
-                responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+                responseHandler.onFailed(requestCode, message);
             }
         });
 

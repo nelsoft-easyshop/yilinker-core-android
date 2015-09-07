@@ -25,6 +25,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -66,22 +67,27 @@ public class CheckoutApi {
                 if(apiResponse.isSuccessful()){
                     responseHandler.onSuccess(requestCode, obj);
                 } else {
-                    responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+                    responseHandler.onFailed(requestCode, apiResponse.getMessage());
                 }
 
             }
         }, new Response.ErrorListener() {
-
             @Override
             public void onErrorResponse(VolleyError error) {
-                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                    responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
-                } else if (error instanceof AuthFailureError) {
-                    responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_AUTH_ERROR);
-                } else if (error instanceof ServerError) {
-                    //TODO
-                }
+                String message = APIConstants.API_CONNECTION_PROBLEM;
+                try {
+                    String responseBody = new String(error.networkResponse.data, "utf-8" );
+                    JSONObject jsonObject = new JSONObject( responseBody );
+                    jsonObject = jsonObject.getJSONObject("data");
+                    JSONArray errors = jsonObject.getJSONArray("errors");
+                    message = errors.getString(0);
 
+                } catch ( JSONException e ) {
+                    //Handle a malformed json response
+                } catch (UnsupportedEncodingException e){
+
+                }
+                responseHandler.onFailed(requestCode, message);
             }
         });
 
@@ -127,17 +133,22 @@ public class CheckoutApi {
 
             }
         }, new Response.ErrorListener() {
-
             @Override
             public void onErrorResponse(VolleyError error) {
-                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                    responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
-                } else if (error instanceof AuthFailureError) {
-                    responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_AUTH_ERROR);
-                } else if (error instanceof ServerError) {
-                    //TODO
-                }
+                String message = APIConstants.API_CONNECTION_PROBLEM;
+                try {
+                    String responseBody = new String(error.networkResponse.data, "utf-8" );
+                    JSONObject jsonObject = new JSONObject( responseBody );
+                    jsonObject = jsonObject.getJSONObject("data");
+                    JSONArray errors = jsonObject.getJSONArray("errors");
+                    message = errors.getString(0);
 
+                } catch ( JSONException e ) {
+                    //Handle a malformed json response
+                } catch (UnsupportedEncodingException e){
+
+                }
+                responseHandler.onFailed(requestCode, message);
             }
         });
 
@@ -179,22 +190,27 @@ public class CheckoutApi {
                     CheckoutOverview obj = gson.fromJson(jsonString, CheckoutOverview.class);
                     responseHandler.onSuccess(requestCode, obj);
                 } else {
-                    responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+                    responseHandler.onFailed(requestCode, apiResponse.getMessage());
                 }
 
             }
         }, new Response.ErrorListener() {
-
             @Override
             public void onErrorResponse(VolleyError error) {
-                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                    responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
-                } else if (error instanceof AuthFailureError) {
-                    responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_AUTH_ERROR);
-                } else if (error instanceof ServerError) {
-                    //TODO
-                }
+                String message = APIConstants.API_CONNECTION_PROBLEM;
+                try {
+                    String responseBody = new String(error.networkResponse.data, "utf-8" );
+                    JSONObject jsonObject = new JSONObject( responseBody );
+                    jsonObject = jsonObject.getJSONObject("data");
+                    JSONArray errors = jsonObject.getJSONArray("errors");
+                    message = errors.getString(0);
 
+                } catch ( JSONException e ) {
+                    //Handle a malformed json response
+                } catch (UnsupportedEncodingException e){
+
+                }
+                responseHandler.onFailed(requestCode, message);
             }
         });
 
@@ -219,13 +235,29 @@ public class CheckoutApi {
             public void onResponse(JSONObject response) {
                 Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
                 APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
-
-                responseHandler.onSuccess(requestCode, apiResponse);
+                if(apiResponse.isSuccessful()) {
+                    responseHandler.onSuccess(requestCode, apiResponse);
+                } else {
+                    responseHandler.onFailed(requestCode, apiResponse.getMessage());
+                }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+                String message = APIConstants.API_CONNECTION_PROBLEM;
+                try {
+                    String responseBody = new String(error.networkResponse.data, "utf-8" );
+                    JSONObject jsonObject = new JSONObject( responseBody );
+                    jsonObject = jsonObject.getJSONObject("data");
+                    JSONArray errors = jsonObject.getJSONArray("errors");
+                    message = errors.getString(0);
+
+                } catch ( JSONException e ) {
+                    //Handle a malformed json response
+                } catch (UnsupportedEncodingException e){
+
+                }
+                responseHandler.onFailed(requestCode, message);
             }
         });
 
@@ -258,10 +290,15 @@ public class CheckoutApi {
 
                 gson = GsonUtility.createGsonBuilder(Cart.class, new Cart.CartInstance()).create();
                 String jsonString = new Gson().toJson(apiResponse.getData());
-                Type listType = new TypeToken<ArrayList<CartItem2>>(){}.getType();
-                List<CartItem2> obj = gson.fromJson(jsonString, listType);
 
-                responseHandler.onSuccess(requestCode, obj);
+                if(apiResponse.isSuccessful()){
+                    Type listType = new TypeToken<ArrayList<CartItem2>>(){}.getType();
+                    List<CartItem2> obj = gson.fromJson(jsonString, listType);
+
+                    responseHandler.onSuccess(requestCode, obj);
+                } else {
+                    responseHandler.onFailed(requestCode, apiResponse.getMessage());
+                }
             }
         }, new Response.ErrorListener() {
             @Override
