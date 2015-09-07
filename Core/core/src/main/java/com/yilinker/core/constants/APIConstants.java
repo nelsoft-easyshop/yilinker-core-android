@@ -112,6 +112,7 @@ public class APIConstants {
     //For User API
     public static final String USER_API = "user";
 
+
     //For Registration API
     public static final String REG_API = "register";
     public static final String REG_PARAM_FULLNAME = "fullname";
@@ -208,6 +209,8 @@ public class APIConstants {
     public static final String STORE_INFO_MERCHANT = "merchant";
     public static final String GET_STORE_INFO = "getUserInfo";
     public static final String CHANGE_PASSWORD_API = "changePassword";
+    public static final String DISABLE_USER = "disable";
+    public static final String ACCOUNT_API = "account";
 
     //Bank
     public static final String BANK_API = "bank";
@@ -254,7 +257,9 @@ public class APIConstants {
     public static final String PRODUCT_MANAGEMENT_PARAMS_PRODUCT_ID = "productId";
 
 
-
+    //My Points
+    public static final String GET_POINTS = "getPoints";
+    public static final String GET_POINT_HISTORY = "getPointHistory";
 
 
     /***Category*/

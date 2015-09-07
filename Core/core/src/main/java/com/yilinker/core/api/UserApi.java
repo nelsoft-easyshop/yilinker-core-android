@@ -278,4 +278,45 @@ public class UserApi {
 
         return request;
     }
+
+    public static Request disableAccount (final int requestCode, String token, String password, final ResponseHandler responseHandler) {
+
+        String url = String.format("%s/%s/%s/%s?%s=%s",
+                APIConstants.DOMAIN,
+                APIConstants.AUTH_API,
+                APIConstants.ACCOUNT_API,
+                APIConstants.DISABLE_USER,
+                APIConstants.ACCESS_TOKEN, token);
+
+        Map<String, String> params = new HashMap<String, String>();
+        params.put(APIConstants.REG_PARAM_PASSWORD, password);
+
+        VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+
+                responseHandler.onSuccess(requestCode, apiResponse);
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                    responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+                } else if (error instanceof ServerError) {
+                    responseHandler.onFailed(requestCode, "Wrong Email or Password");
+                } else {
+                    responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+                }
+            }
+        });
+
+        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
+
+        return request;
+    }
 }
