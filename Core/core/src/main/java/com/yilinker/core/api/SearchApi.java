@@ -27,7 +27,45 @@ public class SearchApi {
     public static Request getSearchKeywords(final int requestCode, String keyword, final ResponseHandler responseHandler) {
 
         String url = String.format("%s/%s/%s?%s=%s",
-                APIConstants.DOMAIN, APIConstants.PRODUCT_API, APIConstants.GET_SEARCH,
+                APIConstants.DOMAIN, APIConstants.PRODUCT_API, APIConstants.GET_SEARCH_PRODUCT,
+                APIConstants.SEARCH_QUERY, keyword);
+
+        Request requestGetSearch = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+
+                gson = GsonUtility.createGsonBuilder(Search.class, new Search.SearchInstance()).create();
+                String jsonString = new Gson().toJson(apiResponse.getData());
+
+                Type listType = new TypeToken<ArrayList<Search>>() {
+                }.getType();
+
+                List<Search> obj = gson.fromJson(jsonString, listType);
+
+                responseHandler.onSuccess(requestCode, obj);
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+            }
+        });
+
+        requestGetSearch.setRetryPolicy(SocketTimeout.getRetryPolicy());
+
+        return requestGetSearch;
+
+    }
+
+    public static Request getSearchStore(final int requestCode, String keyword, final ResponseHandler responseHandler) {
+
+        String url = String.format("%s/%s/%s?%s=%s",
+                APIConstants.DOMAIN, APIConstants.STORE_API, APIConstants.GET_SEARCH,
                 APIConstants.SEARCH_QUERY, keyword);
 
         Request requestGetSearch = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {

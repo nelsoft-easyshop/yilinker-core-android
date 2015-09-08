@@ -2,6 +2,8 @@ package com.yilinker.core.constants;
 
 import com.yilinker.core.base.BaseApplication;
 
+import org.apache.http.entity.StringEntity;
+
 /**
  * Created by J.Bautista
  */
@@ -261,7 +263,9 @@ public class APIConstants {
     public static final String BANK_PARAMS_BANK_ACCOUNT_ID = "bankAccountId";
 
     /***Search*/
-    public static final String GET_SEARCH ="getSearchKeywords";
+    public static final String GET_SEARCH_PRODUCT ="getSearchKeywords";
+    public static final String STORE_API = "store";
+    public static final String GET_SEARCH = "search";
     public static final String SEARCH_QUERY ="queryString";
 
     //Checkout Buyer
