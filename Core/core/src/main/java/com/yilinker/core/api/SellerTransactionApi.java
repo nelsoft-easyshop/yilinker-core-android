@@ -40,8 +40,8 @@ public class SellerTransactionApi {
 
     public static Request getTransactionList(final int requestCode, String accessToken, String type, final ResponseHandler responseHandler) {
 
-        String endpoint = String.format("%s/%s/%s?%s=%s", APIConstants.DOMAIN,APIConstants.AUTH_API, APIConstants.SELLER_TRANSACTION_API,
-                APIConstants.ACCESS_TOKEN, accessToken);
+        String endpoint = String.format("%s/%s/%s?%s=%s&%s=%s", APIConstants.DOMAIN,APIConstants.AUTH_API, APIConstants.SELLER_TRANSACTION_API,
+                APIConstants.ACCESS_TOKEN, accessToken, APIConstants.SELLER_TRANSACTION_PARAMS_TYPE, type);
 
         if (type == null)
             endpoint = String.format("%s&%s=%s", endpoint, APIConstants.SELLER_TRANSACTION_PARAMS_TYPE, type);
