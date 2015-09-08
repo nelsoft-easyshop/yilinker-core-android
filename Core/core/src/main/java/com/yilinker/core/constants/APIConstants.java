@@ -361,10 +361,13 @@ public class APIConstants {
     public static final String DEVICE_IS_IDLE                   = "isIdle";
 
     //Seller Transaction API
-    public static final String SELLER_TRANSACTION_API           = "getTransactionList";
-    public static final String SELLER_TRANSACTION_DETAILS       = "getTransaction";
-    public static final String SELLER_TRANSACTION_PARAMS_TYPE   = "type";
-    public static final String SELLER_TRANSACTION_DETAILS_PARAMS_TRANSACTION_ID = "transactionId";
+    public static final String SELLER_TRANSACTION_LIST_API      = "getTransactionList";
+    public static final String SELLER_TRANSACTION_LIST_PARAMS_TYPE = "type";
+    public static final String SELLER_TRANSACTION_LIST_PARAMS_PAGE = "page";
+
+    public static final String SELLER_TRANSACTION_API           = "getTransaction";
+    public static final String SELLER_TRANSACTION_PARAMS_TRANSACTION_ID = "transactionId";
+
     //Sales Report API
     public static final String SALES_REPORT_API                 = "getSalesReport";
     public static final String SALES_REPORT_PARAM_DATE_TO       = "dateTo";
