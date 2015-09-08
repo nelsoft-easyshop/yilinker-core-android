@@ -38,10 +38,13 @@ public class SellerTransactionApi {
             DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
             DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
 
-    public static Request getTransactionList(final int requestCode, String accessToken, final ResponseHandler responseHandler) {
+    public static Request getTransactionList(final int requestCode, String accessToken, String type, final ResponseHandler responseHandler) {
 
         String endpoint = String.format("%s/%s/%s?%s=%s", APIConstants.DOMAIN,APIConstants.AUTH_API, APIConstants.SELLER_TRANSACTION_API,
                 APIConstants.ACCESS_TOKEN, accessToken);
+
+        if (type == null)
+            endpoint = String.format("%s&%s=%s", endpoint, APIConstants.SELLER_TRANSACTION_PARAMS_TYPE, type);
 
         Request request = new JsonObjectRequest(endpoint, new Response.Listener<JSONObject>() {
             @Override
