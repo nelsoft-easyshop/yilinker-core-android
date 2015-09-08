@@ -349,5 +349,8 @@ public class APIConstants {
 
     //Seller Transaction API
     public static final String SELLER_TRANSACTION_API           = "getTransactionList";
+    public static final String SELLER_TRANSACTION_DETAILS       = "getTransaction";
+    public static final String SELLER_TRANSACTION_PARAMS_TYPE   = "type";
+    public static final String SELLER_TRANSACTION_DETAILS_PARAMS_TRANSACTION_ID = "transactionId";
 
 }
