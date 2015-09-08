@@ -10,6 +10,7 @@ import com.yilinker.core.constants.APIConstants;
 import com.yilinker.core.interfaces.ResponseHandler;
 import com.yilinker.core.model.APIResponse;
 import com.yilinker.core.model.Search;
+import com.yilinker.core.model.seller.SearchTransaction;
 import com.yilinker.core.utility.GsonUtility;
 import com.yilinker.core.utility.SocketTimeout;
 
@@ -59,6 +60,42 @@ public class SearchApi {
         requestGetSearch.setRetryPolicy(SocketTimeout.getRetryPolicy());
 
         return requestGetSearch;
+
+    }
+
+
+    public static Request searchTransaction(final int requestCode, String token, String query, final ResponseHandler responseHandler) {
+
+        String url = String.format("%s/%s/%s/%s?%s=%s&%s=%s",
+                APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.SEARCH_TRANSACTION_API, APIConstants.SELLER_PARAMS_SEARCH_KEYWORD,
+                APIConstants.ACCESS_TOKEN, token,
+                APIConstants.SEARCH_QUERY_TRANSACTION, query);
+
+        Request requestGetCart = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+
+                gson = GsonUtility.createGsonBuilder(SearchTransaction.class, new SearchTransaction.SearchTransactionInstance()).create();
+                String jsonString = new Gson().toJson(apiResponse.getData());
+                SearchTransaction[] obj = gson.fromJson(jsonString, SearchTransaction[].class);
+
+                responseHandler.onSuccess(requestCode, obj);
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+            }
+        });
+
+        requestGetCart.setRetryPolicy(SocketTimeout.getRetryPolicy());
+
+        return requestGetCart;
 
     }
 }
