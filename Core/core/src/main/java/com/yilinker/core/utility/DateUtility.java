@@ -88,5 +88,13 @@ public class DateUtility {
 
     }
 
+    public static String formatDateToReportDateStringFormat(Date date) {
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        return simpleDateFormat.format(date);
+
+    }
+
 
 }
