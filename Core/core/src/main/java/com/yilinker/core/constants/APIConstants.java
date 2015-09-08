@@ -66,6 +66,8 @@ public class APIConstants {
     public static final String SELLER_PARAMS_PAGE = "page";
     public static final String SELLER_PARAMS_LIMIT = "limit";
     public static final String SELLER_PARAMS_KEYWORD = "keyword";
+    public static final String SELLER_GET_FOLLOWERS = "getFollowers";
+    public static final String SELLER_PARAMS_SEARCH_KEYWORD = "searchKeyword";
 
     //For Cart API
     public static final String CART_API = "cart";
