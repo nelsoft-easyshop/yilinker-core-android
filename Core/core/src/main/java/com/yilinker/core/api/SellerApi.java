@@ -8,6 +8,7 @@ import com.android.volley.RetryPolicy;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.yilinker.core.constants.APIConstants;
@@ -22,6 +23,7 @@ import com.yilinker.core.model.Login;
 import com.yilinker.core.model.Seller;
 import com.yilinker.core.model.UpdateUserInfo;
 import com.yilinker.core.model.seller.Bank;
+import com.yilinker.core.model.seller.Followers;
 import com.yilinker.core.utility.GsonUtility;
 import com.yilinker.core.utility.SocketTimeout;
 
@@ -328,6 +330,44 @@ public class SellerApi {
         request.setRetryPolicy(SocketTimeout.getRetryPolicy());
 
         return request;
+    }
+
+
+
+    public static Request getAllFollowers(final int requestCode, String token, int page, String keyword, final ResponseHandler responseHandler) {
+
+        String url = String.format("%s/%s/%s/%s?%s=%s&%s=%s&%s=%s",
+                APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.MERCHANT_API, APIConstants.SELLER_GET_FOLLOWERS,
+                APIConstants.ACCESS_TOKEN, token,
+                APIConstants.SELLER_PARAMS_PAGE, page,
+                APIConstants.SELLER_PARAMS_SEARCH_KEYWORD, keyword);
+
+        Request requestGetCart = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+
+                gson = GsonUtility.createGsonBuilder(Followers.class, new Followers.FollowersInstance()).create();
+                String jsonString = new Gson().toJson(apiResponse.getData());
+                Followers[] obj = gson.fromJson(jsonString, Followers[].class);
+
+                responseHandler.onSuccess(requestCode, obj);
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+            }
+        });
+
+        requestGetCart.setRetryPolicy(SocketTimeout.getRetryPolicy());
+
+        return requestGetCart;
+
     }
 
 }
