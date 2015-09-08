@@ -58,6 +58,20 @@ public class DateUtility {
         return null;
     }
 
+    public static Date reportDateParser(String dateString){
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        try {
+            return simpleDateFormat.parse(dateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+
     public static String formatTransactionDate(Date date){
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMMM dd, yyyy");
@@ -65,5 +79,14 @@ public class DateUtility {
         return simpleDateFormat.format(date);
 
     }
+
+    public static String dateToTransactionDateStringFormat(Date date) {
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+
+        return simpleDateFormat.format(date);
+
+    }
+
 
 }

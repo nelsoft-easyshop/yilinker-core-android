@@ -1,6 +1,7 @@
 package com.yilinker.core.model.seller;
 
 import com.google.gson.InstanceCreator;
+import com.google.gson.annotations.SerializedName;
 
 import java.lang.reflect.Type;
 
@@ -9,19 +10,67 @@ import java.lang.reflect.Type;
  */
 public class Transaction {
 
+    private final static String KEY_ORDER_ID = "order_id";
+    private final static String KEY_BUYER_ID = "buyer_id";
+    private final static String KEY_ORDER_STATUS_ID = "order_status_id";
+    private final static String KEY_DATE_ADDED = "date_added";
+    private final static String KEY_INVOICE_NUMBER = "invoice_number";
+    private final static String KEY_PAYMENT_TYPE = "payment_type";
+    private final static String KEY_PAYMENT_TYPE_ID = "payment_type_id";
+    private final static String KEY_ORDER_STATUS = "order_status";
+    private final static String KEY_TOTAL_PRICE = "total_price";
+    private final static String KEY_TOTAL_UNIT_PRICE = "total_unit_price";
+    private final static String KEY_TOTAL_ITEMS_PRICE = "total_items_price";
+    private final static String KEY_TOTAL_HANDLING_FEE = "total_handling_fee";
+    private final static String KEY_TOTAL_QUANTITY = "total_quantity";
+
+    @SerializedName(KEY_ORDER_ID)
     private String orderId;
+
+    @SerializedName(KEY_BUYER_ID)
     private String buyerId;
+
+    @SerializedName(KEY_ORDER_STATUS_ID)
     private String orderStatusId;
-    private String dateCreated;
+
+    @SerializedName(KEY_DATE_ADDED)
+    private String dateAdded;
+
+    @SerializedName(KEY_INVOICE_NUMBER)
     private String invoiceNumber;
+
+    @SerializedName(KEY_PAYMENT_TYPE)
     private String paymentType;
+
+    @SerializedName(KEY_PAYMENT_TYPE_ID)
     private String paymentTypeId;
+
+    @SerializedName(KEY_ORDER_STATUS)
     private String orderStatus;
+
+    @SerializedName(KEY_TOTAL_PRICE)
     private String totalPrice;
+
+    @SerializedName(KEY_TOTAL_UNIT_PRICE)
     private String totalUnitPrice;
+
+    @SerializedName(KEY_TOTAL_ITEMS_PRICE)
     private String totalItemsPrice;
+
+    @SerializedName(KEY_TOTAL_HANDLING_FEE)
     private String totalHandlingFee;
+
+    @SerializedName(KEY_TOTAL_QUANTITY)
     private String totalQuantity;
+
+
+    public String getTotalQuantity() {
+        return totalQuantity;
+    }
+
+    public void setTotalQuantity(String totalQuantity) {
+        this.totalQuantity = totalQuantity;
+    }
 
     public String getOrderId() {
         return orderId;
@@ -47,12 +96,12 @@ public class Transaction {
         this.orderStatusId = orderStatusId;
     }
 
-    public String getDateCreated() {
-        return dateCreated;
+    public String getDateAdded() {
+        return dateAdded;
     }
 
-    public void setDateCreated(String dateCreated) {
-        this.dateCreated = dateCreated;
+    public void setDateAdded(String dateAdded) {
+        this.dateAdded = dateAdded;
     }
 
     public String getInvoiceNumber() {
@@ -117,14 +166,6 @@ public class Transaction {
 
     public void setTotalHandlingFee(String totalHandlingFee) {
         this.totalHandlingFee = totalHandlingFee;
-    }
-
-    public String getTotalQuantity() {
-        return totalQuantity;
-    }
-
-    public void setTotalQuantity(String totalQuantity) {
-        this.totalQuantity = totalQuantity;
     }
 
     public static class TransactionInstance implements InstanceCreator<Transaction> {

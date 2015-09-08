@@ -20,7 +20,7 @@ public class CategoryProductList {
         this.products = products;
     }
 
-    public static class ProductMangementInstance implements InstanceCreator<CategoryProductList> {
+    public static class CategoryProductListInstance implements InstanceCreator<CategoryProductList> {
         @Override
         public CategoryProductList createInstance(Type type) {
             return new CategoryProductList();

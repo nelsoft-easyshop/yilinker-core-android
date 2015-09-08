@@ -15,6 +15,7 @@ public class APIConstants {
     //temp
     public static final String DOMAIN = BaseApplication.getDomainURL();
     public static final String AUTH_API = "auth";
+    public static final String MERCHANT_API = "merchant";
     //public static final String DOMAIN = "http://online.api.easydeal.ph/api/v1";
 
     //For Product API
@@ -65,6 +66,8 @@ public class APIConstants {
     public static final String SELLER_PARAMS_PAGE = "page";
     public static final String SELLER_PARAMS_LIMIT = "limit";
     public static final String SELLER_PARAMS_KEYWORD = "keyword";
+    public static final String SELLER_GET_FOLLOWERS = "getFollowers";
+    public static final String SELLER_PARAMS_SEARCH_KEYWORD = "searchKeyword";
 
     //For Cart API
     public static final String CART_API = "cart";
@@ -105,12 +108,16 @@ public class APIConstants {
     public static final String PROFILE_LATITUDE = "latitude";
     public static final String PROFILE_LANDLINE = "landline";
 
+    //For Activity Log
+    public static final String ACTIVITY_LOG_GET_ITEMS = "activityLog";
+
     //For Home API
     public static final String HOME_API = "home";
     public static final String HOME_GET_ITEMS = "getData";
 
     //For User API
     public static final String USER_API = "user";
+
 
     //For Registration API
     public static final String REG_API = "register";
@@ -172,7 +179,7 @@ public class APIConstants {
     public static final String STORE_ADDRESS_ADD = "addNewAddress";
     public static final String GET_STORE_ADDRESS = "getUserAddresses";
     public static final String EDIT_USER_ADDRESS = "editUserAddress";
-    public static final String ADDRESS_PARAMS_ADDRESS_TITLE = "addressTitle";
+    public static final String ADDRESS_PARAMS_ADDRESS_TITLE = "title";
     public static final String ADDRESS_PARAMS_TITLE = "title";
     public static final String ADDRESS_PARAMS_UNIT_NUMBER = "unitNumber";
     public static final String ADDRESS_PARAMS_BUILDING_NAME = "buildingName";
@@ -208,6 +215,8 @@ public class APIConstants {
     public static final String STORE_INFO_MERCHANT = "merchant";
     public static final String GET_STORE_INFO = "getUserInfo";
     public static final String CHANGE_PASSWORD_API = "changePassword";
+    public static final String DISABLE_USER = "disable";
+    public static final String ACCOUNT_API = "account";
 
     //Bank
     public static final String BANK_API = "bank";
@@ -237,11 +246,13 @@ public class APIConstants {
     public static final String ADD_CUSTOM_CATEGORY = "addCustomCategory";
     public static final String GET_CUSTOM_CATEGORIES = "getCustomCategories";
     public static final String GET_CATEGORY_DETAILS = "getCategoryDetails";
+    public static final String UPDATE_CUSTOM_CATEGORY = "updateCustomCategory";
     public static final String CATEGORY_PARAMS_CATEGORY_ID = "categoryId";
     public static final String CATEGORY_PARAMS_CATEGORY_NAME = "categoryName";
     public static final String CATEGORY_PARAMS_PARENT_ID = "parentId";
     public static final String CATEGORY_PARAMS_PRODUCTS = "products";
     public static final String CATEGORY_PARAMS_SUBCATEGORIES = "subcategories";
+    public static final String CATEGORY_PARAMS_CATEGORIES = "categories";
 
     //Product Management
     public static final String PRODUCT_MANAGEMENT_API = "product";
@@ -252,7 +263,9 @@ public class APIConstants {
     public static final String PRODUCT_MANAGEMENT_PARAMS_PRODUCT_ID = "productId";
 
 
-
+    //My Points
+    public static final String GET_POINTS = "getPoints";
+    public static final String GET_POINT_HISTORY = "getPointHistory";
 
 
     /***Category*/
@@ -352,5 +365,8 @@ public class APIConstants {
     public static final String SELLER_TRANSACTION_DETAILS       = "getTransaction";
     public static final String SELLER_TRANSACTION_PARAMS_TYPE   = "type";
     public static final String SELLER_TRANSACTION_DETAILS_PARAMS_TRANSACTION_ID = "transactionId";
-
+    //Sales Report API
+    public static final String SALES_REPORT_API                 = "getSalesReport";
+    public static final String SALES_REPORT_PARAM_DATE_TO       = "dateTo";
+    public static final String SALES_REPORT_PARAM_DATE_FROM     = "dateFrom";
 }

@@ -43,6 +43,9 @@ public class SellerTransactionApi {
         String endpoint = String.format("%s/%s/%s?%s=%s&%s=%s", APIConstants.DOMAIN,APIConstants.AUTH_API, APIConstants.SELLER_TRANSACTION_API,
                 APIConstants.ACCESS_TOKEN, accessToken, APIConstants.SELLER_TRANSACTION_PARAMS_TYPE, type);
 
+        if (type == null)
+            endpoint = String.format("%s&%s=%s", endpoint, APIConstants.SELLER_TRANSACTION_PARAMS_TYPE, type);
+
         Request request = new JsonObjectRequest(endpoint, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {

@@ -14,11 +14,13 @@ import com.yilinker.core.constants.APIConstants;
 import com.yilinker.core.helper.VolleyPostHelper;
 import com.yilinker.core.interfaces.ResponseHandler;
 import com.yilinker.core.model.APIResponse;
+import com.yilinker.core.model.buyer.Product;
 import com.yilinker.core.model.seller.CategoryProductList;
 import com.yilinker.core.model.seller.ProductList;
 import com.yilinker.core.utility.GsonUtility;
 import com.yilinker.core.utility.SocketTimeout;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -104,18 +106,18 @@ public class ProductManagementApi {
         return request;
     }
 
-    public static Request editProductStatus (final int requestCode, String token, int productId, int status,
+    public static Request editProductStatus (final int requestCode, String token, JSONArray productId, int status,
                                             final ResponseHandler responseHandler){
 
-        String url = String.format("%s/%s/%s/%s",
+        String url = String.format("%s/%s/%s/%s?%s=%s",
                 APIConstants.DOMAIN, APIConstants.AUTH_API,
-                APIConstants.PRODUCT_MANAGEMENT_API, APIConstants.UPDATE_PRODUCT_STATUS);
+                APIConstants.PRODUCT_MANAGEMENT_API, APIConstants.UPDATE_PRODUCT_STATUS,
+                APIConstants.ACCESS_TOKEN, token);
 
         Map<String, String> params = new HashMap<String, String>();
-        params.put(APIConstants.ACCESS_TOKEN, token);
-        params.put(APIConstants.PRODUCT_MANAGEMENT_PARAMS_PRODUCT_ID, String.valueOf(productId));
+//        params.put(APIConstants.ACCESS_TOKEN, token);
+        params.put(APIConstants.PRODUCT_MANAGEMENT_PARAMS_PRODUCT_ID, productId.toString());
         params.put(APIConstants.PRODUCT_MANAGEMENT_PARAMS_STATUS, String.valueOf(status));
-
 
         VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
 
@@ -124,17 +126,33 @@ public class ProductManagementApi {
 
                 Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
                 APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+
                 if(apiResponse.isSuccessful()) {
                     responseHandler.onSuccess(requestCode, apiResponse);
+
                 }else{
+
                     responseHandler.onSuccess(requestCode, apiResponse);
+
                 }
             }
         }, new Response.ErrorListener() {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+                String message = "An error occured.";
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                    message = "No connection available.";
+                } else if (error instanceof AuthFailureError) {
+                    message = "Authentication Failure.";
+                } else if (error instanceof ServerError) {
+                    message = "Server error.";
+                } else if (error instanceof NetworkError) {
+                    message = "Network Error.";
+                } else if (error instanceof ParseError) {
+                    message = "Parse error.";
+                }
+                responseHandler.onFailed(requestCode,message);
             }
         });
 
