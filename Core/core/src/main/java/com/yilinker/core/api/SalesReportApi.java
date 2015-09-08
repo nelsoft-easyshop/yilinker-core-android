@@ -26,7 +26,7 @@ import org.json.JSONObject;
  */
 public class SalesReportApi {
 
-    static int socketTimeout = 300000;
+    static int socketTimeout = 30000;
     static RetryPolicy policy = new DefaultRetryPolicy(socketTimeout,
             DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
             DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
