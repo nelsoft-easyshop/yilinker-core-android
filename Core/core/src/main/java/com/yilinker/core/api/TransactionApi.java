@@ -64,7 +64,7 @@ public class TransactionApi {
     public static Request getTransactionList(final int requestCode, String accessToken, String type, final ResponseHandler responseHandler) {
 
         String endpoint = String.format("%s/%s/%s?%s=%s&%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.SELLER_TRANSACTION_API,
-                APIConstants.ACCESS_TOKEN, accessToken, APIConstants.SELLER_TRANSACTION_PARAMS_TYPE, type);
+                APIConstants.ACCESS_TOKEN, accessToken, APIConstants.SELLER_TRANSACTION_LIST_PARAMS_TYPE, type);
 
         Request request = new JsonObjectRequest(endpoint, new Response.Listener<JSONObject>() {
             @Override
@@ -117,8 +117,8 @@ public class TransactionApi {
 
     public static Request getTransactionDetails(final int requestCode, String accessToken, String transactionId, final ResponseHandler responseHandler) {
 
-        String endpoint = String.format("%s/%s/%s?%s=%s&%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.SELLER_TRANSACTION_DETAILS,
-                APIConstants.ACCESS_TOKEN, accessToken, APIConstants.SELLER_TRANSACTION_DETAILS_PARAMS_TRANSACTION_ID, transactionId);
+        String endpoint = String.format("%s/%s/%s?%s=%s&%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.SELLER_TRANSACTION_API,
+                APIConstants.ACCESS_TOKEN, accessToken, APIConstants.SELLER_TRANSACTION_PARAMS_TRANSACTION_ID, transactionId);
 
         Request request = new JsonObjectRequest(endpoint, new Response.Listener<JSONObject>() {
             @Override

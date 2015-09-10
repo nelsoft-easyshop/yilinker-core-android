@@ -28,7 +28,45 @@ public class ProductApi {
 
     public static Request getProductDetails(final int requestCode, int id, final ResponseHandler responseHandler) {
 
-        String url = String.format("%s/%s/%s?%s=%d", APIConstants.DOMAIN, APIConstants.PRODUCT_API, APIConstants.PRODUCT_GET_DETAILS, APIConstants.PRODUCT_GET_DETAILS_PARAM_ID, id);
+        String url =  String.format("%s/%s/%s?%s=%d", APIConstants.DOMAIN, APIConstants.PRODUCT_API,
+                    APIConstants.PRODUCT_GET_DETAILS, APIConstants.PRODUCT_GET_DETAILS_PARAM_ID, id);
+
+
+        Request request = new JsonObjectRequest(url, null, new Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                APIResponse<Product> apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+
+                gson = GsonUtility.createGsonBuilder(Product.class, new Product.ProductInstance()).create();
+                String jsonString = new Gson().toJson(apiResponse.getData());
+
+                Product obj = gson.fromJson(jsonString, Product.class);
+                responseHandler.onSuccess(requestCode, obj);
+
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+
+            }
+        });
+
+        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
+        return request;
+
+    }
+
+    public static Request getProductDetails2(final int requestCode, String accessToken, int id, final ResponseHandler responseHandler) {
+
+        String url =  String.format("%s/%s/%s/%s?%s=%s&%s=%d", APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.PRODUCT_API,
+                    APIConstants.PRODUCT_GET_DETAILS,
+                    APIConstants.ACCESS_TOKEN, accessToken,
+                    APIConstants.PRODUCT_GET_DETAILS_PARAM_ID, id);
 
         Request request = new JsonObjectRequest(url, null, new Listener<JSONObject>() {
             @Override
