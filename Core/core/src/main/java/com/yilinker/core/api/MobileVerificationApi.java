@@ -48,14 +48,9 @@ public class MobileVerificationApi {
                 String jsonStr = new Gson().toJson(apiResponse.getData(sileVerificationCode.class);*/
 
                 if (apiResponse.isSuccessful()) {
-                    responseHandler.onSuccess(requestCode, apiResponse);
-
-                    if (apiResponse.isSuccessful()) {
-                        responseHandler.onSuccess(requestCode, apiResponse.isSuccessful());
-                    } else {
-                        responseHandler.onFailed(requestCode, apiResponse.getMessage());
-
-                    }
+                    responseHandler.onSuccess(requestCode, apiResponse.isSuccessful());
+                } else {
+                    responseHandler.onFailed(requestCode, apiResponse.getMessage());
 
                 }
             }
