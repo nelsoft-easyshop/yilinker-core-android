@@ -168,7 +168,7 @@ public class CustomizedCategory implements Parcelable {
                             jsonSubCategory.put("products", intList3);
                         }else{
                             JSONArray intList4 = new JSONArray();
-                            jsonCategory.put("products", intList4);
+                            jsonSubCategory.put("products", intList4);
                         }
 
 
