@@ -21,7 +21,7 @@ public class Seller {
 
     private String specialty;/***missing*/
     private String contactNumber;/***images*/
-    private String address;/***missing*/
+    private Address storeAddress;
     private int id;/***sellerId*/
     private String profilePhoto;
     private String coverPhoto;
@@ -47,12 +47,12 @@ public class Seller {
         this.contactNumber = contactNumber;
     }
 
-    public String getAddress() {
-        return address;
+    public Address getAddress() {
+        return storeAddress;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setAddress(Address storeAddress) {
+        this.storeAddress = storeAddress;
     }
 
     public int getId() {
