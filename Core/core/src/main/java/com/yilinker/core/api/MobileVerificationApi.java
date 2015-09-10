@@ -102,4 +102,40 @@ public class MobileVerificationApi {
 
         return request;
     }
+
+
+    public static Request requestNewVerificationCode (final int requestCode, String token, final ResponseHandler responseHandler){
+
+        String url = String.format("%s/%s/%s/%s",
+                APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.SMS_API, APIConstants.GET_CODE);
+
+        Map<String, String> params = new HashMap<String, String>();
+        params.put(APIConstants.ACCESS_TOKEN, token);
+
+        VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+
+                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+
+                if(apiResponse.isSuccessful()) {
+                    responseHandler.onSuccess(requestCode, apiResponse);
+                }else{
+                    responseHandler.onFailed(requestCode, apiResponse.getMessage());
+                }
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+            }
+        });
+
+        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
+
+        return request;
+    }
 }
