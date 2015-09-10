@@ -1,7 +1,12 @@
 package com.yilinker.core.api;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
@@ -14,9 +19,12 @@ import com.yilinker.core.model.Profile;
 import com.yilinker.core.utility.GsonUtility;
 import com.yilinker.core.utility.SocketTimeout;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -49,7 +57,33 @@ public class ProfileApi {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+                String message = APIConstants.API_CONNECTION_PROBLEM;
+
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+
+                    message = APIConstants.API_CONNECTION_PROBLEM;
+
+                } else if (error instanceof AuthFailureError) {
+
+                    message = APIConstants.API_CONNECTION_AUTH_ERROR;
+
+                } else {
+
+                    try {
+                        String responseBody = new String(error.networkResponse.data, "utf-8" );
+                        JSONObject jsonObject = new JSONObject( responseBody );
+                        jsonObject = jsonObject.getJSONObject("data");
+                        JSONArray errors = jsonObject.getJSONArray("errors");
+                        message = errors.getString(0);
+
+                    } catch ( JSONException e ) {
+                        //Handle a malformed json response
+                    } catch (UnsupportedEncodingException e){
+
+                    }
+                }
+
+                responseHandler.onFailed(requestCode, message);
             }
         });
 
@@ -88,14 +122,22 @@ public class ProfileApi {
 //        params.put(APIConstants.PROFILE_NEW_PASSWORD, newPassword);
 //        params.put(APIConstants.PROFILE_NEW_PASSWORD_CONFIRMED, newPasswordConfirm);
         params.put(APIConstants.PROFILE_USER_ADDRESS_ID, userAddressId);
-        params.put(APIConstants.PROFILE_LOCATION_ID, locationId);
-        params.put(APIConstants.PROFILE_TITLE, title);
-        params.put(APIConstants.PROFILE_UNIT_NUMBER, unitNumber);
-        params.put(APIConstants.PROFILE_BUILDING_NAME, buildingName);
-        params.put(APIConstants.PROFILE_STREET_NUMBER, streetNumber);
-        params.put(APIConstants.PROFILE_STREET_NAME, streetName);
-        params.put(APIConstants.PROFILE_SUBDIVISION, subdivision);
-        params.put(APIConstants.PROFILE_ZIP_CODE, zipCode);
+        if (locationId != null)
+            params.put(APIConstants.PROFILE_LOCATION_ID, locationId);
+        if (title != null)
+            params.put(APIConstants.PROFILE_TITLE, title);
+        if (unitNumber != null)
+            params.put(APIConstants.PROFILE_UNIT_NUMBER, unitNumber);
+        if (buildingName != null)
+            params.put(APIConstants.PROFILE_BUILDING_NAME, buildingName);
+        if (streetNumber != null)
+            params.put(APIConstants.PROFILE_STREET_NUMBER, streetNumber);
+        if (streetName != null)
+            params.put(APIConstants.PROFILE_STREET_NAME, streetName);
+        if (subdivision != null)
+            params.put(APIConstants.PROFILE_SUBDIVISION, subdivision);
+        if (zipCode != null)
+            params.put(APIConstants.PROFILE_ZIP_CODE, zipCode);
 //        params.put(APIConstants.PROFILE_STREET_ADDRESS, streetAddress);
 //        params.put(APIConstants.PROFILE_LONGITUDE, longitude);
 //        params.put(APIConstants.PROFILE_LATITUDE, latitude);

@@ -15,6 +15,7 @@ public class APIConstants {
     //temp
     public static final String DOMAIN = BaseApplication.getDomainURL();
     public static final String AUTH_API = "auth";
+    public static final String MERCHANT_API = "merchant";
     //public static final String DOMAIN = "http://online.api.easydeal.ph/api/v1";
 
     //For Product API
@@ -65,6 +66,10 @@ public class APIConstants {
     public static final String SELLER_PARAMS_PAGE = "page";
     public static final String SELLER_PARAMS_LIMIT = "limit";
     public static final String SELLER_PARAMS_KEYWORD = "keyword";
+    public static final String SELLER_GET_FOLLOWERS = "getFollowers";
+    public static final String SELLER_PARAMS_SEARCH_KEYWORD = "searchKeyword";
+    public static final String SEARCH_TRANSACTION_API = "transaction";
+    public static final String SEARCH_QUERY_TRANSACTION = "query";
 
     //For Cart API
     public static final String CART_API = "cart";
@@ -105,6 +110,9 @@ public class APIConstants {
     public static final String PROFILE_LATITUDE = "latitude";
     public static final String PROFILE_LANDLINE = "landline";
 
+    //For Activity Log
+    public static final String ACTIVITY_LOG_GET_ITEMS = "activityLog";
+
     //For Home API
     public static final String HOME_API = "home";
     public static final String HOME_GET_ITEMS = "getData";
@@ -112,12 +120,13 @@ public class APIConstants {
     //For User API
     public static final String USER_API = "user";
 
+
     //For Registration API
     public static final String REG_API = "register";
     public static final String REG_PARAM_FULLNAME = "fullname";
     public static final String REG_PARAM_FIRST_NAME = "firstName";
     public static final String REG_PARAM_LAST_NAME = "lastName";
-    public static final String REG_PARAM_MOBILE = "mobile";
+    public static final String REG_PARAM_MOBILE = "contactNumber";
     public static final String REG_PARAM_EMAIL = "email";
     public static final String REG_PARAM_PASSWORD = "password";
     public static final String REG_PARAM_REFERRAL = "referralCode";
@@ -172,7 +181,7 @@ public class APIConstants {
     public static final String STORE_ADDRESS_ADD = "addNewAddress";
     public static final String GET_STORE_ADDRESS = "getUserAddresses";
     public static final String EDIT_USER_ADDRESS = "editUserAddress";
-    public static final String ADDRESS_PARAMS_ADDRESS_TITLE = "addressTitle";
+    public static final String ADDRESS_PARAMS_ADDRESS_TITLE = "title";
     public static final String ADDRESS_PARAMS_TITLE = "title";
     public static final String ADDRESS_PARAMS_UNIT_NUMBER = "unitNumber";
     public static final String ADDRESS_PARAMS_BUILDING_NAME = "buildingName";
@@ -181,9 +190,11 @@ public class APIConstants {
     public static final String ADDRESS_PARAMS_SUBDIVISION = "subdivision";
     public static final String ADDRESS_PARAMS_BARANGAY = "barangay";
     public static final String ADDRESS_PARAMS_LOCATIONID = "locationId";
+    public static final String ADDRESS_PARAMS_LOCATION = "location";
     public static final String ADDRESS_PARAMS_CITY = "city";
     public static final String ADDRESS_PARAMS_PROVINCE = "province";
     public static final String ADDRESS_PARAMS_ZIPCODE = "zipCode";
+    public static final String ADDRESS_PARAMS_ISDEFAULT = "isDefault";
     public static final String ADDRESS_PARAMS_ADDITIONAL_INFO = "additionalInfo";
 
     //Mobile Verification
@@ -208,6 +219,8 @@ public class APIConstants {
     public static final String STORE_INFO_MERCHANT = "merchant";
     public static final String GET_STORE_INFO = "getUserInfo";
     public static final String CHANGE_PASSWORD_API = "changePassword";
+    public static final String DISABLE_USER = "disable";
+    public static final String ACCOUNT_API = "account";
 
     //Bank
     public static final String BANK_API = "bank";
@@ -230,18 +243,19 @@ public class APIConstants {
     public static final String ADDRESS_GET_CHILD_BARANGGAY = "getBarangaysByCity";
     public static final String SET_DEFAULT_ADDRESS = "setDefaultAddress";
     public static final String ADDRESS_PARAMS_USER_ADDRESS_ID = "userAddressId";
-
-
+    
     //Customized Category
     public static final String CATEGORY_API = "category";
     public static final String ADD_CUSTOM_CATEGORY = "addCustomCategory";
     public static final String GET_CUSTOM_CATEGORIES = "getCustomCategories";
     public static final String GET_CATEGORY_DETAILS = "getCategoryDetails";
+    public static final String UPDATE_CUSTOM_CATEGORY = "updateCustomCategory";
     public static final String CATEGORY_PARAMS_CATEGORY_ID = "categoryId";
     public static final String CATEGORY_PARAMS_CATEGORY_NAME = "categoryName";
     public static final String CATEGORY_PARAMS_PARENT_ID = "parentId";
     public static final String CATEGORY_PARAMS_PRODUCTS = "products";
     public static final String CATEGORY_PARAMS_SUBCATEGORIES = "subcategories";
+    public static final String CATEGORY_PARAMS_CATEGORIES = "categories";
 
     //Product Management
     public static final String PRODUCT_MANAGEMENT_API = "product";
@@ -252,7 +266,9 @@ public class APIConstants {
     public static final String PRODUCT_MANAGEMENT_PARAMS_PRODUCT_ID = "productId";
 
 
-
+    //My Points
+    public static final String GET_POINTS = "getPoints";
+    public static final String GET_POINT_HISTORY = "getPointHistory";
 
 
     /***Category*/
@@ -277,16 +293,12 @@ public class APIConstants {
     //Checkout Guest
 
     public static final String GUEST_CHECKOUT_API = "guestUser";
-    public static final String GUEST_FIRST_NAME = "firstName";
-    public static final String GUEST_LAST_NAME = "lastName";
-    public static final String GUEST_EMAIL = "email";
-    public static final String GUEST_CONTACT_NUMBER = "contactNumber";
-    public static final String GUEST_ADDRESS_TITLE = "title";
-    public static final String GUEST_ADDRESS_UNIT_NUMBER = "unitNumber";
-    public static final String GUEST_ADDRESS_BUILDING_NAME = "buildingName";
-    public static final String GUEST_ADDRESS_SUBDIVISION = "subdivision";
-    public static final String GUEST_ADDRESS_ZIPCODE = "zipCode";
-//    public static final String GUEST_ADDRESS_STREET_A
+    public static final String GUEST_PARAMS_FIRST_NAME = "firstName";
+    public static final String GUEST_PARAMS_LAST_NAME = "lastName";
+    public static final String GUEST_PARAMS_EMAIL = "email";
+    public static final String GUEST_PARAMS_CONTACT_NUMBER = "contactNumber";
+    public static final String GUEST_USER_PARAMS = "user_guest";
+    public static final String GUEST_ADDRESS_PARAMS = "user_address";
 
     //Checkout Address
     public static final String ADDRESS_API = "address";
@@ -348,6 +360,15 @@ public class APIConstants {
     public static final String DEVICE_IS_IDLE                   = "isIdle";
 
     //Seller Transaction API
-    public static final String SELLER_TRANSACTION_API           = "getTransactionList";
+    public static final String SELLER_TRANSACTION_LIST_API      = "getTransactionList";
+    public static final String SELLER_TRANSACTION_LIST_PARAMS_TYPE = "type";
+    public static final String SELLER_TRANSACTION_LIST_PARAMS_PAGE = "page";
 
+    public static final String SELLER_TRANSACTION_API           = "getTransaction";
+    public static final String SELLER_TRANSACTION_PARAMS_TRANSACTION_ID = "transactionId";
+
+    //Sales Report API
+    public static final String SALES_REPORT_API                 = "getSalesReport";
+    public static final String SALES_REPORT_PARAM_DATE_TO       = "dateTo";
+    public static final String SALES_REPORT_PARAM_DATE_FROM     = "dateFrom";
 }

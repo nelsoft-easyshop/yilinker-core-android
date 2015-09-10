@@ -14,6 +14,7 @@ import com.yilinker.core.model.seller.CustomizedCategory;
 import com.yilinker.core.utility.GsonUtility;
 import com.yilinker.core.utility.SocketTimeout;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -36,7 +37,7 @@ public class CustomizedCategoryApi {
         params.put(APIConstants.ACCESS_TOKEN, token);
         params.put(APIConstants.CATEGORY_PARAMS_CATEGORY_NAME, String.valueOf(customizedCategory.getCategoryName()));
         params.put(APIConstants.CATEGORY_PARAMS_PARENT_ID, String.valueOf(customizedCategory.getParentId()));
-        params.put(APIConstants.CATEGORY_PARAMS_PRODUCTS, customizedCategory.getProducts().toString());
+        params.put(APIConstants.CATEGORY_PARAMS_PRODUCTS, customizedCategory.getProductsAdd().toString());
         params.put(APIConstants.CATEGORY_PARAMS_SUBCATEGORIES, customizedCategory.getSubCategoryArrayList().toString());
 
 
@@ -140,6 +141,59 @@ public class CustomizedCategoryApi {
             @Override
             public void onErrorResponse(VolleyError error) {
                 responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+            }
+        });
+
+        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
+
+        return request;
+    }
+
+    public static Request updateCustomCategory (final int requestCode, String token, CustomizedCategory customizedCategory,
+                                                 final ResponseHandler responseHandler){
+
+        String url = String.format("%s/%s/%s/%s",
+                APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.CATEGORY_API, APIConstants.UPDATE_CUSTOM_CATEGORY);
+
+        Map<String, String> params = new HashMap<String, String>();
+        params.put(APIConstants.ACCESS_TOKEN, token);
+        params.put(APIConstants.CATEGORY_PARAMS_CATEGORIES, customizedCategory.getCategoryArrayList().toString());
+
+
+
+        VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+
+                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+                if(apiResponse.isSuccessful()) {
+                    responseHandler.onSuccess(requestCode, apiResponse);
+                }else{
+                    responseHandler.onFailed(requestCode, apiResponse.getMessage());
+                }
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                String message = APIConstants.API_CONNECTION_PROBLEM;
+                try {
+                    String responseBody = new String(error.networkResponse.data, "utf-8" );
+                    JSONObject jsonObject = new JSONObject( responseBody );
+                    jsonObject = jsonObject.getJSONObject("data");
+                    JSONArray errors = jsonObject.getJSONArray("errors");
+                    message = errors.getString(0);
+
+                } catch ( JSONException e ) {
+                    //Handle a malformed json response
+                } catch (UnsupportedEncodingException e){
+
+                }
+                responseHandler.onFailed(requestCode, message);
+
             }
         });
 

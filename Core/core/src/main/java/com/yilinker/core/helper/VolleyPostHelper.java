@@ -4,9 +4,12 @@ package com.yilinker.core.helper;
  * Created by rlcoronado on 8/12/15.
  */
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
 import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
 import com.android.volley.ParseError;
 import com.android.volley.Request;
@@ -31,6 +34,19 @@ public class VolleyPostHelper extends Request<JSONObject> {
             throws com.android.volley.AuthFailureError {
         return params;
     };
+
+//    @Override
+//    public Map<String, String> getHeaders() throws AuthFailureError {
+//        Map<String, String>  params = new HashMap<String, String>();
+////        params.put("YLO_SESSION", "r0uba8qc5m9tipikfptpsimu22");
+////        params.put("_ga", "GA1.2.1470744138.1440577350");
+//        return params;
+//    }
+//
+//    public void setCookie(String cookie){
+//        params.put("Cookie", cookie);
+//    }
+
 
     @Override
     protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {

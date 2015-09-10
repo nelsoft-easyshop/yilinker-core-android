@@ -1,7 +1,10 @@
 package com.yilinker.core.api;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NoConnectionError;
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
@@ -13,8 +16,11 @@ import com.yilinker.core.model.buyer.Cart;
 import com.yilinker.core.utility.GsonUtility;
 import com.yilinker.core.utility.SocketTimeout;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,7 +29,7 @@ import java.util.Map;
  */
 public class CartApi {
 
-    public static Request getCart(final int requestCode, String token, final ResponseHandler responseHandler) {
+    public static Request getCart(final int requestCode, String token, boolean isGuest, final ResponseHandler responseHandler) {
 
 
         //POST
@@ -58,9 +64,18 @@ public class CartApi {
 
         //GET
 
-        String url = String.format("%s/%s/%s/%s?%s=%s",
-                APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.CART_API, APIConstants.CART_GET_ITEMS,
-                APIConstants.ACCESS_TOKEN, token);
+        String url;
+
+        if(!isGuest) {
+            url = String.format("%s/%s/%s/%s?%s=%s",
+                    APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.CART_API, APIConstants.CART_GET_ITEMS,
+                    APIConstants.ACCESS_TOKEN, token);
+        } else {
+            url = String.format("%s/%s/%s",
+                    APIConstants.DOMAIN, APIConstants.CART_API, APIConstants.CART_GET_ITEMS);
+        }
+
+
 
         Request requestGetCart = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
             @Override
@@ -80,7 +95,32 @@ public class CartApi {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+                String message = APIConstants.API_CONNECTION_PROBLEM;
+
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+
+                    message = APIConstants.API_CONNECTION_PROBLEM;
+
+                } else if (error instanceof AuthFailureError) {
+
+                    message = APIConstants.API_CONNECTION_AUTH_ERROR;
+
+                } else {
+
+                    try {
+                        String responseBody = new String(error.networkResponse.data, "utf-8" );
+                        JSONObject jsonObject = new JSONObject( responseBody );
+                        jsonObject = jsonObject.getJSONObject("data");
+                        JSONArray errors = jsonObject.getJSONArray("errors");
+                        message = errors.getString(0);
+
+                    } catch ( JSONException e ) {
+                        //Handle a malformed json response
+                    } catch (UnsupportedEncodingException e){
+
+                    }
+                }
+                responseHandler.onFailed(requestCode, message);
             }
         });
 
@@ -126,19 +166,35 @@ public class CartApi {
 
     }
 
-    public static Request updateCartItems (final int requestCode, String token, int productId, int unitId, int quantity, int itemId, boolean wishList, final ResponseHandler responseHandler){
+    public static Request updateCartItems (final int requestCode, String token, int productId,
+                                           int unitId, int quantity, int itemId, boolean wishList, boolean isGuest, final ResponseHandler responseHandler){
 
-        String url = String.format("%s/%s/%s/%s",
-                APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.CART_API, APIConstants.CART_UPDATE_DETAILS);
-
+        String url;
         Map<String, String> params = new HashMap<String, String>();
-        params.put(APIConstants.ACCESS_TOKEN, token);
-        params.put(APIConstants.PRODUCT_GET_DETAILS_PARAM_ID, String.valueOf(productId));
-        params.put(APIConstants.CART_UNIT_ID, String.valueOf(unitId));
-        params.put(APIConstants.CART_QUANTITY, String.valueOf(quantity));
-        params.put(APIConstants.CART_ITEM_ID, String.valueOf(itemId));
-        if (wishList)
-            params.put(APIConstants.WISH_LIST_GET_ITEMS, String.valueOf(true));
+
+
+        if(!isGuest){
+
+            url = String.format("%s/%s/%s/%s",
+                    APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.CART_API, APIConstants.CART_UPDATE_DETAILS);
+            params.put(APIConstants.ACCESS_TOKEN, token);
+
+        } else {
+
+            url = String.format("%s/%s/%s",
+                    APIConstants.DOMAIN, APIConstants.CART_API, APIConstants.CART_UPDATE_DETAILS);
+
+        }
+
+
+//        JSONObject params = new JSONObject();
+            params.put(APIConstants.PRODUCT_GET_DETAILS_PARAM_ID, String.valueOf(productId));
+            params.put(APIConstants.CART_UNIT_ID, String.valueOf(unitId));
+            params.put(APIConstants.CART_QUANTITY, String.valueOf(quantity));
+            params.put(APIConstants.CART_ITEM_ID, String.valueOf(itemId));
+
+//        if (wishList)
+//            params.put(APIConstants.WISH_LIST_GET_ITEMS, String.valueOf(true));
 
         VolleyPostHelper requestUpdateCart = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
 
@@ -159,10 +215,37 @@ public class CartApi {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+                String message = APIConstants.API_CONNECTION_PROBLEM;
+
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+
+                    message = APIConstants.API_CONNECTION_PROBLEM;
+
+                } else if (error instanceof AuthFailureError) {
+
+                    message = APIConstants.API_CONNECTION_AUTH_ERROR;
+
+                } else {
+
+                    try {
+                        String responseBody = new String(error.networkResponse.data, "utf-8" );
+                        JSONObject jsonObject = new JSONObject( responseBody );
+                        jsonObject = jsonObject.getJSONObject("data");
+                        JSONArray errors = jsonObject.getJSONArray("errors");
+                        message = errors.getString(0);
+
+                    } catch ( JSONException e ) {
+                        //Handle a malformed json response
+                    } catch (UnsupportedEncodingException e){
+
+                    }
+                }
+
+                responseHandler.onFailed(requestCode, message);
             }
         });
 
+//        requestUpdateCart.setCookie("sessionId");
         requestUpdateCart.setRetryPolicy(SocketTimeout.getRetryPolicy());
 
         return requestUpdateCart;
