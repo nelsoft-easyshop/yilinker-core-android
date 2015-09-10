@@ -126,7 +126,7 @@ public class APIConstants {
     public static final String REG_PARAM_FULLNAME = "fullname";
     public static final String REG_PARAM_FIRST_NAME = "firstName";
     public static final String REG_PARAM_LAST_NAME = "lastName";
-    public static final String REG_PARAM_MOBILE = "mobile";
+    public static final String REG_PARAM_MOBILE = "contactNumber";
     public static final String REG_PARAM_EMAIL = "email";
     public static final String REG_PARAM_PASSWORD = "password";
     public static final String REG_PARAM_REFERRAL = "referralCode";
@@ -190,9 +190,11 @@ public class APIConstants {
     public static final String ADDRESS_PARAMS_SUBDIVISION = "subdivision";
     public static final String ADDRESS_PARAMS_BARANGAY = "barangay";
     public static final String ADDRESS_PARAMS_LOCATIONID = "locationId";
+    public static final String ADDRESS_PARAMS_LOCATION = "location";
     public static final String ADDRESS_PARAMS_CITY = "city";
     public static final String ADDRESS_PARAMS_PROVINCE = "province";
     public static final String ADDRESS_PARAMS_ZIPCODE = "zipCode";
+    public static final String ADDRESS_PARAMS_ISDEFAULT = "isDefault";
     public static final String ADDRESS_PARAMS_ADDITIONAL_INFO = "additionalInfo";
 
     //Mobile Verification
@@ -292,16 +294,12 @@ public class APIConstants {
     //Checkout Guest
 
     public static final String GUEST_CHECKOUT_API = "guestUser";
-    public static final String GUEST_FIRST_NAME = "firstName";
-    public static final String GUEST_LAST_NAME = "lastName";
-    public static final String GUEST_EMAIL = "email";
-    public static final String GUEST_CONTACT_NUMBER = "contactNumber";
-    public static final String GUEST_ADDRESS_TITLE = "title";
-    public static final String GUEST_ADDRESS_UNIT_NUMBER = "unitNumber";
-    public static final String GUEST_ADDRESS_BUILDING_NAME = "buildingName";
-    public static final String GUEST_ADDRESS_SUBDIVISION = "subdivision";
-    public static final String GUEST_ADDRESS_ZIPCODE = "zipCode";
-//    public static final String GUEST_ADDRESS_STREET_A
+    public static final String GUEST_PARAMS_FIRST_NAME = "firstName";
+    public static final String GUEST_PARAMS_LAST_NAME = "lastName";
+    public static final String GUEST_PARAMS_EMAIL = "email";
+    public static final String GUEST_PARAMS_CONTACT_NUMBER = "contactNumber";
+    public static final String GUEST_USER_PARAMS = "user_guest";
+    public static final String GUEST_ADDRESS_PARAMS = "user_address";
 
     //Checkout Address
     public static final String ADDRESS_API = "address";
