@@ -13,6 +13,7 @@ import com.yilinker.core.constants.APIConstants;
 import com.yilinker.core.helper.VolleyPostHelper;
 import com.yilinker.core.interfaces.ResponseHandler;
 import com.yilinker.core.model.APIResponse;
+import com.yilinker.core.model.Address;
 import com.yilinker.core.model.buyer.Cart;
 import com.yilinker.core.model.buyer.CartItem2;
 import com.yilinker.core.model.buyer.CheckoutOverview;
@@ -40,19 +41,17 @@ public class CheckoutApi {
     public static Request payViaCod(final int requestCode, boolean isGuest, String token, final ResponseHandler responseHandler) {
 
         String url;
-
+        Map<String, String> params = new HashMap<>();
         if(!isGuest) {
             url = String.format("%s/%s/%s/%s",
                     APIConstants.DOMAIN, APIConstants.AUTH_API,
                     APIConstants.CHECKOUT_PAYMENT_API,
                     APIConstants.CHECKOUT_PAYMENT_COD);
+            params.put(APIConstants.ACCESS_TOKEN, token);
         } else {
             url = String.format("%s/%s/%s",
                     APIConstants.DOMAIN, APIConstants.CHECKOUT_PAYMENT_API, APIConstants.CHECKOUT_PAYMENT_COD);
         }
-
-        Map<String, String> params = new HashMap<>();
-        params.put(APIConstants.ACCESS_TOKEN, token);
 
         VolleyPostHelper payUsingCod = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
             @Override
@@ -101,19 +100,18 @@ public class CheckoutApi {
     public static Request payViaPesoPay(final int requestCode, boolean isGuest, String token, final ResponseHandler responseHandler) {
 
         String url;
-
+        Map<String, String> params = new HashMap<String, String>();
         if(!isGuest) {
             url = String.format("%s/%s/%s/%s",
                     APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.CHECKOUT_PAYMENT_API,
                     APIConstants.CHECKOUT_PAYMENT_PESOPAY);
+            params.put(APIConstants.ACCESS_TOKEN, token);
+
         } else {
             url = String.format("%s/%s/%s",
                     APIConstants.DOMAIN, APIConstants.CHECKOUT_PAYMENT_API,
                     APIConstants.CHECKOUT_PAYMENT_PESOPAY);
         }
-
-        Map<String, String> params = new HashMap<String, String>();
-        params.put(APIConstants.ACCESS_TOKEN, token);
 
         VolleyPostHelper payViaPesoPay = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
             @Override
@@ -162,17 +160,17 @@ public class CheckoutApi {
     public static Request getCheckoutOverview(final int requestCode, boolean isGuest, String transactionId, String token, final ResponseHandler responseHandler) {
 
         String url;
+        Map<String, String> params = new HashMap<String, String>();
 
-        if(isGuest) {
+        if(!isGuest) {
             url = String.format("%s/%s/%s/%s",
                 APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.CHECKOUT_PAYMENT_API, APIConstants.CHECKOUT_PAYMENT_OVERVIEW);
+            params.put(APIConstants.ACCESS_TOKEN, token);
         } else {
             url = String.format("%s/%s/%s",
                     APIConstants.DOMAIN, APIConstants.CHECKOUT_PAYMENT_API, APIConstants.CHECKOUT_PAYMENT_OVERVIEW);
         }
 
-        Map<String, String> params = new HashMap<String, String>();
-        params.put(APIConstants.ACCESS_TOKEN, token);
         params.put(APIConstants.CHECKOUT_PARAMS_TRANSACTION_ID, transactionId);
 
         VolleyPostHelper getCheckoutOverview = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
@@ -282,13 +280,21 @@ public class CheckoutApi {
 
     }
 
-    public static Request selectCartItemsToCheckout(final int requestCode, String token, JSONArray itemIds, final ResponseHandler responseHandler){
+    public static Request selectCartItemsToCheckout(final int requestCode, String token, JSONArray itemIds, boolean isGuest, final ResponseHandler responseHandler){
 
-        String url = String.format("%s/%s/%s/%s", APIConstants.DOMAIN, APIConstants.AUTH_API,
-                    APIConstants.CART_API, APIConstants.CHECKOUT_SELECT_ITEMS);
-
+        String url;
         Map<String, String> params = new HashMap<>();
-        params.put(APIConstants.ACCESS_TOKEN, token);
+
+        if(!isGuest){
+            url = String.format("%s/%s/%s/%s", APIConstants.DOMAIN, APIConstants.AUTH_API,
+                    APIConstants.CART_API, APIConstants.CHECKOUT_SELECT_ITEMS);
+            params.put(APIConstants.ACCESS_TOKEN, token);
+        } else {
+            url = String.format("%s/%s/%s", APIConstants.DOMAIN, APIConstants.CART_API,
+                    APIConstants.CHECKOUT_SELECT_ITEMS);
+        }
+
+
         for(int i=0;i<itemIds.length();i++){
             try {
                 params.put(String.format("%s[%d]",APIConstants.CART_API, i), itemIds.getString(i));
@@ -355,18 +361,61 @@ public class CheckoutApi {
 
     }
 
-    public static Request requestGuestAccount(final int requestCode, String firstName,
-                                              String lastName, String email, String contactNumber,
-                                              String title, String unitNumber, String buildingNumber,
-                                              String streetNumber, String streetName, String subdivision,
-
+    public static Request requestGuestAccount(final int requestCode, Address address, String firstName,
+                                              String lastName, String mobileNumber, String emailAddress,
                                               final ResponseHandler responseHandler){
-        String url = String.format("%s/%s/", APIConstants.DOMAIN, APIConstants.GUEST_CHECKOUT_API);
+        String url = String.format("%s/%s", APIConstants.DOMAIN, APIConstants.GUEST_CHECKOUT_API);
 
         Map<String, String> params = new HashMap<String, String>();
-//        params.put(APIConstants., String.valueOf(addressId));
 
-        VolleyPostHelper setAddress = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
+        params.put(String.format("%s[%s]", APIConstants.GUEST_USER_PARAMS, APIConstants.GUEST_PARAMS_FIRST_NAME), firstName);
+        params.put(String.format("%s[%s]", APIConstants.GUEST_USER_PARAMS, APIConstants.GUEST_PARAMS_LAST_NAME), lastName);
+        params.put(String.format("%s[%s]", APIConstants.GUEST_USER_PARAMS, APIConstants.GUEST_PARAMS_EMAIL), emailAddress);
+        params.put(String.format("%s[%s]", APIConstants.GUEST_USER_PARAMS, APIConstants.GUEST_PARAMS_CONTACT_NUMBER), mobileNumber);
+
+        params.put(String.format("%s[%s]", APIConstants.GUEST_ADDRESS_PARAMS, APIConstants.ADDRESS_PARAMS_TITLE), String.valueOf(address.getAddressTitle()));
+        params.put(String.format("%s[%s]", APIConstants.GUEST_ADDRESS_PARAMS, APIConstants.ADDRESS_PARAMS_UNIT_NUMBER), String.valueOf(address.getUnitNumber()));
+        params.put(String.format("%s[%s]", APIConstants.GUEST_ADDRESS_PARAMS, APIConstants.ADDRESS_PARAMS_BUILDING_NAME), String.valueOf(address.getBuildingName()));
+        params.put(String.format("%s[%s]", APIConstants.GUEST_ADDRESS_PARAMS, APIConstants.ADDRESS_PARAMS_STREET_NUMBER), String.valueOf(address.getStreetNumber()));
+        params.put(String.format("%s[%s]", APIConstants.GUEST_ADDRESS_PARAMS, APIConstants.ADDRESS_PARAMS_STREET_NAME), String.valueOf(address.getStreetName()));
+        params.put(String.format("%s[%s]", APIConstants.GUEST_ADDRESS_PARAMS, APIConstants.ADDRESS_PARAMS_SUBDIVISION), String.valueOf(address.getSubdivision()));
+        params.put(String.format("%s[%s]", APIConstants.GUEST_ADDRESS_PARAMS, APIConstants.ADDRESS_PARAMS_ZIPCODE), String.valueOf(address.getZipCode()));
+        params.put(String.format("%s[%s]", APIConstants.GUEST_ADDRESS_PARAMS, APIConstants.ADDRESS_PARAMS_ISDEFAULT), String.valueOf("1"));
+        params.put(String.format("%s[%s]", APIConstants.GUEST_ADDRESS_PARAMS, APIConstants.ADDRESS_PARAMS_LOCATION), String.valueOf(address.getLocationId()));
+//        JSONArray guestAddress = new JSONArray();
+//        JSONArray guestDetails = new JSONArray();
+//        JSONObject guestData = new JSONObject();
+//
+//        try {
+//
+//            guestData.put(APIConstants.REG_PARAM_FIRST_NAME, firstName);
+//            guestData.put(APIConstants.REG_PARAM_LAST_NAME, lastName);
+//            guestData.put(APIConstants.REG_PARAM_EMAIL, emailAddress);
+//            guestData.put(APIConstants.REG_PARAM_MOBILE, mobileNumber);
+//
+//            guestDetails.put(guestData);
+//
+//            guestData = new JSONObject();
+//
+//            guestData.put(APIConstants.ADDRESS_PARAMS_TITLE, String.valueOf(address.getAddressTitle()));
+//            guestData.put(APIConstants.ADDRESS_PARAMS_UNIT_NUMBER, String.valueOf(address.getUnitNumber()));
+//            guestData.put(APIConstants.ADDRESS_PARAMS_BUILDING_NAME, String.valueOf(address.getBuildingName()));
+//            guestData.put(APIConstants.ADDRESS_PARAMS_STREET_NUMBER, String.valueOf(address.getStreetNumber()));
+//            guestData.put(APIConstants.ADDRESS_PARAMS_STREET_NAME, String.valueOf(address.getStreetName()));
+//            guestData.put(APIConstants.ADDRESS_PARAMS_SUBDIVISION, String.valueOf(address.getSubdivision()));
+//            guestData.put(APIConstants.ADDRESS_PARAMS_ZIPCODE, String.valueOf(address.getZipCode()));
+//            guestData.put(APIConstants.ADDRESS_PARAMS_LOCATIONID, String.valueOf(address.getLocationId()));
+//
+//            guestAddress.put(guestData);
+//
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+
+//        params.put("user_guest", guestDetails.toString());
+//        params.put("user_address", guestAddress.toString());
+
+        VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
@@ -381,8 +430,8 @@ public class CheckoutApi {
             }
         });
 
-        setAddress.setRetryPolicy(SocketTimeout.getRetryPolicy());
+            request.setRetryPolicy(SocketTimeout.getRetryPolicy());
 
-        return setAddress;
+        return request;
     }
 }
