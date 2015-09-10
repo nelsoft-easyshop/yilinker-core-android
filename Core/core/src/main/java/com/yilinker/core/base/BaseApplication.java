@@ -1,13 +1,18 @@
 package com.yilinker.core.base;
 
 import android.app.Application;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
-import com.yilinker.core.helper.FileHelper;
+import com.yilinker.core.helper.HurlCookieStack;
+
+//import org.apache.http.impl.client.CloseableHttpClient;
+//import org.apache.http.impl.client.DefaultHttpClient;
+//import org.apache.http.impl.client.HttpClients;
+//import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
+
 
 /**
  * Created by J.Bautista
@@ -57,11 +62,12 @@ public class BaseApplication extends Application{
     public RequestQueue getRequestQueue() {
 
         if (requestQueue == null) {
-            requestQueue = Volley.newRequestQueue(getApplicationContext());
+            requestQueue = Volley.newRequestQueue(getApplicationContext(), new HurlCookieStack(getApplicationContext()));
         }
 
         return requestQueue;
     }
+
 
     public void saveToken(String accessToken, String refreshToken) {
 
