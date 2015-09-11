@@ -23,6 +23,7 @@ public class Transaction {
     private final static String KEY_TOTAL_ITEMS_PRICE = "total_items_price";
     private final static String KEY_TOTAL_HANDLING_FEE = "total_handling_fee";
     private final static String KEY_TOTAL_QUANTITY = "total_quantity";
+    private final static String KEY_PRODUCT_COUNT = "product_count";
 
     @SerializedName(KEY_ORDER_ID)
     private String orderId;
@@ -62,6 +63,9 @@ public class Transaction {
 
     @SerializedName(KEY_TOTAL_QUANTITY)
     private String totalQuantity;
+
+    @SerializedName(KEY_PRODUCT_COUNT)
+    private int productCount;
 
 
     public String getTotalQuantity() {
@@ -166,6 +170,14 @@ public class Transaction {
 
     public void setTotalHandlingFee(String totalHandlingFee) {
         this.totalHandlingFee = totalHandlingFee;
+    }
+
+    public int getProductCount() {
+        return productCount;
+    }
+
+    public void setProductCount(int productCount) {
+        this.productCount = productCount;
     }
 
     public static class TransactionInstance implements InstanceCreator<Transaction> {
