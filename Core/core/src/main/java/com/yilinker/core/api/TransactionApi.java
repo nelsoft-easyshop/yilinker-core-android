@@ -9,6 +9,7 @@ import com.yilinker.core.constants.APIConstants;
 import com.yilinker.core.helper.VolleyPostHelper;
 import com.yilinker.core.interfaces.ResponseHandler;
 import com.yilinker.core.model.APIResponse;
+import com.yilinker.core.model.TransactionDetailsBuyer;
 import com.yilinker.core.model.TransactionList;
 import com.yilinker.core.utility.GsonUtility;
 import com.yilinker.core.utility.SocketTimeout;
@@ -63,8 +64,8 @@ public class TransactionApi {
 
     public static Request getTransactionList(final int requestCode, String accessToken, String type, final ResponseHandler responseHandler) {
 
-        String endpoint = String.format("%s/%s/%s?%s=%s&%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.SELLER_TRANSACTION_API,
-                APIConstants.ACCESS_TOKEN, accessToken, APIConstants.SELLER_TRANSACTION_PARAMS_TYPE, type);
+        String endpoint = String.format("%s/%s/%s?%s=%s&%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.SELLER_TRANSACTION_LIST_API,
+                APIConstants.ACCESS_TOKEN, accessToken, APIConstants.SELLER_TRANSACTION_LIST_PARAMS_TYPE, type);
 
         Request request = new JsonObjectRequest(endpoint, new Response.Listener<JSONObject>() {
             @Override
@@ -117,10 +118,12 @@ public class TransactionApi {
 
     public static Request getTransactionDetails(final int requestCode, String accessToken, String transactionId, final ResponseHandler responseHandler) {
 
-        String endpoint = String.format("%s/%s/%s?%s=%s&%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.SELLER_TRANSACTION_DETAILS,
-                APIConstants.ACCESS_TOKEN, accessToken, APIConstants.SELLER_TRANSACTION_DETAILS_PARAMS_TRANSACTION_ID, transactionId);
+        String url = String.format("%s/%s/%s?%s=%s&%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.SELLER_TRANSACTION_API,
+                APIConstants.ACCESS_TOKEN, accessToken, APIConstants.SELLER_TRANSACTION_PARAMS_TRANSACTION_ID, transactionId);
 
-        Request request = new JsonObjectRequest(endpoint, new Response.Listener<JSONObject>() {
+        url = url.replace(" ", "%20");
+
+        Request request = new JsonObjectRequest(url, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
@@ -128,13 +131,13 @@ public class TransactionApi {
 
                 if(apiResponse.isSuccessful()) {
 
-                    gson = GsonUtility.createGsonBuilder(TransactionList.class, new TransactionList.TransactionListInstance()).create();
+                    gson = GsonUtility.createGsonBuilder(TransactionDetailsBuyer.class, new TransactionDetailsBuyer.TransactionDetailsBuyerInstance()).create();
 
                     String jsonString  = new Gson().toJson(apiResponse.getData());
 
-                    TransactionList transactionList = gson.fromJson(jsonString, TransactionList.class);
+                    TransactionDetailsBuyer transactionDetailsBuyer = gson.fromJson(jsonString, TransactionDetailsBuyer.class);
 
-                    responseHandler.onSuccess(requestCode, transactionList);
+                    responseHandler.onSuccess(requestCode, transactionDetailsBuyer);
 
                 }else{
 
