@@ -369,6 +369,11 @@ public class APIConstants {
     public static final String SELLER_TRANSACTION_LIST_API      = "getTransactionList";
     public static final String SELLER_TRANSACTION_LIST_PARAMS_TYPE = "type";
     public static final String SELLER_TRANSACTION_LIST_PARAMS_PAGE = "page";
+    public static final String SELLER_TRANSACTION_LIST_PARAMS_PER_PAGE = "perPage";
+    public static final String SELLER_TRANSACTION_LIST_PARAMS_PAYMENT_METHOD = "paymentMethod";
+    public static final String SELLER_TRANSACTION_LIST_PARAMS_DATE_FROM = "dateFrom";
+    public static final String SELLER_TRANSACTION_LIST_PARAMS_DATE_TO = "dateTo";
+
 
     public static final String SELLER_TRANSACTION_API           = "getTransaction";
     public static final String SELLER_TRANSACTION_PARAMS_TRANSACTION_ID = "transactionId";

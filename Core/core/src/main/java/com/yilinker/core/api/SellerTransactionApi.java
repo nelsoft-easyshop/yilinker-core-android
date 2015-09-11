@@ -23,6 +23,8 @@ import com.yilinker.core.model.seller.Reason;
 import com.yilinker.core.model.seller.TransactionList;
 import com.yilinker.core.utility.GsonUtility;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
@@ -36,12 +38,21 @@ import java.util.Map;
  */
 public class SellerTransactionApi {
 
+    private static final int DATES_TODAY = 1;
+    private static final int DATES_THIS_WEEK = 2;
+    private static final int DATES_THIS_MONTH = 3;
+    private static final int DATES_TOTAL = 4;
+
+    private static final String KEY_DATES = "dates";
+
     static int socketTimeout = 300000;
     static RetryPolicy policy = new DefaultRetryPolicy(socketTimeout,
             DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
             DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
 
-    public static Request getTransactionList(final int requestCode, String accessToken, String type, int page, final ResponseHandler responseHandler) {
+    public static Request getTransactionList(final int requestCode, String accessToken, String type, int page, int perPage,
+                                             String dates, String status, String paymentMethod, final ResponseHandler responseHandler) {
+
 
         String endpoint = String.format("%s/%s/%s?%s=%s", APIConstants.DOMAIN,APIConstants.AUTH_API, APIConstants.SELLER_TRANSACTION_LIST_API,
                 APIConstants.ACCESS_TOKEN, accessToken);
@@ -51,6 +62,77 @@ public class SellerTransactionApi {
 
         if (page > 0)
             endpoint = String.format("%s&%s=%s", endpoint, APIConstants.SELLER_TRANSACTION_LIST_PARAMS_PAGE, page);
+
+        if (perPage > 0)
+            endpoint = String.format("%s&%s=%s", endpoint, APIConstants.SELLER_TRANSACTION_LIST_PARAMS_PER_PAGE, perPage);
+
+        if (dates != null) {
+
+            try {
+                JSONObject datesJSON = new JSONObject(dates);
+                int selectedDates = datesJSON.getInt(KEY_DATES);
+
+                if (selectedDates != DATES_TOTAL) {
+
+                    String KEY_DATES_TO = "to";
+                    String KEY_DATES_FROM = "from";
+
+                    String dateFrom = datesJSON.getString(KEY_DATES_FROM);
+                    String dateTo = datesJSON.getString(KEY_DATES_TO);
+
+                    if (dateTo != null & dateFrom != null) {
+
+                        endpoint = String.format("%s&%s=%s&%s=%s", endpoint,
+                                APIConstants.SELLER_TRANSACTION_LIST_PARAMS_DATE_FROM, dateFrom,
+                                APIConstants.SELLER_TRANSACTION_LIST_PARAMS_DATE_TO, dateTo);
+                    }
+
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+
+        if (status != null) {
+
+            try {
+
+                JSONArray statusArray = new JSONArray(status);
+
+                for (int i = 0; i < statusArray.length(); i++) {
+                    endpoint = String.format("%s&%s=%s", endpoint,
+                            APIConstants.SELLER_TRANSACTION_LIST_PARAMS_TYPE, statusArray.getString(i));
+                }
+
+            } catch (JSONException e) {
+
+                e.printStackTrace();
+
+            }
+
+        }
+
+        if (paymentMethod != null) {
+
+            try {
+
+                JSONArray paymentArray = new JSONArray(paymentMethod);
+
+                for (int i = 0; i < paymentArray.length(); i++) {
+                    endpoint = String.format("%s&%s=%s", endpoint,
+                            APIConstants.SELLER_TRANSACTION_LIST_PARAMS_PAYMENT_METHOD, paymentArray.getInt(i));
+                }
+
+            } catch (JSONException e) {
+
+                e.printStackTrace();
+
+            }
+
+        }
 
         Request request = new JsonObjectRequest(endpoint, new Response.Listener<JSONObject>() {
             @Override
