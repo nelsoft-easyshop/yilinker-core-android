@@ -55,6 +55,7 @@ public class APIConstants {
     public static final String PRODUCT_ADD_PRODUCT_REVIEW = "addProductReview";
     public static final String PRODUCT_REVIEW = "review";
     public static final String PRODUCT_RATING  = "rating";
+    public static final String PRODUCT_REVIEW_TITLE = "title";
 
     //For Seller API
     public static final String SELLER_API = "seller";
