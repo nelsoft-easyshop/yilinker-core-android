@@ -23,6 +23,11 @@ public class Review {
     private String profileImageUrl;
     private String dateAdded;
 
+    /***for sellerReivew*/
+    private String storeName;
+    private String feedback;
+    private String averageRating;
+
     public int getUserId() {
         return userId;
     }
@@ -79,7 +84,31 @@ public class Review {
         this.dateAdded = dateAdded;
     }
 
-//    @Override
+    public String getStoreName() {
+        return storeName;
+    }
+
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
+    }
+
+    public String getFeedback() {
+        return feedback;
+    }
+
+    public void setFeedback(String feedback) {
+        this.feedback = feedback;
+    }
+
+    public String getAverageRating() {
+        return averageRating;
+    }
+
+    public void setAverageRating(String averageRating) {
+        this.averageRating = averageRating;
+    }
+
+    //    @Override
 //    public String toString() {
 //        return OBJ_NAME + "[" + KEY_NAME + name + KEY_IMAGE_URL + imageUrl + ", " + KEY_RATING + rating + ", " + KEY_MESSAGE + message + "]";
 //    }
