@@ -18,6 +18,8 @@ public class APIConstants {
     public static final String DOMAIN = BaseApplication.getDomainURL();
     public static final String AUTH_API = "auth";
     public static final String MERCHANT_API = "merchant";
+    public static final String CANCELLATION_API = "cancellation";
+    public static final String TRANSACTION_API = "transaction";
     //public static final String DOMAIN = "http://online.api.easydeal.ph/api/v1";
 
     //For Product API
@@ -370,6 +372,18 @@ public class APIConstants {
 
     public static final String SELLER_TRANSACTION_API           = "getTransaction";
     public static final String SELLER_TRANSACTION_PARAMS_TRANSACTION_ID = "transactionId";
+
+    public static final String SELLER_TRANSACTION_REASONS_API   = "reasons";
+
+    public static final String SELLER_TRANSACTION_CANCEL_API    = "cancel";
+    public static final String SELLER_TRANSACTION_CANCEL_PARAMS_TRANSACTION_ID = "transactionId";
+    public static final String SELLER_TRANSACTION_CANCEL_PARAMS_REASON_ID = "reasonId";
+    public static final String SELLER_TRANSACTION_CANCEL_PARAMS_REMARK = "remark";
+
+    public static final String SELLER_TRANSACTION_PICKUP_API    = "pickup";
+    public static final String SELLER_TRANSACTION_PICKUP_PARAMS_TRANSACTION_ID = "transactionId";
+    public static final String SELLER_TRANSACTION_PICKUP_PARAMS_PICKUP_SCHEDULE = "pickupSchedule";
+    public static final String SELLER_TRANSACTION_PICKUP_PARAMS_PICKUP_REMARK = "pickupRemark";
 
     //Sales Report API
     public static final String SALES_REPORT_API                 = "getSalesReport";
