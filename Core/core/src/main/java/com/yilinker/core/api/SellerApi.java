@@ -1,5 +1,6 @@
 package com.yilinker.core.api;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NoConnectionError;
 import com.android.volley.Request;
@@ -27,9 +28,11 @@ import com.yilinker.core.model.seller.Followers;
 import com.yilinker.core.utility.GsonUtility;
 import com.yilinker.core.utility.SocketTimeout;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,12 +49,14 @@ public class SellerApi {
             DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
             DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
 
-    public static Request getSellerDetails(final int requestCode, int id, final ResponseHandler responseHandler) {
+    public static Request getSellerDetails(final int requestCode, int id,String accessToken, final ResponseHandler responseHandler) {
 
         String url = String.format("%s/%s/%s", APIConstants.DOMAIN, APIConstants.USER_API, APIConstants.SELLER_GET_STORE_INFO);
 
         Map<String, String > params = new HashMap<>();
         params.put( APIConstants.SELLER_USER_ID,String.valueOf(id));
+        if (!accessToken.isEmpty())
+        params.put(APIConstants.ACCESS_TOKEN,accessToken);
 
         VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
             @Override
@@ -71,10 +76,30 @@ public class SellerApi {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+                String message = APIConstants.API_CONNECTION_PROBLEM;
 
-            }
-        });
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+
+                    message = APIConstants.API_CONNECTION_PROBLEM;
+
+                } else if (error instanceof AuthFailureError) {
+
+                    message = APIConstants.API_CONNECTION_AUTH_ERROR;
+
+                }else{
+                    try {
+                        String responseBody = new String(error.networkResponse.data, "utf-8" );
+                        JSONObject jsonObject = new JSONObject( responseBody );
+                        message = jsonObject.getString("message");
+
+                    } catch ( JSONException e ) {
+                        //Handle a malformed json response
+                    } catch (UnsupportedEncodingException e){
+
+                    }
+                }
+                responseHandler.onFailed(requestCode, message);
+            }});
 
         request.setRetryPolicy(SocketTimeout.getRetryPolicy());
 
@@ -102,16 +127,35 @@ public class SellerApi {
                 responseHandler.onSuccess(requestCode, apiResponse);
 
             }
-        }, new Response.ErrorListener() {
-
+        } , new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+                String message = APIConstants.API_CONNECTION_PROBLEM;
 
-            }
-        });
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
 
-        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
+                    message = APIConstants.API_CONNECTION_PROBLEM;
+
+                } else if (error instanceof AuthFailureError) {
+
+                    message = APIConstants.API_CONNECTION_AUTH_ERROR;
+
+                }else{
+                    try {
+                        String responseBody = new String(error.networkResponse.data, "utf-8" );
+                        JSONObject jsonObject = new JSONObject( responseBody );
+                        message = jsonObject.getString("message");
+
+                    } catch ( JSONException e ) {
+                        //Handle a malformed json response
+                    } catch (UnsupportedEncodingException e){
+
+                    }
+                }
+                responseHandler.onFailed(requestCode, message);
+            }});
+
+                request.setRetryPolicy(SocketTimeout.getRetryPolicy());
 
         return request;
 
