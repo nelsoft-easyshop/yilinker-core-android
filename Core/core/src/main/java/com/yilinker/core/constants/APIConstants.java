@@ -2,6 +2,8 @@ package com.yilinker.core.constants;
 
 import com.yilinker.core.base.BaseApplication;
 
+import org.apache.http.entity.StringEntity;
+
 /**
  * Created by J.Bautista
  */
@@ -16,6 +18,8 @@ public class APIConstants {
     public static final String DOMAIN = BaseApplication.getDomainURL();
     public static final String AUTH_API = "auth";
     public static final String MERCHANT_API = "merchant";
+    public static final String CANCELLATION_API = "cancellation";
+    public static final String TRANSACTION_API = "transaction";
     //public static final String DOMAIN = "http://online.api.easydeal.ph/api/v1";
 
     //For Product API
@@ -243,8 +247,7 @@ public class APIConstants {
     public static final String ADDRESS_GET_CHILD_BARANGGAY = "getBarangaysByCity";
     public static final String SET_DEFAULT_ADDRESS = "setDefaultAddress";
     public static final String ADDRESS_PARAMS_USER_ADDRESS_ID = "userAddressId";
-
-
+    
     //Customized Category
     public static final String CATEGORY_API = "category";
     public static final String ADD_CUSTOM_CATEGORY = "addCustomCategory";
@@ -278,7 +281,9 @@ public class APIConstants {
     public static final String BANK_PARAMS_BANK_ACCOUNT_ID = "bankAccountId";
 
     /***Search*/
-    public static final String GET_SEARCH ="getSearchKeywords";
+    public static final String GET_SEARCH_PRODUCT ="getSearchKeywords";
+    public static final String STORE_API = "store";
+    public static final String GET_SEARCH = "search";
     public static final String SEARCH_QUERY ="queryString";
 
     //Checkout Buyer
@@ -367,6 +372,18 @@ public class APIConstants {
 
     public static final String SELLER_TRANSACTION_API           = "getTransaction";
     public static final String SELLER_TRANSACTION_PARAMS_TRANSACTION_ID = "transactionId";
+
+    public static final String SELLER_TRANSACTION_REASONS_API   = "reasons";
+
+    public static final String SELLER_TRANSACTION_CANCEL_API    = "cancel";
+    public static final String SELLER_TRANSACTION_CANCEL_PARAMS_TRANSACTION_ID = "transactionId";
+    public static final String SELLER_TRANSACTION_CANCEL_PARAMS_REASON_ID = "reasonId";
+    public static final String SELLER_TRANSACTION_CANCEL_PARAMS_REMARK = "remark";
+
+    public static final String SELLER_TRANSACTION_PICKUP_API    = "pickup";
+    public static final String SELLER_TRANSACTION_PICKUP_PARAMS_TRANSACTION_ID = "transactionId";
+    public static final String SELLER_TRANSACTION_PICKUP_PARAMS_PICKUP_SCHEDULE = "pickupSchedule";
+    public static final String SELLER_TRANSACTION_PICKUP_PARAMS_PICKUP_REMARK = "pickupRemark";
 
     //Sales Report API
     public static final String SALES_REPORT_API                 = "getSalesReport";
