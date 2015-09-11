@@ -243,7 +243,7 @@ public class APIConstants {
     public static final String ADDRESS_GET_CHILD_BARANGGAY = "getBarangaysByCity";
     public static final String SET_DEFAULT_ADDRESS = "setDefaultAddress";
     public static final String ADDRESS_PARAMS_USER_ADDRESS_ID = "userAddressId";
-    
+
     //Customized Category
     public static final String CATEGORY_API = "category";
     public static final String ADD_CUSTOM_CATEGORY = "addCustomCategory";
