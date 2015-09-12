@@ -167,8 +167,8 @@ public class CustomizedCategory implements Parcelable {
                             }
                             jsonSubCategory.put("products", intList3);
                         }else{
-                            JSONArray intList4 = new JSONArray();
-                            jsonSubCategory.put("products", intList4);
+                            /*JSONArray intList4 = new JSONArray();
+                            jsonSubCategory.put("products", intList4);*/
                         }
 
 
@@ -177,7 +177,7 @@ public class CustomizedCategory implements Parcelable {
                     }
                     jsonCategory.put("subcategories",arraySubCategoryList);
                 }else{
-                    List<SubCategoryUpload> subCategoryUploadList = new ArrayList<>();
+                    JSONObject subCategoryUploadList = new JSONObject();
                     jsonCategory.put("subcategories",subCategoryUploadList);
                 }
 
