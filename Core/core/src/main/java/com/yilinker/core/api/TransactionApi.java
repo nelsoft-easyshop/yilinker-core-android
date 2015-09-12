@@ -1,7 +1,10 @@
 package com.yilinker.core.api;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NoConnectionError;
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
@@ -29,13 +32,14 @@ public class TransactionApi {
 
     public static Request addProductReview(final int requestCode, int id,String accessToken,float rating,String review, final ResponseHandler responseHandler) {
 
-        String url = String.format("%s/%s/%s/%s", APIConstants.DOMAIN, "auth",
+        String url = String.format("%s/%s/%s/%s", APIConstants.DOMAIN, APIConstants.AUTH_API,
                 APIConstants.PRODUCT_API,APIConstants.PRODUCT_ADD_PRODUCT_REVIEW );
 
         Map<String, String > params = new HashMap<>();
         params.put( APIConstants.PRODUCT_ID,String.valueOf(id));
         params.put(APIConstants.PRODUCT_RATING,String.valueOf(rating));
         params.put(APIConstants.PRODUCT_REVIEW,review);
+        params.put(APIConstants.PRODUCT_REVIEW_TITLE,"title");
         params.put(APIConstants.ACCESS_TOKEN, accessToken);
 
         VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
@@ -47,14 +51,99 @@ public class TransactionApi {
                 responseHandler.onSuccess(requestCode, apiResponse);
 
             }
-        }, new Response.ErrorListener() {
+        },new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        String message = APIConstants.API_CONNECTION_PROBLEM;
 
+                        if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+
+                            message = APIConstants.API_CONNECTION_PROBLEM;
+
+                        } else if (error instanceof AuthFailureError) {
+
+                            message = APIConstants.API_CONNECTION_AUTH_ERROR;
+
+                        }else{
+                            try {
+                                String responseBody = new String(error.networkResponse.data, "utf-8" );
+                                JSONObject jsonObject = new JSONObject( responseBody );
+                                JSONArray array = jsonObject.getJSONArray("data");
+
+                                StringBuilder builder = new StringBuilder();
+                                for (int i=0;i<array.length();i++){
+                                    try {
+                                        builder.append(array.getString(i)+"\n");
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                                message = builder.toString();
+
+                            } catch ( JSONException e ) {
+                                //Handle a malformed json response
+                            } catch (UnsupportedEncodingException e){
+
+                            }
+                        }
+                        responseHandler.onFailed(requestCode, message);
+                    }});
+
+        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
+
+        return request;
+
+    }
+
+    public static Request addSellerReview(final int requestCode, int sellerId,int orderId,String accessToken,String rating,String review, final ResponseHandler responseHandler) {
+
+        String url = String.format("%s/%s/%s/%s", APIConstants.DOMAIN, APIConstants.AUTH_API,
+                APIConstants.PRODUCT_FEEDBACK,APIConstants.PRODUCT_ADD_SELLER_REVIEW );
+
+        Map<String, String > params = new HashMap<>();
+        params.put( APIConstants.PRODUCT_REVIEW_ORDER_ID,String.valueOf(orderId));
+        params.put(APIConstants.PRODUCT_REVIEW_SELLER_ID,String.valueOf(sellerId));
+        params.put(APIConstants.PRODUCT_RATINGS,rating);
+        params.put(APIConstants.PRODUCT_FEEDBACK,review);
+        params.put(APIConstants.PRODUCT_REVIEW_TITLE,"title");
+        params.put(APIConstants.ACCESS_TOKEN, accessToken);
+
+        VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
             @Override
-            public void onErrorResponse(VolleyError error) {
-                responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+            public void onResponse(JSONObject response) {
+                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+
+                responseHandler.onSuccess(requestCode, apiResponse);
 
             }
-        });
+        },new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                String message = APIConstants.API_CONNECTION_PROBLEM;
+
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+
+                    message = APIConstants.API_CONNECTION_PROBLEM;
+
+                } else if (error instanceof AuthFailureError) {
+
+                    message = APIConstants.API_CONNECTION_AUTH_ERROR;
+
+                }else{
+                    try {
+                        String responseBody = new String(error.networkResponse.data, "utf-8" );
+                        JSONObject jsonObject = new JSONObject( responseBody );
+                        message = jsonObject.getString("message");
+
+                    } catch ( JSONException e ) {
+                        //Handle a malformed json response
+                    } catch (UnsupportedEncodingException e){
+
+                    }
+                }
+                responseHandler.onFailed(requestCode, message);
+            }});
 
         request.setRetryPolicy(SocketTimeout.getRetryPolicy());
 
