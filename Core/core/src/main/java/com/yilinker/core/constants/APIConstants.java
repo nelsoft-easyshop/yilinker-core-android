@@ -54,6 +54,7 @@ public class APIConstants {
     public static final String PRODUCT_GET_REVIEW_PARAM_ID = "productId";
     public static final String PRODUCT_ADD_PRODUCT_REVIEW = "addProductReview";
     public static final String PRODUCT_ADD_SELLER_REVIEW = "addUserFeedback";
+    public static final String PRODUCT_GET_SELLER_REVIEW = "getUserFeedbacks";
     public static final String PRODUCT_REVIEW = "review";
     public static final String PRODUCT_RATING  = "rating";
     public static final String PRODUCT_RATINGS  = "ratings";
