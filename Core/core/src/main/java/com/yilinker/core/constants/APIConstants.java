@@ -401,4 +401,9 @@ public class APIConstants {
     public static final String SALES_REPORT_API                 = "getSalesReport";
     public static final String SALES_REPORT_PARAM_DATE_TO       = "dateTo";
     public static final String SALES_REPORT_PARAM_DATE_FROM     = "dateFrom";
+
+    //Resolution Center
+    public final static String RESOLUTION_CENTER_DISPUTE = "dispute";
+    public final static String RESOLUTION_CENTER_GET_CASES = "get-case";
+    public final static String RESOLUTION_CENTER_FILTER = "filter";
 }
