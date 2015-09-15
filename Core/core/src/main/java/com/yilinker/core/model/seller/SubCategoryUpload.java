@@ -15,7 +15,7 @@ import java.util.List;
 public class SubCategoryUpload implements Parcelable, Serializable {
     private int categoryId;
     private String categoryName;
-    private List<String> products;
+    private List<CategoryProducts> products;
 
     public SubCategoryUpload(){
 
@@ -37,14 +37,13 @@ public class SubCategoryUpload implements Parcelable, Serializable {
         this.categoryName = categoryName;
     }
 
-    public List<String> getProducts() {
+    public List<CategoryProducts> getProducts() {
         return products;
     }
 
-    public void setProducts(List<String> products) {
+    public void setProducts(List<CategoryProducts> products) {
         this.products = products;
     }
-
 
     @Override
     public int describeContents() {
@@ -55,13 +54,11 @@ public class SubCategoryUpload implements Parcelable, Serializable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(categoryId);
         dest.writeString(categoryName);
-        dest.writeStringList(products);
     }
 
     protected SubCategoryUpload(Parcel in) {
         categoryId = in.readInt();
         categoryName = in.readString();
-        products = in.createStringArrayList();
     }
 
     public static final Creator<SubCategoryUpload> CREATOR = new Creator<SubCategoryUpload>() {

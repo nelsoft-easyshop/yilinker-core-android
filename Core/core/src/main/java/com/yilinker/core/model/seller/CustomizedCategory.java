@@ -108,7 +108,7 @@ public class CustomizedCategory implements Parcelable {
                 if(subCategoryUploadUpload.getProducts() != null) {
                     JSONArray intList = new JSONArray();
                     for (int ctr = 0; ctr < subCategoryUploadUpload.getProducts().size(); ctr++) {
-                        intList.put(Integer.parseInt(subCategoryUploadUpload.getProducts().get(ctr)));
+                        intList.put(subCategoryUploadUpload.getProducts().get(ctr).getProductId());
                     }
                     jsonSubCategory.put("products", intList);
                 }else {
@@ -163,7 +163,7 @@ public class CustomizedCategory implements Parcelable {
                         if(subCategoryUploadUpload.getProducts() != null){
                             JSONArray intList3 = new JSONArray();
                             for (int ctr = 0; ctr < subCategoryUploadUpload.getProducts().size(); ctr++) {
-                                intList3.put(Integer.parseInt(subCategoryUploadUpload.getProducts().get(ctr)));
+                                intList3.put(subCategoryUploadUpload.getProducts().get(ctr).getProductId());
                             }
                             jsonSubCategory.put("products", intList3);
                         }else{
