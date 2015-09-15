@@ -1,7 +1,13 @@
 package com.yilinker.core.api;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 import com.yilinker.core.base.BaseApplication;
@@ -57,15 +63,19 @@ public class CustomizedCategoryApi {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                try {
-                    String responseBody = new String(error.networkResponse.data, "utf-8" );
-                    JSONObject jsonObject = new JSONObject( responseBody );
-                } catch ( JSONException e ) {
-                    //Handle a malformed json response
-                } catch (UnsupportedEncodingException e){
-
+                String message = "An error occured.";
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                    message = "No connection available.";
+                } else if (error instanceof AuthFailureError) {
+                    message = "Authentication Failure.";
+                } else if (error instanceof ServerError) {
+                    message = "Server error.";
+                } else if (error instanceof NetworkError) {
+                    message = "Network Error.";
+                } else if (error instanceof ParseError) {
+                    message = "Parse error.";
                 }
-                responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+                responseHandler.onFailed(requestCode, message);
             }
         });
 
@@ -102,7 +112,19 @@ public class CustomizedCategoryApi {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+                String message = "An error occured.";
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                    message = "No connection available.";
+                } else if (error instanceof AuthFailureError) {
+                    message = "Authentication Failure.";
+                } else if (error instanceof ServerError) {
+                    message = "Server error.";
+                } else if (error instanceof NetworkError) {
+                    message = "Network Error.";
+                } else if (error instanceof ParseError) {
+                    message = "Parse error.";
+                }
+                responseHandler.onFailed(requestCode, message);
             }
         });
 
@@ -140,7 +162,19 @@ public class CustomizedCategoryApi {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+                String message = "An error occured.";
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                    message = "No connection available.";
+                } else if (error instanceof AuthFailureError) {
+                    message = "Authentication Failure.";
+                } else if (error instanceof ServerError) {
+                    message = "Server error.";
+                } else if (error instanceof NetworkError) {
+                    message = "Network Error.";
+                } else if (error instanceof ParseError) {
+                    message = "Parse error.";
+                }
+                responseHandler.onFailed(requestCode, message);
             }
         });
 
@@ -179,18 +213,17 @@ public class CustomizedCategoryApi {
             @Override
             public void onErrorResponse(VolleyError error) {
 
-                String message = APIConstants.API_CONNECTION_PROBLEM;
-                try {
-                    String responseBody = new String(error.networkResponse.data, "utf-8" );
-                    JSONObject jsonObject = new JSONObject( responseBody );
-                    jsonObject = jsonObject.getJSONObject("data");
-                    JSONArray errors = jsonObject.getJSONArray("errors");
-                    message = errors.getString(0);
-
-                } catch ( JSONException e ) {
-                    //Handle a malformed json response
-                } catch (UnsupportedEncodingException e){
-
+                String message = "An error occured.";
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                    message = "No connection available.";
+                } else if (error instanceof AuthFailureError) {
+                    message = "Authentication Failure.";
+                } else if (error instanceof ServerError) {
+                    message = "Server error.";
+                } else if (error instanceof NetworkError) {
+                    message = "Network Error.";
+                } else if (error instanceof ParseError) {
+                    message = "Parse error.";
                 }
                 responseHandler.onFailed(requestCode, message);
 
