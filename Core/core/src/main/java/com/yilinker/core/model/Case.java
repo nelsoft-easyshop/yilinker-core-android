@@ -9,40 +9,56 @@ import java.lang.reflect.Type;
  */
 public class Case {
 
-    private String caseId;
-    private String status,date;
-    private String filedTo;
+    private String disputeId;
+    private String disputeStatusType,dateAdded;
+    private String orderProductStatus,disputeeFullName,disputeeContactNumber;
 
-    public String getCaseId() {
-        return caseId;
+    public String getDisputeId() {
+        return disputeId;
     }
 
-    public void setCaseId(String caseId) {
-        this.caseId = caseId;
+    public void setDisputeId(String disputeId) {
+        this.disputeId = disputeId;
     }
 
-    public String getStatus() {
-        return status;
+    public String getDisputeStatusType() {
+        return disputeStatusType;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setDisputeStatusType(String disputeStatusType) {
+        this.disputeStatusType = disputeStatusType;
     }
 
-    public String getDate() {
-        return date;
+    public String getDateAdded() {
+        return dateAdded;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setDateAdded(String dateAdded) {
+        this.dateAdded = dateAdded;
     }
 
-    public String getFiledTo() {
-        return filedTo;
+    public String getOrderProductStatus() {
+        return orderProductStatus;
     }
 
-    public void setFiledTo(String filedTo) {
-        this.filedTo = filedTo;
+    public void setOrderProductStatus(String orderProductStatus) {
+        this.orderProductStatus = orderProductStatus;
+    }
+
+    public String getDisputeeFullName() {
+        return disputeeFullName;
+    }
+
+    public void setDisputeeFullName(String disputeeFullName) {
+        this.disputeeFullName = disputeeFullName;
+    }
+
+    public String getDisputeeContactNumber() {
+        return disputeeContactNumber;
+    }
+
+    public void setDisputeeContactNumber(String disputeeContactNumber) {
+        this.disputeeContactNumber = disputeeContactNumber;
     }
 
     public static class CaseInstance implements InstanceCreator<Case> {

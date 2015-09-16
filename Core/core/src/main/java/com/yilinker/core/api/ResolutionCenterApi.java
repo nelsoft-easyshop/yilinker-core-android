@@ -1,7 +1,10 @@
 package com.yilinker.core.api;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NoConnectionError;
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
@@ -33,7 +36,7 @@ public class ResolutionCenterApi {
                 APIConstants.RESOLUTION_CENTER_DISPUTE,APIConstants.RESOLUTION_CENTER_GET_CASES,APIConstants.ACCESS_TOKEN, accessToken);
 
         String finalUrl = endpoint;
-        if (!filter.isEmpty()){
+        if (!filter.equals("")){
             finalUrl = String.format("%s&%s=%s",endpoint,APIConstants.RESOLUTION_CENTER_FILTER,filter);
         }
 
@@ -60,26 +63,33 @@ public class ResolutionCenterApi {
                 }
 
             }
-        }, new Response.ErrorListener() {
+        },  new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
                 String message = APIConstants.API_CONNECTION_PROBLEM;
-                try {
-                    String responseBody = new String(error.networkResponse.data, "utf-8" );
-                    JSONObject jsonObject = new JSONObject( responseBody );
-                    jsonObject = jsonObject.getJSONObject("data");
-                    JSONArray errors = jsonObject.getJSONArray("errors");
-                    message = errors.getString(0);
 
-                } catch ( JSONException e ) {
-                    //Handle a malformed json response
-                } catch (UnsupportedEncodingException e){
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
 
+                    message = APIConstants.API_CONNECTION_PROBLEM;
+
+                } else if (error instanceof AuthFailureError) {
+
+                    message = APIConstants.API_CONNECTION_AUTH_ERROR;
+
+                }else{
+                    try {
+                        String responseBody = new String(error.networkResponse.data, "utf-8" );
+                        JSONObject jsonObject = new JSONObject( responseBody );
+                        message = jsonObject.getString("message");
+
+                    } catch ( JSONException e ) {
+                        //Handle a malformed json response
+                    } catch (UnsupportedEncodingException e){
+
+                    }
                 }
                 responseHandler.onFailed(requestCode, message);
-            }
-        });
+            }});
 
         request.setRetryPolicy(SocketTimeout.getRetryPolicy());
 
