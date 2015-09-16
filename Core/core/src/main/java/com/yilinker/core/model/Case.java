@@ -2,6 +2,9 @@ package com.yilinker.core.model;
 
 import com.google.gson.InstanceCreator;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.lang.reflect.Type;
 import java.util.List;
 
@@ -10,9 +13,11 @@ import java.util.List;
  */
 public class Case {
 
+    private String disputeTitle;
     private String disputeId;
     private String disputeStatusType,dateAdded;
     private String orderProductStatus,disputeeFullName,disputeeContactNumber;
+    private List<String> orderProductIds;
     private String ticket;
 
     private List<Remarks> remarks;
@@ -73,6 +78,34 @@ public class Case {
         this.disputeeContactNumber = disputeeContactNumber;
     }
 
+    public String getDisputeTitle() {
+        return disputeTitle;
+    }
+
+    public void setDisputeTitle(String disputeTitle) {
+        this.disputeTitle = disputeTitle;
+    }
+
+
+    public List<String> getOrderProductIds() {
+        return orderProductIds;
+    }
+
+    public void setOrderProductIds(List<String> orderProductIds) {
+        this.orderProductIds = orderProductIds;
+    }
+
+    public JSONArray getProductIds(){
+        JSONArray jsonProductArray = new JSONArray();
+        if(getOrderProductIds() != null) {
+            if(getOrderProductIds().size() > 0) {
+                for (int ctr = 0; ctr < getOrderProductIds().size(); ctr++) {
+                    jsonProductArray.put(Integer.parseInt(getOrderProductIds().get(ctr)));
+                }
+            }
+        }
+        return jsonProductArray;
+    }
     public List<Remarks> getRemarks() {
         return remarks;
     }
