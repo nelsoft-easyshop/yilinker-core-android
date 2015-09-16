@@ -412,4 +412,9 @@ public class APIConstants {
     public final static String RESOLUTION_CENTER_DISPUTE = "dispute";
     public final static String RESOLUTION_CENTER_GET_CASES = "get-case";
     public final static String RESOLUTION_CENTER_FILTER = "filter";
+    public final static String RESOLUTION_CENTER_ADD_CASE = "add-case";
+    public final static String RESOLUTION_CENTER_PARAM_DISPUTE_TITLE = "disputeTitle";
+    public final static String RESOLUTION_CENTER_PARAM_REMARKS = "remarks";
+    public final static String RESOLUTION_CENTER_PARAM_ORDER_PRODUCT_STATUS = "orderProductStatus";
+    public final static String RESOLUTION_CENTER_PARAM_ORDER_PRODUCT_ID = "orderProductIds";
 }
