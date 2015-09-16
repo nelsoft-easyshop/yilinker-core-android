@@ -54,6 +54,7 @@ public class MessagingApi
         params.put(APIConstants.MESSAGING_PARAM_ACCESS_TOKEN, accessToken);
         params.put(APIConstants.MESSAGING_PARAM_RECIPIENT_ID, Integer.toString(recipientId));
         params.put(APIConstants.MESSAGING_PARAM_MESSAGE, message);
+
         if(image == true){
             params.put(APIConstants.MESSAGING_PARAM_IS_IMAGE, "1");
         }else{
