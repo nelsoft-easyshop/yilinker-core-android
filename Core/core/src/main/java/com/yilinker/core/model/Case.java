@@ -1,6 +1,7 @@
 package com.yilinker.core.model;
 
 import com.google.gson.InstanceCreator;
+import com.yilinker.core.model.seller.CategoryProducts;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -19,6 +20,15 @@ public class Case {
     private String orderProductStatus,disputeeFullName,disputeeContactNumber;
     private List<String> orderProductIds;
     private String ticket;
+    private List<CategoryProducts> products;
+
+    public List<CategoryProducts> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<CategoryProducts> products) {
+        this.products = products;
+    }
 
     private List<Remarks> remarks;
 
