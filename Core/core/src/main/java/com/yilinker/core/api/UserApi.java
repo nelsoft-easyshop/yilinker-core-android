@@ -1,5 +1,6 @@
 package com.yilinker.core.api;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.NoConnectionError;
 import com.android.volley.Request;
 import com.android.volley.Response;

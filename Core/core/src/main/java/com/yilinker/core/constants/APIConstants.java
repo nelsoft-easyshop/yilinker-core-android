@@ -397,6 +397,12 @@ public class APIConstants {
     public static final String SELLER_TRANSACTION_PICKUP_PARAMS_PICKUP_SCHEDULE = "pickupSchedule";
     public static final String SELLER_TRANSACTION_PICKUP_PARAMS_PICKUP_REMARK = "pickupRemark";
 
+    public static final String SELLER_TRANSACTION_GET_CONSIGNEE_API = "getTransactionConsignee";
+    public static final String SELLER_TRANSACTION_GET_CONSIGNEE_PARAMS_TRANSACTION_ID = "transactionId";
+
+    public static final String SELLER_TRANSACTION_DELIVERY_LOGS_API = "getTransactionDeliveryLogs";
+    public static final String SELLER_TRANSACTION_DELIVERY_LOGS_PARAMS_ORDER_PRODUCT_ID = "orderProductId";
+
     //Sales Report API
     public static final String SALES_REPORT_API                 = "getSalesReport";
     public static final String SALES_REPORT_PARAM_DATE_TO       = "dateTo";

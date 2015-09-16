@@ -19,7 +19,9 @@ import com.yilinker.core.helper.VolleyPostHelper;
 import com.yilinker.core.interfaces.ResponseHandler;
 import com.yilinker.core.model.APIResponse;
 import com.yilinker.core.model.TransactionDetails;
+import com.yilinker.core.model.seller.Delivery;
 import com.yilinker.core.model.seller.Reason;
+import com.yilinker.core.model.seller.TransactionConsignee;
 import com.yilinker.core.model.seller.TransactionList;
 import com.yilinker.core.utility.GsonUtility;
 
@@ -161,20 +163,7 @@ public class SellerTransactionApi {
             @Override
             public void onErrorResponse(VolleyError error) {
 
-                String message = "An error occured.";
-                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                    message = "No connection available.";
-                } else if (error instanceof AuthFailureError) {
-                    message = "Authentication Failure.";
-                } else if (error instanceof ServerError) {
-                    message = "Server error.";
-                } else if (error instanceof NetworkError) {
-                    message = "Network Error.";
-                } else if (error instanceof ParseError) {
-                    message = "Parse error.";
-                }
-
-                responseHandler.onFailed(requestCode, message);
+                sendErrorMessage(requestCode, error, responseHandler);
 
             }
         });
@@ -218,20 +207,7 @@ public class SellerTransactionApi {
             @Override
             public void onErrorResponse(VolleyError error) {
 
-                String message = "An error occured.";
-                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                    message = "No connection available.";
-                } else if (error instanceof AuthFailureError) {
-                    message = "Authentication Failure.";
-                } else if (error instanceof ServerError) {
-                    message = "Server error.";
-                } else if (error instanceof NetworkError) {
-                    message = "Network Error.";
-                } else if (error instanceof ParseError) {
-                    message = "Parse error.";
-                }
-
-                responseHandler.onFailed(requestCode, message);
+                sendErrorMessage(requestCode, error, responseHandler);
 
             }
         });
@@ -254,47 +230,29 @@ public class SellerTransactionApi {
                 Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
                 APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
 
-//                if (apiResponse.isSuccessful()) {
-//
-//                    gson = GsonUtility.createGsonBuilder(Reason.class, new Reason.ReasonsInstance()).create();
-//                    String jsonString = gson.toJson(apiResponse.getData());
-//                    Reason reason = gson.fromJson(jsonString, Reason.class);
-//
-//                    responseHandler.onSuccess(requestCode, reason);
-//
-//
-//                } else {
-//
-//                    responseHandler.onFailed(requestCode, apiResponse.getMessage());
-//
-//                }
+                if (apiResponse.isSuccessful()) {
 
-                gson = GsonUtility.createGsonBuilder(Reason.class, new Reason.ReasonInstance()).create();
-                String jsonString = gson.toJson(apiResponse.getData());
-                Type listType = new TypeToken<ArrayList<Reason>>(){}.getType();
-                List<Reason> reasons = gson.fromJson(jsonString, listType);
+                    gson = GsonUtility.createGsonBuilder(Reason.class, new Reason.ReasonInstance()).create();
+                    String jsonString = gson.toJson(apiResponse.getData());
+                    Type listType = new TypeToken<ArrayList<Reason>>(){}.getType();
+                    List<Reason> reasons = gson.fromJson(jsonString, listType);
 
-                responseHandler.onSuccess(requestCode, reasons);
+                    responseHandler.onSuccess(requestCode, reasons);
+
+                } else {
+
+                    responseHandler.onFailed(requestCode, apiResponse.getMessage());
+
+                }
+
+
 
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
 
-                String message = "An error occured.";
-                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                    message = "No connection available.";
-                } else if (error instanceof AuthFailureError) {
-                    message = "Authentication Failure.";
-                } else if (error instanceof ServerError) {
-                    message = "Server error.";
-                } else if (error instanceof NetworkError) {
-                    message = "Network Error.";
-                } else if (error instanceof ParseError) {
-                    message = "Parse error.";
-                }
-
-                responseHandler.onFailed(requestCode, message);
+                sendErrorMessage(requestCode, error, responseHandler);
 
             }
         });
@@ -339,20 +297,7 @@ public class SellerTransactionApi {
             @Override
             public void onErrorResponse(VolleyError error) {
 
-                String message = "An error occured.";
-                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                    message = "No connection available.";
-                } else if (error instanceof AuthFailureError) {
-                    message = "Authentication Failure.";
-                } else if (error instanceof ServerError) {
-                    message = "Server error.";
-                } else if (error instanceof NetworkError) {
-                    message = "Network Error.";
-                } else if (error instanceof ParseError) {
-                    message = "Parse error.";
-                }
-
-                responseHandler.onFailed(requestCode, message);
+                sendErrorMessage(requestCode, error, responseHandler);
 
             }
         });
@@ -398,20 +343,7 @@ public class SellerTransactionApi {
             @Override
             public void onErrorResponse(VolleyError error) {
 
-                String message = "An error occured.";
-                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                    message = "No connection available.";
-                } else if (error instanceof AuthFailureError) {
-                    message = "Authentication Failure.";
-                } else if (error instanceof ServerError) {
-                    message = "Server error.";
-                } else if (error instanceof NetworkError) {
-                    message = "Network Error.";
-                } else if (error instanceof ParseError) {
-                    message = "Parse error.";
-                }
-
-                responseHandler.onFailed(requestCode, message);
+                sendErrorMessage(requestCode, error, responseHandler);
 
             }
         });
@@ -422,5 +354,121 @@ public class SellerTransactionApi {
         return request;
     }
 
+
+    public static Request getConsigneeDetails(final int requestCode, String accessToken, String transactionId,
+                                              final ResponseHandler responseHandler) {
+
+        String endpoint = String.format("%s/%s/%s?%s=%s&%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API,
+                APIConstants.SELLER_TRANSACTION_GET_CONSIGNEE_API,
+                APIConstants.ACCESS_TOKEN, accessToken,
+                APIConstants.SELLER_TRANSACTION_GET_CONSIGNEE_PARAMS_TRANSACTION_ID, transactionId);
+
+        Request request = new JsonObjectRequest(endpoint, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+
+                if (apiResponse.isSuccessful()) {
+
+                    gson = GsonUtility.createGsonBuilder(TransactionConsignee.class,
+                            new TransactionConsignee.TransactionConsigneeInstance()).create();
+                    String jsonString = gson.toJson(apiResponse.getData());
+                    TransactionConsignee consignee = gson.fromJson(jsonString, TransactionConsignee.class);
+
+                    responseHandler.onSuccess(requestCode, consignee);
+
+                } else {
+
+                    responseHandler.onFailed(requestCode, apiResponse.getMessage());
+
+                }
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                sendErrorMessage(requestCode, error, responseHandler);
+
+            }
+        });
+
+
+        request.setRetryPolicy(policy);
+
+        return request;
+    }
+
+
+    public static Request getDeliveryLogs(final int requestCode, String accessToken, String transactionId,
+                                          final ResponseHandler responseHandler) {
+
+        String endpoint = String.format("%s/%s/%s?%s=%s&%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API,
+                APIConstants.SELLER_TRANSACTION_DELIVERY_LOGS_API,
+                APIConstants.ACCESS_TOKEN, accessToken,
+                APIConstants.SELLER_TRANSACTION_DELIVERY_LOGS_PARAMS_ORDER_PRODUCT_ID, transactionId);
+
+
+        Request request = new JsonObjectRequest(endpoint, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+
+                if (apiResponse.isSuccessful()) {
+
+                    gson = GsonUtility.createGsonBuilder(Delivery.class, new Delivery.DeliveryInstance()).create();
+                    String jsonString = gson.toJson(apiResponse.getData());
+                    Delivery delivery = gson.fromJson(jsonString, Delivery.class);
+//                    Type listType = new TypeToken<ArrayList<Delivery>>(){}.getType();
+//                    List<Delivery> deliveries = gson.fromJson(jsonString, listType);
+
+                    responseHandler.onSuccess(requestCode, delivery);
+
+                } else {
+
+                    responseHandler.onFailed(requestCode, apiResponse.getMessage());
+
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                sendErrorMessage(requestCode, error, responseHandler);
+            }
+        });
+
+        request.setRetryPolicy(policy);
+
+
+        return request;
+    }
+
+
+
+
+    private static void sendErrorMessage(int requestCode, VolleyError error, ResponseHandler responseHandler) {
+
+        String message = "An error occured.";
+        if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+            message = "No connection available.";
+        } else if (error instanceof AuthFailureError) {
+            message = "Authentication Failure.";
+        } else if (error instanceof ServerError) {
+            message = "Server error.";
+        } else if (error instanceof NetworkError) {
+            message = "Network Error.";
+        } else if (error instanceof ParseError) {
+            message = "Parse error.";
+        }
+
+        responseHandler.onFailed(requestCode, message);
+
+    }
 
 }
