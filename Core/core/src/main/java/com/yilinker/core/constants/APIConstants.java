@@ -406,4 +406,6 @@ public class APIConstants {
     public final static String RESOLUTION_CENTER_DISPUTE = "dispute";
     public final static String RESOLUTION_CENTER_GET_CASES = "get-case";
     public final static String RESOLUTION_CENTER_FILTER = "filter";
+    public final static String RESOLUTION_CENTER_GET_CASE_DETAILS = "get-case-detail";
+    public final static String RESOLUTION_CENTER_DISPUTE_ID = "disputeId";
 }
