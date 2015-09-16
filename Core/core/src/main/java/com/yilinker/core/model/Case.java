@@ -14,11 +14,21 @@ import java.util.List;
 public class Case {
 
     private String disputeTitle;
-    private String remarks;
     private String disputeId;
     private String disputeStatusType,dateAdded;
     private String orderProductStatus,disputeeFullName,disputeeContactNumber;
     private List<String> orderProductIds;
+    private String ticket;
+
+    private List<Remarks> remarks;
+
+    public String getTicket() {
+        return ticket;
+    }
+
+    public void setTicket(String ticket) {
+        this.ticket = ticket;
+    }
 
     public String getDisputeId() {
         return disputeId;
@@ -76,13 +86,6 @@ public class Case {
         this.disputeTitle = disputeTitle;
     }
 
-    public String getRemarks() {
-        return remarks;
-    }
-
-    public void setRemarks(String remarks) {
-        this.remarks = remarks;
-    }
 
     public List<String> getOrderProductIds() {
         return orderProductIds;
@@ -103,6 +106,14 @@ public class Case {
         }
         return jsonProductArray;
     }
+    public List<Remarks> getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(List<Remarks> remarks) {
+        this.remarks = remarks;
+    }
+
     public static class CaseInstance implements InstanceCreator<Case> {
 
         @Override

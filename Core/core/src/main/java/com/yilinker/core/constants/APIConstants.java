@@ -417,4 +417,6 @@ public class APIConstants {
     public final static String RESOLUTION_CENTER_PARAM_REMARKS = "remarks";
     public final static String RESOLUTION_CENTER_PARAM_ORDER_PRODUCT_STATUS = "orderProductStatus";
     public final static String RESOLUTION_CENTER_PARAM_ORDER_PRODUCT_ID = "orderProductIds";
+    public final static String RESOLUTION_CENTER_GET_CASE_DETAILS = "get-case-detail";
+    public final static String RESOLUTION_CENTER_DISPUTE_ID = "disputeId";
 }
