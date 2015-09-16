@@ -37,7 +37,7 @@ public class ResolutionCenterApi {
 
         String finalUrl = endpoint;
         if (!filter.equals("")){
-            finalUrl = String.format("%s&%s=%s",endpoint,APIConstants.RESOLUTION_CENTER_FILTER,filter);
+            finalUrl = String.format("%s%s",endpoint,filter);
         }
 
         Request request = new JsonObjectRequest(finalUrl, new Response.Listener<JSONObject>() {
@@ -57,10 +57,61 @@ public class ResolutionCenterApi {
                     responseHandler.onSuccess(requestCode, obj);
 
                 }else{
-
                     responseHandler.onFailed(requestCode, apiResponse.getMessage());
-
                 }
+
+            }
+        },  new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                String message = APIConstants.API_CONNECTION_PROBLEM;
+
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+
+                    message = APIConstants.API_CONNECTION_PROBLEM;
+
+                } else if (error instanceof AuthFailureError) {
+
+                    message = APIConstants.API_CONNECTION_AUTH_ERROR;
+
+                }else{
+                    try {
+                        String responseBody = new String(error.networkResponse.data, "utf-8" );
+                        JSONObject jsonObject = new JSONObject( responseBody );
+                        message = jsonObject.getString("message");
+
+                    } catch ( JSONException e ) {
+                        //Handle a malformed json response
+                    } catch (UnsupportedEncodingException e){
+
+                    }
+                }
+                responseHandler.onFailed(requestCode, message);
+            }});
+
+        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
+
+        return request;
+    }
+
+    public static Request getCaseDetails(final int requestCode, String accessToken, String disputeId, final ResponseHandler responseHandler) {
+
+        String url = String.format("%s/%s/%s/%s?%s=%s&%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API,
+                APIConstants.RESOLUTION_CENTER_DISPUTE,APIConstants.RESOLUTION_CENTER_GET_CASE_DETAILS,
+                APIConstants.ACCESS_TOKEN, accessToken,APIConstants.RESOLUTION_CENTER_DISPUTE_ID,disputeId);
+
+
+        Request request = new JsonObjectRequest(url, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+
+                gson = GsonUtility.createGsonBuilder(Case.class, new Case.CaseInstance()).create();
+                String jsonString = new Gson().toJson(apiResponse.getData());
+                Case obj = gson.fromJson(jsonString, Case.class);
+
+                responseHandler.onSuccess(requestCode, obj);
 
             }
         },  new Response.ErrorListener() {

@@ -3,6 +3,7 @@ package com.yilinker.core.model;
 import com.google.gson.InstanceCreator;
 
 import java.lang.reflect.Type;
+import java.util.List;
 
 /**
  * Created by Patrick on 9/14/2015.
@@ -12,6 +13,17 @@ public class Case {
     private String disputeId;
     private String disputeStatusType,dateAdded;
     private String orderProductStatus,disputeeFullName,disputeeContactNumber;
+    private String ticket;
+
+    private List<Remarks> remarks;
+
+    public String getTicket() {
+        return ticket;
+    }
+
+    public void setTicket(String ticket) {
+        this.ticket = ticket;
+    }
 
     public String getDisputeId() {
         return disputeId;
@@ -59,6 +71,14 @@ public class Case {
 
     public void setDisputeeContactNumber(String disputeeContactNumber) {
         this.disputeeContactNumber = disputeeContactNumber;
+    }
+
+    public List<Remarks> getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(List<Remarks> remarks) {
+        this.remarks = remarks;
     }
 
     public static class CaseInstance implements InstanceCreator<Case> {
