@@ -19,6 +19,7 @@ public class TransactionDetails {
     private static final String KEY_TRANSACTION_STATUS = "transactionStatus";
     private static final String KEY_TRANSACTION_PAYMENT = "transactionPayment";
     private static final String KEY_TRANSACTION_ORDER_PRODUCTS = "transactionOrderProducts";
+    private static final String KEY_TRANSACTION_ITEMS = "transactionItems";
 
     @SerializedName(KEY_TRANSACTION_INVOICE)
     private String transactionInvoice;
@@ -34,8 +35,10 @@ public class TransactionDetails {
     private TransactionStatus transactionStatus;
     @SerializedName(KEY_TRANSACTION_PAYMENT)
     private String transactionPayment;
-    @SerializedName(KEY_TRANSACTION_ORDER_PRODUCTS)
-    private List<TransactionOrderProducts> orderProductList;
+//    @SerializedName(KEY_TRANSACTION_ORDER_PRODUCTS)
+//    private List<TransactionOrderProducts> orderProductList;
+    @SerializedName(KEY_TRANSACTION_ITEMS)
+    private List<TransactionItem> transactionItems;
 
     public String getTransactionInvoice() {
         return transactionInvoice;
@@ -93,13 +96,21 @@ public class TransactionDetails {
         this.transactionPayment = transactionPayment;
     }
 
-    public List<TransactionOrderProducts> getOrderProductList() {
-        return orderProductList;
+    public List<TransactionItem> getTransactionItems() {
+        return transactionItems;
     }
 
-    public void setOrderProductList(List<TransactionOrderProducts> orderProductList) {
-        this.orderProductList = orderProductList;
+    public void setTransactionItems(List<TransactionItem> transactionItems) {
+        this.transactionItems = transactionItems;
     }
+
+    //    public List<TransactionOrderProducts> getOrderProductList() {
+//        return orderProductList;
+//    }
+//
+//    public void setOrderProductList(List<TransactionOrderProducts> orderProductList) {
+//        this.orderProductList = orderProductList;
+//    }
 
     public class DateAdded {
 
@@ -166,9 +177,74 @@ public class TransactionDetails {
         }
     }
 
+    public class TransactionItem {
+
+        private static final String KEY_SELLER_ID = "sellerId";
+        private static final String KEY_SELLER_STORE = "sellerStore";
+        private static final String KEY_SELLER_CONTACT_NUMBER = "sellerContactNumber";
+        private static final String KEY_HAS_FEEDBACK = "hasFeedback";
+        private static final String KEY_PRODUCTS = "products";
+
+        @SerializedName(KEY_SELLER_ID)
+        private int sellerId;
+
+        @SerializedName(KEY_SELLER_STORE)
+        private String sellerStore;
+
+        @SerializedName(KEY_SELLER_CONTACT_NUMBER)
+        private String sellerContactNumber;
+
+        @SerializedName(KEY_HAS_FEEDBACK)
+        private boolean hasFeedback;
+
+        @SerializedName(KEY_PRODUCTS)
+        List<TransactionOrderProducts> products;
+
+        public int getSellerId() {
+            return sellerId;
+        }
+
+        public void setSellerId(int sellerId) {
+            this.sellerId = sellerId;
+        }
+
+        public String getSellerStore() {
+            return sellerStore;
+        }
+
+        public void setSellerStore(String sellerStore) {
+            this.sellerStore = sellerStore;
+        }
+
+        public String getSellerContactNumber() {
+            return sellerContactNumber;
+        }
+
+        public void setSellerContactNumber(String sellerContactNumber) {
+            this.sellerContactNumber = sellerContactNumber;
+        }
+
+        public boolean isHasFeedback() {
+            return hasFeedback;
+        }
+
+        public void setHasFeedback(boolean hasFeedback) {
+            this.hasFeedback = hasFeedback;
+        }
+
+        public List<TransactionOrderProducts> getProducts() {
+            return products;
+        }
+
+        public void setProducts(List<TransactionOrderProducts> products) {
+            this.products = products;
+        }
+    }
+
     public class TransactionOrderProducts {
 
         private static final String KEY_ORDER_PRODUCT_ID = "orderProductId";
+        private static final String KEY_PRODUCT_ID = "productId";
         private static final String KEY_QUANTITY = "quantity";
         private static final String KEY_UNIT_PRICE = "unitPrice";
         private static final String KEY_TOTAL_PRICE = "totalPrice";
@@ -181,6 +257,8 @@ public class TransactionDetails {
 
         @SerializedName(KEY_ORDER_PRODUCT_ID)
         private String orderProductId;
+        @SerializedName(KEY_PRODUCT_ID)
+        private int productId;
         @SerializedName(KEY_QUANTITY)
         private int quantity;
         @SerializedName(KEY_UNIT_PRICE)
@@ -204,6 +282,14 @@ public class TransactionDetails {
 
         public void setOrderProductId(String orderProductId) {
             this.orderProductId = orderProductId;
+        }
+
+        public int getProductId() {
+            return productId;
+        }
+
+        public void setProductId(int productId) {
+            this.productId = productId;
         }
 
         public int getQuantity() {
