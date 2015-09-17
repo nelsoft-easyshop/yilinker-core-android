@@ -52,7 +52,7 @@ public class SellerApi {
             DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
             DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
 
-    public static Request getSellerDetails(final int requestCode, int id,String accessToken, final ResponseHandler responseHandler) {
+    public static Request getSellerDetails(final int requestCode, int id, String accessToken, final ResponseHandler responseHandler) {
 
         String url = String.format("%s/%s/%s", APIConstants.DOMAIN, APIConstants.USER_API, APIConstants.SELLER_GET_STORE_INFO);
 

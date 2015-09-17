@@ -376,13 +376,16 @@ public class TransactionApi {
         return request;
     }
 
-    public static Request sendCancelOrder(final int requestCode , String accessToken, String reasonId, String transactionId, final ResponseHandler responseHandler) {
+    public static Request sendCancelOrder(final int requestCode , String accessToken, String reasonId, String transactionId, String remarks, final ResponseHandler responseHandler) {
 
         String url = String.format("%s/%s/%s/%s", APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.TRANSACTION_API, APIConstants.SELLER_TRANSACTION_CANCEL_API,
                 APIConstants.ACCESS_TOKEN, accessToken);
 
         Map<String, String > params = new HashMap<>();
         params.put(APIConstants.ACCESS_TOKEN, accessToken);
+        params.put(APIConstants.SELLER_TRANSACTION_CANCEL_PARAMS_REASON_ID, reasonId);
+        params.put(APIConstants.SELLER_TRANSACTION_CANCEL_PARAMS_TRANSACTION_ID, transactionId);
+        params.put(APIConstants.SELLER_TRANSACTION_CANCEL_PARAMS_REMARK, remarks);
 
 
         VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
@@ -393,11 +396,11 @@ public class TransactionApi {
 
                 if(apiResponse.isSuccessful()) {
 
-                    String jsonString  = new Gson().toJson(apiResponse.getData());
-                    Type listType = new TypeToken<ArrayList<CancellationReasons>>(){}.getType();
-                    List<CancellationReasons> obj = gson.fromJson(jsonString, listType);
+//                    String jsonString  = new Gson().toJson(apiResponse.getData());
+//                    Type listType = new TypeToken<ArrayList<CancellationReasons>>(){}.getType();
+//                    List<CancellationReasons> obj = gson.fromJson(jsonString, listType);
 
-                    responseHandler.onSuccess(requestCode, obj);
+                    responseHandler.onSuccess(requestCode, apiResponse);
 
                 }else{
 

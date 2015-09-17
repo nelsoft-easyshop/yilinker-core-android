@@ -214,11 +214,11 @@ public class TransactionProduct {
         this.unitPrice = unitPrice;
     }
 
-    public int getQuantity() {
+    public double getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(double quantity) {
         this.quantity = quantity;
     }
 
