@@ -8,9 +8,8 @@ import java.util.List;
 public class FilterGroup {
 
     private int id;
-    private String name;
-    private List<FilterGroupItem> filterGroupItems;
-
+    private String filterName;
+    private List<String> filterItems;
 
     public int getId() {
         return id;
@@ -20,21 +19,19 @@ public class FilterGroup {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getFilterName() {
+        return filterName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFilterName(String filterName) {
+        this.filterName = filterName;
     }
 
-
-    public void setFilterGroupItems(List<FilterGroupItem> filterGroupItems) {
-        this.filterGroupItems = filterGroupItems;
+    public List<String> getFilterItems() {
+        return filterItems;
     }
 
-    public List<FilterGroupItem> getFilterGroupItems() {
-        return this.filterGroupItems;
+    public void setFilterItems(List<String> filterItems) {
+        this.filterItems = filterItems;
     }
-
 }
