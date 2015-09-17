@@ -1,6 +1,7 @@
 package com.yilinker.core.model;
 
 import com.google.gson.InstanceCreator;
+import com.google.gson.annotations.SerializedName;
 
 import java.lang.reflect.Type;
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.List;
 public class Seller {
 
     private static final String OBJ_NAME = "Seller";
-    private static final String KEY_ID = "id";
+    private static final String KEY_ID = "userId";
     private static final String KEY_NAME = "name";
     private static final String KEY_SPECIALTY = "specialty";
     private static final String KEY_LOGO_URL = "logoURl";
@@ -22,6 +23,7 @@ public class Seller {
     private String specialty;/***missing*/
     private String contactNumber;/***images*/
     private Address storeAddress;
+    @SerializedName(KEY_ID)
     private int id;/***sellerId*/
     private String profilePhoto;
     private String coverPhoto;
