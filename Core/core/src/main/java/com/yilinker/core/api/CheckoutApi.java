@@ -317,8 +317,11 @@ public class CheckoutApi {
                     List<CartItem2> obj = gson.fromJson(jsonString, listType);
 
                     responseHandler.onSuccess(requestCode, obj);
+
                 } else {
+
                     responseHandler.onFailed(requestCode, apiResponse.getMessage());
+
                 }
             }
         }, new Response.ErrorListener() {
