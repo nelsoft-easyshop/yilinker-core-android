@@ -297,9 +297,9 @@ public class AddressAPI {
                  APIConstants.LOCATION_API, APIConstants.ADDRESS_GET_ALL_PROVINCES);
 
         Map<String, String> params = new HashMap<String,String>();
-        if(APIConstants.DOMAIN.equals("http://merchant.online.easydeal.api/v1")){
-            params.put(APIConstants.ACCESS_TOKEN, token);
-        }
+        if(APIConstants.DOMAIN.equals("http://merchant.online.api.easydeal.ph/api/v1")){
+        params.put(APIConstants.ACCESS_TOKEN, token);
+    }
 //        params.put(APIConstants.ACCESS_TOKEN, token);
 
         VolleyPostHelper getAddresses =  new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
@@ -335,7 +335,7 @@ public class AddressAPI {
                 APIConstants.LOCATION_API, APIConstants.ADDRESS_GET_CHILD_CITIES);
 
         Map<String, String> params = new HashMap<String,String>();
-        if(APIConstants.DOMAIN.equals("http://merchant.online.easydeal.api/v1")){
+        if(APIConstants.DOMAIN.equals("http://merchant.online.api.easydeal.ph/api/v1")){
             params.put(APIConstants.ACCESS_TOKEN, token);
         }
 //        params.put(APIConstants.ACCESS_TOKEN, token);
@@ -374,7 +374,7 @@ public class AddressAPI {
                 APIConstants.LOCATION_API, APIConstants.ADDRESS_GET_CHILD_BARANGGAY);
 
         Map<String, String> params = new HashMap<String,String>();
-        if(APIConstants.DOMAIN.equals("http://merchant.online.easydeal.api/v1")){
+        if(APIConstants.DOMAIN.equals("http://merchant.online.api.easydeal.ph/api/v1")){
             params.put(APIConstants.ACCESS_TOKEN, token);
         }
 //        params.put(APIConstants.ACCESS_TOKEN, token);
