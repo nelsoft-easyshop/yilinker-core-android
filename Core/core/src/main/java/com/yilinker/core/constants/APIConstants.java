@@ -20,6 +20,7 @@ public class APIConstants {
     public static final String MERCHANT_API = "merchant";
     public static final String CANCELLATION_API = "cancellation";
     public static final String TRANSACTION_API = "transaction";
+    public static final String RESELLER_API = "reseller";
     //public static final String DOMAIN = "http://online.api.easydeal.ph/api/v1";
 
     //For Product API
@@ -422,4 +423,13 @@ public class APIConstants {
     public final static String RESOLUTION_CENTER_PARAM_ORDER_PRODUCT_ID = "orderProductIds";
     public final static String RESOLUTION_CENTER_GET_CASE_DETAILS = "get-case-detail";
     public final static String RESOLUTION_CENTER_DISPUTE_ID = "disputeId";
+
+    //Reseller
+    public final static String GET_MANUFACTURER_PRODUCTS_API = "products";
+    public final static String GET_MANUFACTURER_PRODUCTS_PARAMS_CATEGORY_ID = "categoryId";
+    public final static String GET_MANUFACTURER_PRODUCTS_PARAMS_PAGE = "page";
+    public final static String GET_MANUFACTURER_PRODUCTS_PARAMS_QUERY = "query";
+
+    public final static String RESELLER_UPLOAD_API = "upload";
+    public final static String RESELLER_UPLOAD_PARAMS_PRODUCT_IDS = "productIds[]";
 }
