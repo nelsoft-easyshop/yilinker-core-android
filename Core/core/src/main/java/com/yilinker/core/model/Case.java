@@ -21,7 +21,15 @@ public class Case {
     private String orderProductStatus,disputeeFullName,disputeeContactNumber;
     private List<String> orderProductIds;
     private String ticket;
+
     private List<ResolutionCenterProducts> products;
+
+//    public List<CategoryProducts> getProducts() {
+//        return products;
+//    }
+//
+//    public void setProducts(List<CategoryProducts> products) {
+//    private List<ResolutionCenterProducts> products;
 
     public List<ResolutionCenterProducts> getProducts() {
         return products;
