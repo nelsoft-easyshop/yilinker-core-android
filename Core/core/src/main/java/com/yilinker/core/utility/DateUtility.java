@@ -80,6 +80,7 @@ public class DateUtility {
 
     }
 
+
     public static String dateToTransactionDateStringFormat(Date date) {
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");

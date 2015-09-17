@@ -7,13 +7,19 @@ import com.android.volley.Response;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.google.android.gms.common.api.Api;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.yilinker.core.constants.APIConstants;
 import com.yilinker.core.helper.VolleyPostHelper;
 import com.yilinker.core.interfaces.ResponseHandler;
 import com.yilinker.core.model.APIResponse;
+import com.yilinker.core.model.CancellationReasons;
+import com.yilinker.core.model.TransactionDetails;
 import com.yilinker.core.model.TransactionDetailsBuyer;
 import com.yilinker.core.model.TransactionList;
+import com.yilinker.core.model.TransactionProduct;
+import com.yilinker.core.model.buyer.CartItem2;
 import com.yilinker.core.utility.GsonUtility;
 import com.yilinker.core.utility.SocketTimeout;
 
@@ -22,7 +28,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -221,12 +230,174 @@ public class TransactionApi {
                 if(apiResponse.isSuccessful()) {
 
                     gson = GsonUtility.createGsonBuilder(TransactionDetailsBuyer.class, new TransactionDetailsBuyer.TransactionDetailsBuyerInstance()).create();
-
                     String jsonString  = new Gson().toJson(apiResponse.getData());
-
                     TransactionDetailsBuyer transactionDetailsBuyer = gson.fromJson(jsonString, TransactionDetailsBuyer.class);
 
                     responseHandler.onSuccess(requestCode, transactionDetailsBuyer);
+
+                }else{
+
+                    responseHandler.onFailed(requestCode, apiResponse.getMessage());
+
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                String message = APIConstants.API_CONNECTION_PROBLEM;
+                try {
+                    String responseBody = new String(error.networkResponse.data, "utf-8" );
+                    JSONObject jsonObject = new JSONObject( responseBody );
+                    jsonObject = jsonObject.getJSONObject("data");
+                    JSONArray errors = jsonObject.getJSONArray("errors");
+                    message = errors.getString(0);
+
+                } catch ( JSONException e ) {
+                    //Handle a malformed json response
+                } catch (UnsupportedEncodingException e){
+
+                }
+                responseHandler.onFailed(requestCode, message);
+            }
+        });
+
+        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
+
+        return request;
+    }
+
+
+    public static Request getOrderProductDetails(final int requestCode, String accessToken, String orderProductId, final ResponseHandler responseHandler) {
+
+        String url = String.format("%s/%s/%s?%s=%s&%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.SELLER_TRANSACTION_ORDER_PRODUCT_DETAILS_API,
+                APIConstants.ACCESS_TOKEN, accessToken, APIConstants.SELLER_TRANSACTION_DELIVERY_LOGS_PARAMS_ORDER_PRODUCT_ID, orderProductId);
+
+        url = url.replace(" ", "%20");
+
+        Request request = new JsonObjectRequest(url, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+
+                if(apiResponse.isSuccessful()) {
+
+                    gson = GsonUtility.createGsonBuilder(TransactionProduct.class, new TransactionProduct.TransactionProductInstance()).create();
+                    String jsonString  = new Gson().toJson(apiResponse.getData());
+                    TransactionProduct transactionProduct = gson.fromJson(jsonString, TransactionProduct.class);
+
+                    responseHandler.onSuccess(requestCode, transactionProduct);
+
+                }else{
+
+                    responseHandler.onFailed(requestCode, apiResponse.getMessage());
+
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                String message = APIConstants.API_CONNECTION_PROBLEM;
+                try {
+                    String responseBody = new String(error.networkResponse.data, "utf-8" );
+                    JSONObject jsonObject = new JSONObject( responseBody );
+                    jsonObject = jsonObject.getJSONObject("data");
+                    JSONArray errors = jsonObject.getJSONArray("errors");
+                    message = errors.getString(0);
+
+                } catch ( JSONException e ) {
+                    //Handle a malformed json response
+                } catch (UnsupportedEncodingException e){
+
+                }
+                responseHandler.onFailed(requestCode, message);
+            }
+        });
+
+        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
+
+        return request;
+    }
+
+
+    public static Request getCancellationReasons(final int requestCode , String accessToken, final ResponseHandler responseHandler) {
+
+        String url = String.format("%s/%s/%s/%s?%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.CANCELLATION_API,APIConstants.SELLER_TRANSACTION_REASONS_API,
+                APIConstants.ACCESS_TOKEN, accessToken);
+
+        Request request = new JsonObjectRequest(url, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+
+                if(apiResponse.isSuccessful()) {
+
+                    String jsonString  = new Gson().toJson(apiResponse.getData());
+                    Type listType = new TypeToken<ArrayList<CancellationReasons>>(){}.getType();
+                    List<CancellationReasons> obj = gson.fromJson(jsonString, listType);
+
+                    responseHandler.onSuccess(requestCode, obj);
+
+                }else{
+
+                    responseHandler.onFailed(requestCode, apiResponse.getMessage());
+
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                String message = APIConstants.API_CONNECTION_PROBLEM;
+                try {
+                    String responseBody = new String(error.networkResponse.data, "utf-8" );
+                    JSONObject jsonObject = new JSONObject( responseBody );
+                    jsonObject = jsonObject.getJSONObject("data");
+                    JSONArray errors = jsonObject.getJSONArray("errors");
+                    message = errors.getString(0);
+
+                } catch ( JSONException e ) {
+                    //Handle a malformed json response
+                } catch (UnsupportedEncodingException e){
+
+                }
+                responseHandler.onFailed(requestCode, message);
+            }
+        });
+
+        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
+
+        return request;
+    }
+
+    public static Request sendCancelOrder(final int requestCode , String accessToken, String reasonId, String transactionId, final ResponseHandler responseHandler) {
+
+        String url = String.format("%s/%s/%s/%s", APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.TRANSACTION_API, APIConstants.SELLER_TRANSACTION_CANCEL_API,
+                APIConstants.ACCESS_TOKEN, accessToken);
+
+        Map<String, String > params = new HashMap<>();
+        params.put(APIConstants.ACCESS_TOKEN, accessToken);
+
+
+        VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+
+                if(apiResponse.isSuccessful()) {
+
+                    String jsonString  = new Gson().toJson(apiResponse.getData());
+                    Type listType = new TypeToken<ArrayList<CancellationReasons>>(){}.getType();
+                    List<CancellationReasons> obj = gson.fromJson(jsonString, listType);
+
+                    responseHandler.onSuccess(requestCode, obj);
 
                 }else{
 

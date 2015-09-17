@@ -20,6 +20,7 @@ import com.yilinker.core.interfaces.ResponseHandler;
 import com.yilinker.core.model.APIResponse;
 import com.yilinker.core.model.TransactionDetails;
 import com.yilinker.core.model.seller.Delivery;
+import com.yilinker.core.model.seller.OrderProduct;
 import com.yilinker.core.model.seller.Reason;
 import com.yilinker.core.model.seller.TransactionConsignee;
 import com.yilinker.core.model.seller.TransactionList;
@@ -449,6 +450,50 @@ public class SellerTransactionApi {
         return request;
     }
 
+    public static Request getOrderProductDetails(final int requestCode, String accessToken, String orderProductId,
+                                                 final ResponseHandler responseHandler) {
+
+        String endpoint = String.format("%s/%s/%s?%s=%s&%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.ORDER_PRODUCT_DETAIL_API,
+                APIConstants.ACCESS_TOKEN, accessToken,
+                APIConstants.ORDER_PRODUCT_DETAIL_PARAMS_ORDER_PRODUCT_ID, orderProductId);
+
+        Request request = new JsonObjectRequest(endpoint, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+
+                if (apiResponse.isSuccessful()) {
+
+                    gson = GsonUtility.createGsonBuilder(OrderProduct.class, new OrderProduct.OrderProductInstance()).create();
+                    String jsonString = gson.toJson(apiResponse.getData());
+
+                    OrderProduct orderProduct = gson.fromJson(jsonString, OrderProduct.class);
+
+                    responseHandler.onSuccess(requestCode, orderProduct);
+
+                } else {
+
+                    responseHandler.onFailed(requestCode,apiResponse.getMessage());
+
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                sendErrorMessage(requestCode, error, responseHandler);
+
+            }
+        });
+
+        request.setRetryPolicy(policy);
+
+        return request;
+    }
+
 
 
 
@@ -470,5 +515,7 @@ public class SellerTransactionApi {
         responseHandler.onFailed(requestCode, message);
 
     }
+
+
 
 }
