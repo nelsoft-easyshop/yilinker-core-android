@@ -4,6 +4,7 @@ import com.google.gson.InstanceCreator;
 import com.google.gson.annotations.SerializedName;
 
 import java.lang.reflect.Type;
+import java.util.List;
 
 /**
  * Created by jaybr_000 on 9/16/2015.
@@ -30,6 +31,9 @@ public class OrderProduct {
     private static final String KEY_BRAND = "brand";
     private static final String KEY_CONDITION = "condition";
     private static final String KEY_PRODUCT_CATEGORY = "productCategoryId";
+    private static final String KEY_ATTRIBUTES = "attributes";
+    private static final String KEY_DESCRIPTION = "description";
+    private static final String KEY_SHORT_DESCRIPTION = "shortDescription";
 
     @SerializedName(KEY_ORDER_PRODUCT_ID)
     private String orderProductId;
@@ -71,6 +75,12 @@ public class OrderProduct {
     private Condition condition;
     @SerializedName(KEY_PRODUCT_CATEGORY)
     private ProductCategory productCategory;
+    @SerializedName(KEY_ATTRIBUTES)
+    private List<Attribute> attributes;
+    @SerializedName(KEY_DESCRIPTION)
+    private String fullDescription;
+    @SerializedName(KEY_SHORT_DESCRIPTION)
+    private String shortDescription;
 
     public String getOrderProductId() {
         return orderProductId;
@@ -230,6 +240,42 @@ public class OrderProduct {
 
     public void setProductCategory(ProductCategory productCategory) {
         this.productCategory = productCategory;
+    }
+
+    public List<Attribute> getAttributes() {
+
+        boolean hasDimensions = false;
+        for (Attribute attribute: attributes) {
+            if (attribute.attributeName.equals("width"))
+                hasDimensions = true;
+        }
+        if (!hasDimensions) {
+            attributes.add(new Attribute("width", this.width == null ? "-" : this.width + " cm"));
+            attributes.add(new Attribute("weight", this.weight == null ? "-" : this.weight + " kg"));
+            attributes.add(new Attribute("height", this.height == null ? "-" : this.height + " cm"));
+            attributes.add(new Attribute("length", this.length == null ? "-" : this.length + " cm"));
+        }
+        return attributes;
+    }
+
+    public String getShortDescription() {
+        return shortDescription;
+    }
+
+    public void setShortDescription(String shortDescription) {
+        this.shortDescription = shortDescription;
+    }
+
+    public String getFullDescription() {
+        return fullDescription;
+    }
+
+    public void setFullDescription(String fullDescription) {
+        this.fullDescription = fullDescription;
+    }
+
+    public void setAttributes(List<Attribute> attributes) {
+        this.attributes = attributes;
     }
 
     public class Date {
@@ -427,6 +473,38 @@ public class OrderProduct {
             this.description = description;
         }
 
+    }
+
+    public class Attribute {
+
+        private static final String KEY_ATTRIBUTE_NAME = "attributeName";
+        private static final String KEY_ATTRIBUTE_VALUE = "attributeValue";
+
+        @SerializedName(KEY_ATTRIBUTE_NAME)
+        private String attributeName;
+        @SerializedName(KEY_ATTRIBUTE_VALUE)
+        private String attributeValue;
+
+        public Attribute(String attributeName, String attributeValue) {
+            this.attributeName = attributeName;
+            this.attributeValue = attributeValue;
+        }
+
+        public String getAttributeName() {
+            return attributeName;
+        }
+
+        public void setAttributeName(String attributeName) {
+            this.attributeName = attributeName;
+        }
+
+        public String getAttributeValue() {
+            return attributeValue;
+        }
+
+        public void setAttributeValue(String attributeValue) {
+            this.attributeValue = attributeValue;
+        }
     }
 
     public static class OrderProductInstance implements InstanceCreator<OrderProduct> {
