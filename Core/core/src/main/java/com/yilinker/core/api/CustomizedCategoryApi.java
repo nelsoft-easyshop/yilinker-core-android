@@ -186,7 +186,7 @@ public class CustomizedCategoryApi {
                                                  final ResponseHandler responseHandler){
 
         String url = String.format("%s/%s/%s/%s",
-                APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.CATEGORY_API, APIConstants.UPDATE_CUSTOM_CATEGORY);
+        APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.CATEGORY_API, APIConstants.UPDATE_CUSTOM_CATEGORY);
 
         Map<String, String> params = new HashMap<String, String>();
         params.put(APIConstants.ACCESS_TOKEN, token);

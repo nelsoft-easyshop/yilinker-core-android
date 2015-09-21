@@ -159,7 +159,7 @@ public class CustomizedCategory implements Parcelable {
 
                         jsonSubCategory.put("categoryId", subCategoryUploadUpload.getCategoryId());
                         jsonSubCategory.put("categoryName", subCategoryUploadUpload.getCategoryName());
-                        //jsonProductProperty.put("parentId", subCategoryUploadUpload.getCategoryId());
+                        jsonSubCategory.put("parentId", subCategoryUploadUpload.getCategoryId());
                         if(subCategoryUploadUpload.getProducts() != null){
                             JSONArray intList3 = new JSONArray();
                             for (int ctr = 0; ctr < subCategoryUploadUpload.getProducts().size(); ctr++) {
