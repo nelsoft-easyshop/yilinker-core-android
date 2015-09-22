@@ -433,4 +433,9 @@ public class APIConstants {
 
     public final static String RESELLER_UPLOAD_API = "upload";
     public final static String RESELLER_UPLOAD_PARAMS_PRODUCT_IDS = "productIds[]";
+
+
+    //Settings
+    public final static String SETTINGS_API = "subscription";
+    public final static String SETTINGS_PARAMS_SUBSCRIBE = "isSubscribe";
 }
