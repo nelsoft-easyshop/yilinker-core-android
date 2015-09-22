@@ -14,6 +14,7 @@ public class ResolutionCenterProducts implements Parcelable {
     private String productImage;
     private boolean isChecked;
     public ResolutionCenterProducts(com.yilinker.core.model.TransactionDetailsBuyer.Products products){
+        this.orderProductId = products.getOrderProductId();
         this.productId = products.getProductId();
         this.productName = products.getProductName();
         this.productImage = products.getProductImage();
