@@ -14,6 +14,15 @@ public class FollowedSeller {
     private String storeName;
     private String profileImageUrl;
     private String specialty;
+    private float rating;
+
+    public float getRating() {
+        return rating;
+    }
+
+    public void setRating(float rating) {
+        this.rating = rating;
+    }
 
     public int getSellerId() {
         return sellerId;
