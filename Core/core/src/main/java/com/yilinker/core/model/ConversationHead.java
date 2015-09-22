@@ -1,5 +1,7 @@
 package com.yilinker.core.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.Date;
 
 /**
@@ -7,11 +9,14 @@ import java.util.Date;
  */
 public class ConversationHead
 {
+    private static final String message = "message";
+
     private Integer userId;
     private Integer isOnline;
     private Integer sender;
     private String profileImageUrl;
     private String fullName;
+    @SerializedName(message)
     private String lastMessage;
     private Integer hasUnreadMessage;
     private Date lastMessageDate;

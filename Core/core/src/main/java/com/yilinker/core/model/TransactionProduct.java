@@ -39,7 +39,6 @@ public class TransactionProduct {
     private String orderProductId;
     @SerializedName(KEY_PRODUCT_ID)
     private String productId;
-    @SerializedName(KEY_PRODUCT_QUANTITY)
     private int quantity;
     @SerializedName(KEY_PRODUCT_UNIT_PRICE)
     private String unitPrice;
