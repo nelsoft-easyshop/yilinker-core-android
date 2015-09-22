@@ -121,7 +121,8 @@ public class ProfileApi {
 //        params.put(APIConstants.PROFILE_OLD_PASSWORD, oldPassword);
 //        params.put(APIConstants.PROFILE_NEW_PASSWORD, newPassword);
 //        params.put(APIConstants.PROFILE_NEW_PASSWORD_CONFIRMED, newPasswordConfirm);
-        params.put(APIConstants.PROFILE_USER_ADDRESS_ID, userAddressId);
+        if (userAddressId != null)
+            params.put(APIConstants.PROFILE_USER_ADDRESS_ID, userAddressId);
         if (locationId != null)
             params.put(APIConstants.PROFILE_LOCATION_ID, locationId);
         if (title != null)

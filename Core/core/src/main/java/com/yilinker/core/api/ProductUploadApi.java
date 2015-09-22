@@ -41,7 +41,8 @@ public class ProductUploadApi {
 
     public static Request uploadProduct(final int requestCode, ProductUpload productUpload, String accessToken, final ResponseHandler responseHandler) {
 
-        String url = String.format("%s/%s/%s", APIConstants.DOMAIN, APIConstants.PRODUCT_API, APIConstants.PRODUCT_UPLOAD_API);
+        String url = String.format("%s/%s/%s?%s=%s", APIConstants.DOMAIN, APIConstants.PRODUCT_API, APIConstants.PRODUCT_UPLOAD_API,
+                APIConstants.ACCESS_TOKEN, accessToken);
 
         Map<String,String> params = new HashMap<String,String>();
         params.put(APIConstants.ACCESS_TOKEN, accessToken);
@@ -69,13 +70,14 @@ public class ProductUploadApi {
         String stringJSON = jsonObject.toString();
         System.out.print(stringJSON);
 
-        StringBuilder stringBuilder = new StringBuilder();
+//        StringBuilder stringBuilder = new StringBuilder();
+//
+//        for(String key:params.keySet()) {
+//            stringBuilder.append(key+"="+params.get(key)+"&");
+//        }
 
-        for(String key:params.keySet()) {
-            stringBuilder.append(key+"="+params.get(key)+"&");
-        }
+        //url = String.format("%s?%s",url,stringBuilder.toString());
 
-        url = String.format("%s?%s",url,stringBuilder.toString());
 
         MultiPartRequest multiPartRequest = new MultiPartRequest(url,productUpload, APIResponse.class,params, new Response.Listener<JSONObject>() {
             @Override
