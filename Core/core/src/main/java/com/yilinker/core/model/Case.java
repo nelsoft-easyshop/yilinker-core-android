@@ -1,11 +1,9 @@
 package com.yilinker.core.model;
 
 import com.google.gson.InstanceCreator;
-import com.yilinker.core.model.seller.CategoryProducts;
 import com.yilinker.core.model.seller.ResolutionCenterProducts;
 
 import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.List;
@@ -20,6 +18,7 @@ public class Case {
     private String disputeStatusType,dateAdded;
     private String orderProductStatus,disputeeFullName,disputeeContactNumber;
     private List<String> orderProductIds;
+    private String ticketId;
     private String ticket;
 
     private List<ResolutionCenterProducts> products;
@@ -41,12 +40,12 @@ public class Case {
 
     private List<Remarks> remarks;
 
-    public String getTicket() {
-        return ticket;
+    public String getTicketId() {
+        return ticketId;
     }
 
-    public void setTicket(String ticket) {
-        this.ticket = ticket;
+    public void setTicketId(String ticketId) {
+        this.ticketId = ticketId;
     }
 
     public String getDisputeId() {
@@ -55,6 +54,14 @@ public class Case {
 
     public void setDisputeId(String disputeId) {
         this.disputeId = disputeId;
+    }
+
+    public String getTicket() {
+        return ticket;
+    }
+
+    public void setTicket(String ticket) {
+        this.ticket = ticket;
     }
 
     public String getDisputeStatusType() {
