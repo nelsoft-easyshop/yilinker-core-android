@@ -54,12 +54,21 @@ public class SellerApi {
 
     public static Request getSellerDetails(final int requestCode, int id, String accessToken, final ResponseHandler responseHandler) {
 
-        String url = String.format("%s/%s/%s", APIConstants.DOMAIN, APIConstants.USER_API, APIConstants.SELLER_GET_STORE_INFO);
+        String url;
 
         Map<String, String > params = new HashMap<>();
         params.put( APIConstants.SELLER_USER_ID,String.valueOf(id));
-        if (!accessToken.isEmpty())
-        params.put(APIConstants.ACCESS_TOKEN,accessToken);
+
+        if (!accessToken.isEmpty()) {
+
+            url = String.format("%s/%s/%s/%s", APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.USER_API, APIConstants.SELLER_GET_STORE_INFO);
+            params.put(APIConstants.ACCESS_TOKEN, accessToken);
+
+        } else {
+
+            url = String.format("%s/%s/%s", APIConstants.DOMAIN, APIConstants.USER_API, APIConstants.SELLER_GET_STORE_INFO);
+
+        }
 
         VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
             @Override

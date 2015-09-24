@@ -43,14 +43,18 @@ public class CheckoutApi {
         String url;
         Map<String, String> params = new HashMap<>();
         if(!isGuest) {
+
             url = String.format("%s/%s/%s/%s",
                     APIConstants.DOMAIN, APIConstants.AUTH_API,
                     APIConstants.CHECKOUT_PAYMENT_API,
                     APIConstants.CHECKOUT_PAYMENT_COD);
             params.put(APIConstants.ACCESS_TOKEN, token);
+
         } else {
+
             url = String.format("%s/%s/%s",
                     APIConstants.DOMAIN, APIConstants.CHECKOUT_PAYMENT_API, APIConstants.CHECKOUT_PAYMENT_COD);
+
         }
 
         VolleyPostHelper payUsingCod = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
@@ -62,11 +66,15 @@ public class CheckoutApi {
 
                 gson = GsonUtility.createGsonBuilder(CheckoutOverview.class, new CheckoutOverview.CheckoutOverviewInstance()).create();
                 String jsonString = new Gson().toJson(apiResponse.getData());
-                CheckoutOverview obj = gson.fromJson(jsonString, CheckoutOverview.class);
                 if(apiResponse.isSuccessful()){
+
+                    CheckoutOverview obj = gson.fromJson(jsonString, CheckoutOverview.class);
                     responseHandler.onSuccess(requestCode, obj);
+
                 } else {
+
                     responseHandler.onFailed(requestCode, apiResponse.getMessage());
+
                 }
 
             }
@@ -123,10 +131,14 @@ public class CheckoutApi {
                 gson = GsonUtility.createGsonBuilder(CheckoutPayment.class, new CheckoutPayment.CheckoutPaymentInstance()).create();
                 String jsonString = new Gson().toJson(apiResponse.getData());
                 if(apiResponse.isSuccessful()){
+
                     CheckoutPayment obj = gson.fromJson(jsonString, CheckoutPayment.class);
                     responseHandler.onSuccess(requestCode, obj);
+
                 } else {
+
                     responseHandler.onFailed(requestCode, apiResponse.getMessage());
+
                 }
 
             }
