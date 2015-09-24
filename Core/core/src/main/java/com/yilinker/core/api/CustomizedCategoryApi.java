@@ -218,7 +218,7 @@ public class CustomizedCategoryApi {
                 } else if (error instanceof AuthFailureError) {
                     message = "Authentication Failure.";
                 } else if (error instanceof ServerError) {
-                    message = "Server error.";
+                    message = "Category already exists.";
                 } else if (error instanceof NetworkError) {
                     message = "Network Error.";
                 } else if (error instanceof ParseError) {
