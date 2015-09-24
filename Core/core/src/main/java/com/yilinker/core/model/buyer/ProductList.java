@@ -15,6 +15,15 @@ public class ProductList {
 
     private List<ProductListItem> products;
     private int totalResultCount;
+    private Aggregation aggregations;
+
+    public Aggregation getAggregations() {
+        return aggregations;
+    }
+
+    public void setAggregations(Aggregation aggregations) {
+        this.aggregations = aggregations;
+    }
 
     public List<ProductListItem> getProducts() {
         return products;
