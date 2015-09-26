@@ -16,6 +16,7 @@ public class SubCategoryUpload implements Parcelable, Serializable {
     private int categoryId;
     private String categoryName;
     private List<CategoryProducts> products;
+    private int parentId;
 
     public SubCategoryUpload(){
 
@@ -43,6 +44,14 @@ public class SubCategoryUpload implements Parcelable, Serializable {
 
     public void setProducts(List<CategoryProducts> products) {
         this.products = products;
+    }
+
+    public int getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(int parentId) {
+        this.parentId = parentId;
     }
 
     @Override
