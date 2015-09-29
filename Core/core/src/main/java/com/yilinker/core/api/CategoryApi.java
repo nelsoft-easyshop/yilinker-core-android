@@ -11,6 +11,7 @@ import com.yilinker.core.interfaces.ResponseHandler;
 import com.yilinker.core.model.APIResponse;
 import com.yilinker.core.model.Category;
 import com.yilinker.core.model.CategoryList;
+import com.yilinker.core.model.seller.CustomizedCategory;
 import com.yilinker.core.utility.GsonUtility;
 import com.yilinker.core.utility.SocketTimeout;
 
@@ -31,7 +32,7 @@ public class CategoryApi {
                 APIConstants.DOMAIN, APIConstants.PRODUCT_API, APIConstants.GET_CATEGORY,
                 APIConstants.PARENT_ID, id);
 
-        Request requestGetCart = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
+        Request request = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
 
@@ -57,9 +58,48 @@ public class CategoryApi {
             }
         });
 
-        requestGetCart.setRetryPolicy(SocketTimeout.getRetryPolicy());
+        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
 
-        return requestGetCart;
+        return request;
 
     }
+
+    public static Request getCustomizedCategories(final int requestCode, int sellerId, final ResponseHandler responseHandler) {
+
+        String url = String.format("%s/%s/%s?%s=%s",
+                APIConstants.DOMAIN, APIConstants.CATEGORY_API, APIConstants.GET_CUSTOM_CATEGORIES,
+                APIConstants.PRODUCT_lIST_SELLER_ID, sellerId);
+
+        Request request = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+
+//                gson = GsonUtility.createGsonBuilder(CategoryList.class, new Category.CategoryInstance()).create();
+                String jsonString = new Gson().toJson(apiResponse.getData());
+
+                Type listType = new TypeToken<ArrayList<CustomizedCategory>>() {
+                }.getType();
+
+                List<CustomizedCategory> obj = gson.fromJson(jsonString, listType);
+
+                responseHandler.onSuccess(requestCode, obj);
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+            }
+        });
+
+        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
+
+        return request;
+
+    }
+
 }
