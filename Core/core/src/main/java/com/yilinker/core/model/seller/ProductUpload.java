@@ -221,6 +221,10 @@ public class ProductUpload {
                 jsonProductProperty.put("sku",attributeCombinationUpload.getSku());
                 jsonProductProperty.put("images", attributeCombinationUpload.getImages());
                 jsonProductProperty.put("quantity",attributeCombinationUpload.getQuantity());
+                jsonProductProperty.put("unitLength", attributeCombinationUpload.getLength());
+                jsonProductProperty.put("unitWeight", attributeCombinationUpload.getWeight());
+                jsonProductProperty.put("unitHeight", attributeCombinationUpload.getHeight());
+                jsonProductProperty.put("unitWidth", attributeCombinationUpload.getWidth());
 
                 arrayProductProperties.put(jsonProductProperty);
             }

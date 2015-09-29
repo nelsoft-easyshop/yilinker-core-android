@@ -66,9 +66,9 @@ public class ProductUploadApi {
         params.put(APIConstants.PRODUCT_UPLOAD_PARAM_PRODUCT_PROPERTIES,productUpload.getProductProperties().toString());
 
 
-        JSONObject jsonObject = new JSONObject(params);
-        String stringJSON = jsonObject.toString();
-        System.out.print(stringJSON);
+//        JSONObject jsonObject = new JSONObject(params);
+//        String stringJSON = jsonObject.toString();
+//        System.out.print(stringJSON);
 
 //        StringBuilder stringBuilder = new StringBuilder();
 //
