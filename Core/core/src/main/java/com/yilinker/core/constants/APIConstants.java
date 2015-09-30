@@ -398,6 +398,7 @@ public class APIConstants {
     public static final String SELLER_TRANSACTION_CANCEL_PARAMS_TRANSACTION_ID = "transactionId";
     public static final String SELLER_TRANSACTION_CANCEL_PARAMS_REASON_ID = "reasonId";
     public static final String SELLER_TRANSACTION_CANCEL_PARAMS_REMARK = "remark";
+    public static final String SELLER_TRANSACTION_CANCEL_PARAMS_ORDER_PRODUCT_ID = "orderProductId";
 
     public static final String SELLER_TRANSACTION_PICKUP_API    = "pickup";
     public static final String SELLER_TRANSACTION_PICKUP_PARAMS_TRANSACTION_ID = "transactionId";
