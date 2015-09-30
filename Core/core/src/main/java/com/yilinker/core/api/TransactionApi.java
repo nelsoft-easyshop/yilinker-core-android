@@ -376,7 +376,7 @@ public class TransactionApi {
         return request;
     }
 
-    public static Request sendCancelOrder(final int requestCode , String accessToken, String reasonId, String transactionId, String remarks, final ResponseHandler responseHandler) {
+    public static Request sendCancelOrder(final int requestCode , String accessToken, String reasonId, String transactionId, String orderProductId, String remarks, final ResponseHandler responseHandler) {
 
         String url = String.format("%s/%s/%s/%s", APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.TRANSACTION_API, APIConstants.SELLER_TRANSACTION_CANCEL_API,
                 APIConstants.ACCESS_TOKEN, accessToken);
@@ -386,6 +386,7 @@ public class TransactionApi {
         params.put(APIConstants.SELLER_TRANSACTION_CANCEL_PARAMS_REASON_ID, reasonId);
         params.put(APIConstants.SELLER_TRANSACTION_CANCEL_PARAMS_TRANSACTION_ID, transactionId);
         params.put(APIConstants.SELLER_TRANSACTION_CANCEL_PARAMS_REMARK, remarks);
+        params.put(APIConstants.SELLER_TRANSACTION_DELIVERY_LOGS_PARAMS_ORDER_PRODUCT_ID, orderProductId);
 
 
         VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {

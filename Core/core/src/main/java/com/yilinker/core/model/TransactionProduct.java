@@ -34,6 +34,7 @@ public class TransactionProduct {
     private static final String KEY_PRODUCT_BRAND = "brand";
     private static final String KEY_PRODUCT_CONDITION = "condition";
     private static final String KEY_PRODUCT_CATEGORY_ID = "productCategoryId";
+    private static final String KEY_IS_CANCELLABLE = "isCancellable";
 
     @SerializedName(KEY_ORDER_PRODUCT_ID)
     private String orderProductId;
@@ -236,6 +237,7 @@ public class TransactionProduct {
     public void setOrderProductId(String orderProductId) {
         this.orderProductId = orderProductId;
     }
+
 
     public class Attributes {
 

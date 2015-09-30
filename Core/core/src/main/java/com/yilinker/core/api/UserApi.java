@@ -33,7 +33,7 @@ import java.util.Map;
  */
 public class UserApi {
 
-    public static Request register (final int requestCode, String firstName, String lastName, String email, String password, final ResponseHandler responseHandler){
+    public static Request register (final int requestCode, String firstName, String lastName, String email, String password, String contactNumber, final ResponseHandler responseHandler){
 
         String url = String.format("%s/%s/%s",
         APIConstants.DOMAIN, APIConstants.USER_API, APIConstants.REG_API);
@@ -44,6 +44,7 @@ public class UserApi {
         params.put(APIConstants.REG_PARAM_LAST_NAME, lastName);
         params.put(APIConstants.REG_PARAM_EMAIL, email);
         params.put(APIConstants.REG_PARAM_PASSWORD, password);
+        params.put(APIConstants.REG_PARAM_MOBILE, contactNumber);
 
         VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
 
