@@ -14,6 +14,7 @@ public class CategoryProducts implements Serializable {
     private String productName;
     private String image;
     private int status;
+    private String name;
 
     public CategoryProducts(){
 
@@ -51,6 +52,13 @@ public class CategoryProducts implements Serializable {
         this.status = status;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public static class CategoryProductsInstance implements InstanceCreator<CategoryProducts> {
         @Override
