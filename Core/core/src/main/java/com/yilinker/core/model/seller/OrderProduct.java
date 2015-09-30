@@ -34,6 +34,7 @@ public class OrderProduct {
     private static final String KEY_ATTRIBUTES = "attributes";
     private static final String KEY_DESCRIPTION = "description";
     private static final String KEY_SHORT_DESCRIPTION = "shortDescription";
+    private static final String KEY_PRODUCT_IMAGE = "productImage";
 
     @SerializedName(KEY_ORDER_PRODUCT_ID)
     private String orderProductId;
@@ -81,6 +82,8 @@ public class OrderProduct {
     private String fullDescription;
     @SerializedName(KEY_SHORT_DESCRIPTION)
     private String shortDescription;
+    @SerializedName(KEY_PRODUCT_IMAGE)
+    private String productImage;
 
     public String getOrderProductId() {
         return orderProductId;
@@ -276,6 +279,14 @@ public class OrderProduct {
 
     public void setAttributes(List<Attribute> attributes) {
         this.attributes = attributes;
+    }
+
+    public String getProductImage() {
+        return productImage;
+    }
+
+    public void setProductImage(String productImage) {
+        this.productImage = productImage;
     }
 
     public class Date {

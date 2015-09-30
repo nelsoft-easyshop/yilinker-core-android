@@ -60,7 +60,9 @@ public class ProductUploadApi {
         params.put(APIConstants.PRODUCT_UPLOAD_PARAM_CUSTOM_BRAND,productUpload.getCustomBrand());
         params.put(APIConstants.PRODUCT_UPLOAD_PARAM_QUANTITY,String.valueOf(productUpload.getQuantity()));
         params.put(APIConstants.PRODUCT_UPLOAD_PARAM_PRICE,String.valueOf(productUpload.getPrice()));
-        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_DISCOUNTED_PRICE,String.valueOf(productUpload.getDiscountedPrice()));
+        if (productUpload.getDiscountedPrice() > 0.00) {
+            params.put(APIConstants.PRODUCT_UPLOAD_PARAM_DISCOUNTED_PRICE, String.valueOf(productUpload.getDiscountedPrice()));
+        }
         params.put(APIConstants.PRODUCT_UPLOAD_PARAM_SKU,productUpload.getSku());
         params.put(APIConstants.PRODUCT_UPLOAD_PARAM_IMAGES, new Gson().toJson(productUpload.getImages()));
         params.put(APIConstants.PRODUCT_UPLOAD_PARAM_PRODUCT_PROPERTIES,productUpload.getProductProperties().toString());

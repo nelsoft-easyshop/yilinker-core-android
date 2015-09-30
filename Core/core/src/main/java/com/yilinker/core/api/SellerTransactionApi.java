@@ -310,19 +310,66 @@ public class SellerTransactionApi {
     }
 
 
+    public static Request cancelOrderProduct(final int requestCode, String accessToken, String transactionId,
+                                                   String reasonId, String remark, String orderProductId, final ResponseHandler responseHandler) {
+
+        String endpoint = String.format("%s/%s/%s/%s", APIConstants.DOMAIN, APIConstants.AUTH_API,
+                APIConstants.TRANSACTION_API, APIConstants.SELLER_TRANSACTION_CANCEL_API);
+
+        Map<String, String> params = new HashMap<>();
+        params.put(APIConstants.ACCESS_TOKEN, accessToken);
+        params.put(APIConstants.SELLER_TRANSACTION_CANCEL_PARAMS_TRANSACTION_ID, transactionId);
+        params.put(APIConstants.SELLER_TRANSACTION_CANCEL_PARAMS_REASON_ID, reasonId);
+        params.put(APIConstants.SELLER_TRANSACTION_CANCEL_PARAMS_REMARK, remark);
+        params.put(APIConstants.SELLER_TRANSACTION_CANCEL_PARAMS_ORDER_PRODUCT_ID, orderProductId);
+
+        Request request = new VolleyPostHelper(Request.Method.POST, endpoint, params, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+
+                if (apiResponse.isSuccessful()) {
+
+                    responseHandler.onSuccess(requestCode, apiResponse);
+
+                } else {
+
+                    responseHandler.onFailed(requestCode, apiResponse.getMessage());
+
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                sendErrorMessage(requestCode, error, responseHandler);
+
+            }
+        });
+
+
+        request.setRetryPolicy(policy);
+
+        return request;
+    }
+
+
     public static Request scheduleForPickup(final int requestCode, String accessToken, String transactionId,
                                             String pickupSchedule, String pickupRemark, final ResponseHandler responseHandler) {
 
-        String endpoint = String.format("%s/%s/%s/%s?%s=%s&%s=%s&%s=%s&%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API,
-                APIConstants.TRANSACTION_API, APIConstants.SELLER_TRANSACTION_PICKUP_API,
-                APIConstants.ACCESS_TOKEN, accessToken,
-                APIConstants.SELLER_TRANSACTION_PICKUP_PARAMS_TRANSACTION_ID, transactionId,
-                APIConstants.SELLER_TRANSACTION_PICKUP_PARAMS_PICKUP_SCHEDULE, pickupSchedule,
-                APIConstants.SELLER_TRANSACTION_PICKUP_PARAMS_PICKUP_REMARK, pickupRemark);
+        String endpoint = String.format("%s/%s/%s/%s", APIConstants.DOMAIN, APIConstants.AUTH_API,
+                APIConstants.TRANSACTION_API, APIConstants.SELLER_TRANSACTION_PICKUP_API);
 
-        endpoint = endpoint.replaceAll(" ", "%20");
+        Map<String, String> params = new HashMap<>();
+        params.put(APIConstants.ACCESS_TOKEN, accessToken);
+        params.put(APIConstants.SELLER_TRANSACTION_PICKUP_PARAMS_TRANSACTION_ID, transactionId);
+        params.put(APIConstants.SELLER_TRANSACTION_PICKUP_PARAMS_PICKUP_SCHEDULE, pickupSchedule);
+        params.put(APIConstants.SELLER_TRANSACTION_PICKUP_PARAMS_PICKUP_REMARK, pickupRemark);
 
-        Request request = new JsonObjectRequest(endpoint, new Response.Listener<JSONObject>() {
+        Request request = new VolleyPostHelper(Request.Method.POST, endpoint, params, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
 
