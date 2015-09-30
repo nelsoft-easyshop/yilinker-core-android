@@ -43,8 +43,8 @@ public class ResolutionCenterApi {
 
         String finalUrl = endpoint;
         if (!filter.equals("")){
-            finalUrl = String.format("%s%s",endpoint,filter);
-        }
+        finalUrl = String.format("%s%s",endpoint,filter);
+    }
 
         Request request = new JsonObjectRequest(finalUrl, new Response.Listener<JSONObject>() {
             @Override
@@ -105,7 +105,6 @@ public class ResolutionCenterApi {
         String url = String.format("%s/%s/%s/%s?%s=%s&%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API,
                 APIConstants.RESOLUTION_CENTER_DISPUTE,APIConstants.RESOLUTION_CENTER_GET_CASE_DETAILS,
                 APIConstants.ACCESS_TOKEN, accessToken,APIConstants.RESOLUTION_CENTER_DISPUTE_ID,disputeId);
-
 
         Request request = new JsonObjectRequest(url, new Response.Listener<JSONObject>() {
             @Override

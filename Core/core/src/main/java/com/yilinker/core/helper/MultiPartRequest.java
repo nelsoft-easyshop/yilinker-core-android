@@ -153,7 +153,8 @@ public class MultiPartRequest extends Request {
 
         MultipartEntityBuilder builder = MultipartEntityBuilder.create();
         for(String image:productUpload.getImages()) {
-            builder.addBinaryBody(KEY_PICTURE, new File(uploadDirectory,image),ContentType.create("image/*"),image);
+            builder.addBinaryBody(KEY_PICTURE, new File(image),ContentType.create("image/*"),image);
+//            builder.addBinaryBody(KEY_PICTURE, new File(uploadDirectory,image),ContentType.create("image/*"),image);
 //            builder.addPart(KEY_PICTURE, new FileBody(new File(uploadDirectory,image),ContentType.create("image/jpeg"),image));
         }
 
@@ -162,8 +163,8 @@ public class MultiPartRequest extends Request {
             for(AttributeCombinationUpload attributeCombinationUpload:productUpload.getAttributeCombinationUploadList()){
 
                 for(String image2:attributeCombinationUpload.getImages()){
-
-                    builder.addBinaryBody(KEY_PICTURE, new File(uploadDirectory,image2),ContentType.create("image/*"),image2);
+                    builder.addBinaryBody(KEY_PICTURE, new File(image2),ContentType.create("image/*"),image2);
+//                    builder.addBinaryBody(KEY_PICTURE, new File(uploadDirectory,image2),ContentType.create("image/*"),image2);
 //                    builder.addPart(KEY_PICTURE, new FileBody(new File(uploadDirectory,image2),ContentType.create("image/jpeg"),image2));
                 }
 

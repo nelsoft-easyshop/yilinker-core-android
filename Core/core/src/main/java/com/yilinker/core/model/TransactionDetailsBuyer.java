@@ -4,6 +4,7 @@ import com.google.gson.InstanceCreator;
 import com.google.gson.annotations.SerializedName;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -184,7 +185,7 @@ public class TransactionDetailsBuyer {
         @SerializedName(KEY_HAS_FEEDBACK)
         private boolean hasFeedback;
         @SerializedName(KEY_PRODUCTS)
-        private List<Products> products;
+        private List<Products> products = new ArrayList<>();
 
         public int getSellerId() {
             return sellerId;
@@ -240,6 +241,7 @@ public class TransactionDetailsBuyer {
         private static final String KEY_LAST_DATE_MODIFIED = "lastDateModified";
         private static final String KEY_ORDER_PRODUCT_STATUS = "orderProductStatus";
         private static final String KEY_PRODUCT_IMAGE = "productImage";
+        private static final String KEY_IS_CANCELLABLE = "isCancellable";
 
 
         @SerializedName(KEY_ORDER_PRODUCT_ID)
@@ -264,6 +266,8 @@ public class TransactionDetailsBuyer {
         private OrderProductStatus orderProductStatus;
         @SerializedName(KEY_PRODUCT_IMAGE)
         private String productImage;
+        @SerializedName(KEY_IS_CANCELLABLE)
+        private boolean isCancellable;
 
         public String getOrderProductId() {
             return orderProductId;
@@ -353,6 +357,13 @@ public class TransactionDetailsBuyer {
             this.productImage = productImage;
         }
 
+        public boolean isCancellable() {
+            return isCancellable;
+        }
+
+        public void setIsCancellable(boolean isCancellable) {
+            this.isCancellable = isCancellable;
+        }
     }
 
     public class OrderProductStatus {

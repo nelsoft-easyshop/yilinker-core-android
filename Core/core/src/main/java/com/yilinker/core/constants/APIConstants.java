@@ -295,6 +295,8 @@ public class APIConstants {
     public static final String STORE_API = "store";
     public static final String GET_SEARCH = "search";
     public static final String SEARCH_QUERY ="queryString";
+    public static final String PRODUCT_NAME_API = "name-suggestion";
+    public static final String PRODUCT_PARAMS_PRODUCT_NAME = "productName";
 
     //Checkout Buyer
     public static final String CHECKOUT_PAYMENT_API = "payment";
@@ -383,6 +385,7 @@ public class APIConstants {
     public static final String SELLER_TRANSACTION_LIST_PARAMS_PAYMENT_METHOD = "paymentMethod";
     public static final String SELLER_TRANSACTION_LIST_PARAMS_DATE_FROM = "dateFrom";
     public static final String SELLER_TRANSACTION_LIST_PARAMS_DATE_TO = "dateTo";
+    public static final String SELLER_TRANSACTION_LIST_PARAMS_ORDER_STATUS = "order_status_id";
 
 
     public static final String SELLER_TRANSACTION_API           = "getTransaction";
@@ -395,6 +398,7 @@ public class APIConstants {
     public static final String SELLER_TRANSACTION_CANCEL_PARAMS_TRANSACTION_ID = "transactionId";
     public static final String SELLER_TRANSACTION_CANCEL_PARAMS_REASON_ID = "reasonId";
     public static final String SELLER_TRANSACTION_CANCEL_PARAMS_REMARK = "remark";
+    public static final String SELLER_TRANSACTION_CANCEL_PARAMS_ORDER_PRODUCT_ID = "orderProductId";
 
     public static final String SELLER_TRANSACTION_PICKUP_API    = "pickup";
     public static final String SELLER_TRANSACTION_PICKUP_PARAMS_TRANSACTION_ID = "transactionId";

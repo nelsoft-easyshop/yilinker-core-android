@@ -17,7 +17,7 @@ public class AttributeCombinationUpload extends AttributeCombination {
 
     private List<String> combinationList, images;
     private int quantity;
-    private double retailPrice, discountedPrice;
+    private double retailPrice, discountedPrice, length, width, height, weight;
     private String sku;
 
 
@@ -71,6 +71,38 @@ public class AttributeCombinationUpload extends AttributeCombination {
 
     public void setSku(String sku) {
         this.sku = sku;
+    }
+
+    public double getLength() {
+        return length;
+    }
+
+    public void setLength(double length) {
+        this.length = length;
+    }
+
+    public double getWidth() {
+        return width;
+    }
+
+    public void setWidth(double width) {
+        this.width = width;
+    }
+
+    public double getHeight() {
+        return height;
+    }
+
+    public void setHeight(double height) {
+        this.height = height;
+    }
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
     }
 
     public static class AttributeCombinationUploadInstance implements InstanceCreator<AttributeCombinationUpload> {
