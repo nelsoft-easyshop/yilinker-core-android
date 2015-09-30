@@ -17,9 +17,19 @@ public class SubCategoryUpload implements Parcelable, Serializable {
     private String categoryName;
     private List<CategoryProducts> products;
     private int parentId;
+    /***for buyer app vendor page*/
+    private String name;
+
 
     public SubCategoryUpload(){
 
+    }
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getCategoryId() {
