@@ -19,6 +19,7 @@ public class UpdateUserInfo {
 
     private int productCount, transactionCount;
     private String totalSales;
+    private boolean isReseller;
 
     private Bank bankAccount;
     private Address address;
@@ -126,7 +127,13 @@ public class UpdateUserInfo {
     }
 
     public void setIsSmsSubscribed(boolean isSmsSubscribed) {
-        this.isSmsSubscribed = isSmsSubscribed;
+        this.isSmsSubscribed = isSmsSubscribed; }
+    public boolean isReseller() {
+        return isReseller;
+    }
+
+    public void setIsReseller(boolean isReseller) {
+        this.isReseller = isReseller;
     }
 
     public static class UpdateUserInfoInstance implements InstanceCreator<UpdateUserInfo> {

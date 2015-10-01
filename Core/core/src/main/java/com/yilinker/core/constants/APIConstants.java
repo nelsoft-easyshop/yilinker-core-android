@@ -283,6 +283,9 @@ public class APIConstants {
     //My Points
     public static final String GET_POINTS = "getPoints";
     public static final String GET_POINT_HISTORY = "getPointHistory";
+    public static final String GET_POINTS_PARAMS_PAGE = "page";
+    public static final String GET_POINTS_PARAMS_PER_PAGE = "perPage";
+
 
 
     /***Category*/
@@ -297,6 +300,10 @@ public class APIConstants {
     public static final String SEARCH_QUERY ="queryString";
     public static final String PRODUCT_NAME_API = "name-suggestion";
     public static final String PRODUCT_PARAMS_PRODUCT_NAME = "productName";
+    public static final String RIDER_NAME_API = "suggestPackageHandler";
+    public static final String SEARCH_PER_PAGE = "perPage";
+    public static final String SEARCH_PAGE = "page";
+    public static final String RIDER_NAME_PARAMS = "riderName";
 
     //Checkout Buyer
     public static final String CHECKOUT_PAYMENT_API = "payment";
