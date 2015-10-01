@@ -23,6 +23,8 @@ public class UpdateUserInfo {
     private Bank bankAccount;
     private Address address;
 
+    private boolean isEmailSubscribed, isSmsSubscribed;
+
     public Address getAddress() {
         return address;
     }
@@ -109,6 +111,22 @@ public class UpdateUserInfo {
 
     public void setTotalSales(String totalSales) {
         this.totalSales = totalSales;
+    }
+
+    public boolean isEmailSubscribed() {
+        return isEmailSubscribed;
+    }
+
+    public void setIsEmailSubscribed(boolean isEmailSubscribed) {
+        this.isEmailSubscribed = isEmailSubscribed;
+    }
+
+    public boolean isSmsSubscribed() {
+        return isSmsSubscribed;
+    }
+
+    public void setIsSmsSubscribed(boolean isSmsSubscribed) {
+        this.isSmsSubscribed = isSmsSubscribed;
     }
 
     public static class UpdateUserInfoInstance implements InstanceCreator<UpdateUserInfo> {
