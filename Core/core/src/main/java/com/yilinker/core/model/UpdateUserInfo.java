@@ -19,6 +19,7 @@ public class UpdateUserInfo {
 
     private int productCount, transactionCount;
     private String totalSales;
+    private boolean isReseller;
 
     private Bank bankAccount;
     private Address address;
@@ -109,6 +110,14 @@ public class UpdateUserInfo {
 
     public void setTotalSales(String totalSales) {
         this.totalSales = totalSales;
+    }
+
+    public boolean isReseller() {
+        return isReseller;
+    }
+
+    public void setIsReseller(boolean isReseller) {
+        this.isReseller = isReseller;
     }
 
     public static class UpdateUserInfoInstance implements InstanceCreator<UpdateUserInfo> {
