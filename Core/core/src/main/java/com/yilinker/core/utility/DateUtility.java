@@ -26,7 +26,7 @@ public class DateUtility {
 
         } catch (ParseException e) {
 
-            e.printStackTrace();
+            return null;
         }
 
         return date;

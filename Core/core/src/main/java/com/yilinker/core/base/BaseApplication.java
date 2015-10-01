@@ -107,6 +107,8 @@ public class BaseApplication extends Application{
 
         editor.putString(REFRESH_TOKEN, refreshToken);
 
+        editor.commit();
+
     }
 
     public String getRefreshToken() {

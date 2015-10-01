@@ -9,22 +9,41 @@ import java.lang.reflect.Type;
  */
 public class Location {
 
-    private String latitude;
-    private String longitude;
+//    private String latitude;
+//    private String longitude;
 
-    public String getLatitude() {
+    private double latitude;
+    private double longitude;
+
+//    public String getLatitude() {
+//        return latitude;
+//    }
+//
+//    public void setLatitude(String latitude) {
+//        this.latitude = latitude;
+//    }
+//
+//    public String getLongitude() {
+//        return longitude;
+//    }
+//
+//    public void setLongitude(String longitude) {
+//        this.longitude = longitude;
+//    }
+
+    public double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(String latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
-    public String getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(String longitude) {
+    public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 

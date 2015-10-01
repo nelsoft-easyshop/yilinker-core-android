@@ -15,7 +15,7 @@ public class JobOrder {
     private String jobOrderStatus;
     private String recipientName;
     private String recipientContactNo;
-    private List<String> items;
+//    private List<String> items;
     private String packageSize;
     private String pickupAddr;
     private String dropoffAddr;
@@ -28,6 +28,8 @@ public class JobOrder {
     private int rating;
     private String branchName;
     private Location location;
+    private ProblemDetail problemDetails;
+    private String packageDescription;
 
 
     public String getJobOrderNo() {
@@ -70,13 +72,13 @@ public class JobOrder {
         this.recipientContactNo = recipientContactNo;
     }
 
-    public List<String> getItems() {
-        return items;
-    }
-
-    public void setItems(List<String> items) {
-        this.items = items;
-    }
+//    public List<String> getItems() {
+//        return items;
+//    }
+//
+//    public void setItems(List<String> items) {
+//        this.items = items;
+//    }
 
     public String getPackageSize() {
         return packageSize;
@@ -172,6 +174,22 @@ public class JobOrder {
 
     public void setLocation(Location location) {
         this.location = location;
+    }
+
+    public ProblemDetail getProblemDetails() {
+        return problemDetails;
+    }
+
+    public void setProblemDetails(ProblemDetail problemDetails) {
+        this.problemDetails = problemDetails;
+    }
+
+    public String getPackageDescription() {
+        return packageDescription;
+    }
+
+    public void setPackageDescription(String packageDescription) {
+        this.packageDescription = packageDescription;
     }
 
     public static class JobOrderInstance implements InstanceCreator<JobOrder> {
