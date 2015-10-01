@@ -326,16 +326,64 @@ public class APIConstants {
 //    public static final String ADDRESS_SET_ADDRESS = "setAddress";
 
 
-    //For Rider
+    //////////////////////For Rider/////////////////////////////////////////////////////
     public static final String RIDER_GET_TOKEN = "token";
     public static final String RIDER_API = "riders";
+
     public static final String RIDER_GET_INFO = "get-rider-info";
     public static final String RIDER_GET_INFO_PARAM_TOKEN = "access_token";
 
+    public static final String RIDER_ACCEPT_JOB_ORDER = "accept-job-order";
+    public static final String RIDER_ACCEPT_JOB_ORDER_PARAM_TOKEN = "access_token";
+    public static final String RIDER_ACCEPT_JOB_ORDER_PARAM_JONUMBER = "jobOrderNo";
 
     public static final String RIDER_GET_JOB_ORDERS = "get-job-orders";
     public static final String RIDER_GET_JOB_ORDERS_PARAM_TOKEN = "access_token";
     public static final String RIDER_GET_JOB_ORDERS_PARAM_STATUS = "status";
+
+    public static final String RIDER_GET_CASHDETAILS = "get-cash-details";
+    public static final String RIDER_GET_CASHDETAILS_PARAM_TOKEN = "access_token";
+
+    public static final String RIDER_UPDATE_STATUS = "update-job-order-status";
+    public static final String RIDER_UPDATE_STATUS_PARAM_TOKEN = "access_token";
+    public static final String RIDER_UPDATE_STATUS_PARAM_JONUMBER = "jobOrderNo";
+    public static final String RIDER_UPDATE_STATUS_PARAM_STATUS = "status";
+
+    public static final String RIDER_UPLOAD_SIGNATURE = "upload-signature";
+    public static final String RIDER_UPLOAD_SIGNATURE_PARAM_TOKEN = "access_token";
+    public static final String RIDER_UPLOAD_SIGNATURE__PARAM_JONUMBER = "jobOrderNo";
+    public static final String RIDER_UPLOAD_SIGNATURE_PARAM_IMAGE = "image";
+
+    public static final String RIDER_ADD_RATING = "submit-job-order-rating";
+    public static final String RIDER_ADD_RATING_PARAM_ACCESS_TOKEN = "access_token";
+    public static final String RIDER_ADD_RATING_PARAM_JONUMBER = "jobOrderNo";
+    public static final String RIDER_ADD_RATING_PARAM_RATING = "rating";
+
+    public static final String RIDER_GET_JODETAILS = "get-job-order-details";
+    public static final String RIDER_GET_JODETAILS_PARAM_TOKEN = "access_token";
+    public static final String RIDER_GET_JODETAILS_PARAM_JONUMBER = "jobOrderNo";
+
+    public static final String RIDER_GET_WAREHOUSES = "get-warehouse";
+    public static final String RIDER_GET_WAREHOUSES_PARAM_TOKEN = "access_token";
+
+    public static final String RIDER_REPORT_PROBLEMATIC = "submit-problematic-job-order";
+    public static final String RIDER_REPORT_PROBLEMATIC_PARAM_TOKEN = "access_token";
+    public static final String RIDER_REPORT_PROBLEMATIC_PARAM_TYPE = "problemType";
+    public static final String RIDER_REPORT_PROBLEMATIC_PARAM_JONUMBER = "jobOrderNo";
+    public static final String RIDER_REPORT_PROBLEMATIC_PARAM_NOTES = "notes";
+    public static final String RIDER_REPORT_PROBLEMATIC_PARAM_IMAGE = "images";
+
+    public static final String RIDER_LOGOUT = "confirm-rider-logout";
+    public static final String RIDER_LOGOUT_PARAM_TOKEN = "access_token";
+    public static final String RIDER_LOGOUT_PARAM_USERNAME = "username";
+    public static final String RIDER_LOGOUT_PARAM_PASSWORD = "password";
+
+    public static final String RIDER_UPLOAD_IMAGES = "upload-delivery-images";
+    public static final String RIDER_UPLOAD_IMAGES_ACCESS_TOKEN = "access_token";
+    public static final String RIDER_UPLOAD_IMAGES_WAYBILLNO = "waybillNo";
+    public static final String RIDER_UPLOAD_IMAGES_IMAGES = "images";
+
+    ////////////////////////////////////////////////////////////////////////////////
 
     public static final String ADDRESS_ADD_ADDRESS = "addNewAddress";
     public static final String ADDRESS_SET_ADDRESS = "setDefaultAddress";

@@ -10,6 +10,7 @@ public class OAuthentication {
     private String grantType;
     private String clientId;
     private String clientSecret;
+    private String refreshToken;
 
     public String getUsername() {
         return username;
@@ -49,5 +50,13 @@ public class OAuthentication {
 
     public void setClientSecret(String clientSecret) {
         this.clientSecret = clientSecret;
+    }
+
+    public String getRefreshToken() {
+        return refreshToken;
+    }
+
+    public void setRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
     }
 }
