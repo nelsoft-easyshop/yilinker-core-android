@@ -209,11 +209,67 @@ public class SearchApi {
 
     }
 
-    public static Request getTransactionList(final int requestCode, String accessToken, String productName, final ResponseHandler responseHandler) {
+    public static Request searchRiderNameSuggestion(final int requestCode, String token,
+                                                    String query, int perPage, int pageNo, final ResponseHandler responseHandler) {
 
-        String endpoint = String.format("%s/%s/%s?%s=%s&%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.SELLER_TRANSACTION_LIST_API,
-                APIConstants.ACCESS_TOKEN, accessToken, APIConstants.PRODUCT_PARAMS_PRODUCT_NAME, productName);
+        String url = String.format("%s/%s/%s?%s=%s&%s=%s",
+                APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.RIDER_NAME_API,
+                APIConstants.ACCESS_TOKEN, token,
+                APIConstants.SEARCH_QUERY, query,
+                APIConstants.SEARCH_PER_PAGE, perPage,
+                APIConstants.SEARCH_PAGE, pageNo);
 
+        Request requestGetCart = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+
+                if(apiResponse.isSuccessful()) {
+                    responseHandler.onSuccess(requestCode, apiResponse);
+                }else{
+                    responseHandler.onFailed(requestCode, apiResponse.getMessage());
+                }
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                String message = "An error occured.";
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                    message = "No connection available.";
+                } else if (error instanceof AuthFailureError) {
+                    message = "Authentication Failure.";
+                } else if (error instanceof ServerError) {
+                    message = "Server error.";
+                } else if (error instanceof NetworkError) {
+                    message = "Network Error.";
+                } else if (error instanceof ParseError) {
+                    message = "Parse error.";
+                }
+                responseHandler.onFailed(requestCode, message);
+            }
+        });
+
+        requestGetCart.setRetryPolicy(SocketTimeout.getRetryPolicy());
+
+        return requestGetCart;
+
+    }
+
+    public static Request getTransactionList(final int requestCode, String accessToken, String productName, String riderName, final ResponseHandler responseHandler) {
+
+        String endpoint =  "";
+        if(riderName.isEmpty()) {
+             endpoint = String.format("%s/%s/%s?%s=%s&%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.SELLER_TRANSACTION_LIST_API,
+                    APIConstants.ACCESS_TOKEN, accessToken, APIConstants.PRODUCT_PARAMS_PRODUCT_NAME, productName);
+        }else if(productName.isEmpty()){
+            endpoint = String.format("%s/%s/%s?%s=%s&%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.SELLER_TRANSACTION_LIST_API,
+                    APIConstants.ACCESS_TOKEN, accessToken, APIConstants.RIDER_NAME_PARAMS, riderName);
+        }
+        endpoint = endpoint.replace(" ", "%20");
         Request request = new JsonObjectRequest(endpoint, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {

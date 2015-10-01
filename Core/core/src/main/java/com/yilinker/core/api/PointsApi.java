@@ -64,13 +64,15 @@ public class PointsApi {
         return request;
     }
 
-    public static Request getPointsHistory(final int requestCode, String token, final ResponseHandler responseHandler) {
+    public static Request getPointsHistory(final int requestCode, String token, int pageNo, int perPage, final ResponseHandler responseHandler) {
 
         String url = String.format("%s/%s/%s/%s", APIConstants.DOMAIN,
                 APIConstants.AUTH_API, APIConstants.USER_API, APIConstants.GET_POINT_HISTORY);
 
         Map<String, String> params = new HashMap<String,String>();
         params.put(APIConstants.ACCESS_TOKEN, token);
+        params.put(APIConstants.GET_POINTS_PARAMS_PAGE, String.valueOf(pageNo));
+        params.put(APIConstants.GET_POINTS_PARAMS_PER_PAGE, String.valueOf(perPage));
 
         VolleyPostHelper request =  new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
 
