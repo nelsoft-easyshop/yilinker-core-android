@@ -166,7 +166,7 @@ public class SearchApi {
                 APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.PRODUCT_MANAGEMENT_API, APIConstants.PRODUCT_NAME_API,
                 APIConstants.ACCESS_TOKEN, token,
                 APIConstants.SEARCH_QUERY, query);
-
+        url = url.replace(" ", "%20");
         Request requestGetCart = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -218,7 +218,7 @@ public class SearchApi {
                 APIConstants.SEARCH_QUERY, query,
                 APIConstants.SEARCH_PER_PAGE, perPage,
                 APIConstants.SEARCH_PAGE, pageNo);
-
+        url = url.replace(" ", "%20");
         Request requestGetCart = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
