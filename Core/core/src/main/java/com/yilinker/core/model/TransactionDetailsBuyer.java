@@ -14,7 +14,7 @@ public class TransactionDetailsBuyer {
 
     private static final String KEY_TRANSACTION_INVOICE = "transactionInvoice";
     private static final String KEY_TRANSACTION_SHIPPING_FEE = "transactionShippingFee";
-    private static final String KEY_TRANSACTION_DATE = " transactionDate";
+    private static final String KEY_TRANSACTION_DATE = "transactionDate";
     private static final String KEY_TRANSACTION_PRICE = "transactionPrice";
     private static final String KEY_TRANSACTION_QUANTITY = "transactionQuantity";
     private static final String KEY_TRANSACTION_STATUS = "transactionStatus";
