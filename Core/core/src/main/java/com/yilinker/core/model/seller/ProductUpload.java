@@ -35,12 +35,20 @@ public class ProductUpload {
     private static final String KEY_QUANTITY = "quantity";
     private static final String KEY_SKU = "sku";
 
-    private int sellerId, quantity, brandId, categoryId, conditionId;
+    private int productId, sellerId, quantity, brandId, categoryId, conditionId;
     private List<String> images;
     private String title, shortDescription, fullDescription, customBrand, sku;
     private double price, discountedPrice,length, weight, height, width;
     private List<ProductGroupAttribute> productGroupAttributeList;
     private List<AttributeCombinationUpload> attributeCombinationUploadList;
+
+    public int getProductId() {
+        return productId;
+    }
+
+    public void setProductId(int productId) {
+        this.productId = productId;
+    }
 
     public List<AttributeCombinationUpload> getAttributeCombinationUploadList() {
         return attributeCombinationUploadList;
@@ -217,9 +225,7 @@ public class ProductUpload {
 
                 jsonProductProperty.put("attribute", arrayAttributes);
                 jsonProductProperty.put("price", attributeCombinationUpload.getRetailPrice());
-                if (attributeCombinationUpload.getDiscountedPrice() > 0.00) {
-                    jsonProductProperty.put("discountedPrice", attributeCombinationUpload.getDiscountedPrice());
-                }
+                jsonProductProperty.put("discountedPrice", attributeCombinationUpload.getDiscountedPrice());
                 jsonProductProperty.put("sku",attributeCombinationUpload.getSku());
                 jsonProductProperty.put("images", attributeCombinationUpload.getImages());
                 jsonProductProperty.put("quantity",attributeCombinationUpload.getQuantity());

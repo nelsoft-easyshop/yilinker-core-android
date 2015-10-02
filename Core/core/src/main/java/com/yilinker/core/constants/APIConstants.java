@@ -182,6 +182,17 @@ public class APIConstants {
     public static final String PRODUCT_UPLOAD_GET_CATEGORIES_PARAM_PARENT_ID = "parentId";
     public static final String PRODUCT_UPLOAD_GET_CONDITIONS = "getProductConditions";
 
+    //Get Product Edit Details
+    public static final String PRODUCT_EDIT_DETAILS_API = "upload-details";
+    public static final String PRODUCT_EDIT_DETAILS_PARAMS_PRODUCT_ID = "productId";
+
+    //Edit Product
+    public static final String PRODUCT_EDIT_API = "edit";
+    public static final String PRODUCT_EDIT_PARAMS_PRODUCT_ID = "productId";
+
+    //Draft Product
+    public static final String PRODUCT_DRAFT_API = "draft";
+
     //API Credentials
     public static final String API_CLIENT_ID = "1_167rxzqvid8g8swggwokcoswococscocc8ck44wo0g88owgkcc";
     public static final String API_CLIENT_SECRET = "317eq8nohry84ooc0o8woo8000c0k844c4cggws84g80scwwog";
