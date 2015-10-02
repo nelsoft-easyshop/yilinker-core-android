@@ -24,6 +24,8 @@ public class UpdateUserInfo {
     private Bank bankAccount;
     private Address address;
 
+    private boolean isEmailSubscribed, isSmsSubscribed;
+
     public Address getAddress() {
         return address;
     }
@@ -112,6 +114,20 @@ public class UpdateUserInfo {
         this.totalSales = totalSales;
     }
 
+    public boolean isEmailSubscribed() {
+        return isEmailSubscribed;
+    }
+
+    public void setIsEmailSubscribed(boolean isEmailSubscribed) {
+        this.isEmailSubscribed = isEmailSubscribed;
+    }
+
+    public boolean isSmsSubscribed() {
+        return isSmsSubscribed;
+    }
+
+    public void setIsSmsSubscribed(boolean isSmsSubscribed) {
+        this.isSmsSubscribed = isSmsSubscribed; }
     public boolean isReseller() {
         return isReseller;
     }

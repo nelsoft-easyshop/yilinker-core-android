@@ -88,11 +88,11 @@ public class SettingsApi {
     public static Request setSMSNotifications (final int requestCode, String token, boolean isSubscribe,
                                                 final ResponseHandler responseHandler){
 
-        String url = String.format("%s/%s/%s/%s",
-                APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.SMS_API, APIConstants.SETTINGS_API);
+        String url = String.format("%s/%s/%s/%s?%s=%s",
+                APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.SMS_API, APIConstants.SETTINGS_API,
+                APIConstants.ACCESS_TOKEN, token);
 
         Map<String, String> params = new HashMap<String, String>();
-        params.put(APIConstants.ACCESS_TOKEN, token);
         params.put(APIConstants.SETTINGS_PARAMS_SUBSCRIBE, String.valueOf(isSubscribe));
 
 
@@ -134,10 +134,15 @@ public class SettingsApi {
 
     public static Request deactivateAccount(final int requestCode, String accessToken, String password, final ResponseHandler responseHandler) {
 
-        String endpoint = String.format("%s/%s/%s/%s?%s=%s&%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.ACCOUNT_API,
-               APIConstants.DISABLE_USER, APIConstants.ACCESS_TOKEN, accessToken, APIConstants.LOGIN_PARAM_PASSWORD, password);
+        String url = String.format("%s/%s/%s/%s", APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.ACCOUNT_API,
+               APIConstants.DISABLE_USER);
 
-        Request request = new JsonObjectRequest(endpoint, new Response.Listener<JSONObject>() {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put(APIConstants.ACCESS_TOKEN, accessToken);
+        params.put(APIConstants.LOGIN_PARAM_PASSWORD, password);
+
+        VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
+
             @Override
             public void onResponse(JSONObject response) {
                 Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
