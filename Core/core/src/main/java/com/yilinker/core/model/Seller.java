@@ -2,6 +2,7 @@ package com.yilinker.core.model;
 
 import com.google.gson.InstanceCreator;
 import com.google.gson.annotations.SerializedName;
+import com.yilinker.core.model.buyer.Product;
 
 import java.lang.reflect.Type;
 import java.util.List;
@@ -20,7 +21,7 @@ public class Seller {
     private static final String KEY_DESCRIPTION = "description";
     private static final String KEY_CONTACT_NO = "contactNo";
 
-    private String specialty;/***missing*/
+//    private String specialty;
     private String contactNumber;/***images*/
     private Address storeAddress;
     @SerializedName(KEY_ID)
@@ -32,13 +33,42 @@ public class Seller {
     private String storeDescription;
     private String fullName;
     private String gender;
+    /***for seller list*/
+    private String description;
+    private String image;
+    private List<Product> products;
 
-    public String getSpecialty() {
-        return specialty;
+//    public String getSpecialty() {
+//        return specialty;
+//    }
+//
+//    public void setSpecialty(String specialty) {
+//        this.specialty = specialty;
+//    }
+
+
+    public List<Product> getProducts() {
+        return products;
     }
 
-    public void setSpecialty(String specialty) {
-        this.specialty = specialty;
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getContactNo() {

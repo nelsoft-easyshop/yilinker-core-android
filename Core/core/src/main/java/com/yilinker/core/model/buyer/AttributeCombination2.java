@@ -20,6 +20,17 @@ public class AttributeCombination2 {
     private String discountedPrice;
     private double discount;
 
+    private String primaryImage;
+
+    public String getPrimaryImage() {
+        return primaryImage;
+    }
+
+    public void setPrimaryImage(String primaryImage) {
+        this.primaryImage = primaryImage;
+    }
+
+
     public String getProductUnitId() {
         return productUnitId;
     }
