@@ -121,24 +121,24 @@ public class ProfileApi {
 //        params.put(APIConstants.PROFILE_OLD_PASSWORD, oldPassword);
 //        params.put(APIConstants.PROFILE_NEW_PASSWORD, newPassword);
 //        params.put(APIConstants.PROFILE_NEW_PASSWORD_CONFIRMED, newPasswordConfirm);
-        if (userAddressId != null)
-            params.put(APIConstants.PROFILE_USER_ADDRESS_ID, userAddressId);
-        if (locationId != null)
-            params.put(APIConstants.PROFILE_LOCATION_ID, locationId);
-        if (title != null)
-            params.put(APIConstants.PROFILE_TITLE, title);
-        if (unitNumber != null)
-            params.put(APIConstants.PROFILE_UNIT_NUMBER, unitNumber);
-        if (buildingName != null)
-            params.put(APIConstants.PROFILE_BUILDING_NAME, buildingName);
-        if (streetNumber != null)
-            params.put(APIConstants.PROFILE_STREET_NUMBER, streetNumber);
-        if (streetName != null)
-            params.put(APIConstants.PROFILE_STREET_NAME, streetName);
-        if (subdivision != null)
-            params.put(APIConstants.PROFILE_SUBDIVISION, subdivision);
-        if (zipCode != null)
-            params.put(APIConstants.PROFILE_ZIP_CODE, zipCode);
+//        if (userAddressId != null)
+//            params.put(APIConstants.PROFILE_USER_ADDRESS_ID, userAddressId);
+//        if (locationId != null)
+//            params.put(APIConstants.PROFILE_LOCATION_ID, locationId);
+//        if (title != null)
+//            params.put(APIConstants.PROFILE_TITLE, title);
+//        if (unitNumber != null)
+//            params.put(APIConstants.PROFILE_UNIT_NUMBER, unitNumber);
+//        if (buildingName != null)
+//            params.put(APIConstants.PROFILE_BUILDING_NAME, buildingName);
+//        if (streetNumber != null)
+//            params.put(APIConstants.PROFILE_STREET_NUMBER, streetNumber);
+//        if (streetName != null)
+//            params.put(APIConstants.PROFILE_STREET_NAME, streetName);
+//        if (subdivision != null)
+//            params.put(APIConstants.PROFILE_SUBDIVISION, subdivision);
+//        if (zipCode != null)
+//            params.put(APIConstants.PROFILE_ZIP_CODE, zipCode);
 //        params.put(APIConstants.PROFILE_STREET_ADDRESS, streetAddress);
 //        params.put(APIConstants.PROFILE_LONGITUDE, longitude);
 //        params.put(APIConstants.PROFILE_LATITUDE, latitude);
