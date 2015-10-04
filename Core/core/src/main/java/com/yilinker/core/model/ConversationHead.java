@@ -93,6 +93,9 @@ public class ConversationHead
 
     public String getLastMessage()
     {
+        if(lastMessage.contains("http://"))
+            return "You sent/received a photo.";
+
         return lastMessage;
     }
 
