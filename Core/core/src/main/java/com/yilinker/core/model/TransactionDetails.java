@@ -15,6 +15,7 @@ public class TransactionDetails {
     private static final String KEY_TRANSACTION_SHIPPING_FEE = "transactionShippingFee";
     private static final String KEY_TRANSACTION_DATE = "transactionDate";
     private static final String KEY_TRANSACTION_PRICE = "transactionPrice";
+    private static final String KEY_TRANSACTION_UNIT_PRICE = "transactionUnitPrice";
     private static final String KEY_TRANSACTION_QUANTITY = "transactionQuantity";
     private static final String KEY_TRANSACTION_STATUS = "transactionStatus";
     private static final String KEY_TRANSACTION_PAYMENT = "transactionPayment";
@@ -29,6 +30,8 @@ public class TransactionDetails {
     private DateAdded transactionDate;
     @SerializedName(KEY_TRANSACTION_PRICE)
     private String transactionPrice;
+    @SerializedName(KEY_TRANSACTION_UNIT_PRICE)
+    private String transactionUnitPrice;
     @SerializedName(KEY_TRANSACTION_QUANTITY)
     private int transactionQuantity;
     @SerializedName(KEY_TRANSACTION_STATUS)
@@ -102,6 +105,14 @@ public class TransactionDetails {
 
     public void setTransactionItems(List<TransactionItem> transactionItems) {
         this.transactionItems = transactionItems;
+    }
+
+    public String getTransactionUnitPrice() {
+        return transactionUnitPrice;
+    }
+
+    public void setTransactionUnitPrice(String transactionUnitPrice) {
+        this.transactionUnitPrice = transactionUnitPrice;
     }
 
     //    public List<TransactionOrderProducts> getOrderProductList() {
@@ -198,7 +209,9 @@ public class TransactionDetails {
         private boolean hasFeedback;
 
         @SerializedName(KEY_PRODUCTS)
-        List<TransactionOrderProducts> products;
+        private List<TransactionOrderProducts> products;
+
+
 
         public int getSellerId() {
             return sellerId;
@@ -239,6 +252,8 @@ public class TransactionDetails {
         public void setProducts(List<TransactionOrderProducts> products) {
             this.products = products;
         }
+
+
     }
 
     public class TransactionOrderProducts {
@@ -253,7 +268,8 @@ public class TransactionDetails {
         private static final String KEY_DATE_ADDED = "dateAdded";
         private static final String KEY_LAST_DATE_MODIFIED = "lastDateModified";
         private static final String KEY_ORDER_PRODUCT_STATUS = "orderProductStatus";
-
+        private static final String KEY_CANCELLABLE = "isCancellable";
+        private static final String KEY_SHIPPABLE = "isShippable";
 
         @SerializedName(KEY_ORDER_PRODUCT_ID)
         private String orderProductId;
@@ -275,6 +291,10 @@ public class TransactionDetails {
         private DateAdded lastDateModified;
         @SerializedName(KEY_ORDER_PRODUCT_STATUS)
         private OrderProductStatus orderProductStatus;
+        @SerializedName(KEY_CANCELLABLE)
+        private boolean isCancellable;
+        @SerializedName(KEY_SHIPPABLE)
+        private boolean isShippable;
 
         public String getOrderProductId() {
             return orderProductId;
@@ -355,6 +375,23 @@ public class TransactionDetails {
         public void setOrderProductStatus(OrderProductStatus orderProductStatus) {
             this.orderProductStatus = orderProductStatus;
         }
+
+        public boolean isCancellable() {
+            return isCancellable;
+        }
+
+        public void setIsCancellable(boolean isCancellable) {
+            this.isCancellable = isCancellable;
+        }
+
+        public boolean isShippable() {
+            return isShippable;
+        }
+
+        public void setIsShippable(boolean isShippable) {
+            this.isShippable = isShippable;
+        }
+
     }
 
     public class OrderProductStatus {
