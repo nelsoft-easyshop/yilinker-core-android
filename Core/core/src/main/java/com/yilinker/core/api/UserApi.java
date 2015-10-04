@@ -112,6 +112,47 @@ public class UserApi {
         return request;
     }
 
+    public static Request loginFacebook (final int requestCode, String grantType, String token, final ResponseHandler responseHandler){
+
+        String url = String.format("%s/%s",
+                APIConstants.DOMAIN,
+                APIConstants.LOGIN_API);
+
+        Map<String,String> params = new HashMap<String,String>();
+        params.put(APIConstants.LOGIN_PARAM_CLIENT_ID, APIConstants.API_CLIENT_ID);
+        params.put(APIConstants.LOGIN_PARAM_CLIENT_SECRET, APIConstants.API_CLIENT_SECRET);
+        params.put(APIConstants.LOGIN_PARAM_GRANT_TYPE, grantType);
+        params.put(APIConstants.TOKEN_API, token);
+
+        VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+                Gson gson = GsonUtility.createGsonBuilder(Login.class, new Login.LoginInstance()).create();
+                Login obj = gson.fromJson(response.toString(), Login.class);
+
+                responseHandler.onSuccess(requestCode, obj);
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                    responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+                } else if (error instanceof ServerError) {
+                    responseHandler.onFailed(requestCode, "Wrong Email or Password");
+                } else {
+                    responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+                }
+            }
+        });
+
+        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
+
+        return request;
+    }
+
     public static Request refreshToken(final int requestCode, String refreshToken, final ResponseHandler responseHandler){
 
         String url = String.format("%s/%s", APIConstants.DOMAIN, APIConstants.LOGIN_API);
