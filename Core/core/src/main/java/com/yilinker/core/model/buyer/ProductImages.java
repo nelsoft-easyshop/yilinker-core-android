@@ -11,6 +11,7 @@ public class ProductImages {
 
     private int id;
     private String imageLocation;
+    private String fullImageLocation;
     private boolean isPrimary;
     private boolean isDeleted;
 
@@ -28,6 +29,14 @@ public class ProductImages {
 
     public void setImageLocation(String imageLocation) {
         this.imageLocation = imageLocation;
+    }
+
+    public String getFullImageLocation() {
+        return fullImageLocation;
+    }
+
+    public void setFullImageLocation(String fullImageLocation) {
+        this.fullImageLocation = fullImageLocation;
     }
 
     public boolean isPrimary() {
