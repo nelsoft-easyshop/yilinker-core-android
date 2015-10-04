@@ -148,6 +148,7 @@ public class APIConstants {
     //For Login API
     public static final String TOKEN_API = "token";
     public static final String LOGIN_API = "login";
+    public static final String LOGIN_FACEBOOK_API = "facebook";
     public static final String LOGIN_PARAM_CLIENT_ID = "client_id";
     public static final String LOGIN_PARAM_CLIENT_SECRET = "client_secret";
     public static final String LOGIN_PARAM_GRANT_TYPE = "grant_type";

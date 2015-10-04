@@ -160,14 +160,16 @@ public class TransactionApi {
 
     }
 
-    public static Request getTransactionList(final int requestCode, String accessToken, String type, String orderStatusId, final ResponseHandler responseHandler) {
+    public static Request getTransactionList(final int requestCode, String accessToken, String type, String orderStatusId, String page, String perItem, final ResponseHandler responseHandler) {
         String endpoint;
         if(orderStatusId.isEmpty()) {
-            endpoint = String.format("%s/%s/%s?%s=%s&%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.SELLER_TRANSACTION_LIST_API,
-                    APIConstants.ACCESS_TOKEN, accessToken, APIConstants.SELLER_TRANSACTION_LIST_PARAMS_TYPE, type);
+            endpoint = String.format("%s/%s/%s?%s=%s&%s=%s&%s=%s&%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.SELLER_TRANSACTION_LIST_API,
+                    APIConstants.ACCESS_TOKEN, accessToken, APIConstants.SELLER_TRANSACTION_LIST_PARAMS_TYPE, type,
+                    APIConstants.SELLER_TRANSACTION_LIST_PARAMS_PAGE, page, APIConstants.SELLER_TRANSACTION_LIST_PARAMS_PER_PAGE, perItem);
         }else{
-            endpoint = String.format("%s/%s/%s?%s=%s&%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.SELLER_TRANSACTION_LIST_API,
-                    APIConstants.ACCESS_TOKEN, accessToken, APIConstants.SELLER_TRANSACTION_LIST_PARAMS_ORDER_STATUS, orderStatusId);
+            endpoint = String.format("%s/%s/%s?%s=%s&%s=%s&%s=%s&%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.SELLER_TRANSACTION_LIST_API,
+                    APIConstants.ACCESS_TOKEN, accessToken, APIConstants.SELLER_TRANSACTION_LIST_PARAMS_ORDER_STATUS, orderStatusId,
+                    APIConstants.SELLER_TRANSACTION_LIST_PARAMS_PAGE, page, APIConstants.SELLER_TRANSACTION_LIST_PARAMS_PER_PAGE, perItem);
         }
         Request request = new JsonObjectRequest(endpoint, new Response.Listener<JSONObject>() {
             @Override
