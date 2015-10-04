@@ -38,7 +38,34 @@ public class Product {
 //    private double originalPrice;
 //    private double newPrice;
 //    private double discount;
+    /***for seller list*/
+    private String name;
+    private String productId;
+    private String imageUrl;
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getProductId() {
+        return productId;
+    }
+
+    public void setProductId(String productId) {
+        this.productId = productId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public List<ProductImages> getImages() {
         return images;

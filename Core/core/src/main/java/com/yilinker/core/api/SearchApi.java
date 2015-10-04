@@ -16,6 +16,7 @@ import com.yilinker.core.constants.APIConstants;
 import com.yilinker.core.interfaces.ResponseHandler;
 import com.yilinker.core.model.APIResponse;
 import com.yilinker.core.model.Search;
+import com.yilinker.core.model.Seller;
 import com.yilinker.core.model.TransactionList;
 import com.yilinker.core.model.seller.CategoryProducts;
 import com.yilinker.core.model.seller.SearchTransaction;
@@ -81,20 +82,20 @@ public class SearchApi {
                 APIConstants.DOMAIN, APIConstants.STORE_API, APIConstants.GET_SEARCH,
                 APIConstants.SEARCH_QUERY, keyword);
 
-        Request requestGetSearch = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
+        Request requestGetStoreList = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
 
                 Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
                 APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
 
-                gson = GsonUtility.createGsonBuilder(Search.class, new Search.SearchInstance()).create();
+                gson = GsonUtility.createGsonBuilder(Seller.class, new Seller.SellerInstance()).create();
                 String jsonString = new Gson().toJson(apiResponse.getData());
 
-                Type listType = new TypeToken<ArrayList<Search>>() {
+                Type listType = new TypeToken<ArrayList<Seller>>() {
                 }.getType();
 
-                List<Search> obj = gson.fromJson(jsonString, listType);
+                List<Seller> obj = gson.fromJson(jsonString, listType);
 
                 responseHandler.onSuccess(requestCode, obj);
 
@@ -107,9 +108,9 @@ public class SearchApi {
             }
         });
 
-        requestGetSearch.setRetryPolicy(SocketTimeout.getRetryPolicy());
+        requestGetStoreList.setRetryPolicy(SocketTimeout.getRetryPolicy());
 
-        return requestGetSearch;
+        return requestGetStoreList;
 
     }
 
