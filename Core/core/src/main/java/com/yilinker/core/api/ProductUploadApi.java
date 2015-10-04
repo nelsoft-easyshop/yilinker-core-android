@@ -43,7 +43,7 @@ public class ProductUploadApi {
     public static Request uploadProduct(final int requestCode, ProductUpload productUpload, String accessToken, final ResponseHandler responseHandler) {
 
         String url = String.format("%s/%s/%s?%s=%s", APIConstants.DOMAIN, APIConstants.PRODUCT_API,
-                productUpload.getProductId() == -1 ? APIConstants.PRODUCT_UPLOAD_API : APIConstants.PRODUCT_EDIT_API,
+                productUpload.getProductId() <= 0 ? APIConstants.PRODUCT_UPLOAD_API : APIConstants.PRODUCT_EDIT_API,
                     APIConstants.ACCESS_TOKEN, accessToken);
 
         Map<String,String> params = new HashMap<String,String>();
@@ -51,22 +51,22 @@ public class ProductUploadApi {
         params.put(APIConstants.PRODUCT_EDIT_PARAMS_PRODUCT_ID, String.valueOf(productUpload.getProductId()));
         params.put(APIConstants.PRODUCT_UPLOAD_PARAM_CATEGORY, String.valueOf(productUpload.getCategoryId()));
         params.put(APIConstants.PRODUCT_UPLOAD_PARAM_BRAND,String.valueOf(productUpload.getBrandId()));
+        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_CUSTOM_BRAND, productUpload.getCustomBrand());
         params.put(APIConstants.PRODUCT_UPLOAD_PARAM_TITLE,productUpload.getTitle());
         params.put(APIConstants.PRODUCT_UPLOAD_PARAM_DESCRIPTION,productUpload.getFullDescription());
         params.put(APIConstants.PRODUCT_UPLOAD_PARAM_SHORT_DESCRIPTION,productUpload.getShortDescription());
         params.put(APIConstants.PRODUCT_UPLOAD_PARAM_CONDITION,String.valueOf(productUpload.getConditionId()));
-        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_ISFREESHIPPING,String.valueOf(false));
-        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_LENGTH,String.valueOf(productUpload.getLength()));
-        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_WEIGHT,String.valueOf(productUpload.getWeight()));
-        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_HEIGHT,String.valueOf(productUpload.getHeight()));
-        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_WIDTH,String.valueOf(productUpload.getWidth()));
-        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_CUSTOM_BRAND,productUpload.getCustomBrand());
-        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_QUANTITY,String.valueOf(productUpload.getQuantity()));
-        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_PRICE,String.valueOf(productUpload.getPrice()));
-        if (productUpload.getDiscountedPrice() > 0.00) {
+        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_ISFREESHIPPING, String.valueOf(false));
+        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_LENGTH, productUpload.getAttributeCombinationUploadList().size() == 0 ? String.valueOf(productUpload.getLength()): "0.00");
+        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_WEIGHT, productUpload.getAttributeCombinationUploadList().size() == 0 ? String.valueOf(productUpload.getWeight()): "0.00");
+        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_HEIGHT, productUpload.getAttributeCombinationUploadList().size() == 0 ? String.valueOf(productUpload.getHeight()) : "0.00");
+        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_WIDTH, productUpload.getAttributeCombinationUploadList().size() == 0 ? String.valueOf(productUpload.getWidth()) : "0.00");
+        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_QUANTITY, productUpload.getAttributeCombinationUploadList().size() == 0 ? String.valueOf(productUpload.getQuantity()) : "1");
+        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_PRICE, productUpload.getAttributeCombinationUploadList().size() == 0 ? String.valueOf(productUpload.getPrice()) : "0.00");
+        if (productUpload.getDiscountedPrice() >= 0.00) {
             params.put(APIConstants.PRODUCT_UPLOAD_PARAM_DISCOUNTED_PRICE, String.valueOf(productUpload.getDiscountedPrice()));
         }
-        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_SKU,productUpload.getSku());
+        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_SKU, productUpload.getSku() != null ? productUpload.getSku(): "");
         params.put(APIConstants.PRODUCT_UPLOAD_PARAM_IMAGES, new Gson().toJson(productUpload.getImages()));
         params.put(APIConstants.PRODUCT_UPLOAD_PARAM_PRODUCT_PROPERTIES,productUpload.getProductProperties().toString());
 
@@ -330,23 +330,23 @@ public class ProductUploadApi {
         if (productUpload.getCategoryId() != 0)
         params.put(APIConstants.PRODUCT_UPLOAD_PARAM_CATEGORY, String.valueOf(productUpload.getCategoryId()));
         params.put(APIConstants.PRODUCT_UPLOAD_PARAM_BRAND,String.valueOf(productUpload.getBrandId()));
+        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_CUSTOM_BRAND,productUpload.getCustomBrand());
         params.put(APIConstants.PRODUCT_UPLOAD_PARAM_TITLE,productUpload.getTitle());
         params.put(APIConstants.PRODUCT_UPLOAD_PARAM_DESCRIPTION,productUpload.getFullDescription());
         params.put(APIConstants.PRODUCT_UPLOAD_PARAM_SHORT_DESCRIPTION,productUpload.getShortDescription());
         if (productUpload.getConditionId() != 0)
         params.put(APIConstants.PRODUCT_UPLOAD_PARAM_CONDITION,String.valueOf(productUpload.getConditionId()));
         params.put(APIConstants.PRODUCT_UPLOAD_PARAM_ISFREESHIPPING,String.valueOf(false));
-        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_LENGTH,String.valueOf(productUpload.getLength()));
-        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_WEIGHT,String.valueOf(productUpload.getWeight()));
-        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_HEIGHT,String.valueOf(productUpload.getHeight()));
-        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_WIDTH,String.valueOf(productUpload.getWidth()));
-        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_CUSTOM_BRAND,productUpload.getCustomBrand());
-        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_QUANTITY,String.valueOf(productUpload.getQuantity()));
-        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_PRICE,String.valueOf(productUpload.getPrice()));
+        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_LENGTH, productUpload.getAttributeCombinationUploadList().size() == 0 ? String.valueOf(productUpload.getLength()): "0.00");
+        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_WEIGHT, productUpload.getAttributeCombinationUploadList().size() == 0 ? String.valueOf(productUpload.getWeight()): "0.00");
+        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_HEIGHT, productUpload.getAttributeCombinationUploadList().size() == 0 ? String.valueOf(productUpload.getHeight()) : "0.00");
+        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_WIDTH, productUpload.getAttributeCombinationUploadList().size() == 0 ? String.valueOf(productUpload.getWidth()) : "0.00");
+        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_QUANTITY, productUpload.getAttributeCombinationUploadList().size() == 0 ? String.valueOf(productUpload.getQuantity()) : "1");
+        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_PRICE, productUpload.getAttributeCombinationUploadList().size() == 0 ? String.valueOf(productUpload.getPrice()) : "0.00");
         if (productUpload.getDiscountedPrice() > 0.00) {
             params.put(APIConstants.PRODUCT_UPLOAD_PARAM_DISCOUNTED_PRICE, String.valueOf(productUpload.getDiscountedPrice()));
         }
-        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_SKU,productUpload.getSku());
+        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_SKU, productUpload.getSku() != null ? productUpload.getSku(): "");
         if(productUpload.getImages().size() > 0)
         params.put(APIConstants.PRODUCT_UPLOAD_PARAM_IMAGES, new Gson().toJson(productUpload.getImages()));
         params.put(APIConstants.PRODUCT_UPLOAD_PARAM_PRODUCT_PROPERTIES,productUpload.getProductProperties().toString());

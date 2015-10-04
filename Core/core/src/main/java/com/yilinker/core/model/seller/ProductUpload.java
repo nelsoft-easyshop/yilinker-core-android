@@ -225,7 +225,7 @@ public class ProductUpload {
 
                 jsonProductProperty.put("attribute", arrayAttributes);
                 jsonProductProperty.put("price", attributeCombinationUpload.getRetailPrice());
-                jsonProductProperty.put("discountedPrice", attributeCombinationUpload.getDiscountedPrice());
+                jsonProductProperty.put("discountedPrice", attributeCombinationUpload.getDiscountedPrice() >= 0.00 ? attributeCombinationUpload.getDiscountedPrice() : null);
                 jsonProductProperty.put("sku",attributeCombinationUpload.getSku());
                 jsonProductProperty.put("images", attributeCombinationUpload.getImages());
                 jsonProductProperty.put("quantity",attributeCombinationUpload.getQuantity());
