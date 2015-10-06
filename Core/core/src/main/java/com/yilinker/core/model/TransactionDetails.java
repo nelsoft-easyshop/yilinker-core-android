@@ -21,6 +21,8 @@ public class TransactionDetails {
     private static final String KEY_TRANSACTION_PAYMENT = "transactionPayment";
     private static final String KEY_TRANSACTION_ORDER_PRODUCTS = "transactionOrderProducts";
     private static final String KEY_TRANSACTION_ITEMS = "transactionItems";
+    private static final String KEY_CANCELLABLE = "isCancellable";
+    private static final String KEY_SHIPPABLE = "isShippable";
 
     @SerializedName(KEY_TRANSACTION_INVOICE)
     private String transactionInvoice;
@@ -42,6 +44,10 @@ public class TransactionDetails {
 //    private List<TransactionOrderProducts> orderProductList;
     @SerializedName(KEY_TRANSACTION_ITEMS)
     private List<TransactionItem> transactionItems;
+    @SerializedName(KEY_CANCELLABLE)
+    private boolean cancellable;
+    @SerializedName(KEY_SHIPPABLE)
+    private boolean shippable;
 
     public String getTransactionInvoice() {
         return transactionInvoice;
@@ -113,6 +119,22 @@ public class TransactionDetails {
 
     public void setTransactionUnitPrice(String transactionUnitPrice) {
         this.transactionUnitPrice = transactionUnitPrice;
+    }
+
+    public boolean isCancellable() {
+        return cancellable;
+    }
+
+    public void setCancellable(boolean cancellable) {
+        this.cancellable = cancellable;
+    }
+
+    public boolean isShippable() {
+        return shippable;
+    }
+
+    public void setShippable(boolean shippable) {
+        this.shippable = shippable;
     }
 
     //    public List<TransactionOrderProducts> getOrderProductList() {
