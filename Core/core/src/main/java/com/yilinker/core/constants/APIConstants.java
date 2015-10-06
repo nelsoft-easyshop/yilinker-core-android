@@ -497,6 +497,8 @@ public class APIConstants {
     public final static String RESOLUTION_CENTER_PARAM_ORDER_PRODUCT_ID = "orderProductIds";
     public final static String RESOLUTION_CENTER_GET_CASE_DETAILS = "get-case-detail";
     public final static String RESOLUTION_CENTER_DISPUTE_ID = "disputeId";
+    public final static String RESOLUTION_CENTER_GET_SELLER_REASONS_API = "get-seller-reasons";
+    public final static String RESOLUTION_CENTER_PARAM_REASON_ID = "reasonId";
 
     //Reseller
     public final static String GET_MANUFACTURER_PRODUCTS_API = "products";
