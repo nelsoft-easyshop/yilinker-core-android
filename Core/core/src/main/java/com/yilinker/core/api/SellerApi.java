@@ -408,13 +408,19 @@ public class SellerApi {
 
             @Override
             public void onErrorResponse(VolleyError error) {
+                String message = "An error occured.";
                 if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                    responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+                    message = "No connection available.";
+                } else if (error instanceof AuthFailureError) {
+                    message = "Authentication Failure.";
                 } else if (error instanceof ServerError) {
-                    responseHandler.onFailed(requestCode, "Wrong Email or Password");
-                } else {
-                    responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+                    message = "Server error.";
+                } else if (error instanceof NetworkError) {
+                    message = "Network Error.";
+                } else if (error instanceof ParseError) {
+                    message = "Parse error.";
                 }
+                responseHandler.onFailed(requestCode, message);
             }
         });
 
