@@ -17,6 +17,8 @@ import com.yilinker.core.helper.VolleyPostHelper;
 import com.yilinker.core.interfaces.ResponseHandler;
 import com.yilinker.core.model.APIResponse;
 import com.yilinker.core.model.Case;
+import com.yilinker.core.model.seller.DisputeReasonList;
+import com.yilinker.core.model.seller.Reason;
 import com.yilinker.core.utility.GsonUtility;
 import com.yilinker.core.utility.SocketTimeout;
 
@@ -78,7 +80,7 @@ public class ResolutionCenterApi {
 
                 } else if (error instanceof AuthFailureError) {
 
-                    message = APIConstants.API_CONNECTION_AUTH_ERROR;
+                    message = "Authentication Failure.";
 
                 }else{
                     try {
@@ -130,7 +132,7 @@ public class ResolutionCenterApi {
 
                 } else if (error instanceof AuthFailureError) {
 
-                    message = APIConstants.API_CONNECTION_AUTH_ERROR;
+                    message = "Authentication Failure.";
 
                 }else{
                     try {
@@ -153,7 +155,7 @@ public class ResolutionCenterApi {
     }
 
 
-    public static Request addCase (final int requestCode, String token, Case caseCore, String remarks,
+    public static Request addCase (final int requestCode, String token, Case caseCore, String remarks, int reasonId,
                                                  final ResponseHandler responseHandler){
 
         String url = String.format("%s/%s/%s/%s",
@@ -166,6 +168,7 @@ public class ResolutionCenterApi {
         params.put(APIConstants.RESOLUTION_CENTER_PARAM_REMARKS, remarks);
         params.put(APIConstants.RESOLUTION_CENTER_PARAM_ORDER_PRODUCT_STATUS, caseCore.getOrderProductStatus());
         params.put(APIConstants.RESOLUTION_CENTER_PARAM_ORDER_PRODUCT_ID, caseCore.getProductIds().toString());
+        params.put(APIConstants.RESOLUTION_CENTER_PARAM_REASON_ID, String.valueOf(reasonId));
 
 
 
@@ -205,4 +208,58 @@ public class ResolutionCenterApi {
         return request;
     }
 
+
+    public static Request getAllDisputeReasons(final int requestCode, String accessToken, final ResponseHandler responseHandler) {
+
+        String url = String.format("%s/%s/%s/%s?%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API,
+                APIConstants.RESOLUTION_CENTER_DISPUTE,APIConstants.RESOLUTION_CENTER_GET_SELLER_REASONS_API,
+                APIConstants.ACCESS_TOKEN, accessToken);
+
+        Request request = new JsonObjectRequest(url, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+
+                gson = GsonUtility.createGsonBuilder(DisputeReasonList.class, new DisputeReasonList.DisputeReasonListInstance()).create();
+                String jsonString = new Gson().toJson(apiResponse.getData());
+                Type listType = new TypeToken<ArrayList<DisputeReasonList>>(){}.getType();
+
+                List<DisputeReasonList> obj = gson.fromJson(jsonString, listType);
+
+                responseHandler.onSuccess(requestCode, obj);
+
+            }
+        },  new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                String message = APIConstants.API_CONNECTION_PROBLEM;
+
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+
+                    message = APIConstants.API_CONNECTION_PROBLEM;
+
+                } else if (error instanceof AuthFailureError) {
+
+                    message = "Authentication Failure.";
+
+                }else{
+                    try {
+                        String responseBody = new String(error.networkResponse.data, "utf-8" );
+                        JSONObject jsonObject = new JSONObject( responseBody );
+                        message = jsonObject.getString("message");
+
+                    } catch ( JSONException e ) {
+                        //Handle a malformed json response
+                    } catch (UnsupportedEncodingException e){
+
+                    }
+                }
+                responseHandler.onFailed(requestCode, message);
+            }});
+
+        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
+
+        return request;
+    }
 }
