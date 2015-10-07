@@ -16,6 +16,7 @@ public class TransactionDetailsBuyer {
     private static final String KEY_TRANSACTION_SHIPPING_FEE = "transactionShippingFee";
     private static final String KEY_TRANSACTION_DATE = "transactionDate";
     private static final String KEY_TRANSACTION_PRICE = "transactionPrice";
+    private static final String KEY_TRANSACTION_UNIT_PRICE = "transactionUnitPrice";
     private static final String KEY_TRANSACTION_QUANTITY = "transactionQuantity";
     private static final String KEY_TRANSACTION_STATUS = "transactionStatus";
     private static final String KEY_TRANSACTION_PAYMENT = "transactionPayment";
@@ -29,6 +30,8 @@ public class TransactionDetailsBuyer {
     private DateAdded transactionDate;
     @SerializedName(KEY_TRANSACTION_PRICE)
     private String transactionPrice;
+    @SerializedName(KEY_TRANSACTION_UNIT_PRICE)
+    private String transactionUnitPrice;
     @SerializedName(KEY_TRANSACTION_QUANTITY)
     private int transactionQuantity;
     @SerializedName(KEY_TRANSACTION_STATUS)
@@ -68,6 +71,14 @@ public class TransactionDetailsBuyer {
 
     public void setTransactionPrice(String transactionPrice) {
         this.transactionPrice = transactionPrice;
+    }
+
+    public String getTransactionUnitPrice() {
+        return transactionUnitPrice;
+    }
+
+    public void setTransactionUnitPrice(String transactionUnitPrice) {
+        this.transactionUnitPrice = transactionUnitPrice;
     }
 
     public int getTransactionQuantity() {
