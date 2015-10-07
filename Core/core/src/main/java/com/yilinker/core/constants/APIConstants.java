@@ -91,6 +91,8 @@ public class APIConstants {
     public static final String CART_QUANTITY = "quantity";
     public static final String CART_ITEM_ID = "itemId";
     public static final String WISH_LIST_GET_ITEMS = "wishlist";
+    public static final String WISH_LIST_TO_CART = "wishlistToCart";
+    public static final String ITEM_IDS = "itemIds";
 
     //For Profile API
     public static final String PROFILE_API = "user";

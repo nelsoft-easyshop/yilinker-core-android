@@ -221,4 +221,72 @@ public class CartApi {
         return requestUpdateCart;
     }
 
+    public static Request wishListToCart (final int requestCode, String token, int productId, final ResponseHandler responseHandler){
+
+        String url;
+        Map<String, String> params = new HashMap<String, String>();
+
+        url = String.format("%s/%s/%s?%s=%s",
+                APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.WISH_LIST_TO_CART,
+                APIConstants.ACCESS_TOKEN, token);
+
+
+//        JSONObject params = new JSONObject();
+        params.put(APIConstants.ITEM_IDS, String.valueOf(productId));
+
+        VolleyPostHelper requestUpdateCart = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+
+                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+
+                gson = GsonUtility.createGsonBuilder(Cart.class, new Cart.CartInstance()).create();
+                String jsonString = new Gson().toJson(apiResponse.getData());
+                Cart obj = gson.fromJson(jsonString, Cart.class);
+
+                responseHandler.onSuccess(requestCode, obj);
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                String message = APIConstants.API_CONNECTION_PROBLEM;
+
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+
+                    message = APIConstants.API_CONNECTION_PROBLEM;
+
+                } else if (error instanceof AuthFailureError) {
+
+                    message = APIConstants.API_CONNECTION_AUTH_ERROR;
+
+                } else {
+
+                    try {
+                        String responseBody = new String(error.networkResponse.data, "utf-8" );
+                        JSONObject jsonObject = new JSONObject( responseBody );
+                        jsonObject = jsonObject.getJSONObject("data");
+                        JSONArray errors = jsonObject.getJSONArray("errors");
+                        message = errors.getString(0);
+
+                    } catch ( JSONException e ) {
+                        //Handle a malformed json response
+                    } catch (UnsupportedEncodingException e){
+
+                    }
+                }
+
+                responseHandler.onFailed(requestCode, message);
+            }
+        });
+
+//        requestUpdateCart.setCookie("sessionId");
+        requestUpdateCart.setRetryPolicy(SocketTimeout.getRetryPolicy());
+
+        return requestUpdateCart;
+    }
+
 }
