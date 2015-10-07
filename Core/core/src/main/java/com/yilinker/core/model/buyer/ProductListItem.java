@@ -11,8 +11,8 @@ public class ProductListItem {
 
     private int id;
     private String productName;
-    private double originalPrice;
-    private double newPrice;
+    private String originalPrice;
+    private String newPrice;
     private String imageUrl;
     private double discount;
 
@@ -32,19 +32,19 @@ public class ProductListItem {
         this.productName = productName;
     }
 
-    public double getOriginalPrice() {
+    public String getOriginalPrice() {
         return originalPrice;
     }
 
-    public void setOriginalPrice(double originalPrice) {
+    public void setOriginalPrice(String originalPrice) {
         this.originalPrice = originalPrice;
     }
 
-    public double getNewPrice() {
+    public String getNewPrice() {
         return newPrice;
     }
 
-    public void setNewPrice(double newPrice) {
+    public void setNewPrice(String newPrice) {
         this.newPrice = newPrice;
     }
 

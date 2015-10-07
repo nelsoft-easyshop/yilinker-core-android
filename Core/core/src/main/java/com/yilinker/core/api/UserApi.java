@@ -114,9 +114,9 @@ public class UserApi {
 
     public static Request loginFacebook (final int requestCode, String grantType, String token, final ResponseHandler responseHandler){
 
-        String url = String.format("%s/%s",
+        String url = String.format("%s/%s/%s",
                 APIConstants.DOMAIN,
-                APIConstants.LOGIN_API);
+                APIConstants.LOGIN_FACEBOOK_API, APIConstants.AUTH_API);
 
         Map<String,String> params = new HashMap<String,String>();
         params.put(APIConstants.LOGIN_PARAM_CLIENT_ID, APIConstants.API_CLIENT_ID);
@@ -128,10 +128,75 @@ public class UserApi {
             @Override
             public void onResponse(JSONObject response) {
 
-                Gson gson = GsonUtility.createGsonBuilder(Login.class, new Login.LoginInstance()).create();
-                Login obj = gson.fromJson(response.toString(), Login.class);
+                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
 
-                responseHandler.onSuccess(requestCode, obj);
+                if(apiResponse.isSuccessful()) {
+
+                    gson = GsonUtility.createGsonBuilder(Login.class, new Login.LoginInstance()).create();
+                    String jsonString = new Gson().toJson(apiResponse.getData());
+                    Login obj = gson.fromJson(jsonString, Login.class);
+
+                    responseHandler.onSuccess(requestCode, obj);
+
+                } else{
+
+                    responseHandler.onFailed(requestCode, apiResponse.getMessage());
+
+                }
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                    responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+                } else if (error instanceof ServerError) {
+                    responseHandler.onFailed(requestCode, "Wrong Email or Password");
+                } else {
+                    responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+                }
+            }
+        });
+
+        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
+
+        return request;
+    }
+
+    public static Request loginGoogle (final int requestCode, String grantType, String token, final ResponseHandler responseHandler){
+
+        String url = String.format("%s/%s/%s",
+                APIConstants.DOMAIN,
+                APIConstants.LOGIN_GOOGLE_API, APIConstants.AUTH_API);
+
+        Map<String,String> params = new HashMap<String,String>();
+        params.put(APIConstants.LOGIN_PARAM_CLIENT_ID, APIConstants.API_CLIENT_ID);
+        params.put(APIConstants.LOGIN_PARAM_CLIENT_SECRET, APIConstants.API_CLIENT_SECRET);
+        params.put(APIConstants.LOGIN_PARAM_GRANT_TYPE, grantType);
+        params.put(APIConstants.TOKEN_API, token);
+
+        VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+
+                if(apiResponse.isSuccessful()) {
+
+                    gson = GsonUtility.createGsonBuilder(Login.class, new Login.LoginInstance()).create();
+                    String jsonString = new Gson().toJson(apiResponse.getData());
+                    Login obj = gson.fromJson(jsonString, Login.class);
+
+                    responseHandler.onSuccess(requestCode, obj);
+
+                } else{
+
+                    responseHandler.onFailed(requestCode, apiResponse.getMessage());
+
+                }
 
             }
         }, new Response.ErrorListener() {
