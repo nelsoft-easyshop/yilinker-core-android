@@ -104,11 +104,9 @@ public class PointsApi {
                 String jsonString = new Gson().toJson(apiResponse.getData());
                 Points[] obj = gson.fromJson(jsonString, Points[].class);
 
-                if(apiResponse.isSuccessful()) {
+
                     responseHandler.onSuccess(requestCode, obj);
-                }else{
-                    responseHandler.onFailed(requestCode, apiResponse.getMessage());
-                }
+
             }
         }, new Response.ErrorListener() {
             @Override

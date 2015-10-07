@@ -1,7 +1,13 @@
 package com.yilinker.core.api;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
@@ -19,11 +25,14 @@ import org.json.JSONObject;
  */
 public class ActivityLogApi {
 
-    public static Request getActivityLog(final int requestCode, String token, final ResponseHandler responseHandler) {
+    public static Request getActivityLog(final int requestCode, String token,
+                                         int pageNo, int perPage, final ResponseHandler responseHandler) {
 
-        String url = String.format("%s/%s/%s/%s?%s=%s",
+        String url = String.format("%s/%s/%s/%s?%s=%s&%s=%s&%s=%s",
                 APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.PROFILE_API, APIConstants.ACTIVITY_LOG_GET_ITEMS,
-                APIConstants.ACCESS_TOKEN, token);
+                APIConstants.ACCESS_TOKEN, token,
+                APIConstants.SEARCH_PAGE, String.valueOf(pageNo),
+                APIConstants.SEARCH_PER_PAGE, String.valueOf(perPage));
 
         Request requestGetCart = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
             @Override
@@ -43,7 +52,19 @@ public class ActivityLogApi {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+                String message = "An error occured.";
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                    message = "No connection available.";
+                } else if (error instanceof AuthFailureError) {
+                    message = "Authentication Failure.";
+                } else if (error instanceof ServerError) {
+                    message = "Server error.";
+                } else if (error instanceof NetworkError) {
+                    message = "Network Error.";
+                } else if (error instanceof ParseError) {
+                    message = "Parse error.";
+                }
+                responseHandler.onFailed(requestCode, message);
             }
         });
 
