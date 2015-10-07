@@ -184,6 +184,7 @@ public class CheckoutApi {
         }
 
         params.put(APIConstants.CHECKOUT_PARAMS_TRANSACTION_ID, transactionId);
+        params.put(APIConstants.CHECKOUT_TRANSACTION_CLEAR, "true");
 
         VolleyPostHelper getCheckoutOverview = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
             @Override
