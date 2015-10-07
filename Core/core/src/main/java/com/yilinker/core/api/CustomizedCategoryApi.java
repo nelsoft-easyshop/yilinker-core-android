@@ -84,13 +84,14 @@ public class CustomizedCategoryApi {
         return request;
     }
 
-    public static Request getCustomCategories(final int requestCode, String token, final ResponseHandler responseHandler) {
+    public static Request getCustomCategories(final int requestCode, String token, String search, final ResponseHandler responseHandler) {
 
         String url = String.format("%s/%s/%s/%s", APIConstants.DOMAIN,
                 APIConstants.AUTH_API, APIConstants.CATEGORY_API, APIConstants.GET_CUSTOM_CATEGORIES);
 
         Map<String, String> params = new HashMap<String,String>();
         params.put(APIConstants.ACCESS_TOKEN, token);
+        params.put(APIConstants.SEARCH_QUERY, search);
 
         VolleyPostHelper request =  new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
 
