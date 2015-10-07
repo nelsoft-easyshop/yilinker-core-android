@@ -30,6 +30,7 @@ public class Product {
     private List<ProductImages> images;
     private String shortDescription;
     private String fullDescription;
+    private String slug;
 
     private int sellerId;
     private List<ProductGroupAttribute> attributes;
@@ -157,7 +158,15 @@ public class Product {
         this.productUnits = productUnits;
     }
 
-//    public double getOriginalPrice() {
+    public String getSlug() {
+        return slug;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
+    }
+
+    //    public double getOriginalPrice() {
 //        return originalPrice;
 //    }
 //
