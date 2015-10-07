@@ -149,6 +149,7 @@ public class APIConstants {
     public static final String TOKEN_API = "token";
     public static final String LOGIN_API = "login";
     public static final String LOGIN_FACEBOOK_API = "facebook";
+    public static final String LOGIN_GOOGLE_API = "google";
     public static final String LOGIN_PARAM_CLIENT_ID = "client_id";
     public static final String LOGIN_PARAM_CLIENT_SECRET = "client_secret";
     public static final String LOGIN_PARAM_GRANT_TYPE = "grant_type";
@@ -325,6 +326,7 @@ public class APIConstants {
     public static final String CHECKOUT_PARAMS_TRANSACTION_ID = "transactionId";
     public static final String CHECKCOUT_ADDRESS_SET_ADDRESS = "setAddress";
     public static final String CHECKOUT_SELECT_ITEMS = "cartToCheckout";
+    public static final String CHECKOUT_TRANSACTION_CLEAR = "transactionClear";
 
 
     //Checkout Guest
