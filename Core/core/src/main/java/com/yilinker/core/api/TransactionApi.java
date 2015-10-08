@@ -61,42 +61,40 @@ public class TransactionApi {
 
             }
         },new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        String message = APIConstants.API_CONNECTION_PROBLEM;
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                String message = APIConstants.API_CONNECTION_PROBLEM;
 
-                        if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
 
-                            message = APIConstants.API_CONNECTION_PROBLEM;
+                    message = APIConstants.API_CONNECTION_PROBLEM;
 
-                        } else if (error instanceof AuthFailureError) {
+                } else if (error instanceof AuthFailureError) {
 
-                            message = APIConstants.API_CONNECTION_AUTH_ERROR;
+                    message = APIConstants.API_CONNECTION_AUTH_ERROR;
 
-                        }else{
+                }else{
+                    try {
+                        String responseBody = new String(error.networkResponse.data, "utf-8" );
+                        JSONObject jsonObject = new JSONObject( responseBody );
+                        JSONArray array = jsonObject.getJSONArray("data");
+
+                        StringBuilder builder = new StringBuilder();
+                        for (int i=0;i<array.length();i++){
                             try {
-                                String responseBody = new String(error.networkResponse.data, "utf-8" );
-                                JSONObject jsonObject = new JSONObject( responseBody );
-                                JSONArray array = jsonObject.getJSONArray("data");
-
-                                StringBuilder builder = new StringBuilder();
-                                for (int i=0;i<array.length();i++){
-                                    try {
-                                        builder.append(array.getString(i)+"\n");
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                                message = builder.toString();
-
-                            } catch ( JSONException e ) {
-                                //Handle a malformed json response
-                            } catch (UnsupportedEncodingException e){
-
+                                builder.append(array.getString(i)+"\n");
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
                         }
-                        responseHandler.onFailed(requestCode, message);
-                    }});
+                        message = builder.toString();
+
+                    } catch ( Exception e ) {
+                        //Handle a malformed json response
+                    }
+                }
+                responseHandler.onFailed(requestCode, message);
+            }});
 
         request.setRetryPolicy(SocketTimeout.getRetryPolicy());
 
@@ -206,10 +204,8 @@ public class TransactionApi {
                     JSONArray errors = jsonObject.getJSONArray("errors");
                     message = errors.getString(0);
 
-                } catch ( JSONException e ) {
+                } catch ( Exception e ) {
                     //Handle a malformed json response
-                } catch (UnsupportedEncodingException e){
-
                 }
                 responseHandler.onFailed(requestCode, message);
             }
@@ -260,11 +256,10 @@ public class TransactionApi {
                     JSONArray errors = jsonObject.getJSONArray("errors");
                     message = errors.getString(0);
 
-                } catch ( JSONException e ) {
+                } catch ( Exception e ) {
                     //Handle a malformed json response
-                } catch (UnsupportedEncodingException e){
-
                 }
+
                 responseHandler.onFailed(requestCode, message);
             }
         });
@@ -315,10 +310,8 @@ public class TransactionApi {
                     JSONArray errors = jsonObject.getJSONArray("errors");
                     message = errors.getString(0);
 
-                } catch ( JSONException e ) {
+                } catch ( Exception e ) {
                     //Handle a malformed json response
-                } catch (UnsupportedEncodingException e){
-
                 }
                 responseHandler.onFailed(requestCode, message);
             }
@@ -368,10 +361,8 @@ public class TransactionApi {
                     JSONArray errors = jsonObject.getJSONArray("errors");
                     message = errors.getString(0);
 
-                } catch ( JSONException e ) {
+                } catch ( Exception e ) {
                     //Handle a malformed json response
-                } catch (UnsupportedEncodingException e){
-
                 }
                 responseHandler.onFailed(requestCode, message);
             }
@@ -428,10 +419,8 @@ public class TransactionApi {
                     JSONArray errors = jsonObject.getJSONArray("errors");
                     message = errors.getString(0);
 
-                } catch ( JSONException e ) {
+                } catch ( Exception e ) {
                     //Handle a malformed json response
-                } catch (UnsupportedEncodingException e){
-
                 }
                 responseHandler.onFailed(requestCode, message);
             }
