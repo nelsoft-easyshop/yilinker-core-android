@@ -76,10 +76,8 @@ public class ProfileApi {
                         JSONArray errors = jsonObject.getJSONArray("errors");
                         message = errors.getString(0);
 
-                    } catch ( JSONException e ) {
+                    } catch ( Exception e ) {
                         //Handle a malformed json response
-                    } catch (UnsupportedEncodingException e){
-
                     }
                 }
 
