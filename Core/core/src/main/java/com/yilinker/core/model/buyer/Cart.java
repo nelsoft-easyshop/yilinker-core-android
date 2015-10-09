@@ -16,7 +16,7 @@ public class Cart {
     private static final String KEY_TOTAL_AMOUNT = "totalAmount";
 
     private List<CartItem2> items;
-    private double total;
+    private int total;
     private String totalAmount;
 
     public List<CartItem2> getCartItems() {
@@ -27,11 +27,11 @@ public class Cart {
         this.items = items;
     }
 
-    public double getTotal() {
+    public int getTotal() {
         return total;
     }
 
-    public void setTotal(double total) {
+    public void setTotal(int total) {
         this.total = total;
     }
 
