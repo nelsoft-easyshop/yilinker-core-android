@@ -386,4 +386,72 @@ public class ProductUploadApi {
         return multiPartRequest;
     }
 
+    public static Request editProduct(final int requestCode, ProductUpload productUpload, String imageDetails,
+                                      String accessToken, final ResponseHandler responseHandler) {
+
+        String url = String.format("%s/%s/%s?%s=%s", APIConstants.DOMAIN, APIConstants.PRODUCT_API,
+                APIConstants.PRODUCT_EDIT_API,
+                APIConstants.ACCESS_TOKEN, accessToken);
+
+        Map<String,String> params = new HashMap<String,String>();
+        params.put(APIConstants.ACCESS_TOKEN, accessToken);
+        params.put(APIConstants.PRODUCT_EDIT_PARAMS_PRODUCT_ID, String.valueOf(productUpload.getProductId()));
+        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_CATEGORY, String.valueOf(productUpload.getCategoryId()));
+        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_BRAND,String.valueOf(productUpload.getBrandId()));
+        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_CUSTOM_BRAND, productUpload.getCustomBrand());
+        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_TITLE,productUpload.getTitle());
+        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_DESCRIPTION,productUpload.getFullDescription());
+        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_SHORT_DESCRIPTION,productUpload.getShortDescription());
+        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_CONDITION,String.valueOf(productUpload.getConditionId()));
+        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_ISFREESHIPPING, String.valueOf(false));
+        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_LENGTH, productUpload.getAttributeCombinationUploadList().size() == 0 ? String.valueOf(productUpload.getLength()): "0.00");
+        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_WEIGHT, productUpload.getAttributeCombinationUploadList().size() == 0 ? String.valueOf(productUpload.getWeight()): "0.00");
+        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_HEIGHT, productUpload.getAttributeCombinationUploadList().size() == 0 ? String.valueOf(productUpload.getHeight()) : "0.00");
+        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_WIDTH, productUpload.getAttributeCombinationUploadList().size() == 0 ? String.valueOf(productUpload.getWidth()) : "0.00");
+        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_QUANTITY, productUpload.getAttributeCombinationUploadList().size() == 0 ? String.valueOf(productUpload.getQuantity()) : "1");
+        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_PRICE, productUpload.getAttributeCombinationUploadList().size() == 0 ? String.valueOf(productUpload.getPrice()) : "0.00");
+        if (productUpload.getDiscountedPrice() >= 0.00) {
+            params.put(APIConstants.PRODUCT_UPLOAD_PARAM_DISCOUNTED_PRICE, String.valueOf(productUpload.getDiscountedPrice()));
+        }
+        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_SKU, productUpload.getSku() != null ? productUpload.getSku(): "");
+        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_IMAGES, new Gson().toJson(productUpload.getImages()));
+        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_PRODUCT_PROPERTIES,productUpload.getProductProperties().toString());
+        params.put(APIConstants.PRODUCT_EDIT_PARAMS_IMAGE_DETAILS, imageDetails);
+
+
+        MultiPartRequest multiPartRequest = new MultiPartRequest(url,productUpload, APIResponse.class,params, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+
+                responseHandler.onSuccess(requestCode, apiResponse);
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                String message = "An error occured.";
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                    message = "No connection available.";
+                } else if (error instanceof AuthFailureError) {
+                    message = "Authentication Failure.";
+                } else if (error instanceof ServerError) {
+                    message = "Server error.";
+                } else if (error instanceof NetworkError) {
+                    message = "Network Error.";
+                } else if (error instanceof ParseError) {
+                    message = "Parse error.";
+                }
+                responseHandler.onFailed(requestCode,message);
+            }
+        });
+
+        multiPartRequest.setRetryPolicy(policy);
+
+        return multiPartRequest;
+    }
+
 }
