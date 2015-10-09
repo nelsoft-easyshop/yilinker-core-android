@@ -27,6 +27,7 @@ public class SearchTransaction implements Parcelable {
     private String product_names;
     private String product_count;
     private String target;
+    private String invoiceNumber;
 
     public String getOrder_id() {
         return order_id;
@@ -148,6 +149,13 @@ public class SearchTransaction implements Parcelable {
         this.target = target;
     }
 
+    public String getInvoiceNumber() {
+        return invoiceNumber;
+    }
+
+    public void setInvoiceNumber(String invoiceNumber) {
+        this.invoiceNumber = invoiceNumber;
+    }
 
     @Override
     public int describeContents() {
