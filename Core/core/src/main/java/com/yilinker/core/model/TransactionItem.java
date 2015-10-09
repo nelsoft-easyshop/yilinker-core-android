@@ -137,6 +137,7 @@ public class TransactionItem {
         this.product_cost = product_cost;
     }
 
+
     public static class TransactionItemInstance implements InstanceCreator<TransactionItem> {
 
         @Override

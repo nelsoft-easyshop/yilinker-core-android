@@ -289,17 +289,29 @@ public class AddressAPI {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                String message = "An error occured.";
+                String message = APIConstants.API_CONNECTION_PROBLEM;
+
                 if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                    message = "No connection available.";
+
+                    message = APIConstants.API_CONNECTION_PROBLEM;
+
                 } else if (error instanceof AuthFailureError) {
+
                     message = "Authentication Failure.";
-                } else if (error instanceof ServerError) {
-                    message = "Server error.";
-                } else if (error instanceof NetworkError) {
-                    message = "Network Error.";
-                } else if (error instanceof ParseError) {
-                    message = "Parse error.";
+
+                }else{
+                    try {
+                        String responseBody = new String(error.networkResponse.data, "utf-8" );
+                        JSONObject jsonObject = new JSONObject( responseBody );
+                        jsonObject = jsonObject.getJSONObject("data");
+                        JSONArray var = jsonObject.getJSONArray("errors");
+                        message = var.get(0).toString();
+
+                    } catch ( JSONException e ) {
+                        //Handle a malformed json response
+                    } catch (UnsupportedEncodingException e){
+
+                    }
                 }
                 responseHandler.onFailed(requestCode, message);
             }

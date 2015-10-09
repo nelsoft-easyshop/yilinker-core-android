@@ -303,15 +303,17 @@ public class SearchApi {
 
     }
 
-    public static Request getTransactionList(final int requestCode, String accessToken, String productName, String riderName, final ResponseHandler responseHandler) {
+    public static Request getTransactionList(final int requestCode, String accessToken, String productName, String riderName, String sortDirection, final ResponseHandler responseHandler) {
 
         String endpoint =  "";
         if(riderName.isEmpty()) {
-             endpoint = String.format("%s/%s/%s?%s=%s&%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.SELLER_TRANSACTION_LIST_API,
-                    APIConstants.ACCESS_TOKEN, accessToken, APIConstants.PRODUCT_PARAMS_PRODUCT_NAME, productName);
+             endpoint = String.format("%s/%s/%s?%s=%s&%s=%s&%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.SELLER_TRANSACTION_LIST_API,
+                    APIConstants.ACCESS_TOKEN, accessToken, APIConstants.PRODUCT_PARAMS_PRODUCT_NAME, productName,
+                     APIConstants.PRODUCT_LIST_SORT_DIRECTION, sortDirection);
         }else if(productName.isEmpty()){
-            endpoint = String.format("%s/%s/%s?%s=%s&%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.SELLER_TRANSACTION_LIST_API,
-                    APIConstants.ACCESS_TOKEN, accessToken, APIConstants.RIDER_NAME_PARAMS, riderName);
+            endpoint = String.format("%s/%s/%s?%s=%s&%s=%s&%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.SELLER_TRANSACTION_LIST_API,
+                    APIConstants.ACCESS_TOKEN, accessToken, APIConstants.RIDER_NAME_PARAMS, riderName,
+                    APIConstants.PRODUCT_LIST_SORT_DIRECTION, sortDirection);
         }
         endpoint = endpoint.replace(" ", "%20");
         Request request = new JsonObjectRequest(endpoint, new Response.Listener<JSONObject>() {
@@ -338,19 +340,29 @@ public class SearchApi {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
                 String message = APIConstants.API_CONNECTION_PROBLEM;
-                try {
-                    String responseBody = new String(error.networkResponse.data, "utf-8" );
-                    JSONObject jsonObject = new JSONObject( responseBody );
-                    jsonObject = jsonObject.getJSONObject("data");
-                    JSONArray errors = jsonObject.getJSONArray("errors");
-                    message = errors.getString(0);
 
-                } catch ( JSONException e ) {
-                    //Handle a malformed json response
-                } catch (UnsupportedEncodingException e){
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
 
+                    message = APIConstants.API_CONNECTION_PROBLEM;
+
+                } else if (error instanceof AuthFailureError) {
+
+                    message = "Authentication Failure.";
+
+                }else{
+                    try {
+                        String responseBody = new String(error.networkResponse.data, "utf-8" );
+                        JSONObject jsonObject = new JSONObject( responseBody );
+                        jsonObject = jsonObject.getJSONObject("data");
+                        JSONArray var = jsonObject.getJSONArray("errors");
+                        message = var.get(0).toString();
+
+                    } catch ( JSONException e ) {
+                        //Handle a malformed json response
+                    } catch (UnsupportedEncodingException e){
+
+                    }
                 }
                 responseHandler.onFailed(requestCode, message);
             }
