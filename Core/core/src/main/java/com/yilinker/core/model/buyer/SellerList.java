@@ -17,7 +17,7 @@ public class SellerList {
     private List<Product> products;
     private int userId;
     private boolean isFollowed;
-    private Category specialty;
+//    private Category specialty;
     private String storeName;
 
     public String getStoreName() {
@@ -68,13 +68,13 @@ public class SellerList {
         this.isFollowed = isFollowed;
     }
 
-    public Category getSpecialty() {
-        return specialty;
-    }
-
-    public void setSpecialty(Category specialty) {
-        this.specialty = specialty;
-    }
+//    public Category getSpecialty() {
+//        return specialty;
+//    }
+//
+//    public void setSpecialty(Category specialty) {
+//        this.specialty = specialty;
+//    }
 
     public static class SellerListInstance implements InstanceCreator<SellerList> {
 
