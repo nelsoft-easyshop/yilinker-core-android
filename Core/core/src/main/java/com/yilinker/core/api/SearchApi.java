@@ -18,6 +18,7 @@ import com.yilinker.core.model.APIResponse;
 import com.yilinker.core.model.Search;
 import com.yilinker.core.model.Seller;
 import com.yilinker.core.model.TransactionList;
+import com.yilinker.core.model.buyer.SellerList;
 import com.yilinker.core.model.seller.CategoryProducts;
 import com.yilinker.core.model.seller.SearchTransaction;
 import com.yilinker.core.model.seller.SearchTransactionList;
@@ -110,13 +111,13 @@ public class SearchApi {
                 Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
                 APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
 
-                gson = GsonUtility.createGsonBuilder(Seller.class, new Seller.SellerInstance()).create();
+                gson = GsonUtility.createGsonBuilder(SellerList.class, new SellerList.SellerListInstance()).create();
                 String jsonString = new Gson().toJson(apiResponse.getData());
 
-                Type listType = new TypeToken<ArrayList<Seller>>() {
+                Type listType = new TypeToken<ArrayList<SellerList>>() {
                 }.getType();
 
-                List<Seller> obj = gson.fromJson(jsonString, listType);
+                List<SellerList> obj = gson.fromJson(jsonString, listType);
 
                 responseHandler.onSuccess(requestCode, obj);
 
