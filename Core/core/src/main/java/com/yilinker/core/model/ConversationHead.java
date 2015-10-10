@@ -13,6 +13,7 @@ public class ConversationHead
 
     private Integer userId;
     private Integer isOnline;
+    private Integer isImage;
     private Integer sender;
     private String profileImageUrl;
     private String fullName;
@@ -61,6 +62,14 @@ public class ConversationHead
         this.isOnline = isOnline;
     }
 
+    public Integer getIsImage() {
+        return isImage;
+    }
+
+    public void setIsImage(Integer isImage) {
+        this.isImage = isImage;
+    }
+
     public Integer getSender()
     {
         return sender;
@@ -93,9 +102,6 @@ public class ConversationHead
 
     public String getLastMessage()
     {
-        if(lastMessage.contains("http://"))
-            return "You sent/received a photo.";
-
         return lastMessage;
     }
 
