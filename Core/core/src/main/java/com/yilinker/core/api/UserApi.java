@@ -392,13 +392,29 @@ public class UserApi {
 
             @Override
             public void onErrorResponse(VolleyError error) {
+                String message = APIConstants.API_CONNECTION_PROBLEM;
+
                 if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                    responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
-                } else if (error instanceof ServerError) {
-                    responseHandler.onFailed(requestCode, "Wrong Email or Password");
+
+                    message = APIConstants.API_CONNECTION_PROBLEM;
+
+                } else if (error instanceof AuthFailureError) {
+
+                    message = APIConstants.API_CONNECTION_AUTH_ERROR;
+
                 } else {
-                    responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+
+                    try {
+                        String responseBody = new String(error.networkResponse.data, "utf-8" );
+                        JSONObject jsonObject = new JSONObject( responseBody );
+                        message = jsonObject.getString("error_description");
+
+                    } catch ( Exception e ) {
+                        //Handle a malformed json response
+                    }
                 }
+
+                responseHandler.onFailed(requestCode, message);
             }
         });
 
