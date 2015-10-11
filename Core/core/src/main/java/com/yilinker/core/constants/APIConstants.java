@@ -82,6 +82,7 @@ public class APIConstants {
     public static final String SELLER_PARAMS_SEARCH_KEYWORD = "searchKeyword";
     public static final String SEARCH_TRANSACTION_API = "transaction";
     public static final String SEARCH_QUERY_TRANSACTION = "query";
+    public static final String GENERATE_QR_CODE_API = "getQrCode";
 
     //For Cart API
     public static final String CART_API = "cart";
