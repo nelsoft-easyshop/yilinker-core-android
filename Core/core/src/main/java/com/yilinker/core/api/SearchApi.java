@@ -303,17 +303,34 @@ public class SearchApi {
 
     }
 
-    public static Request getTransactionList(final int requestCode, String accessToken, String productName, String riderName, String sortDirection, final ResponseHandler responseHandler) {
+    public static Request getTransactionList(final int requestCode, String accessToken, String productName, String riderName,
+                                             String sortDirection, String dateFrom, String dateTo, final ResponseHandler responseHandler) {
 
         String endpoint =  "";
         if(riderName.isEmpty()) {
-             endpoint = String.format("%s/%s/%s?%s=%s&%s=%s&%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.SELLER_TRANSACTION_LIST_API,
-                    APIConstants.ACCESS_TOKEN, accessToken, APIConstants.PRODUCT_PARAMS_PRODUCT_NAME, productName,
-                     APIConstants.PRODUCT_LIST_SORT_DIRECTION, sortDirection);
+            if(dateFrom.isEmpty() && dateTo.isEmpty()) {
+                endpoint = String.format("%s/%s/%s?%s=%s&%s=%s&%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.SELLER_TRANSACTION_LIST_API,
+                        APIConstants.ACCESS_TOKEN, accessToken, APIConstants.PRODUCT_PARAMS_PRODUCT_NAME, productName,
+                        APIConstants.PRODUCT_LIST_SORT_DIRECTION, sortDirection);
+            }else{
+                endpoint = String.format("%s/%s/%s?%s=%s&%s=%s&%s=%s&%s=%s&%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.SELLER_TRANSACTION_LIST_API,
+                        APIConstants.ACCESS_TOKEN, accessToken, APIConstants.PRODUCT_PARAMS_PRODUCT_NAME, productName,
+                        APIConstants.PRODUCT_LIST_SORT_DIRECTION, sortDirection,
+                        APIConstants.SALES_REPORT_PARAM_DATE_FROM, dateFrom,
+                        APIConstants.SALES_REPORT_PARAM_DATE_TO, dateTo);
+            }
         }else if(productName.isEmpty()){
-            endpoint = String.format("%s/%s/%s?%s=%s&%s=%s&%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.SELLER_TRANSACTION_LIST_API,
-                    APIConstants.ACCESS_TOKEN, accessToken, APIConstants.RIDER_NAME_PARAMS, riderName,
-                    APIConstants.PRODUCT_LIST_SORT_DIRECTION, sortDirection);
+            if(dateFrom.isEmpty() && dateTo.isEmpty()) {
+                endpoint = String.format("%s/%s/%s?%s=%s&%s=%s&%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.SELLER_TRANSACTION_LIST_API,
+                        APIConstants.ACCESS_TOKEN, accessToken, APIConstants.RIDER_NAME_PARAMS, riderName,
+                        APIConstants.PRODUCT_LIST_SORT_DIRECTION, sortDirection);
+            }else{
+                endpoint = String.format("%s/%s/%s?%s=%s&%s=%s&%s=%s&%s=%s&%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.SELLER_TRANSACTION_LIST_API,
+                        APIConstants.ACCESS_TOKEN, accessToken, APIConstants.RIDER_NAME_PARAMS, riderName,
+                        APIConstants.PRODUCT_LIST_SORT_DIRECTION, sortDirection,
+                        APIConstants.SALES_REPORT_PARAM_DATE_FROM, dateFrom,
+                        APIConstants.SALES_REPORT_PARAM_DATE_TO, dateTo);
+            }
         }
         endpoint = endpoint.replace(" ", "%20");
         Request request = new JsonObjectRequest(endpoint, new Response.Listener<JSONObject>() {
