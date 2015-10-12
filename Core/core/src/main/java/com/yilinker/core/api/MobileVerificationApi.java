@@ -202,6 +202,7 @@ public class MobileVerificationApi {
                     }
                 }
                 responseHandler.onFailed(requestCode, message);
+
             }
         });
 

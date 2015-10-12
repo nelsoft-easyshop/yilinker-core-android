@@ -21,7 +21,7 @@ public class Seller {
     private static final String KEY_DESCRIPTION = "description";
     private static final String KEY_CONTACT_NO = "contactNo";
 
-//    private String specialty;
+    private String specialty;
     private String contactNumber;/***images*/
     private Address storeAddress;
     @SerializedName(KEY_ID)
@@ -38,13 +38,13 @@ public class Seller {
     private String image;
     private List<Product> products;
 
-//    public String getSpecialty() {
-//        return specialty;
-//    }
-//
-//    public void setSpecialty(String specialty) {
-//        this.specialty = specialty;
-//    }
+    public String getSpecialty() {
+        return specialty;
+    }
+
+    public void setSpecialty(String specialty) {
+        this.specialty = specialty;
+    }
 
 
     public List<Product> getProducts() {

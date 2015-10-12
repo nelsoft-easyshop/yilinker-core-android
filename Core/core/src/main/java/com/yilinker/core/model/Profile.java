@@ -11,6 +11,7 @@ import java.util.List;
  */
 public class Profile {
 
+    private int userId;
     private String fullName;
     private String firstName;
     private String lastName;
@@ -25,7 +26,19 @@ public class Profile {
     private int cartCount;
     private int messageCount;
     private int followingCount;
+    private boolean isEmailSubscribed;
+    private boolean isSmsSubscribed;
+    private boolean isEmailVerified;
+    private boolean isMobileVerified;
     private Address address;
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
 
     public String getFullName() {
         return fullName;
@@ -137,6 +150,38 @@ public class Profile {
 
     public void setFollowingCount(int followingCount) {
         this.followingCount = followingCount;
+    }
+
+    public boolean isEmailSubscribed() {
+        return isEmailSubscribed;
+    }
+
+    public void setIsEmailSubscribed(boolean isEmailSubscribed) {
+        this.isEmailSubscribed = isEmailSubscribed;
+    }
+
+    public boolean isSmsSubscribed() {
+        return isSmsSubscribed;
+    }
+
+    public void setIsSmsSubscribed(boolean isSmsSubscribed) {
+        this.isSmsSubscribed = isSmsSubscribed;
+    }
+
+    public boolean isEmailVerified() {
+        return isEmailVerified;
+    }
+
+    public void setIsEmailVerified(boolean isEmailVerified) {
+        this.isEmailVerified = isEmailVerified;
+    }
+
+    public boolean isMobileVerified() {
+        return isMobileVerified;
+    }
+
+    public void setIsMobileVerified(boolean isMobileVerified) {
+        this.isMobileVerified = isMobileVerified;
     }
 
     public Address getAddress() {

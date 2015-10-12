@@ -13,6 +13,7 @@ public class ConversationHead
 
     private Integer userId;
     private Integer isOnline;
+    private Integer isImage;
     private Integer sender;
     private String profileImageUrl;
     private String fullName;
@@ -59,6 +60,14 @@ public class ConversationHead
     public void setIsOnline(Integer isOnline)
     {
         this.isOnline = isOnline;
+    }
+
+    public Integer getIsImage() {
+        return isImage;
+    }
+
+    public void setIsImage(Integer isImage) {
+        this.isImage = isImage;
     }
 
     public Integer getSender()

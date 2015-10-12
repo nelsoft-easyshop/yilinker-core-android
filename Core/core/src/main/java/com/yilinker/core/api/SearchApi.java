@@ -18,6 +18,7 @@ import com.yilinker.core.model.APIResponse;
 import com.yilinker.core.model.Search;
 import com.yilinker.core.model.Seller;
 import com.yilinker.core.model.TransactionList;
+import com.yilinker.core.model.buyer.SellerList;
 import com.yilinker.core.model.seller.CategoryProducts;
 import com.yilinker.core.model.seller.SearchTransaction;
 import com.yilinker.core.model.seller.SearchTransactionList;
@@ -66,9 +67,30 @@ public class SearchApi {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
-            }
-        });
+                String message = APIConstants.API_CONNECTION_PROBLEM;
+
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+
+                    message = APIConstants.API_CONNECTION_PROBLEM;
+
+                } else if (error instanceof AuthFailureError) {
+
+                    message = APIConstants.API_CONNECTION_AUTH_ERROR;
+
+                }else{
+                    try {
+                        String responseBody = new String(error.networkResponse.data, "utf-8" );
+                        JSONObject jsonObject = new JSONObject( responseBody );
+                        message = jsonObject.getString("message");
+
+                    } catch ( JSONException e ) {
+                        //Handle a malformed json response
+                    } catch (UnsupportedEncodingException e){
+
+                    }
+                }
+                responseHandler.onFailed(requestCode, message);
+            }});
 
         requestGetSearch.setRetryPolicy(SocketTimeout.getRetryPolicy());
 
@@ -89,13 +111,13 @@ public class SearchApi {
                 Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
                 APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
 
-                gson = GsonUtility.createGsonBuilder(Seller.class, new Seller.SellerInstance()).create();
+                gson = GsonUtility.createGsonBuilder(SellerList.class, new SellerList.SellerListInstance()).create();
                 String jsonString = new Gson().toJson(apiResponse.getData());
 
-                Type listType = new TypeToken<ArrayList<Seller>>() {
+                Type listType = new TypeToken<ArrayList<SellerList>>() {
                 }.getType();
 
-                List<Seller> obj = gson.fromJson(jsonString, listType);
+                List<SellerList> obj = gson.fromJson(jsonString, listType);
 
                 responseHandler.onSuccess(requestCode, obj);
 
@@ -104,9 +126,30 @@ public class SearchApi {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
-            }
-        });
+                String message = APIConstants.API_CONNECTION_PROBLEM;
+
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+
+                    message = APIConstants.API_CONNECTION_PROBLEM;
+
+                } else if (error instanceof AuthFailureError) {
+
+                    message = APIConstants.API_CONNECTION_AUTH_ERROR;
+
+                }else{
+                    try {
+                        String responseBody = new String(error.networkResponse.data, "utf-8" );
+                        JSONObject jsonObject = new JSONObject( responseBody );
+                        message = jsonObject.getString("message");
+
+                    } catch ( JSONException e ) {
+                        //Handle a malformed json response
+                    } catch (UnsupportedEncodingException e){
+
+                    }
+                }
+                responseHandler.onFailed(requestCode, message);
+            }});
 
         requestGetStoreList.setRetryPolicy(SocketTimeout.getRetryPolicy());
 
@@ -260,15 +303,17 @@ public class SearchApi {
 
     }
 
-    public static Request getTransactionList(final int requestCode, String accessToken, String productName, String riderName, final ResponseHandler responseHandler) {
+    public static Request getTransactionList(final int requestCode, String accessToken, String productName, String riderName, String sortDirection, final ResponseHandler responseHandler) {
 
         String endpoint =  "";
         if(riderName.isEmpty()) {
-             endpoint = String.format("%s/%s/%s?%s=%s&%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.SELLER_TRANSACTION_LIST_API,
-                    APIConstants.ACCESS_TOKEN, accessToken, APIConstants.PRODUCT_PARAMS_PRODUCT_NAME, productName);
+             endpoint = String.format("%s/%s/%s?%s=%s&%s=%s&%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.SELLER_TRANSACTION_LIST_API,
+                    APIConstants.ACCESS_TOKEN, accessToken, APIConstants.PRODUCT_PARAMS_PRODUCT_NAME, productName,
+                     APIConstants.PRODUCT_LIST_SORT_DIRECTION, sortDirection);
         }else if(productName.isEmpty()){
-            endpoint = String.format("%s/%s/%s?%s=%s&%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.SELLER_TRANSACTION_LIST_API,
-                    APIConstants.ACCESS_TOKEN, accessToken, APIConstants.RIDER_NAME_PARAMS, riderName);
+            endpoint = String.format("%s/%s/%s?%s=%s&%s=%s&%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.SELLER_TRANSACTION_LIST_API,
+                    APIConstants.ACCESS_TOKEN, accessToken, APIConstants.RIDER_NAME_PARAMS, riderName,
+                    APIConstants.PRODUCT_LIST_SORT_DIRECTION, sortDirection);
         }
         endpoint = endpoint.replace(" ", "%20");
         Request request = new JsonObjectRequest(endpoint, new Response.Listener<JSONObject>() {
@@ -295,19 +340,29 @@ public class SearchApi {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
                 String message = APIConstants.API_CONNECTION_PROBLEM;
-                try {
-                    String responseBody = new String(error.networkResponse.data, "utf-8" );
-                    JSONObject jsonObject = new JSONObject( responseBody );
-                    jsonObject = jsonObject.getJSONObject("data");
-                    JSONArray errors = jsonObject.getJSONArray("errors");
-                    message = errors.getString(0);
 
-                } catch ( JSONException e ) {
-                    //Handle a malformed json response
-                } catch (UnsupportedEncodingException e){
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
 
+                    message = APIConstants.API_CONNECTION_PROBLEM;
+
+                } else if (error instanceof AuthFailureError) {
+
+                    message = "Authentication Failure.";
+
+                }else{
+                    try {
+                        String responseBody = new String(error.networkResponse.data, "utf-8" );
+                        JSONObject jsonObject = new JSONObject( responseBody );
+                        jsonObject = jsonObject.getJSONObject("data");
+                        JSONArray var = jsonObject.getJSONArray("errors");
+                        message = var.get(0).toString();
+
+                    } catch ( JSONException e ) {
+                        //Handle a malformed json response
+                    } catch (UnsupportedEncodingException e){
+
+                    }
                 }
                 responseHandler.onFailed(requestCode, message);
             }

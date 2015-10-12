@@ -82,6 +82,7 @@ public class APIConstants {
     public static final String SELLER_PARAMS_SEARCH_KEYWORD = "searchKeyword";
     public static final String SEARCH_TRANSACTION_API = "transaction";
     public static final String SEARCH_QUERY_TRANSACTION = "query";
+    public static final String GENERATE_QR_CODE_API = "getQrCode";
 
     //For Cart API
     public static final String CART_API = "cart";
@@ -91,6 +92,8 @@ public class APIConstants {
     public static final String CART_QUANTITY = "quantity";
     public static final String CART_ITEM_ID = "itemId";
     public static final String WISH_LIST_GET_ITEMS = "wishlist";
+    public static final String WISH_LIST_TO_CART = "wishlistToCart";
+    public static final String ITEM_IDS = "itemIds";
 
     //For Profile API
     public static final String PROFILE_API = "user";
@@ -191,6 +194,7 @@ public class APIConstants {
     //Edit Product
     public static final String PRODUCT_EDIT_API = "edit";
     public static final String PRODUCT_EDIT_PARAMS_PRODUCT_ID = "productId";
+    public static final String PRODUCT_EDIT_PARAMS_IMAGE_DETAILS = "imageDetail";
 
     //Draft Product
     public static final String PRODUCT_DRAFT_API = "draft";
@@ -201,6 +205,7 @@ public class APIConstants {
     public static final String API_GRANT_TYPE = "refresh_token";
     public static final String API_CONNECTION_PROBLEM = "Problem connecting to the server. Try again later.";
     public static final String API_CONNECTION_AUTH_ERROR = "OAuth Error";
+    public static final String API_AUTHENTICATION_ERROR = "Authentication Failed";
     public static final String API_GRANT_TYPE_REFRESH_TOKEN = "refresh_token";
 
     //Address
@@ -499,6 +504,8 @@ public class APIConstants {
     public final static String RESOLUTION_CENTER_PARAM_ORDER_PRODUCT_ID = "orderProductIds";
     public final static String RESOLUTION_CENTER_GET_CASE_DETAILS = "get-case-detail";
     public final static String RESOLUTION_CENTER_DISPUTE_ID = "disputeId";
+    public final static String RESOLUTION_CENTER_GET_SELLER_REASONS_API = "get-seller-reasons";
+    public final static String RESOLUTION_CENTER_PARAM_REASON_ID = "reasonId";
 
     //Reseller
     public final static String GET_MANUFACTURER_PRODUCTS_API = "products";
