@@ -404,14 +404,16 @@ public class UserApi {
 
                 } else {
 
-                    try {
-                        String responseBody = new String(error.networkResponse.data, "utf-8" );
-                        JSONObject jsonObject = new JSONObject( responseBody );
-                        message = jsonObject.getString("error_description");
+                    message = "Wrong old password.";
 
-                    } catch ( Exception e ) {
-                        //Handle a malformed json response
-                    }
+//                    try {
+//                        String responseBody = new String(error.networkResponse.data, "utf-8" );
+//                        JSONObject jsonObject = new JSONObject( responseBody );
+//                        message = jsonObject.getString("message");
+//
+//                    } catch ( Exception e ) {
+//                        //Handle a malformed json response
+//                    }
                 }
 
                 responseHandler.onFailed(requestCode, message);
