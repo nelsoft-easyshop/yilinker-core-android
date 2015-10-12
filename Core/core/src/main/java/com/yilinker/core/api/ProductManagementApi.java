@@ -43,8 +43,9 @@ public class ProductManagementApi {
         Map<String,String> params = new HashMap<String,String>();
         params.put(APIConstants.ACCESS_TOKEN, token);
         params.put(APIConstants.PRODUCT_MANAGEMENT_PARAMS_STATUS, String.valueOf(status));
-        params.put(APIConstants.PRODUCT_MANAGEMENT_PARAMS_KEYWORD, (keyword.isEmpty() || keyword == null) ? "" : keyword);
-
+        if (keyword != null && !keyword.isEmpty()) {
+            params.put(APIConstants.PRODUCT_MANAGEMENT_PARAMS_KEYWORD, keyword);
+        }
         VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -59,25 +60,8 @@ public class ProductManagementApi {
 
                     responseHandler.onSuccess(requestCode, obj);
                 } else {
-
-
                     responseHandler.onFailed(requestCode, apiResponse.getMessage());
-
                 }
-
-
-
-//                gson = GsonUtility.createGsonBuilder(CategoryProducts.class, new CategoryProducts.ProductsInstance()).create();
-//                try {
-//                    JSONObject jsonObject = new JSONObject(jsonString);
-//                    String json = jsonObject.getJSONObject("products").toString();
-//                    CategoryProducts[] productsList = gson.fromJson(json, CategoryProducts[].class);
-//                    obj.setProducts(productsList);
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-
-
 
             }
         }, new Response.ErrorListener() {
@@ -90,7 +74,7 @@ public class ProductManagementApi {
                 } else if (error instanceof AuthFailureError) {
                     message = "Authentication Failure.";
                 } else if (error instanceof ServerError) {
-                    message = "Server error.";
+                    message = "Something went wrong.";
                 } else if (error instanceof NetworkError) {
                     message = "Network Error.";
                 } else if (error instanceof ParseError) {

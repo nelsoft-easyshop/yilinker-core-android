@@ -36,6 +36,7 @@ public class ProductUpload {
     private static final String KEY_SKU = "sku";
 
     private int productId, sellerId, quantity, brandId, categoryId, conditionId;
+    private String productUnitId;
     private List<String> images;
     private String title, shortDescription, fullDescription, customBrand, sku;
     private double price, discountedPrice,length, weight, height, width;
@@ -194,12 +195,41 @@ public class ProductUpload {
         this.width = width;
     }
 
+    public String getProductUnitId() {
+        return productUnitId;
+    }
+
+    public void setProductUnitId(String productUnitId) {
+        this.productUnitId = productUnitId;
+    }
+
     public List<ProductGroupAttribute> getProductGroupAttributeList() {
         return productGroupAttributeList;
     }
 
     public void setProductGroupAttributeList(List<ProductGroupAttribute> productGroupAttributeList) {
         this.productGroupAttributeList = productGroupAttributeList;
+    }
+
+    public JSONArray getImageIndicesArray() {
+
+        final JSONArray arrayIndices = new JSONArray();
+
+        int index = 0;
+
+        for (String string: this.images) {
+            arrayIndices.put(index);
+            index++;
+        }
+
+        for (AttributeCombinationUpload attributeCombinationUpload: attributeCombinationUploadList) {
+            for (String string : attributeCombinationUpload.getImages()) {
+                arrayIndices.put(index);
+                index++;
+            }
+        }
+
+        return arrayIndices;
     }
 
     public JSONArray getProductProperties() {
@@ -233,6 +263,8 @@ public class ProductUpload {
                 jsonProductProperty.put("unitWeight", attributeCombinationUpload.getWeight());
                 jsonProductProperty.put("unitHeight", attributeCombinationUpload.getHeight());
                 jsonProductProperty.put("unitWidth", attributeCombinationUpload.getWidth());
+                if (attributeCombinationUpload.getProductUnitId() != null)
+                    jsonProductProperty.put("productUnitId", attributeCombinationUpload.getProductUnitId());
 
                 arrayProductProperties.put(jsonProductProperty);
             }
