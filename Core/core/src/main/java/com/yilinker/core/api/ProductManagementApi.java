@@ -42,7 +42,9 @@ public class ProductManagementApi {
 
         Map<String,String> params = new HashMap<String,String>();
         params.put(APIConstants.ACCESS_TOKEN, token);
-        params.put(APIConstants.PRODUCT_MANAGEMENT_PARAMS_STATUS, String.valueOf(status));
+        if (status > 0) {
+            params.put(APIConstants.PRODUCT_MANAGEMENT_PARAMS_STATUS, String.valueOf(status));
+        }
         if (keyword != null && !keyword.isEmpty()) {
             params.put(APIConstants.PRODUCT_MANAGEMENT_PARAMS_KEYWORD, keyword);
         }
