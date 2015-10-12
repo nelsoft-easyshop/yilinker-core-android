@@ -16,7 +16,6 @@ public class UpdateUserInfo {
     private String storeDescription;
     private String contactNumber;
     private String email;
-
     private int productCount, transactionCount;
     private String totalSales;
     private boolean isReseller;

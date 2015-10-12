@@ -28,6 +28,7 @@ import com.yilinker.core.model.UpdateUserInfo;
 import com.yilinker.core.model.buyer.ProductReview;
 import com.yilinker.core.model.seller.Bank;
 import com.yilinker.core.model.seller.Followers;
+import com.yilinker.core.model.seller.QrCode;
 import com.yilinker.core.utility.GsonUtility;
 import com.yilinker.core.utility.SocketTimeout;
 
@@ -501,6 +502,54 @@ public class SellerApi {
                 gson = GsonUtility.createGsonBuilder(Followers.class, new Followers.FollowersInstance()).create();
                 String jsonString = new Gson().toJson(apiResponse.getData());
                 Followers[] obj = gson.fromJson(jsonString, Followers[].class);
+
+                responseHandler.onSuccess(requestCode, obj);
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                String message = "An error occured.";
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                    message = "No connection available.";
+                } else if (error instanceof AuthFailureError) {
+                    message = "Authentication Failure.";
+                } else if (error instanceof ServerError) {
+                    message = "Server error.";
+                } else if (error instanceof NetworkError) {
+                    message = "Network Error.";
+                } else if (error instanceof ParseError) {
+                    message = "Parse error.";
+                }
+                responseHandler.onFailed(requestCode, message);
+            }
+        });
+
+        requestGetCart.setRetryPolicy(SocketTimeout.getRetryPolicy());
+
+        return requestGetCart;
+
+    }
+
+    public static Request generateQrCode(final int requestCode, String token, final ResponseHandler responseHandler) {
+
+        String url = String.format("%s/%s/%s/%s?%s=%s",
+                APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.MERCHANT_API, APIConstants.GENERATE_QR_CODE_API,
+                APIConstants.ACCESS_TOKEN, token);
+
+        url = url.replace(" ", "%20");
+
+        Request requestGetCart = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+
+                gson = GsonUtility.createGsonBuilder(QrCode.class, new QrCode.QrCodeInstance()).create();
+                String jsonString = new Gson().toJson(apiResponse.getData());
+                QrCode obj = gson.fromJson(jsonString, QrCode.class);
 
                 responseHandler.onSuccess(requestCode, obj);
 
