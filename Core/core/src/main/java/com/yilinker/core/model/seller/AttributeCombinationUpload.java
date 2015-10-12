@@ -19,6 +19,7 @@ public class AttributeCombinationUpload extends AttributeCombination {
     private int quantity;
     private double retailPrice, discountedPrice, length, width, height, weight;
     private String sku;
+    private String productUnitId;
 
 
     public List<String> getCombinationList() {
@@ -103,6 +104,14 @@ public class AttributeCombinationUpload extends AttributeCombination {
 
     public void setWeight(double weight) {
         this.weight = weight;
+    }
+
+    public String getProductUnitId() {
+        return productUnitId;
+    }
+
+    public void setProductUnitId(String productUnitId) {
+        this.productUnitId = productUnitId;
     }
 
     public static class AttributeCombinationUploadInstance implements InstanceCreator<AttributeCombinationUpload> {

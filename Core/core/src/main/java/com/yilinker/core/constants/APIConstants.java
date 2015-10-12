@@ -194,6 +194,7 @@ public class APIConstants {
     //Edit Product
     public static final String PRODUCT_EDIT_API = "edit";
     public static final String PRODUCT_EDIT_PARAMS_PRODUCT_ID = "productId";
+    public static final String PRODUCT_EDIT_PARAMS_PRODUCT_UNIT_ID = "productUnitId";
     public static final String PRODUCT_EDIT_PARAMS_IMAGE_DETAILS = "imageDetail";
 
     //Draft Product
