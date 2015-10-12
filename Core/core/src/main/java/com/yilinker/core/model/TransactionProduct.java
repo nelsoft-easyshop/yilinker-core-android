@@ -2,6 +2,7 @@ package com.yilinker.core.model;
 
 import com.google.gson.InstanceCreator;
 import com.google.gson.annotations.SerializedName;
+import com.yilinker.core.model.seller.Delivery;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -35,6 +36,7 @@ public class TransactionProduct {
     private static final String KEY_PRODUCT_CONDITION = "condition";
     private static final String KEY_PRODUCT_CATEGORY_ID = "productCategoryId";
     private static final String KEY_IS_CANCELLABLE = "isCancellable";
+    private static final String KEY_DELIVERY_LOGS = "deliveryLogs";
 
     @SerializedName(KEY_ORDER_PRODUCT_ID)
     private String orderProductId;
@@ -77,6 +79,8 @@ public class TransactionProduct {
     private Brand brand;
     @SerializedName(KEY_PRODUCT_CONDITION)
     private Condition condition;
+    @SerializedName(KEY_DELIVERY_LOGS)
+    private DeliveryLogs deliveryLogs;
 
     public String getProductImage() {
         return productImage;
@@ -238,6 +242,13 @@ public class TransactionProduct {
         this.orderProductId = orderProductId;
     }
 
+    public DeliveryLogs getDeliveryLogs() {
+        return deliveryLogs;
+    }
+
+    public void setDeliveryLogs(DeliveryLogs deliveryLogs) {
+        this.deliveryLogs = deliveryLogs;
+    }
 
     public class Attributes {
 
@@ -317,6 +328,171 @@ public class TransactionProduct {
 
         public void setName(String name) {
             this.name = name;
+        }
+    }
+
+    public class DeliveryLogs {
+
+        private static final String KEY_LAST_CHECKED_IN_DATE = "lastCheckedInDate";
+        private static final String KEY_LAST_CHECKED_IN_BY = "lastCheckedInBy";
+        private static final String KEY_LAST_ACTION_TYPE = "lastActionType";
+        private static final String KEY_LAST_CHECKED_IN_LOCATION = "lastCheckedinLocation";
+        private static final String KEY_PICKUP_RIDER = "pickupRider";
+        private static final String KEY_DELIVERY_RIDER = "deliveryRider";
+
+
+        @SerializedName(KEY_LAST_CHECKED_IN_DATE)
+        private LastCheckedInDate lastCheckedInDate;
+        @SerializedName(KEY_LAST_CHECKED_IN_BY)
+        private String lastCheckedInBy;
+        @SerializedName(KEY_LAST_ACTION_TYPE)
+        private String lastActionType;
+        @SerializedName(KEY_LAST_CHECKED_IN_LOCATION)
+        private String lastCheckedInLocation;
+        @SerializedName(KEY_PICKUP_RIDER)
+        private PickupRider pickupRider;
+        @SerializedName(KEY_DELIVERY_RIDER)
+        private DeliveryRider deliveryRider;
+
+        public LastCheckedInDate getLastCheckedInDate() {
+            return lastCheckedInDate;
+        }
+
+        public void setLastCheckedInDate(LastCheckedInDate lastCheckedInDate) {
+            this.lastCheckedInDate = lastCheckedInDate;
+        }
+
+        public String getLastCheckedInBy() {
+            return lastCheckedInBy;
+        }
+
+        public void setLastCheckedInBy(String lastCheckedInBy) {
+            this.lastCheckedInBy = lastCheckedInBy;
+        }
+
+        public String getLastActionType() {
+            return lastActionType;
+        }
+
+        public void setLastActionType(String lastActionType) {
+            this.lastActionType = lastActionType;
+        }
+
+        public String getLastCheckedInLocation() {
+            return lastCheckedInLocation;
+        }
+
+        public void setLastCheckedInLocation(String lastCheckedInLocation) {
+            this.lastCheckedInLocation = lastCheckedInLocation;
+        }
+
+        public PickupRider getPickupRider() {
+            return pickupRider;
+        }
+
+        public void setPickupRider(PickupRider pickupRider) {
+            this.pickupRider = pickupRider;
+        }
+
+        public DeliveryRider getDeliveryRider() {
+            return deliveryRider;
+        }
+
+        public void setDeliveryRider(DeliveryRider deliveryRider) {
+            this.deliveryRider = deliveryRider;
+        }
+
+        public class LastCheckedInDate {
+
+            private static final String KEY_DATE = "date";
+            private static final String KEY_TIMEZONE_TYPE = "timezone_type";
+            private static final String KEY_TIMEZONE = "timezone";
+
+            @SerializedName(KEY_DATE)
+            private String date;
+            @SerializedName(KEY_TIMEZONE_TYPE)
+            private String timezone_type;
+            @SerializedName(KEY_TIMEZONE)
+            private String timezone;
+
+
+            public String getDate() {
+                return date;
+            }
+
+            public void setDate(String date) {
+                this.date = date;
+            }
+
+            public String getTimezone_type() {
+                return timezone_type;
+            }
+
+            public void setTimezone_type(String timezone_type) {
+                this.timezone_type = timezone_type;
+            }
+
+            public String getTimezone() {
+                return timezone;
+            }
+
+            public void setTimezone(String timezone) {
+                this.timezone = timezone;
+            }
+        }
+
+        public class PickupRider {
+
+            private static final String KEY_PICKUP_RIDER = "pickupRider";
+            private static final String KEY_CONTACT_NUMBER = "contactNumber";
+
+            @SerializedName(KEY_PICKUP_RIDER)
+            private String pickupRider;
+            @SerializedName(KEY_CONTACT_NUMBER)
+            private String contactNumber;
+
+            public String getPickupRider() {
+                return pickupRider;
+            }
+
+            public void setPickupRider(String pickupRider) {
+                this.pickupRider = pickupRider;
+            }
+
+            public String getContactNumber() {
+                return contactNumber;
+            }
+
+            public void setContactNumber(String contactNumber) {
+                this.contactNumber = contactNumber;
+            }
+        }
+
+        public class DeliveryRider {
+
+            private static final String KEY_DELIVERY_RIDER = "deliveryRider";
+            private static final String KEY_CONTACT_NUMBER = "contactNumber";
+
+            @SerializedName(KEY_DELIVERY_RIDER)
+            private String deliveryRider;
+            @SerializedName(KEY_CONTACT_NUMBER)
+            private String contactNumber;
+
+            public String getDeliveryRider() {
+                return deliveryRider;
+            }
+
+            public void setDeliveryRider(String deliveryRider) {
+                this.deliveryRider = deliveryRider;
+            }
+
+            public String getContactNumber() {
+                return contactNumber;
+            }
+
+            public void setContactNumber(String contactNumber) {
+                this.contactNumber = contactNumber;
+            }
         }
     }
 

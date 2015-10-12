@@ -149,6 +149,69 @@ public class MobileVerificationApi {
     }
 
 
+    public static Request verifyRegistrationNumber (final int requestCode, String token,
+                                                    final ResponseHandler responseHandler){
+
+        String url = String.format("%s/%s/%s/%s",
+                APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.SMS_API, APIConstants.GET_CODE);
+
+        Map<String, String> params = new HashMap<String, String>();
+        params.put(APIConstants.ACCESS_TOKEN, token);
+
+        VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+
+                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+
+                if (apiResponse.isSuccessful()) {
+                    responseHandler.onSuccess(requestCode, apiResponse.isSuccessful());
+                } else {
+                    responseHandler.onFailed(requestCode, apiResponse.getMessage());
+
+                }
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                String message = APIConstants.API_CONNECTION_PROBLEM;
+
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+
+                    message = APIConstants.API_CONNECTION_PROBLEM;
+
+                } else if (error instanceof AuthFailureError) {
+
+                    message = "Authentication Failure.";
+
+                }else{
+                    try {
+                        String responseBody = new String(error.networkResponse.data, "utf-8" );
+                        JSONObject jsonObject = new JSONObject( responseBody );
+                        jsonObject = jsonObject.getJSONObject("data");
+                        JSONArray var = jsonObject.getJSONArray("errors");
+                        message = var.get(0).toString();
+
+                    } catch ( JSONException e ) {
+                        //Handle a malformed json response
+                    } catch (UnsupportedEncodingException e){
+
+                    }
+                }
+                responseHandler.onFailed(requestCode, message);
+
+            }
+        });
+
+        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
+
+        return request;
+    }
+
+
     public static Request requestNewVerificationCode (final int requestCode, String token, final ResponseHandler responseHandler){
 
         String url = String.format("%s/%s/%s/%s",

@@ -10,7 +10,7 @@ import java.lang.reflect.Type;
 public class CheckoutOverviewItem {
 
     private String orderProductId;
-    private String quantity;
+    private int quantity;
     private String unitPrice;
     private String totalPrice;
     private String productName;
@@ -24,11 +24,11 @@ public class CheckoutOverviewItem {
         this.orderProductId = orderProductId;
     }
 
-    public String getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(String quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 
