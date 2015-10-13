@@ -44,12 +44,16 @@ public class ProductApi {
                 Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
                 APIResponse<Product> apiResponse = gson.fromJson(response.toString(), APIResponse.class);
 
-                gson = GsonUtility.createGsonBuilder(Product.class, new Product.ProductInstance()).create();
-                String jsonString = new Gson().toJson(apiResponse.getData());
+                if (apiResponse.isSuccessful()){
+                    gson = GsonUtility.createGsonBuilder(Product.class, new Product.ProductInstance()).create();
+                    String jsonString = new Gson().toJson(apiResponse.getData());
 
-                Product obj = gson.fromJson(jsonString, Product.class);
-                responseHandler.onSuccess(requestCode, obj);
+                    Product obj = gson.fromJson(jsonString, Product.class);
+                    responseHandler.onSuccess(requestCode, obj);
 
+                }else{
+                    responseHandler.onFailed(requestCode, apiResponse.getMessage());
+                }
 
             }
         }, new Response.ErrorListener() {
