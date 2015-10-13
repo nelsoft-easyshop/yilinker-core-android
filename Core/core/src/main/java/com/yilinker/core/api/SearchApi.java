@@ -235,12 +235,14 @@ public class SearchApi {
 
     }
 
-    public static Request searchProductNameSuggestion(final int requestCode, String token, String query, final ResponseHandler responseHandler) {
+    public static Request searchProductNameSuggestion(final int requestCode, String token, String query, int page, int perPage, final ResponseHandler responseHandler) {
 
-        String url = String.format("%s/%s/%s/%s?%s=%s&%s=%s",
+        String url = String.format("%s/%s/%s/%s?%s=%s&%s=%s&%s=%s&%s=%s",
                 APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.PRODUCT_MANAGEMENT_API, APIConstants.PRODUCT_NAME_API,
                 APIConstants.ACCESS_TOKEN, token,
-                APIConstants.SEARCH_QUERY, query);
+                APIConstants.SEARCH_QUERY, query,
+                APIConstants.SEARCH_PAGE, page,
+                APIConstants.SEARCH_PER_PAGE, perPage);
         url = url.replace(" ", "%20");
         Request requestGetCart = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
             @Override
@@ -287,7 +289,7 @@ public class SearchApi {
     public static Request searchRiderNameSuggestion(final int requestCode, String token,
                                                     String query, int perPage, int pageNo, final ResponseHandler responseHandler) {
 
-        String url = String.format("%s/%s/%s?%s=%s&%s=%s",
+        String url = String.format("%s/%s/%s?%s=%s&%s=%s&%s=%s&%s=%s",
                 APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.RIDER_NAME_API,
                 APIConstants.ACCESS_TOKEN, token,
                 APIConstants.SEARCH_QUERY, query,
