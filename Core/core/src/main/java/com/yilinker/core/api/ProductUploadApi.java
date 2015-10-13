@@ -184,7 +184,7 @@ public class ProductUploadApi {
                             responseHandler.onSuccess(requestCode, obj);
                         }else{
 
-                            responseHandler.onFailed(requestCode,"Error!");
+                            responseHandler.onFailed(requestCode,apiResponse.getMessage());
                         }
 
                     }
