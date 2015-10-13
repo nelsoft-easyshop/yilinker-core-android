@@ -156,6 +156,69 @@ public class ProductUploadApi {
 
     }
 
+    public static Request searchCategory(final int requestCode, String accessToken, String keyword, final ResponseHandler responseHandler) {
+
+
+        String endpoint = String.format("%s/%s/%s?%s=%s&%s=%s", APIConstants.DOMAIN, APIConstants.PRODUCT_API, APIConstants.PRODUCT_UPLOAD_GET_CATEGORIES,
+                APIConstants.ACCESS_TOKEN, accessToken,
+                APIConstants.PRODUCT_UPLOAD_GET_CATEGORIES_PARAM_QUERY_STRING, keyword);
+
+        if (endpoint.contains(" ")) {
+            endpoint = endpoint.replaceAll(" ","%20");
+        }
+
+        Request request = new JsonObjectRequest(endpoint,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                        APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+
+                        gson = GsonUtility.createGsonBuilder(ProductCategory.class, new ProductCategory.ProductCategoryInstance()).create();
+                        String jsonString = new Gson().toJson(apiResponse.getData());
+                        ProductCategory[] obj = gson.fromJson(jsonString, ProductCategory[].class);
+
+                        if (apiResponse.isSuccessful()) {
+
+                            responseHandler.onSuccess(requestCode, obj);
+                        }else{
+
+                            responseHandler.onFailed(requestCode,"Error!");
+                        }
+
+                    }
+
+                },
+
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        String message = "An error occured.";
+                        if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                            message = "No connection available.";
+                        } else if (error instanceof AuthFailureError) {
+                            message = "Authentication Failure.";
+                        } else if (error instanceof ServerError) {
+                            message = "Server error.";
+                        } else if (error instanceof NetworkError) {
+                            message = "Network Error.";
+                        } else if (error instanceof ParseError) {
+                            message = "Parse error.";
+                        }
+                        responseHandler.onFailed(requestCode,message);
+                    }
+                });
+
+
+        request.setRetryPolicy(policy);
+
+        return request;
+    }
+
+
+
+
     public static Request getCategories(final int requestCode, String accessToken, int parentId, final ResponseHandler responseHandler) {
 
         String url = String.format("%s/%s/%s?%s=%s&%s=%d",APIConstants.DOMAIN, APIConstants.PRODUCT_API, APIConstants.PRODUCT_UPLOAD_GET_CATEGORIES,APIConstants.ACCESS_TOKEN,accessToken,APIConstants.PRODUCT_UPLOAD_GET_CATEGORIES_PARAM_PARENT_ID,parentId);
