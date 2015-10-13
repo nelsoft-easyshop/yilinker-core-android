@@ -113,11 +113,20 @@ public class SearchApi {
 
     }
 
-    public static Request getSearchStore(final int requestCode, String keyword, final ResponseHandler responseHandler) {
+    public static Request getSearchStore(final int requestCode, String keyword,String accessToken, final ResponseHandler responseHandler) {
 
-        String url = String.format("%s/%s/%s?%s=%s",
+        String url="";
+        if (accessToken.isEmpty()){
+            url = String.format("%s/%s/%s?%s=%s",
+                    APIConstants.DOMAIN, APIConstants.STORE_API, APIConstants.GET_SEARCH,
+                    APIConstants.SEARCH_QUERY, keyword);
+        }else{
+
+            url = String.format("%s/%s/%s?%s=%s&%s=%s",
                 APIConstants.DOMAIN, APIConstants.STORE_API, APIConstants.GET_SEARCH,
-                APIConstants.SEARCH_QUERY, keyword);
+                APIConstants.SEARCH_QUERY, keyword,APIConstants.ACCESS_TOKEN,accessToken);
+
+        }
 
 //        String url = "http://online.api.easydeal.ph/api/v1/store/search?queryString=seller";
 
