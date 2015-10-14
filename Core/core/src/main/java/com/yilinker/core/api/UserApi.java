@@ -33,7 +33,9 @@ import java.util.Map;
  */
 public class UserApi {
 
-    public static Request register (final int requestCode, String firstName, String lastName, String email, String password, String contactNumber, final ResponseHandler responseHandler){
+    public static Request register (final int requestCode, String firstName, String lastName,
+                                    String email, String password, String contactNumber,
+                                    final ResponseHandler responseHandler){
 
         String url = String.format("%s/%s/%s",
         APIConstants.DOMAIN, APIConstants.USER_API, APIConstants.REG_API);
@@ -92,7 +94,8 @@ public class UserApi {
         return request;
     }
 
-    public static Request login (final int requestCode, String grantType, String email, String password, final ResponseHandler responseHandler){
+    public static Request login (final int requestCode, String grantType, String email,
+                                 String password, final ResponseHandler responseHandler){
 
         String url = String.format("%s/%s",
                 APIConstants.DOMAIN,

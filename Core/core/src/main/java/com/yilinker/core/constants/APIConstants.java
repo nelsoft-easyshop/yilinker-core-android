@@ -16,6 +16,8 @@ public class APIConstants {
 
     //temp
     public static final String DOMAIN = BaseApplication.getDomainURL();
+    public static final String API_CLIENT_ID = BaseApplication.getClientId();
+    public static final String API_CLIENT_SECRET = BaseApplication.getClientSecret();
     public static final String AUTH_API = "auth";
     public static final String MERCHANT_API = "merchant";
     public static final String CANCELLATION_API = "cancellation";
@@ -202,8 +204,6 @@ public class APIConstants {
     public static final String PRODUCT_DRAFT_API = "draft";
 
     //API Credentials
-    public static final String API_CLIENT_ID = "1_167rxzqvid8g8swggwokcoswococscocc8ck44wo0g88owgkcc";
-    public static final String API_CLIENT_SECRET = "317eq8nohry84ooc0o8woo8000c0k844c4cggws84g80scwwog";
     public static final String API_GRANT_TYPE = "refresh_token";
     public static final String API_CONNECTION_PROBLEM = "Problem connecting to the server. Try again later.";
     public static final String API_CONNECTION_AUTH_ERROR = "OAuth Error";
