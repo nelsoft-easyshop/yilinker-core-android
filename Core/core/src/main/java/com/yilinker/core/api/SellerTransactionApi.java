@@ -72,7 +72,7 @@ public class SellerTransactionApi {
                 JSONObject datesJSON = new JSONObject(dates);
                 int selectedDates = datesJSON.getInt(KEY_DATES);
 
-                if (selectedDates != DATES_TOTAL) {
+                if (selectedDates != DATES_TOTAL || (status != null && status.equals("new_update"))) {
 
                     String KEY_DATES_TO = "to";
                     String KEY_DATES_FROM = "from";
@@ -96,7 +96,7 @@ public class SellerTransactionApi {
         }
 
 
-        if (status != null && !status.equals("available")) {
+        if (status != null && !status.equals("available") && !status.equals("new_update")) {
 
             endpoint = String.format("%s&%s=%s", endpoint,
                     APIConstants.SELLER_TRANSACTION_LIST_PARAMS_TYPE, status);
