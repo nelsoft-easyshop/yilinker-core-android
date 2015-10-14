@@ -112,7 +112,7 @@ public class TransactionApi {
         params.put(APIConstants.PRODUCT_REVIEW_SELLER_ID,String.valueOf(sellerId));
         params.put(APIConstants.PRODUCT_RATINGS,rating);
         params.put(APIConstants.PRODUCT_FEEDBACK,review);
-        params.put(APIConstants.PRODUCT_REVIEW_TITLE,"title");
+        params.put(APIConstants.PRODUCT_REVIEW_TITLE,"Seller Feedback");
         params.put(APIConstants.ACCESS_TOKEN, accessToken);
 
         VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
