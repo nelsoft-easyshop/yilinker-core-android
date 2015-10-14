@@ -32,7 +32,7 @@ public class HomeProductItems {
     private String image;
     private String originalPrice;
     private String discountedPrice;
-    private int discountedPercentage;
+    private double discountedPercentage;
     private String target;
 
     public String getProductName() {
@@ -67,11 +67,11 @@ public class HomeProductItems {
         this.discountedPrice = discountedPrice;
     }
 
-    public int getDiscountedPercentage() {
+    public double getDiscountedPercentage() {
         return discountedPercentage;
     }
 
-    public void setDiscountedPercentage(int discountedPercentage) {
+    public void setDiscountedPercentage(double discountedPercentage) {
         this.discountedPercentage = discountedPercentage;
     }
 
