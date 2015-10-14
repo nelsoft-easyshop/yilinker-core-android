@@ -307,13 +307,16 @@ public class CheckoutApi {
                     APIConstants.CHECKOUT_SELECT_ITEMS);
         }
 
+        if(!itemIds.toString().equals("[]")){
 
-        for(int i=0;i<itemIds.length();i++){
-            try {
-                params.put(String.format("%s[%d]",APIConstants.CART_API, i), itemIds.getString(i));
-            } catch (JSONException e) {
-                e.printStackTrace();
+            for(int i=0;i<itemIds.length();i++){
+                try {
+                    params.put(String.format("%s[%d]",APIConstants.CART_API, i), itemIds.getString(i));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
+
         }
 
         VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
