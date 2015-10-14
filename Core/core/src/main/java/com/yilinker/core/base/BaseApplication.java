@@ -51,7 +51,7 @@ public class BaseApplication extends Application{
 
     }
 
-    public static String getClientId(){
+    public static String getClientIdFromApplication(){
 
         BaseApplication application = getInstance();
 
@@ -59,7 +59,7 @@ public class BaseApplication extends Application{
 
     }
 
-    public static String getClientSecret(){
+    public static String getClientSecretFromApplication(){
 
         BaseApplication application = getInstance();
 
@@ -69,6 +69,14 @@ public class BaseApplication extends Application{
 
     public String getDomain() {
         return domain;
+    }
+
+    public String getClientId() {
+        return clientId;
+    }
+
+    public String getClientSecret() {
+        return clientSecret;
     }
 
     public void setDomain(String domain) {

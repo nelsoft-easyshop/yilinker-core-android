@@ -16,8 +16,8 @@ public class APIConstants {
 
     //temp
     public static final String DOMAIN = BaseApplication.getDomainURL();
-    public static final String API_CLIENT_ID = BaseApplication.getClientId();
-    public static final String API_CLIENT_SECRET = BaseApplication.getClientSecret();
+    public static final String API_CLIENT_ID = BaseApplication.getClientIdFromApplication();
+    public static final String API_CLIENT_SECRET = BaseApplication.getClientSecretFromApplication();
     public static final String AUTH_API = "auth";
     public static final String MERCHANT_API = "merchant";
     public static final String CANCELLATION_API = "cancellation";
