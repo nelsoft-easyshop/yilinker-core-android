@@ -70,7 +70,7 @@ public class ProductUploadApi {
             params.put(APIConstants.PRODUCT_UPLOAD_PARAM_DISCOUNTED_PRICE, String.valueOf(productUpload.getDiscountedPrice()));
         }
         params.put(APIConstants.PRODUCT_UPLOAD_PARAM_SKU, productUpload.getSku() != null ? productUpload.getSku(): "");
-        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_IMAGES, productUpload.getImageIndicesArray().toString());
+//        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_IMAGES, productUpload.getImageIndicesArray().toString());
         params.put(APIConstants.PRODUCT_UPLOAD_PARAM_PRODUCT_PROPERTIES,productUpload.getProductProperties().toString());
 
         MultiPartRequest multiPartRequest = new MultiPartRequest(url,productUpload, APIResponse.class,params, new Response.Listener<JSONObject>() {
@@ -390,7 +390,7 @@ public class ProductUploadApi {
                 APIConstants.PRODUCT_UPLOAD_API, APIConstants.PRODUCT_DRAFT_API,
                 APIConstants.ACCESS_TOKEN, accessToken);
 
-        Map<String,String> params = new HashMap<String,String>();
+        Map<String,String> params = new HashMap<>();
         params.put(APIConstants.ACCESS_TOKEN, accessToken);
         params.put(APIConstants.PRODUCT_EDIT_PARAMS_PRODUCT_ID, String.valueOf(productUpload.getProductId()));
         if (productUpload.getCategoryId() != 0)
@@ -414,7 +414,7 @@ public class ProductUploadApi {
         }
         params.put(APIConstants.PRODUCT_UPLOAD_PARAM_SKU, productUpload.getSku() != null ? productUpload.getSku(): "");
         if(productUpload.getImages().size() > 0)
-        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_IMAGES, productUpload.getImageIndicesArray().toString());
+//        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_IMAGES, productUpload.getImageIndicesArray().toString());
         params.put(APIConstants.PRODUCT_UPLOAD_PARAM_PRODUCT_PROPERTIES,productUpload.getProductProperties().toString());
 
         MultiPartRequest multiPartRequest = new MultiPartRequest(url,productUpload, APIResponse.class,params, new Response.Listener<JSONObject>() {
@@ -481,7 +481,7 @@ public class ProductUploadApi {
             params.put(APIConstants.PRODUCT_UPLOAD_PARAM_DISCOUNTED_PRICE, String.valueOf(productUpload.getDiscountedPrice()));
         }
         params.put(APIConstants.PRODUCT_UPLOAD_PARAM_SKU, productUpload.getSku() != null ? productUpload.getSku(): "");
-        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_IMAGES, productUpload.getImageIndicesArray().toString());
+//        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_IMAGES, productUpload.getImageIndicesArray().toString());
         params.put(APIConstants.PRODUCT_UPLOAD_PARAM_PRODUCT_PROPERTIES,productUpload.getProductProperties().toString());
         params.put(APIConstants.PRODUCT_EDIT_PARAMS_IMAGE_DETAILS, imageDetails);
 

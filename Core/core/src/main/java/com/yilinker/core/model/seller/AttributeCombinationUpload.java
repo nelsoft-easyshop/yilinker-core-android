@@ -53,14 +53,14 @@ public class AttributeCombinationUpload extends AttributeCombination {
         return images;
     }
 
-    public String getImageIndices(int index) {
+    public JSONArray getImageIndices(int index) {
         JSONArray array = new JSONArray();
         for (String string:this.images) {
             array.put(index);
             index++;
         }
 
-        return array.toString();
+        return array;
     }
 
     @Override
