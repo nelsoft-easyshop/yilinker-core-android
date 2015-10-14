@@ -1,5 +1,7 @@
 package com.yilinker.core.api;
 
+import android.graphics.Bitmap;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
@@ -11,6 +13,7 @@ import com.android.volley.RetryPolicy;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
 import com.yilinker.core.constants.APIConstants;
@@ -240,7 +243,7 @@ public class ProductUploadApi {
                             responseHandler.onSuccess(requestCode, obj);
                         }else{
 
-                            responseHandler.onFailed(requestCode,"Error!");
+                            responseHandler.onFailed(requestCode,apiResponse.getMessage());
                         }
 
                     }
@@ -456,10 +459,10 @@ public class ProductUploadApi {
                 APIConstants.PRODUCT_EDIT_API,
                 APIConstants.ACCESS_TOKEN, accessToken);
 
-        Map<String,String> params = new HashMap<String,String>();
+        Map<String,String> params = new HashMap<>();
         params.put(APIConstants.ACCESS_TOKEN, accessToken);
         params.put(APIConstants.PRODUCT_EDIT_PARAMS_PRODUCT_ID, String.valueOf(productUpload.getProductId()));
-        params.put(APIConstants.PRODUCT_EDIT_PARAMS_PRODUCT_UNIT_ID, productUpload.getProductUnitId());
+        params.put(APIConstants.PRODUCT_EDIT_PARAMS_PRODUCT_UNIT_ID, productUpload.getProductUnitId() != null ? productUpload.getProductUnitId() : "");
         params.put(APIConstants.PRODUCT_UPLOAD_PARAM_CATEGORY, String.valueOf(productUpload.getCategoryId()));
         params.put(APIConstants.PRODUCT_UPLOAD_PARAM_BRAND,String.valueOf(productUpload.getBrandId()));
         params.put(APIConstants.PRODUCT_UPLOAD_PARAM_CUSTOM_BRAND, productUpload.getCustomBrand());
@@ -489,7 +492,12 @@ public class ProductUploadApi {
                 Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
                 APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
 
-                responseHandler.onSuccess(requestCode, apiResponse);
+                if (apiResponse.isSuccessful()) {
+                    responseHandler.onSuccess(requestCode, apiResponse);
+                } else {
+                    responseHandler.onFailed(requestCode, apiResponse.getMessage());
+                }
+
 
             }
         }, new Response.ErrorListener() {

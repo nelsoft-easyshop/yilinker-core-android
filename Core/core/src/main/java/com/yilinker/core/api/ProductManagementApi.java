@@ -9,6 +9,7 @@ import com.android.volley.Response;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HttpHeaderParser;
 import com.google.gson.Gson;
 import com.yilinker.core.constants.APIConstants;
 import com.yilinker.core.helper.VolleyPostHelper;
@@ -23,6 +24,7 @@ import com.yilinker.core.utility.SocketTimeout;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,8 +44,10 @@ public class ProductManagementApi {
 
         Map<String,String> params = new HashMap<String,String>();
         params.put(APIConstants.ACCESS_TOKEN, token);
-        if (status > 0) {
+        if (status != 7) {
             params.put(APIConstants.PRODUCT_MANAGEMENT_PARAMS_STATUS, String.valueOf(status));
+        } else {
+            params.put(APIConstants.PRODUCT_MANAGEMENT_PARAMS_STATUS, "all");
         }
         if (keyword != null && !keyword.isEmpty()) {
             params.put(APIConstants.PRODUCT_MANAGEMENT_PARAMS_KEYWORD, keyword);
@@ -53,13 +57,10 @@ public class ProductManagementApi {
             public void onResponse(JSONObject response) {
                 Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
                 APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
-
                 if (apiResponse.isSuccessful()) {
-
                     gson = GsonUtility.createGsonBuilder(ProductList.class, new ProductList.ProductListInstance()).create();
                     String jsonString = new Gson().toJson(apiResponse.getData());
                     ProductList obj = gson.fromJson(jsonString, ProductList.class);
-
                     responseHandler.onSuccess(requestCode, obj);
                 } else {
                     responseHandler.onFailed(requestCode, apiResponse.getMessage());
@@ -70,19 +71,7 @@ public class ProductManagementApi {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                String message = "An error occured.";
-                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                    message = "No connection available.";
-                } else if (error instanceof AuthFailureError) {
-                    message = "Authentication Failure.";
-                } else if (error instanceof ServerError) {
-                    message = "Something went wrong.";
-                } else if (error instanceof NetworkError) {
-                    message = "Network Error.";
-                } else if (error instanceof ParseError) {
-                    message = "Parse error.";
-                }
-                responseHandler.onFailed(requestCode,message);
+                sendErrorMessage(requestCode, error, responseHandler);
             }
         });
 
@@ -115,36 +104,52 @@ public class ProductManagementApi {
 
                 if(apiResponse.isSuccessful()) {
                     responseHandler.onSuccess(requestCode, apiResponse);
-
                 }else{
-
-                    responseHandler.onSuccess(requestCode, apiResponse);
-
+                    responseHandler.onFailed(requestCode, apiResponse.getMessage());
                 }
-            }
-        }, new Response.ErrorListener() {
 
+            }
+
+        }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                String message = "An error occured.";
-                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                    message = "No connection available.";
-                } else if (error instanceof AuthFailureError) {
-                    message = "Authentication Failure.";
-                } else if (error instanceof ServerError) {
-                    message = "Server error.";
-                } else if (error instanceof NetworkError) {
-                    message = "Network Error.";
-                } else if (error instanceof ParseError) {
-                    message = "Parse error.";
-                }
-                responseHandler.onFailed(requestCode,message);
+
+                sendErrorMessage(requestCode, error, responseHandler);
             }
         });
 
         request.setRetryPolicy(SocketTimeout.getRetryPolicy());
 
         return request;
+    }
+
+    private static void sendErrorMessage(int requestCode, VolleyError error, ResponseHandler responseHandler) {
+
+        try {
+            String jsonString = new String(error.networkResponse.data,
+                    HttpHeaderParser.parseCharset(error.networkResponse.headers));
+            Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+            APIResponse apiResponse = gson.fromJson(jsonString, APIResponse.class);
+            responseHandler.onFailed(requestCode, apiResponse.getMessage());
+            return;
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        String message = "An error occured.";
+        if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+            message = "No connection available.";
+        } else if (error instanceof AuthFailureError) {
+            message = "Authentication Failure.";
+        } else if (error instanceof ServerError) {
+            message = "Server error.";
+        } else if (error instanceof NetworkError) {
+            message = "Network Error.";
+        } else if (error instanceof ParseError) {
+            message = "Parse error.";
+        }
+        responseHandler.onFailed(requestCode,message);
+
     }
 
 }
