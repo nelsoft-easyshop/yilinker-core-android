@@ -27,7 +27,7 @@ public class BaseApplication extends Application{
     private static final String KEEP_LOGGED_IN = "keepLoggedIn";
 
     private RequestQueue requestQueue;
-    private String domain;
+    private String domain, clientId, clientSecret;
 
     @Override
     public void onCreate() {
@@ -51,6 +51,22 @@ public class BaseApplication extends Application{
 
     }
 
+    public static String getClientId(){
+
+        BaseApplication application = getInstance();
+
+        return application.getClientId();
+
+    }
+
+    public static String getClientSecret(){
+
+        BaseApplication application = getInstance();
+
+        return application.getClientSecret();
+
+    }
+
     public String getDomain() {
         return domain;
     }
@@ -58,6 +74,15 @@ public class BaseApplication extends Application{
     public void setDomain(String domain) {
         this.domain = domain;
     }
+
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
+    }
+
+    public void setClientSecret(String clientSecret) {
+        this.clientSecret = clientSecret;
+    }
+
 
     public RequestQueue getRequestQueue() {
 
