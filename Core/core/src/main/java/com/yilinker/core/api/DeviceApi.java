@@ -46,6 +46,7 @@ public class DeviceApi
         Map<String, String> params = new HashMap<String, String>();
         params.put(APIConstants.DEVICE_PARAM_ACCESS_TOKEN, accessToken);
         params.put(APIConstants.DEVICE_PARAM_REGISTRATION_ID, registrationId);
+        params.put(APIConstants.DEVICE_TYPE, String.valueOf(0));
 
         // Build request
         VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, endpoint, params, new Response.Listener<JSONObject>()

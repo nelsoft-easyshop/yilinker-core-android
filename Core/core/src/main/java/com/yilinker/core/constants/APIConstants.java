@@ -447,6 +447,7 @@ public class APIConstants {
     public static final String UPDATE_REGISTRATION_ID           = "updateRegistrationId";
 
     // Param
+    public static final String DEVICE_TYPE                      = "deviceType";
     public static final String DEVICE_PARAM_REGISTRATION_ID     = "registrationId";
     public static final String DEVICE_PARAM_ACCESS_TOKEN        = "access_token";
     public static final String DEVICE_PARAM_OLD_REGISTRATION_ID = "oldRegistrationId";
