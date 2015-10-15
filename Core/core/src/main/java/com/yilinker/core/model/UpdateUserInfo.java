@@ -10,6 +10,7 @@ import java.lang.reflect.Type;
  */
 public class UpdateUserInfo {
 
+    private int userId;
     private String profilePhoto;
     private String coverPhoto;
     private String storeName;
@@ -133,6 +134,14 @@ public class UpdateUserInfo {
 
     public void setIsReseller(boolean isReseller) {
         this.isReseller = isReseller;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public static class UpdateUserInfoInstance implements InstanceCreator<UpdateUserInfo> {
