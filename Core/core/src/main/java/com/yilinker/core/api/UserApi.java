@@ -417,7 +417,7 @@ public class UserApi {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                String message = APIConstants.API_CONNECTION_PROBLEM;
+                String message;
 
                 if (error instanceof TimeoutError || error instanceof NoConnectionError) {
 
