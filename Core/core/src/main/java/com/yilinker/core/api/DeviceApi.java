@@ -81,12 +81,12 @@ public class DeviceApi
     public static Request deleteRegistrationId(String accessToken, String registrationId, final ResponseHandler handler)
     {
         // Build endpoint
-        String endpoint = String.format("%s/%s/%s",
-                APIConstants.DOMAIN, APIConstants.DEVICE_API, APIConstants.DELETE_REGISTRATION_ID);
+        String endpoint = String.format("%s/%s/%s?%s=%s",
+                APIConstants.DOMAIN, APIConstants.DEVICE_API, APIConstants.DELETE_REGISTRATION_ID,
+                APIConstants.DEVICE_PARAM_ACCESS_TOKEN, accessToken);
 
         // Build request parameters
         Map<String, String> params = new HashMap<String, String>();
-        params.put(APIConstants.DEVICE_PARAM_ACCESS_TOKEN, accessToken);
         params.put(APIConstants.DEVICE_PARAM_REGISTRATION_ID, registrationId);
 
         // Build request
@@ -95,14 +95,14 @@ public class DeviceApi
             @Override
             public void onResponse(JSONObject response)
             {
-                handler.onSuccess(RC_DELETE_REGISTRATION_ID, null);
+                handler.onSuccess(RC_DELETE_REGISTRATION_ID, response);
             }
         }, new Response.ErrorListener()
         {
             @Override
             public void onErrorResponse(VolleyError error)
             {
-                handler.onFailed(RC_DELETE_REGISTRATION_ID, null);
+                handler.onFailed(RC_DELETE_REGISTRATION_ID, VolleyErrorHelper.getErrorType(BaseApplication.getInstance().getApplicationContext(), error));
             }
         });
 
