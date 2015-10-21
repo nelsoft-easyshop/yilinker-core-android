@@ -14,6 +14,7 @@ public class Transaction {
     private final static String KEY_BUYER_ID = "buyer_id";
     private final static String KEY_ORDER_STATUS_ID = "order_status_id";
     private final static String KEY_DATE_ADDED = "date_added";
+    private final static String KEY_DATE_MODIFIED = "date_modified";
     private final static String KEY_INVOICE_NUMBER = "invoice_number";
     private final static String KEY_PAYMENT_TYPE = "payment_type";
     private final static String KEY_PAYMENT_TYPE_ID = "payment_type_id";
@@ -36,6 +37,9 @@ public class Transaction {
 
     @SerializedName(KEY_DATE_ADDED)
     private String dateAdded;
+
+    @SerializedName(KEY_DATE_MODIFIED)
+    private String dateModified;
 
     @SerializedName(KEY_INVOICE_NUMBER)
     private String invoiceNumber;
@@ -106,6 +110,14 @@ public class Transaction {
 
     public void setDateAdded(String dateAdded) {
         this.dateAdded = dateAdded;
+    }
+
+    public String getDateModified() {
+        return dateModified;
+    }
+
+    public void setDateModified(String dateModified) {
+        this.dateModified = dateModified;
     }
 
     public String getInvoiceNumber() {

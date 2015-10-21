@@ -125,15 +125,21 @@ public class ProductManagementApi {
 
     private static void sendErrorMessage(int requestCode, VolleyError error, ResponseHandler responseHandler) {
 
-        try {
-            String jsonString = new String(error.networkResponse.data,
-                    HttpHeaderParser.parseCharset(error.networkResponse.headers));
-            Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
-            APIResponse apiResponse = gson.fromJson(jsonString, APIResponse.class);
-            responseHandler.onFailed(requestCode, apiResponse.getMessage());
-            return;
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+        if (error.networkResponse.statusCode == 400) {
+            try {
+                String jsonString = new String(error.networkResponse.data,
+                        HttpHeaderParser.parseCharset(error.networkResponse.headers));
+                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                APIResponse apiResponse = gson.fromJson(jsonString, APIResponse.class);
+                if (apiResponse != null) {
+                    responseHandler.onFailed(requestCode, apiResponse.getMessage());
+                } else {
+                    responseHandler.onFailed(requestCode,"Server Error.");
+                }
+                return;
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
         }
 
         String message = "An error occured.";
