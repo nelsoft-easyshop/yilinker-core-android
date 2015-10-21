@@ -13,6 +13,7 @@ import com.android.volley.RetryPolicy;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
@@ -30,6 +31,7 @@ import com.yilinker.core.utility.GsonUtility;
 import org.json.JSONObject;
 
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -87,19 +89,7 @@ public class ProductUploadApi {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                String message = "An error occured.";
-                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                    message = "No connection available.";
-                } else if (error instanceof AuthFailureError) {
-                    message = "Authentication Failure.";
-                } else if (error instanceof ServerError) {
-                    message = "Server error.";
-                } else if (error instanceof NetworkError) {
-                    message = "Network Error.";
-                } else if (error instanceof ParseError) {
-                    message = "Parse error.";
-                }
-                responseHandler.onFailed(requestCode,message);
+                sendErrorMessage(requestCode, error, responseHandler);
             }
         });
 
@@ -136,19 +126,7 @@ public class ProductUploadApi {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        String message = "An error occured.";
-                        if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                            message = "No connection available.";
-                        } else if (error instanceof AuthFailureError) {
-                            message = "Authentication Failure.";
-                        } else if (error instanceof ServerError) {
-                            message = "Server error.";
-                        } else if (error instanceof NetworkError) {
-                            message = "Network Error.";
-                        } else if (error instanceof ParseError) {
-                            message = "Parse error.";
-                        }
-                        responseHandler.onFailed(requestCode,message);
+                        sendErrorMessage(requestCode,error,responseHandler);
                     }
         });
 
@@ -167,7 +145,7 @@ public class ProductUploadApi {
                 APIConstants.PRODUCT_UPLOAD_GET_CATEGORIES_PARAM_QUERY_STRING, keyword);
 
         if (endpoint.contains(" ")) {
-            endpoint = endpoint.replaceAll(" ","%20");
+            endpoint = endpoint.replaceAll(" ", "%20");
         }
 
         Request request = new JsonObjectRequest(endpoint,
@@ -197,19 +175,7 @@ public class ProductUploadApi {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        String message = "An error occured.";
-                        if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                            message = "No connection available.";
-                        } else if (error instanceof AuthFailureError) {
-                            message = "Authentication Failure.";
-                        } else if (error instanceof ServerError) {
-                            message = "Server error.";
-                        } else if (error instanceof NetworkError) {
-                            message = "Network Error.";
-                        } else if (error instanceof ParseError) {
-                            message = "Parse error.";
-                        }
-                        responseHandler.onFailed(requestCode,message);
+                        sendErrorMessage(requestCode,error,responseHandler);
                     }
                 });
 
@@ -253,19 +219,7 @@ public class ProductUploadApi {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        String message = "An error occured.";
-                        if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                            message = "No connection available.";
-                        } else if (error instanceof AuthFailureError) {
-                            message = "Authentication Failure.";
-                        } else if (error instanceof ServerError) {
-                            message = "Server error.";
-                        } else if (error instanceof NetworkError) {
-                            message = "Network Error.";
-                        } else if (error instanceof ParseError) {
-                            message = "Parse error.";
-                        }
-                        responseHandler.onFailed(requestCode,message);
+                        sendErrorMessage(requestCode,error,responseHandler);
                     }
                 });
 
@@ -363,19 +317,7 @@ public class ProductUploadApi {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                String message = "An error occured.";
-                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                    message = "No connection available.";
-                } else if (error instanceof AuthFailureError) {
-                    message = "Authentication Failure.";
-                } else if (error instanceof ServerError) {
-                    message = "Server error.";
-                } else if (error instanceof NetworkError) {
-                    message = "Network Error.";
-                } else if (error instanceof ParseError) {
-                    message = "Parse error.";
-                }
-                responseHandler.onFailed(requestCode,message);
+                sendErrorMessage(requestCode,error,responseHandler);
             }
         });
 
@@ -431,19 +373,7 @@ public class ProductUploadApi {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                String message = "An error occured.";
-                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                    message = "No connection available.";
-                } else if (error instanceof AuthFailureError) {
-                    message = "Authentication Failure.";
-                } else if (error instanceof ServerError) {
-                    message = "Server error.";
-                } else if (error instanceof NetworkError) {
-                    message = "Network Error.";
-                } else if (error instanceof ParseError) {
-                    message = "Parse error.";
-                }
-                responseHandler.onFailed(requestCode,message);
+                sendErrorMessage(requestCode,error,responseHandler);
             }
         });
 
@@ -504,25 +434,49 @@ public class ProductUploadApi {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                String message = "An error occured.";
-                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                    message = "No connection available.";
-                } else if (error instanceof AuthFailureError) {
-                    message = "Authentication Failure.";
-                } else if (error instanceof ServerError) {
-                    message = "Server error.";
-                } else if (error instanceof NetworkError) {
-                    message = "Network Error.";
-                } else if (error instanceof ParseError) {
-                    message = "Parse error.";
-                }
-                responseHandler.onFailed(requestCode,message);
+                sendErrorMessage(requestCode,error,responseHandler);
             }
         });
 
         multiPartRequest.setRetryPolicy(policy);
 
         return multiPartRequest;
+    }
+
+    private static void sendErrorMessage(int requestCode, VolleyError error, ResponseHandler responseHandler) {
+
+        String message = "An error occured.";
+
+        if (error.networkResponse.statusCode == 400) {
+            try {
+                String jsonString = new String(error.networkResponse.data,
+                        HttpHeaderParser.parseCharset(error.networkResponse.headers));
+                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                APIResponse apiResponse = gson.fromJson(jsonString, APIResponse.class);
+                if (apiResponse != null) {
+                    responseHandler.onFailed(requestCode, apiResponse.getMessage());
+                } else {
+                    responseHandler.onFailed(requestCode,"Server Error.");
+                }
+                return;
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+            message = "No connection available.";
+        } else if (error instanceof AuthFailureError) {
+            message = "Authentication Failure.";
+        } else if (error instanceof ServerError) {
+            message = "Server error.";
+        } else if (error instanceof NetworkError) {
+            message = "Network Error.";
+        } else if (error instanceof ParseError) {
+            message = "Parse error.";
+        }
+        responseHandler.onFailed(requestCode,message);
+
     }
 
 }
