@@ -53,7 +53,9 @@ public class ProductUploadApi {
 
         Map<String,String> params = new HashMap<String,String>();
         params.put(APIConstants.ACCESS_TOKEN, accessToken);
-        params.put(APIConstants.PRODUCT_EDIT_PARAMS_PRODUCT_ID, String.valueOf(productUpload.getProductId()));
+        if (productUpload.getProductId() > 0) {
+            params.put(APIConstants.PRODUCT_EDIT_PARAMS_PRODUCT_ID, String.valueOf(productUpload.getProductId()));
+        }
         params.put(APIConstants.PRODUCT_UPLOAD_PARAM_CATEGORY, String.valueOf(productUpload.getCategoryId()));
         params.put(APIConstants.PRODUCT_UPLOAD_PARAM_BRAND,String.valueOf(productUpload.getBrandId()));
         params.put(APIConstants.PRODUCT_UPLOAD_PARAM_CUSTOM_BRAND, productUpload.getCustomBrand());
