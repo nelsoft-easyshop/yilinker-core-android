@@ -142,6 +142,7 @@ public class APIConstants {
 
     //For Registration API
     public static final String REG_API = "register";
+    public static final String REG_GUEST_API = "registerGuestUser";
     public static final String REG_PARAM_FULLNAME = "fullname";
     public static final String REG_PARAM_FIRST_NAME = "firstName";
     public static final String REG_PARAM_LAST_NAME = "lastName";
@@ -149,6 +150,8 @@ public class APIConstants {
     public static final String REG_PARAM_EMAIL = "email";
     public static final String REG_PARAM_PASSWORD = "password";
     public static final String REG_PARAM_REFERRAL = "referralCode";
+    public static final String REG_PARAM_GUEST = "user_guest";
+    public static final String REG_PARAM_PLAIN_PASSWORD = "plainPassword";
 
     //For Login API
     public static final String TOKEN_API = "token";

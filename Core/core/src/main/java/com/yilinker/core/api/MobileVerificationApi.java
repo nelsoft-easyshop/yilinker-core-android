@@ -40,7 +40,13 @@ public class MobileVerificationApi {
 
         Map<String, String> params = new HashMap<String, String>();
         params.put(APIConstants.ACCESS_TOKEN, token);
-        params.put(APIConstants.SMS_PARAMS_OLD_CONTACT_NUMBER, oldContactNumber);
+
+        if(!oldContactNumber.equals("")){
+
+            params.put(APIConstants.SMS_PARAMS_OLD_CONTACT_NUMBER, oldContactNumber);
+
+        }
+
         params.put(APIConstants.SMS_PARAMS_NEW_CONTACT_NUMBER, newContactNumber);
 
         VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
