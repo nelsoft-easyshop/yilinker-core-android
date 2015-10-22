@@ -152,6 +152,8 @@ public class APIConstants {
     public static final String REG_PARAM_REFERRAL = "referralCode";
     public static final String REG_PARAM_GUEST = "user_guest";
     public static final String REG_PARAM_PLAIN_PASSWORD = "plainPassword";
+    public static final String REG_PARAM_FIRST = "first";
+    public static final String REG_PARAM_SECOND = "second";
 
     //For Login API
     public static final String TOKEN_API = "token";

@@ -101,13 +101,11 @@ public class UserApi {
         String url = String.format("%s/%s",
                 APIConstants.DOMAIN, APIConstants.REG_GUEST_API);
 
-        String fullname = String.format("%s %s",firstName,lastName);
         Map<String, String> params = new HashMap<String, String>();
-        params.put(APIConstants.REG_PARAM_FIRST_NAME,firstName);
-        params.put(APIConstants.REG_PARAM_LAST_NAME, lastName);
-        params.put(APIConstants.REG_PARAM_EMAIL, email);
-        params.put(APIConstants.REG_PARAM_PASSWORD, password);
-        params.put(APIConstants.REG_PARAM_MOBILE, contactNumber);
+        params.put(String.format("%s[%s][%s]", APIConstants.REG_PARAM_GUEST,
+                APIConstants.REG_PARAM_PLAIN_PASSWORD, APIConstants.REG_PARAM_FIRST), password);
+        params.put(String.format("%s[%s][%s]", APIConstants.REG_PARAM_GUEST,
+                APIConstants.REG_PARAM_PLAIN_PASSWORD, APIConstants.REG_PARAM_SECOND), password);
 
         VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
 
