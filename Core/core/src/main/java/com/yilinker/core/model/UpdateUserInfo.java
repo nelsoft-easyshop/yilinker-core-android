@@ -23,6 +23,7 @@ public class UpdateUserInfo {
 
     private Bank bankAccount;
     private Address address;
+    private CategoryList storeCategory;
 
     private boolean isEmailSubscribed, isSmsSubscribed;
 
@@ -142,6 +143,14 @@ public class UpdateUserInfo {
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    public CategoryList getStoreCategory() {
+        return storeCategory;
+    }
+
+    public void setStoreCategory(CategoryList storeCategory) {
+        this.storeCategory = storeCategory;
     }
 
     public static class UpdateUserInfoInstance implements InstanceCreator<UpdateUserInfo> {
