@@ -476,7 +476,7 @@ public class UserApi {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                String message;
+                String message = "";
 
                 if (error instanceof TimeoutError || error instanceof NoConnectionError) {
 
@@ -487,17 +487,20 @@ public class UserApi {
                     message = APIConstants.API_CONNECTION_AUTH_ERROR;
 
                 } else {
+                    try {
 
-                    message = "Wrong old password.";
+                        String responseBody = new String(error.networkResponse.data, "utf-8" );
+                        JSONObject jsonObject = new JSONObject( responseBody );
+                        String errorMessage = jsonObject.getString("message");
 
-//                    try {
-//                        String responseBody = new String(error.networkResponse.data, "utf-8" );
-//                        JSONObject jsonObject = new JSONObject( responseBody );
-//                        message = jsonObject.getString("message");
-//
-//                    } catch ( Exception e ) {
-//                        //Handle a malformed json response
-//                    }
+                        if (errorMessage.equals("Invalid password."))
+                            message = "Wrong old password";
+                        else
+                            message = jsonObject.getString("message");
+
+                    } catch ( Exception e ) {
+                        //Handle a malformed json response
+                    }
                 }
 
                 responseHandler.onFailed(requestCode, message);
