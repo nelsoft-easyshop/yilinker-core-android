@@ -330,7 +330,7 @@ public class SellerTransactionApi {
     }
 
 
-    public static Request scheduleForPickup(final int requestCode, String accessToken, String transactionId,
+    public static Request scheduleForPickup(final int requestCode, String accessToken, String transactionId, ArrayList<String> orderProductIds,
                                             String pickupSchedule, String pickupRemark, final ResponseHandler responseHandler) {
 
         String endpoint = String.format("%s/%s/%s/%s", APIConstants.DOMAIN, APIConstants.AUTH_API,
@@ -339,8 +339,11 @@ public class SellerTransactionApi {
         Map<String, String> params = new HashMap<>();
         params.put(APIConstants.ACCESS_TOKEN, accessToken);
         params.put(APIConstants.SELLER_TRANSACTION_PICKUP_PARAMS_TRANSACTION_ID, transactionId);
-        params.put(APIConstants.SELLER_TRANSACTION_PICKUP_PARAMS_PICKUP_SCHEDULE, pickupSchedule);
+//        params.put(APIConstants.SELLER_TRANSACTION_PICKUP_PARAMS_PICKUP_SCHEDULE, pickupSchedule);
         params.put(APIConstants.SELLER_TRANSACTION_PICKUP_PARAMS_PICKUP_REMARK, pickupRemark);
+        for(int i = 0 ; i < orderProductIds.size(); i++) {
+            params.put(String.format("orderProductIds[%d]", i), String.valueOf(orderProductIds.get(i)));
+        }
 
         Request request = new VolleyPostHelper(Request.Method.POST, endpoint, params, new Response.Listener<JSONObject>() {
             @Override

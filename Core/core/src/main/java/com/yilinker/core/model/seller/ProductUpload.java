@@ -260,6 +260,7 @@ public class ProductUpload {
                 jsonProductProperty.put("discountedPrice", attributeCombinationUpload.getDiscountedPrice() >= 0.00 ? attributeCombinationUpload.getDiscountedPrice() : null);
                 jsonProductProperty.put("sku",attributeCombinationUpload.getSku());
                 jsonProductProperty.put("images", attributeCombinationUpload.getImageIndices(index));
+                index += attributeCombinationUpload.getImages().size();
                 jsonProductProperty.put("quantity",attributeCombinationUpload.getQuantity());
                 jsonProductProperty.put("unitLength", attributeCombinationUpload.getLength());
                 jsonProductProperty.put("unitWeight", attributeCombinationUpload.getWeight());
