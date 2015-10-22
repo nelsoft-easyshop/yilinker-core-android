@@ -94,6 +94,67 @@ public class UserApi {
         return request;
     }
 
+    public static Request registerGuest (final int requestCode, String firstName, String lastName,
+                                    String email, String password, String contactNumber,
+                                    final ResponseHandler responseHandler){
+
+        String url = String.format("%s/%s",
+                APIConstants.DOMAIN, APIConstants.REG_GUEST_API);
+
+        String fullname = String.format("%s %s",firstName,lastName);
+        Map<String, String> params = new HashMap<String, String>();
+        params.put(APIConstants.REG_PARAM_FIRST_NAME,firstName);
+        params.put(APIConstants.REG_PARAM_LAST_NAME, lastName);
+        params.put(APIConstants.REG_PARAM_EMAIL, email);
+        params.put(APIConstants.REG_PARAM_PASSWORD, password);
+        params.put(APIConstants.REG_PARAM_MOBILE, contactNumber);
+
+        VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+
+                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                Register obj = gson.fromJson(response.toString(), Register.class);
+
+                responseHandler.onSuccess(requestCode, obj);
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                String message = APIConstants.API_CONNECTION_PROBLEM;
+
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+
+                    message = APIConstants.API_CONNECTION_PROBLEM;
+
+                } else if (error instanceof AuthFailureError) {
+
+                    message = APIConstants.API_CONNECTION_AUTH_ERROR;
+
+                } else {
+
+                    try {
+                        String responseBody = new String(error.networkResponse.data, "utf-8" );
+                        JSONObject jsonObject = new JSONObject( responseBody );
+                        message = jsonObject.getString("error_description");
+
+                    } catch ( Exception e ) {
+                        //Handle a malformed json response
+                    }
+                }
+
+                responseHandler.onFailed(requestCode, message);
+            }
+        });
+
+        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
+
+        return request;
+    }
+
     public static Request login (final int requestCode, String grantType, String email,
                                  String password, final ResponseHandler responseHandler){
 

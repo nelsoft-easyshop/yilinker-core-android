@@ -193,7 +193,7 @@ public class BaseApplication extends Application{
             editor.remove(REFRESH_TOKEN);
             editor.remove(USER_FULLNAME);
 
-            editor.commit();
+            editor.apply();
         }
     }
 
