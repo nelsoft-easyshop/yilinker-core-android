@@ -20,6 +20,7 @@ import com.yilinker.core.helper.MultiPartRequest;
 import com.yilinker.core.helper.VolleyPostHelper;
 import com.yilinker.core.interfaces.ResponseHandler;
 import com.yilinker.core.model.APIResponse;
+import com.yilinker.core.model.CategoryList;
 import com.yilinker.core.model.FollowedSeller;
 import com.yilinker.core.model.Address;
 import com.yilinker.core.model.Login;
@@ -254,10 +255,13 @@ public class SellerApi {
                 JSONObject jsonObject = new JSONObject(jsonString);
                 String json = jsonObject.getJSONObject("bankAccount").toString();
                 String json2 = jsonObject.getJSONObject("userAddress").toString();
+                String json3 = jsonObject.getJSONObject("storeCategory").toString();
                 Bank bankAccount = gson.fromJson(json, Bank.class);
                 Address address = gson.fromJson(json2, Address.class);
+                CategoryList categoryList = gson.fromJson(json3, CategoryList.class);
                 obj.setAddress(address);
                 obj.setBankAccount(bankAccount);
+                obj.setStoreCategory(categoryList);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
