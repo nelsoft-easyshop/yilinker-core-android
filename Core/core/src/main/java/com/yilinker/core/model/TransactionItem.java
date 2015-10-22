@@ -24,6 +24,7 @@ public class TransactionItem {
     private String total_quantity;
     private String product_names;
     private String product_cost;
+    private String product_count;
 
     public String getOrder_Id() {
         return order_id;
@@ -137,6 +138,13 @@ public class TransactionItem {
         this.product_cost = product_cost;
     }
 
+    public String getProduct_count() {
+        return product_count;
+    }
+
+    public void setProduct_count(String product_count) {
+        this.product_count = product_count;
+    }
 
     public static class TransactionItemInstance implements InstanceCreator<TransactionItem> {
 
