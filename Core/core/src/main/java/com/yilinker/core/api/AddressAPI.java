@@ -329,10 +329,9 @@ public class AddressAPI {
                  APIConstants.LOCATION_API, APIConstants.ADDRESS_GET_ALL_PROVINCES);
 
         Map<String, String> params = new HashMap<String,String>();
-        if(APIConstants.DOMAIN.equals("http://merchant.online.api.easydeal.ph/api/v1")){
-        params.put(APIConstants.ACCESS_TOKEN, token);
-    }
-//        params.put(APIConstants.ACCESS_TOKEN, token);
+
+        if(token!=null)
+            params.put(APIConstants.ACCESS_TOKEN, token);
 
         VolleyPostHelper getAddresses =  new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
 
@@ -347,6 +346,7 @@ public class AddressAPI {
 
 
                 responseHandler.onSuccess(requestCode, obj);
+
             }
         }, new Response.ErrorListener() {
             @Override
@@ -379,10 +379,11 @@ public class AddressAPI {
                 APIConstants.LOCATION_API, APIConstants.ADDRESS_GET_CHILD_CITIES);
 
         Map<String, String> params = new HashMap<String,String>();
-        if(APIConstants.DOMAIN.equals("http://merchant.online.api.easydeal.ph/api/v1")){
+
+        if(token!=null)
             params.put(APIConstants.ACCESS_TOKEN, token);
-        }
-//        params.put(APIConstants.ACCESS_TOKEN, token);
+
+
         params.put(APIConstants.ADDRESS_PARAMS_PROVINCE_ID, String.valueOf(provinceId));
 
         VolleyPostHelper getAddresses =  new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
@@ -430,10 +431,10 @@ public class AddressAPI {
                 APIConstants.LOCATION_API, APIConstants.ADDRESS_GET_CHILD_BARANGGAY);
 
         Map<String, String> params = new HashMap<String,String>();
-        if(APIConstants.DOMAIN.equals("http://merchant.online.api.easydeal.ph/api/v1")){
+
+        if(token!=null)
             params.put(APIConstants.ACCESS_TOKEN, token);
-        }
-//        params.put(APIConstants.ACCESS_TOKEN, token);
+
         params.put(APIConstants.ADDRESS_PARAMS_CITY_ID, String.valueOf(cityId));
 
         VolleyPostHelper getAddresses =  new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
