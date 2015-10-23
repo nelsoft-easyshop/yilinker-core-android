@@ -33,10 +33,19 @@ public class Seller {
     private String storeDescription;
     private String fullName;
     private String gender;
+    private boolean isAffiliate;
     /***for seller list*/
     private String description;
     private String image;
     private List<Product> products;
+
+    public boolean isAffiliate() {
+        return isAffiliate;
+    }
+
+    public void setIsAffiliate(boolean isAffiliate) {
+        this.isAffiliate = isAffiliate;
+    }
 
     public String getSpecialty() {
         return specialty;

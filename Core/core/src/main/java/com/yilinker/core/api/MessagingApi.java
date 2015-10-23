@@ -1,7 +1,10 @@
 package com.yilinker.core.api;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NoConnectionError;
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 import com.yilinker.core.base.BaseApplication;
@@ -19,6 +22,8 @@ import com.yilinker.core.responses.EvSendMessageResp;
 import com.yilinker.core.responses.EvSetConversationAsReadResp;
 import com.yilinker.core.utility.GsonUtility;
 import com.yilinker.core.utility.SocketTimeout;
+
+import org.json.JSONObject;
 
 import java.io.File;
 import java.util.HashMap;
@@ -55,7 +60,7 @@ public class MessagingApi
         params.put(APIConstants.MESSAGING_PARAM_RECIPIENT_ID, Integer.toString(recipientId));
         params.put(APIConstants.MESSAGING_PARAM_MESSAGE, message);
 
-        if(image == true){
+        if(image){
             params.put(APIConstants.MESSAGING_PARAM_IS_IMAGE, "1");
         }else{
             params.put(APIConstants.MESSAGING_PARAM_IS_IMAGE, "0");
@@ -79,12 +84,33 @@ public class MessagingApi
             @Override
             public void onErrorResponse(VolleyError error)
             {
-                handler.onFailed(RC_SEND_MESSAGE,
-                        VolleyErrorHelper.getErrorType(BaseApplication.getInstance().getApplicationContext(), error));
+                String message = null;
+
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+
+                    message = APIConstants.API_CONNECTION_PROBLEM;
+
+                } else if (error instanceof AuthFailureError) {
+
+                    message = APIConstants.API_CONNECTION_AUTH_ERROR;
+
+                } else {
+
+                    try {
+                        String responseBody = new String(error.networkResponse.data, "utf-8" );
+                        JSONObject jsonObject = new JSONObject( responseBody );
+                        message = jsonObject.getString("error_description");
+
+                    } catch ( Exception e ) {
+                        //Handle a malformed json response
+                    }
+                }
+
+                handler.onFailed(RC_SEND_MESSAGE, message);
             }
         });
 
-        request.setTag(RC_SEND_MESSAGE);
+        //request.setTag(RC_SEND_MESSAGE);
         request.setRetryPolicy(SocketTimeout.getRetryPolicy());
 
         return request;
@@ -124,12 +150,33 @@ public class MessagingApi
             @Override
             public void onErrorResponse(VolleyError error)
             {
-                handler.onFailed(RC_GET_CONVERSATION_HEAD,
-                        VolleyErrorHelper.getErrorType(BaseApplication.getInstance().getApplicationContext(), error));
+                String message = null;
+
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+
+                    message = APIConstants.API_CONNECTION_PROBLEM;
+
+                } else if (error instanceof AuthFailureError) {
+
+                    message = APIConstants.API_CONNECTION_AUTH_ERROR;
+
+                } else {
+
+                    try {
+                        String responseBody = new String(error.networkResponse.data, "utf-8" );
+                        JSONObject jsonObject = new JSONObject( responseBody );
+                        message = jsonObject.getString("error_description");
+
+                    } catch ( Exception e ) {
+                        //Handle a malformed json response
+                    }
+                }
+
+                handler.onFailed(RC_GET_CONVERSATION_HEAD, message);
             }
         });
 
-        request.setTag(RC_GET_CONVERSATION_HEAD);
+        //request.setTag(RC_GET_CONVERSATION_HEAD);
         request.setRetryPolicy(SocketTimeout.getRetryPolicy());
 
         return request;
@@ -171,12 +218,33 @@ public class MessagingApi
             @Override
             public void onErrorResponse(VolleyError error)
             {
-                handler.onFailed(RC_GET_CONTACTS,
-                        VolleyErrorHelper.getErrorType(BaseApplication.getInstance().getApplicationContext(), error));
+                String message = null;
+
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+
+                    message = APIConstants.API_CONNECTION_PROBLEM;
+
+                } else if (error instanceof AuthFailureError) {
+
+                    message = APIConstants.API_CONNECTION_AUTH_ERROR;
+
+                } else {
+
+                    try {
+                        String responseBody = new String(error.networkResponse.data, "utf-8" );
+                        JSONObject jsonObject = new JSONObject( responseBody );
+                        message = jsonObject.getString("error_description");
+
+                    } catch ( Exception e ) {
+                        //Handle a malformed json response
+                    }
+                }
+
+                handler.onFailed(RC_GET_CONTACTS, message);
             }
         });
 
-        request.setTag(Integer.toString(RC_GET_CONTACTS));
+        //request.setTag(Integer.toString(RC_GET_CONTACTS));
         request.setRetryPolicy(SocketTimeout.getRetryPolicy());
 
         return request;
@@ -219,12 +287,33 @@ public class MessagingApi
             @Override
             public void onErrorResponse(VolleyError error)
             {
-                handler.onFailed(RC_GET_CONVERSATION_MESSAGES,
-                        VolleyErrorHelper.getErrorType(BaseApplication.getInstance().getApplicationContext(), error));
+                String message = null;
+
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+
+                    message = APIConstants.API_CONNECTION_PROBLEM;
+
+                } else if (error instanceof AuthFailureError) {
+
+                    message = APIConstants.API_CONNECTION_AUTH_ERROR;
+
+                } else {
+
+                    try {
+                        String responseBody = new String(error.networkResponse.data, "utf-8" );
+                        JSONObject jsonObject = new JSONObject( responseBody );
+                        message = jsonObject.getString("error_description");
+
+                    } catch ( Exception e ) {
+                        //Handle a malformed json response
+                    }
+                }
+
+                handler.onFailed(RC_GET_CONVERSATION_MESSAGES, message);
             }
         });
 
-        request.setTag(RC_GET_CONVERSATION_MESSAGES);
+        //request.setTag(RC_GET_CONVERSATION_MESSAGES);
         request.setRetryPolicy(SocketTimeout.getRetryPolicy());
 
         return request;
@@ -256,12 +345,33 @@ public class MessagingApi
             @Override
             public void onErrorResponse(VolleyError error)
             {
-                handler.onFailed(RC_SET_CONVERSATION_AS_READ,
-                        VolleyErrorHelper.getErrorType(BaseApplication.getInstance().getApplicationContext(), error));
+                String message = null;
+
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+
+                    message = APIConstants.API_CONNECTION_PROBLEM;
+
+                } else if (error instanceof AuthFailureError) {
+
+                    message = APIConstants.API_CONNECTION_AUTH_ERROR;
+
+                } else {
+
+                    try {
+                        String responseBody = new String(error.networkResponse.data, "utf-8" );
+                        JSONObject jsonObject = new JSONObject( responseBody );
+                        message = jsonObject.getString("error_description");
+
+                    } catch ( Exception e ) {
+                        //Handle a malformed json response
+                    }
+                }
+
+                handler.onFailed(RC_SET_CONVERSATION_AS_READ, message);
             }
         });
 
-        request.setTag(RC_SET_CONVERSATION_AS_READ);
+        //request.setTag(RC_SET_CONVERSATION_AS_READ);
         request.setRetryPolicy(SocketTimeout.getRetryPolicy());
 
         return request;
@@ -283,7 +393,29 @@ public class MessagingApi
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+                String message = null;
+
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+
+                    message = APIConstants.API_CONNECTION_PROBLEM;
+
+                } else if (error instanceof AuthFailureError) {
+
+                    message = APIConstants.API_CONNECTION_AUTH_ERROR;
+
+                } else {
+
+                    try {
+                        String responseBody = new String(error.networkResponse.data, "utf-8" );
+                        JSONObject jsonObject = new JSONObject( responseBody );
+                        message = jsonObject.getString("error_description");
+
+                    } catch ( Exception e ) {
+                        //Handle a malformed json response
+                    }
+                }
+
+                responseHandler.onFailed(requestCode, message);
             }
         });
 

@@ -20,6 +20,7 @@ import com.yilinker.core.helper.MultiPartRequest;
 import com.yilinker.core.helper.VolleyPostHelper;
 import com.yilinker.core.interfaces.ResponseHandler;
 import com.yilinker.core.model.APIResponse;
+import com.yilinker.core.model.CategoryList;
 import com.yilinker.core.model.FollowedSeller;
 import com.yilinker.core.model.Address;
 import com.yilinker.core.model.Login;
@@ -254,10 +255,13 @@ public class SellerApi {
                 JSONObject jsonObject = new JSONObject(jsonString);
                 String json = jsonObject.getJSONObject("bankAccount").toString();
                 String json2 = jsonObject.getJSONObject("userAddress").toString();
+                String json3 = jsonObject.getJSONObject("storeCategory").toString();
                 Bank bankAccount = gson.fromJson(json, Bank.class);
                 Address address = gson.fromJson(json2, Address.class);
+                CategoryList categoryList = gson.fromJson(json3, CategoryList.class);
                 obj.setAddress(address);
                 obj.setBankAccount(bankAccount);
+                obj.setStoreCategory(categoryList);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -330,7 +334,20 @@ public class SellerApi {
             @Override
             public void onErrorResponse(VolleyError error) {
 
-                responseHandler.onFailed(requestCode,APIConstants.API_CONNECTION_PROBLEM);
+                String message = "An error occured.";
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                    message = "No connection available.";
+                } else if (error instanceof AuthFailureError) {
+                    message = "Authentication Failure.";
+                } else if (error instanceof ServerError) {
+                    message = "Server error.";
+                } else if (error instanceof NetworkError) {
+                    message = "Network Error.";
+                } else if (error instanceof ParseError) {
+                    message = "Parse error.";
+                }
+
+                responseHandler.onFailed(requestCode, message);
             }
         });
 
@@ -409,17 +426,29 @@ public class SellerApi {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                String message = "An error occured.";
+                String message = APIConstants.API_CONNECTION_PROBLEM;
+
                 if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                    message = "No connection available.";
+
+                    message = APIConstants.API_CONNECTION_PROBLEM;
+
                 } else if (error instanceof AuthFailureError) {
+
                     message = "Authentication Failure.";
-                } else if (error instanceof ServerError) {
-                    message = "Server error.";
-                } else if (error instanceof NetworkError) {
-                    message = "Network Error.";
-                } else if (error instanceof ParseError) {
-                    message = "Parse error.";
+
+                }else{
+                    try {
+                        String responseBody = new String(error.networkResponse.data, "utf-8" );
+                        JSONObject jsonObject = new JSONObject( responseBody );
+                        jsonObject = jsonObject.getJSONObject("data");
+                        JSONArray var = jsonObject.getJSONArray("errors");
+                        message = var.get(0).toString();
+
+                    } catch ( JSONException e ) {
+                        //Handle a malformed json response
+                    } catch (UnsupportedEncodingException e){
+
+                    }
                 }
                 responseHandler.onFailed(requestCode, message);
             }

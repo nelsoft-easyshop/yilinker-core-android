@@ -10,6 +10,7 @@ import java.lang.reflect.Type;
  */
 public class UpdateUserInfo {
 
+    private int userId;
     private String profilePhoto;
     private String coverPhoto;
     private String storeName;
@@ -22,6 +23,7 @@ public class UpdateUserInfo {
 
     private Bank bankAccount;
     private Address address;
+    private CategoryList storeCategory;
 
     private boolean isEmailSubscribed, isSmsSubscribed;
 
@@ -133,6 +135,22 @@ public class UpdateUserInfo {
 
     public void setIsReseller(boolean isReseller) {
         this.isReseller = isReseller;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public CategoryList getStoreCategory() {
+        return storeCategory;
+    }
+
+    public void setStoreCategory(CategoryList storeCategory) {
+        this.storeCategory = storeCategory;
     }
 
     public static class UpdateUserInfoInstance implements InstanceCreator<UpdateUserInfo> {

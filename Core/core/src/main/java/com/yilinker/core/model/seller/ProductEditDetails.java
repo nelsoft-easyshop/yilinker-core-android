@@ -350,6 +350,7 @@ public class ProductEditDetails {
             this.images = images;
         }
 
+
     }
 
     public class Attribute {

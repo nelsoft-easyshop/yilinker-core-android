@@ -333,6 +333,7 @@ public class AddressAPI {
         if(token!=null)
             params.put(APIConstants.ACCESS_TOKEN, token);
 
+
         VolleyPostHelper getAddresses =  new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
 
             @Override
@@ -382,7 +383,6 @@ public class AddressAPI {
 
         if(token!=null)
             params.put(APIConstants.ACCESS_TOKEN, token);
-
 
         params.put(APIConstants.ADDRESS_PARAMS_PROVINCE_ID, String.valueOf(provinceId));
 

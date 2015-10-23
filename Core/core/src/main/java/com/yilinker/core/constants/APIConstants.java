@@ -192,6 +192,7 @@ public class APIConstants {
     public static final String PRODUCT_UPLOAD_GET_BRAND_PARAM_BRAND_KEYWORD = "brandKeyword";
     public static final String PRODUCT_UPLOAD_GET_CATEGORIES = "getCategories";
     public static final String PRODUCT_UPLOAD_GET_CATEGORIES_PARAM_PARENT_ID = "parentId";
+    public static final String PRODUCT_UPLOAD_GET_CATEGORIES_PARAM_QUERY_STRING = "queryString";
     public static final String PRODUCT_UPLOAD_GET_CONDITIONS = "getProductConditions";
 
     //Get Product Edit Details
@@ -201,7 +202,8 @@ public class APIConstants {
     //Edit Product
     public static final String PRODUCT_EDIT_API = "edit";
     public static final String PRODUCT_EDIT_PARAMS_PRODUCT_ID = "productId";
-    public static final String PRODUCT_EDIT_PARAMS_IMAGE_DETAILS = "imageDetail";
+    public static final String PRODUCT_EDIT_PARAMS_PRODUCT_UNIT_ID = "productUnitId";
+    public static final String PRODUCT_EDIT_PARAMS_IMAGE_DETAILS = "imageDetails";
 
     //Draft Product
     public static final String PRODUCT_DRAFT_API = "draft";
@@ -450,6 +452,7 @@ public class APIConstants {
     public static final String UPDATE_REGISTRATION_ID           = "updateRegistrationId";
 
     // Param
+    public static final String DEVICE_TYPE                      = "deviceType";
     public static final String DEVICE_PARAM_REGISTRATION_ID     = "registrationId";
     public static final String DEVICE_PARAM_ACCESS_TOKEN        = "access_token";
     public static final String DEVICE_PARAM_OLD_REGISTRATION_ID = "oldRegistrationId";

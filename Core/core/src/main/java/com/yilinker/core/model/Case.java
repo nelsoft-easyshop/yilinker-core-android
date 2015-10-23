@@ -13,10 +13,11 @@ import java.util.List;
  */
 public class Case {
 
+    private String invoiceNumber;
     private String disputeTitle;
     private String disputeId;
     private String disputeStatusType,dateAdded;
-    private String orderProductStatus,disputeeFullName,disputeeContactNumber;
+    private String orderProductStatus,disputeeFullName,disputeeContactNumber,disputerFullName;
     private List<String> orderProductIds;
     private String ticketId;
     private String ticket;
@@ -29,6 +30,15 @@ public class Case {
 //
 //    public void setProducts(List<CategoryProducts> products) {
 //    private List<ResolutionCenterProducts> products;
+
+
+    public String getInvoiceNumber() {
+        return invoiceNumber;
+    }
+
+    public void setInvoiceNumber(String invoiceNumber) {
+        this.invoiceNumber = invoiceNumber;
+    }
 
     public List<ResolutionCenterProducts> getProducts() {
         return products;
@@ -90,6 +100,14 @@ public class Case {
 
     public String getDisputeeFullName() {
         return disputeeFullName;
+    }
+
+    public String getDisputerFullName() {
+        return disputerFullName;
+    }
+
+    public void setDisputerFullName(String disputerFullName) {
+        this.disputerFullName = disputerFullName;
     }
 
     public void setDisputeeFullName(String disputeeFullName) {

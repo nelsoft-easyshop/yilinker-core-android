@@ -36,6 +36,7 @@ public class ProductUpload {
     private static final String KEY_SKU = "sku";
 
     private int productId, sellerId, quantity, brandId, categoryId, conditionId;
+    private String productUnitId;
     private List<String> images;
     private String title, shortDescription, fullDescription, customBrand, sku;
     private double price, discountedPrice,length, weight, height, width;
@@ -194,6 +195,14 @@ public class ProductUpload {
         this.width = width;
     }
 
+    public String getProductUnitId() {
+        return productUnitId;
+    }
+
+    public void setProductUnitId(String productUnitId) {
+        this.productUnitId = productUnitId;
+    }
+
     public List<ProductGroupAttribute> getProductGroupAttributeList() {
         return productGroupAttributeList;
     }
@@ -202,9 +211,32 @@ public class ProductUpload {
         this.productGroupAttributeList = productGroupAttributeList;
     }
 
+    public JSONArray getImageIndicesArray() {
+
+        final JSONArray arrayIndices = new JSONArray();
+
+        Integer index = 0;
+
+        for (String string: this.images) {
+            arrayIndices.put(index);
+            index++;
+        }
+
+//        for (AttributeCombinationUpload attributeCombinationUpload: attributeCombinationUploadList) {
+//            for (String string : attributeCombinationUpload.getImages()) {
+//                arrayIndices.put(index);
+//                index++;
+//            }
+//        }
+
+        return arrayIndices;
+    }
+
     public JSONArray getProductProperties() {
 
         final JSONArray arrayProductProperties = new JSONArray();
+
+        int index = this.images.size();
 
         try {
             for (int i = 0; i < attributeCombinationUploadList.size(); i++) {
@@ -227,12 +259,15 @@ public class ProductUpload {
                 jsonProductProperty.put("price", attributeCombinationUpload.getRetailPrice());
                 jsonProductProperty.put("discountedPrice", attributeCombinationUpload.getDiscountedPrice() >= 0.00 ? attributeCombinationUpload.getDiscountedPrice() : null);
                 jsonProductProperty.put("sku",attributeCombinationUpload.getSku());
-                jsonProductProperty.put("images", attributeCombinationUpload.getImages());
+                jsonProductProperty.put("images", attributeCombinationUpload.getImageIndices(index));
+                index += attributeCombinationUpload.getImages().size();
                 jsonProductProperty.put("quantity",attributeCombinationUpload.getQuantity());
                 jsonProductProperty.put("unitLength", attributeCombinationUpload.getLength());
                 jsonProductProperty.put("unitWeight", attributeCombinationUpload.getWeight());
                 jsonProductProperty.put("unitHeight", attributeCombinationUpload.getHeight());
                 jsonProductProperty.put("unitWidth", attributeCombinationUpload.getWidth());
+                if (attributeCombinationUpload.getProductUnitId() != null)
+                    jsonProductProperty.put("productUnitId", attributeCombinationUpload.getProductUnitId());
 
                 arrayProductProperties.put(jsonProductProperty);
             }

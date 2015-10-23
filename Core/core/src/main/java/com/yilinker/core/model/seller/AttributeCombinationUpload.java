@@ -3,6 +3,8 @@ package com.yilinker.core.model.seller;
 import com.google.gson.InstanceCreator;
 import com.yilinker.core.model.buyer.AttributeCombination;
 
+import org.json.JSONArray;
+
 import java.lang.reflect.Type;
 import java.util.List;
 
@@ -19,6 +21,7 @@ public class AttributeCombinationUpload extends AttributeCombination {
     private int quantity;
     private double retailPrice, discountedPrice, length, width, height, weight;
     private String sku;
+    private String productUnitId;
 
 
     public List<String> getCombinationList() {
@@ -48,6 +51,16 @@ public class AttributeCombinationUpload extends AttributeCombination {
     @Override
     public List<String> getImages() {
         return images;
+    }
+
+    public JSONArray getImageIndices(int index) {
+        JSONArray array = new JSONArray();
+        for (String string:this.images) {
+            array.put(index);
+            index++;
+        }
+
+        return array;
     }
 
     @Override
@@ -103,6 +116,14 @@ public class AttributeCombinationUpload extends AttributeCombination {
 
     public void setWeight(double weight) {
         this.weight = weight;
+    }
+
+    public String getProductUnitId() {
+        return productUnitId;
+    }
+
+    public void setProductUnitId(String productUnitId) {
+        this.productUnitId = productUnitId;
     }
 
     public static class AttributeCombinationUploadInstance implements InstanceCreator<AttributeCombinationUpload> {

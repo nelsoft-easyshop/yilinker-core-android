@@ -1,5 +1,7 @@
 package com.yilinker.core.api;
 
+import android.graphics.Bitmap;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
@@ -11,6 +13,8 @@ import com.android.volley.RetryPolicy;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HttpHeaderParser;
+import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
 import com.yilinker.core.constants.APIConstants;
@@ -27,6 +31,7 @@ import com.yilinker.core.utility.GsonUtility;
 import org.json.JSONObject;
 
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -48,7 +53,9 @@ public class ProductUploadApi {
 
         Map<String,String> params = new HashMap<String,String>();
         params.put(APIConstants.ACCESS_TOKEN, accessToken);
-        params.put(APIConstants.PRODUCT_EDIT_PARAMS_PRODUCT_ID, String.valueOf(productUpload.getProductId()));
+        if (productUpload.getProductId() > 0) {
+            params.put(APIConstants.PRODUCT_EDIT_PARAMS_PRODUCT_ID, String.valueOf(productUpload.getProductId()));
+        }
         params.put(APIConstants.PRODUCT_UPLOAD_PARAM_CATEGORY, String.valueOf(productUpload.getCategoryId()));
         params.put(APIConstants.PRODUCT_UPLOAD_PARAM_BRAND,String.valueOf(productUpload.getBrandId()));
         params.put(APIConstants.PRODUCT_UPLOAD_PARAM_CUSTOM_BRAND, productUpload.getCustomBrand());
@@ -67,7 +74,7 @@ public class ProductUploadApi {
             params.put(APIConstants.PRODUCT_UPLOAD_PARAM_DISCOUNTED_PRICE, String.valueOf(productUpload.getDiscountedPrice()));
         }
         params.put(APIConstants.PRODUCT_UPLOAD_PARAM_SKU, productUpload.getSku() != null ? productUpload.getSku(): "");
-        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_IMAGES, new Gson().toJson(productUpload.getImages()));
+//        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_IMAGES, productUpload.getImageIndicesArray().toString());
         params.put(APIConstants.PRODUCT_UPLOAD_PARAM_PRODUCT_PROPERTIES,productUpload.getProductProperties().toString());
 
         MultiPartRequest multiPartRequest = new MultiPartRequest(url,productUpload, APIResponse.class,params, new Response.Listener<JSONObject>() {
@@ -84,19 +91,7 @@ public class ProductUploadApi {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                String message = "An error occured.";
-                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                    message = "No connection available.";
-                } else if (error instanceof AuthFailureError) {
-                    message = "Authentication Failure.";
-                } else if (error instanceof ServerError) {
-                    message = "Server error.";
-                } else if (error instanceof NetworkError) {
-                    message = "Network Error.";
-                } else if (error instanceof ParseError) {
-                    message = "Parse error.";
-                }
-                responseHandler.onFailed(requestCode,message);
+                sendErrorMessage(requestCode, error, responseHandler);
             }
         });
 
@@ -133,19 +128,7 @@ public class ProductUploadApi {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        String message = "An error occured.";
-                        if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                            message = "No connection available.";
-                        } else if (error instanceof AuthFailureError) {
-                            message = "Authentication Failure.";
-                        } else if (error instanceof ServerError) {
-                            message = "Server error.";
-                        } else if (error instanceof NetworkError) {
-                            message = "Network Error.";
-                        } else if (error instanceof ParseError) {
-                            message = "Parse error.";
-                        }
-                        responseHandler.onFailed(requestCode,message);
+                        sendErrorMessage(requestCode,error,responseHandler);
                     }
         });
 
@@ -155,6 +138,57 @@ public class ProductUploadApi {
         return request;
 
     }
+
+    public static Request searchCategory(final int requestCode, String accessToken, String keyword, final ResponseHandler responseHandler) {
+
+
+        String endpoint = String.format("%s/%s/%s?%s=%s&%s=%s", APIConstants.DOMAIN, APIConstants.PRODUCT_API, APIConstants.PRODUCT_UPLOAD_GET_CATEGORIES,
+                APIConstants.ACCESS_TOKEN, accessToken,
+                APIConstants.PRODUCT_UPLOAD_GET_CATEGORIES_PARAM_QUERY_STRING, keyword);
+
+        if (endpoint.contains(" ")) {
+            endpoint = endpoint.replaceAll(" ", "%20");
+        }
+
+        Request request = new JsonObjectRequest(endpoint,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                        APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+
+                        gson = GsonUtility.createGsonBuilder(ProductCategory.class, new ProductCategory.ProductCategoryInstance()).create();
+                        String jsonString = new Gson().toJson(apiResponse.getData());
+                        ProductCategory[] obj = gson.fromJson(jsonString, ProductCategory[].class);
+
+                        if (apiResponse.isSuccessful()) {
+
+                            responseHandler.onSuccess(requestCode, obj);
+                        }else{
+
+                            responseHandler.onFailed(requestCode,apiResponse.getMessage());
+                        }
+
+                    }
+
+                },
+
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        sendErrorMessage(requestCode,error,responseHandler);
+                    }
+                });
+
+
+        request.setRetryPolicy(policy);
+
+        return request;
+    }
+
+
+
 
     public static Request getCategories(final int requestCode, String accessToken, int parentId, final ResponseHandler responseHandler) {
 
@@ -177,7 +211,7 @@ public class ProductUploadApi {
                             responseHandler.onSuccess(requestCode, obj);
                         }else{
 
-                            responseHandler.onFailed(requestCode,"Error!");
+                            responseHandler.onFailed(requestCode,apiResponse.getMessage());
                         }
 
                     }
@@ -187,19 +221,7 @@ public class ProductUploadApi {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        String message = "An error occured.";
-                        if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                            message = "No connection available.";
-                        } else if (error instanceof AuthFailureError) {
-                            message = "Authentication Failure.";
-                        } else if (error instanceof ServerError) {
-                            message = "Server error.";
-                        } else if (error instanceof NetworkError) {
-                            message = "Network Error.";
-                        } else if (error instanceof ParseError) {
-                            message = "Parse error.";
-                        }
-                        responseHandler.onFailed(requestCode,message);
+                        sendErrorMessage(requestCode,error,responseHandler);
                     }
                 });
 
@@ -297,19 +319,7 @@ public class ProductUploadApi {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                String message = "An error occured.";
-                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                    message = "No connection available.";
-                } else if (error instanceof AuthFailureError) {
-                    message = "Authentication Failure.";
-                } else if (error instanceof ServerError) {
-                    message = "Server error.";
-                } else if (error instanceof NetworkError) {
-                    message = "Network Error.";
-                } else if (error instanceof ParseError) {
-                    message = "Parse error.";
-                }
-                responseHandler.onFailed(requestCode,message);
+                sendErrorMessage(requestCode,error,responseHandler);
             }
         });
 
@@ -324,7 +334,7 @@ public class ProductUploadApi {
                 APIConstants.PRODUCT_UPLOAD_API, APIConstants.PRODUCT_DRAFT_API,
                 APIConstants.ACCESS_TOKEN, accessToken);
 
-        Map<String,String> params = new HashMap<String,String>();
+        Map<String,String> params = new HashMap<>();
         params.put(APIConstants.ACCESS_TOKEN, accessToken);
         params.put(APIConstants.PRODUCT_EDIT_PARAMS_PRODUCT_ID, String.valueOf(productUpload.getProductId()));
         if (productUpload.getCategoryId() != 0)
@@ -348,7 +358,7 @@ public class ProductUploadApi {
         }
         params.put(APIConstants.PRODUCT_UPLOAD_PARAM_SKU, productUpload.getSku() != null ? productUpload.getSku(): "");
         if(productUpload.getImages().size() > 0)
-        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_IMAGES, new Gson().toJson(productUpload.getImages()));
+//        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_IMAGES, productUpload.getImageIndicesArray().toString());
         params.put(APIConstants.PRODUCT_UPLOAD_PARAM_PRODUCT_PROPERTIES,productUpload.getProductProperties().toString());
 
         MultiPartRequest multiPartRequest = new MultiPartRequest(url,productUpload, APIResponse.class,params, new Response.Listener<JSONObject>() {
@@ -365,19 +375,7 @@ public class ProductUploadApi {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                String message = "An error occured.";
-                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                    message = "No connection available.";
-                } else if (error instanceof AuthFailureError) {
-                    message = "Authentication Failure.";
-                } else if (error instanceof ServerError) {
-                    message = "Server error.";
-                } else if (error instanceof NetworkError) {
-                    message = "Network Error.";
-                } else if (error instanceof ParseError) {
-                    message = "Parse error.";
-                }
-                responseHandler.onFailed(requestCode,message);
+                sendErrorMessage(requestCode,error,responseHandler);
             }
         });
 
@@ -393,9 +391,10 @@ public class ProductUploadApi {
                 APIConstants.PRODUCT_EDIT_API,
                 APIConstants.ACCESS_TOKEN, accessToken);
 
-        Map<String,String> params = new HashMap<String,String>();
+        Map<String,String> params = new HashMap<>();
         params.put(APIConstants.ACCESS_TOKEN, accessToken);
         params.put(APIConstants.PRODUCT_EDIT_PARAMS_PRODUCT_ID, String.valueOf(productUpload.getProductId()));
+        params.put(APIConstants.PRODUCT_EDIT_PARAMS_PRODUCT_UNIT_ID, productUpload.getProductUnitId() != null ? productUpload.getProductUnitId() : "");
         params.put(APIConstants.PRODUCT_UPLOAD_PARAM_CATEGORY, String.valueOf(productUpload.getCategoryId()));
         params.put(APIConstants.PRODUCT_UPLOAD_PARAM_BRAND,String.valueOf(productUpload.getBrandId()));
         params.put(APIConstants.PRODUCT_UPLOAD_PARAM_CUSTOM_BRAND, productUpload.getCustomBrand());
@@ -414,10 +413,9 @@ public class ProductUploadApi {
             params.put(APIConstants.PRODUCT_UPLOAD_PARAM_DISCOUNTED_PRICE, String.valueOf(productUpload.getDiscountedPrice()));
         }
         params.put(APIConstants.PRODUCT_UPLOAD_PARAM_SKU, productUpload.getSku() != null ? productUpload.getSku(): "");
-        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_IMAGES, new Gson().toJson(productUpload.getImages()));
+//        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_IMAGES, productUpload.getImageIndicesArray().toString());
         params.put(APIConstants.PRODUCT_UPLOAD_PARAM_PRODUCT_PROPERTIES,productUpload.getProductProperties().toString());
         params.put(APIConstants.PRODUCT_EDIT_PARAMS_IMAGE_DETAILS, imageDetails);
-
 
         MultiPartRequest multiPartRequest = new MultiPartRequest(url,productUpload, APIResponse.class,params, new Response.Listener<JSONObject>() {
             @Override
@@ -426,32 +424,61 @@ public class ProductUploadApi {
                 Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
                 APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
 
-                responseHandler.onSuccess(requestCode, apiResponse);
+                if (apiResponse.isSuccessful()) {
+                    responseHandler.onSuccess(requestCode, apiResponse);
+                } else {
+                    responseHandler.onFailed(requestCode, apiResponse.getMessage());
+                }
+
 
             }
         }, new Response.ErrorListener() {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                String message = "An error occured.";
-                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                    message = "No connection available.";
-                } else if (error instanceof AuthFailureError) {
-                    message = "Authentication Failure.";
-                } else if (error instanceof ServerError) {
-                    message = "Server error.";
-                } else if (error instanceof NetworkError) {
-                    message = "Network Error.";
-                } else if (error instanceof ParseError) {
-                    message = "Parse error.";
-                }
-                responseHandler.onFailed(requestCode,message);
+                sendErrorMessage(requestCode,error,responseHandler);
             }
         });
 
         multiPartRequest.setRetryPolicy(policy);
 
         return multiPartRequest;
+    }
+
+    private static void sendErrorMessage(int requestCode, VolleyError error, ResponseHandler responseHandler) {
+
+        String message = "An error occured.";
+
+        if (error.networkResponse.statusCode == 400) {
+            try {
+                String jsonString = new String(error.networkResponse.data,
+                        HttpHeaderParser.parseCharset(error.networkResponse.headers));
+                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                APIResponse apiResponse = gson.fromJson(jsonString, APIResponse.class);
+                if (apiResponse != null) {
+                    responseHandler.onFailed(requestCode, apiResponse.getMessage());
+                } else {
+                    responseHandler.onFailed(requestCode,"Server Error.");
+                }
+                return;
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+            message = "No connection available.";
+        } else if (error instanceof AuthFailureError) {
+            message = "Authentication Failure.";
+        } else if (error instanceof ServerError) {
+            message = "Server error.";
+        } else if (error instanceof NetworkError) {
+            message = "Network Error.";
+        } else if (error instanceof ParseError) {
+            message = "Parse error.";
+        }
+        responseHandler.onFailed(requestCode,message);
+
     }
 
 }

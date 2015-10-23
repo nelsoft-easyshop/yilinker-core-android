@@ -53,15 +53,12 @@ public class SellerTransactionApi {
             DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
             DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
 
-    public static Request getTransactionList(final int requestCode, String accessToken, String type, int page, int perPage,
-                                             String dates, String status, String paymentMethod, final ResponseHandler responseHandler) {
+    public static Request getTransactionList(final int requestCode, String accessToken, int page, int perPage,
+                                             String dates, String status, int paymentMethod, final ResponseHandler responseHandler) {
 
 
         String endpoint = String.format("%s/%s/%s?%s=%s", APIConstants.DOMAIN,APIConstants.AUTH_API, APIConstants.SELLER_TRANSACTION_LIST_API,
                 APIConstants.ACCESS_TOKEN, accessToken);
-
-        if (type == null)
-            endpoint = String.format("%s&%s=%s", endpoint, APIConstants.SELLER_TRANSACTION_LIST_PARAMS_TYPE, type);
 
         if (page > 0)
             endpoint = String.format("%s&%s=%s", endpoint, APIConstants.SELLER_TRANSACTION_LIST_PARAMS_PAGE, page);
@@ -75,7 +72,7 @@ public class SellerTransactionApi {
                 JSONObject datesJSON = new JSONObject(dates);
                 int selectedDates = datesJSON.getInt(KEY_DATES);
 
-                if (selectedDates != DATES_TOTAL) {
+                if (selectedDates != DATES_TOTAL || (status != null && status.equals("new_update"))) {
 
                     String KEY_DATES_TO = "to";
                     String KEY_DATES_FROM = "from";
@@ -99,41 +96,17 @@ public class SellerTransactionApi {
         }
 
 
-        if (status != null) {
+        if (status != null && !status.equals("available") && !status.equals("new_update")) {
 
-            try {
-
-                JSONArray statusArray = new JSONArray(status);
-
-                for (int i = 0; i < statusArray.length(); i++) {
-                    endpoint = String.format("%s&%s=%s", endpoint,
-                            APIConstants.SELLER_TRANSACTION_LIST_PARAMS_TYPE, statusArray.getString(i));
-                }
-
-            } catch (JSONException e) {
-
-                e.printStackTrace();
-
-            }
+            endpoint = String.format("%s&%s=%s", endpoint,
+                    APIConstants.SELLER_TRANSACTION_LIST_PARAMS_TYPE, status);
 
         }
 
-        if (paymentMethod != null) {
+        if (paymentMethod != 0) {
 
-            try {
-
-                JSONArray paymentArray = new JSONArray(paymentMethod);
-
-                for (int i = 0; i < paymentArray.length(); i++) {
-                    endpoint = String.format("%s&%s=%s", endpoint,
-                            APIConstants.SELLER_TRANSACTION_LIST_PARAMS_PAYMENT_METHOD, paymentArray.getInt(i));
-                }
-
-            } catch (JSONException e) {
-
-                e.printStackTrace();
-
-            }
+            endpoint = String.format("%s&%s=%s", endpoint,
+                    APIConstants.SELLER_TRANSACTION_LIST_PARAMS_PAYMENT_METHOD, paymentMethod);
 
         }
 
@@ -357,7 +330,7 @@ public class SellerTransactionApi {
     }
 
 
-    public static Request scheduleForPickup(final int requestCode, String accessToken, String transactionId,
+    public static Request scheduleForPickup(final int requestCode, String accessToken, String transactionId, ArrayList<String> orderProductIds,
                                             String pickupSchedule, String pickupRemark, final ResponseHandler responseHandler) {
 
         String endpoint = String.format("%s/%s/%s/%s", APIConstants.DOMAIN, APIConstants.AUTH_API,
@@ -366,8 +339,11 @@ public class SellerTransactionApi {
         Map<String, String> params = new HashMap<>();
         params.put(APIConstants.ACCESS_TOKEN, accessToken);
         params.put(APIConstants.SELLER_TRANSACTION_PICKUP_PARAMS_TRANSACTION_ID, transactionId);
-        params.put(APIConstants.SELLER_TRANSACTION_PICKUP_PARAMS_PICKUP_SCHEDULE, pickupSchedule);
+//        params.put(APIConstants.SELLER_TRANSACTION_PICKUP_PARAMS_PICKUP_SCHEDULE, pickupSchedule);
         params.put(APIConstants.SELLER_TRANSACTION_PICKUP_PARAMS_PICKUP_REMARK, pickupRemark);
+        for(int i = 0 ; i < orderProductIds.size(); i++) {
+            params.put(String.format("orderProductIds[%d]", i), String.valueOf(orderProductIds.get(i)));
+        }
 
         Request request = new VolleyPostHelper(Request.Method.POST, endpoint, params, new Response.Listener<JSONObject>() {
             @Override

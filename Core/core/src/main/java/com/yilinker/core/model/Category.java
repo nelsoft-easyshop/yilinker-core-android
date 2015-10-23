@@ -13,6 +13,7 @@ public class Category {
     private String name;
     private String hasChildren;
     private String image;
+    private boolean isSelected;
 
     public int getProductCategoryId() {
         return productCategoryId;
@@ -44,6 +45,14 @@ public class Category {
 
     public void setHasChildren(String hasChildren) {
         this.hasChildren = hasChildren;
+    }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setIsSelected(boolean isSelected) {
+        this.isSelected = isSelected;
     }
 
     public static class CategoryInstance implements InstanceCreator<Category> {

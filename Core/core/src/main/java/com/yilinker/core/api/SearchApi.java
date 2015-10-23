@@ -1,5 +1,7 @@
 package com.yilinker.core.api;
 
+import android.util.Log;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkError;
 import com.android.volley.NoConnectionError;
@@ -45,6 +47,12 @@ public class SearchApi {
                 APIConstants.DOMAIN, APIConstants.PRODUCT_API, APIConstants.GET_SEARCH_PRODUCT,
                 APIConstants.SEARCH_QUERY, keyword);
 
+//        String sample = "http://online.api.easydeal.ph/api/v1/product/getSearchKeywords?queryString=adu";
+//
+//        if(sample.equalsIgnoreCase(url)){
+//            Log.d("URL", sample);
+//        }
+
         Request requestGetSearch = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -52,15 +60,22 @@ public class SearchApi {
                 Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
                 APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
 
-                gson = GsonUtility.createGsonBuilder(Search.class, new Search.SearchInstance()).create();
-                String jsonString = new Gson().toJson(apiResponse.getData());
+                if(apiResponse.isSuccessful()) {
+                    gson = GsonUtility.createGsonBuilder(Search.class, new Search.SearchInstance()).create();
+                    String jsonString = new Gson().toJson(apiResponse.getData());
 
-                Type listType = new TypeToken<ArrayList<Search>>() {
-                }.getType();
+                    Type listType = new TypeToken<ArrayList<Search>>() {
+                    }.getType();
 
-                List<Search> obj = gson.fromJson(jsonString, listType);
+                    List<Search> obj = gson.fromJson(jsonString, listType);
 
-                responseHandler.onSuccess(requestCode, obj);
+                    responseHandler.onSuccess(requestCode, obj);
+                }
+                else{
+
+                    responseHandler.onFailed(requestCode, apiResponse.getMessage());
+
+                }
 
             }
         }, new Response.ErrorListener() {
@@ -98,11 +113,22 @@ public class SearchApi {
 
     }
 
-    public static Request getSearchStore(final int requestCode, String keyword, final ResponseHandler responseHandler) {
+    public static Request getSearchStore(final int requestCode, String keyword,String accessToken, final ResponseHandler responseHandler) {
 
-        String url = String.format("%s/%s/%s?%s=%s",
+        String url="";
+        if (accessToken.isEmpty()){
+            url = String.format("%s/%s/%s?%s=%s",
+                    APIConstants.DOMAIN, APIConstants.STORE_API, APIConstants.GET_SEARCH,
+                    APIConstants.SEARCH_QUERY, keyword);
+        }else{
+
+            url = String.format("%s/%s/%s?%s=%s&%s=%s",
                 APIConstants.DOMAIN, APIConstants.STORE_API, APIConstants.GET_SEARCH,
-                APIConstants.SEARCH_QUERY, keyword);
+                APIConstants.SEARCH_QUERY, keyword,APIConstants.ACCESS_TOKEN,accessToken);
+
+        }
+
+//        String url = "http://online.api.easydeal.ph/api/v1/store/search?queryString=seller";
 
         Request requestGetStoreList = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
             @Override
@@ -111,15 +137,20 @@ public class SearchApi {
                 Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
                 APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
 
-                gson = GsonUtility.createGsonBuilder(SellerList.class, new SellerList.SellerListInstance()).create();
-                String jsonString = new Gson().toJson(apiResponse.getData());
+                if (apiResponse.isSuccessful()){
+                    gson = GsonUtility.createGsonBuilder(SellerList.class, new SellerList.SellerListInstance()).create();
+                    String jsonString = new Gson().toJson(apiResponse.getData());
 
-                Type listType = new TypeToken<ArrayList<SellerList>>() {
-                }.getType();
+                    Type listType = new TypeToken<ArrayList<SellerList>>() {
+                    }.getType();
 
-                List<SellerList> obj = gson.fromJson(jsonString, listType);
+                    List<SellerList> obj = gson.fromJson(jsonString, listType);
 
-                responseHandler.onSuccess(requestCode, obj);
+                    responseHandler.onSuccess(requestCode, obj);
+
+                }else {
+                    responseHandler.onFailed(requestCode, apiResponse.getMessage());
+                }
 
             }
         }, new Response.ErrorListener() {
@@ -204,12 +235,14 @@ public class SearchApi {
 
     }
 
-    public static Request searchProductNameSuggestion(final int requestCode, String token, String query, final ResponseHandler responseHandler) {
+    public static Request searchProductNameSuggestion(final int requestCode, String token, String query, int page, int perPage, final ResponseHandler responseHandler) {
 
-        String url = String.format("%s/%s/%s/%s?%s=%s&%s=%s",
+        String url = String.format("%s/%s/%s/%s?%s=%s&%s=%s&%s=%s&%s=%s",
                 APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.PRODUCT_MANAGEMENT_API, APIConstants.PRODUCT_NAME_API,
                 APIConstants.ACCESS_TOKEN, token,
-                APIConstants.SEARCH_QUERY, query);
+                APIConstants.SEARCH_QUERY, query,
+                APIConstants.SEARCH_PAGE, page,
+                APIConstants.SEARCH_PER_PAGE, perPage);
         url = url.replace(" ", "%20");
         Request requestGetCart = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
             @Override
@@ -256,7 +289,7 @@ public class SearchApi {
     public static Request searchRiderNameSuggestion(final int requestCode, String token,
                                                     String query, int perPage, int pageNo, final ResponseHandler responseHandler) {
 
-        String url = String.format("%s/%s/%s?%s=%s&%s=%s",
+        String url = String.format("%s/%s/%s?%s=%s&%s=%s&%s=%s&%s=%s",
                 APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.RIDER_NAME_API,
                 APIConstants.ACCESS_TOKEN, token,
                 APIConstants.SEARCH_QUERY, query,
@@ -303,17 +336,34 @@ public class SearchApi {
 
     }
 
-    public static Request getTransactionList(final int requestCode, String accessToken, String productName, String riderName, String sortDirection, final ResponseHandler responseHandler) {
+    public static Request getTransactionList(final int requestCode, String accessToken, String productName, String riderName,
+                                             String sortDirection, String dateFrom, String dateTo, final ResponseHandler responseHandler) {
 
         String endpoint =  "";
         if(riderName.isEmpty()) {
-             endpoint = String.format("%s/%s/%s?%s=%s&%s=%s&%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.SELLER_TRANSACTION_LIST_API,
-                    APIConstants.ACCESS_TOKEN, accessToken, APIConstants.PRODUCT_PARAMS_PRODUCT_NAME, productName,
-                     APIConstants.PRODUCT_LIST_SORT_DIRECTION, sortDirection);
+            if(dateFrom.isEmpty() && dateTo.isEmpty()) {
+                endpoint = String.format("%s/%s/%s?%s=%s&%s=%s&%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.SELLER_TRANSACTION_LIST_API,
+                        APIConstants.ACCESS_TOKEN, accessToken, APIConstants.PRODUCT_PARAMS_PRODUCT_NAME, productName,
+                        APIConstants.PRODUCT_LIST_SORT_DIRECTION, sortDirection);
+            }else{
+                endpoint = String.format("%s/%s/%s?%s=%s&%s=%s&%s=%s&%s=%s&%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.SELLER_TRANSACTION_LIST_API,
+                        APIConstants.ACCESS_TOKEN, accessToken, APIConstants.PRODUCT_PARAMS_PRODUCT_NAME, productName,
+                        APIConstants.PRODUCT_LIST_SORT_DIRECTION, sortDirection,
+                        APIConstants.SALES_REPORT_PARAM_DATE_FROM, dateFrom,
+                        APIConstants.SALES_REPORT_PARAM_DATE_TO, dateTo);
+            }
         }else if(productName.isEmpty()){
-            endpoint = String.format("%s/%s/%s?%s=%s&%s=%s&%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.SELLER_TRANSACTION_LIST_API,
-                    APIConstants.ACCESS_TOKEN, accessToken, APIConstants.RIDER_NAME_PARAMS, riderName,
-                    APIConstants.PRODUCT_LIST_SORT_DIRECTION, sortDirection);
+            if(dateFrom.isEmpty() && dateTo.isEmpty()) {
+                endpoint = String.format("%s/%s/%s?%s=%s&%s=%s&%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.SELLER_TRANSACTION_LIST_API,
+                        APIConstants.ACCESS_TOKEN, accessToken, APIConstants.RIDER_NAME_PARAMS, riderName,
+                        APIConstants.PRODUCT_LIST_SORT_DIRECTION, sortDirection);
+            }else{
+                endpoint = String.format("%s/%s/%s?%s=%s&%s=%s&%s=%s&%s=%s&%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.SELLER_TRANSACTION_LIST_API,
+                        APIConstants.ACCESS_TOKEN, accessToken, APIConstants.RIDER_NAME_PARAMS, riderName,
+                        APIConstants.PRODUCT_LIST_SORT_DIRECTION, sortDirection,
+                        APIConstants.SALES_REPORT_PARAM_DATE_FROM, dateFrom,
+                        APIConstants.SALES_REPORT_PARAM_DATE_TO, dateTo);
+            }
         }
         endpoint = endpoint.replace(" ", "%20");
         Request request = new JsonObjectRequest(endpoint, new Response.Listener<JSONObject>() {
