@@ -308,6 +308,8 @@ public class SellerApi {
         params.put(APIConstants.ACCESS_TOKEN, accessToken);
         params.put(APIConstants.STORE_NAME_PARAM, String.valueOf(updateUserInfo.getStoreName()));
         params.put(APIConstants.STORE_DESCRIPTION_PARAM, String.valueOf(updateUserInfo.getStoreDescription()));
+        /***selected categories are available in reseller only*/
+        if (!selectedCategories.isEmpty())
         params.put(APIConstants.CATEGORY_IDS, selectedCategories);
 
         JSONObject jsonObject = new JSONObject(params);
