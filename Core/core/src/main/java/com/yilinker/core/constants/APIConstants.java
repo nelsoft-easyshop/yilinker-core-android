@@ -340,6 +340,7 @@ public class APIConstants {
     public static final String RIDER_GET_JOB_ORDERS = "get-job-orders";
     public static final String RIDER_GET_JOB_ORDERS_PARAM_TOKEN = "access_token";
     public static final String RIDER_GET_JOB_ORDERS_PARAM_STATUS = "status";
+    public static final String RIDER_GET_JOB_ORDERS_PARAM_FILTERBYBRANCH = "filterByBranch";
 
     public static final String RIDER_GET_CASHDETAILS = "get-cash-details";
     public static final String RIDER_GET_CASHDETAILS_PARAM_TOKEN = "access_token";
@@ -362,6 +363,7 @@ public class APIConstants {
     public static final String RIDER_GET_JODETAILS = "get-job-order-details";
     public static final String RIDER_GET_JODETAILS_PARAM_TOKEN = "access_token";
     public static final String RIDER_GET_JODETAILS_PARAM_JONUMBER = "jobOrderNo";
+    public static final String RIDER_GET_JODETAILS_PARAM_WAYBILLNO = "waybillNo";
 
     public static final String RIDER_GET_WAREHOUSES = "get-warehouse";
     public static final String RIDER_GET_WAREHOUSES_PARAM_TOKEN = "access_token";
@@ -371,7 +373,7 @@ public class APIConstants {
     public static final String RIDER_REPORT_PROBLEMATIC_PARAM_TYPE = "problemType";
     public static final String RIDER_REPORT_PROBLEMATIC_PARAM_JONUMBER = "jobOrderNo";
     public static final String RIDER_REPORT_PROBLEMATIC_PARAM_NOTES = "notes";
-    public static final String RIDER_REPORT_PROBLEMATIC_PARAM_IMAGE = "images";
+    public static final String RIDER_REPORT_PROBLEMATIC_PARAM_IMAGE = "images[]";
 
     public static final String RIDER_LOGOUT = "confirm-rider-logout";
     public static final String RIDER_LOGOUT_PARAM_TOKEN = "access_token";
@@ -381,7 +383,20 @@ public class APIConstants {
     public static final String RIDER_UPLOAD_IMAGES = "upload-delivery-images";
     public static final String RIDER_UPLOAD_IMAGES_ACCESS_TOKEN = "access_token";
     public static final String RIDER_UPLOAD_IMAGES_WAYBILLNO = "waybillNo";
-    public static final String RIDER_UPLOAD_IMAGES_IMAGES = "images";
+    public static final String RIDER_UPLOAD_IMAGES_IMAGES = "images[]";
+
+    public static final String RIDER_EXTEND_CASH_LIMIT = "allow-exceed-cash-limit";
+    public static final String RIDER_EXTEND_CASH_LIMIT_PARAM_TOKEN = "access_token";
+    public static final String RIDER_EXTEND_CASH_LIMIT_PARAM_USERNAME = "username";
+    public static final String RIDER_EXTEND_CASH_LIMIT_PARAM_PASSWORD = "password";
+
+    public static final String RIDER_SEND_LOCATION = "add-location";
+    public static final String RIDER_SEND_LOCATION_PARAM_TOKEN = "access_token";
+    public static final String RIDER_SEND_LOCATION_PARAM_LATITUDE = "latitude";
+    public static final String RIDER_SEND_LOCATION_PARAM_LONGITUDE = "longitude";
+
+    public static final String RIDER_VERIFY = "is-rider";
+    public static final String RIDER_VERIFY_PARAM_TOKEN = "access_token";
 
     ////////////////////////////////////////////////////////////////////////////////
 

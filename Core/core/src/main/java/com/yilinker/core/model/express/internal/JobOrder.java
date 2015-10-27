@@ -30,6 +30,7 @@ public class JobOrder {
     private Location location;
     private ProblemDetail problemDetails;
     private String packageDescription;
+    private double amountToCollect;
 
 
     public String getJobOrderNo() {
@@ -190,6 +191,14 @@ public class JobOrder {
 
     public void setPackageDescription(String packageDescription) {
         this.packageDescription = packageDescription;
+    }
+
+    public double getAmountToCollect() {
+        return amountToCollect;
+    }
+
+    public void setAmountToCollect(double amountToCollect) {
+        this.amountToCollect = amountToCollect;
     }
 
     public static class JobOrderInstance implements InstanceCreator<JobOrder> {
