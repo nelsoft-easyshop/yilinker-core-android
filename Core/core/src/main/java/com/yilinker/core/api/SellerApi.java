@@ -298,7 +298,8 @@ public class SellerApi {
     }
 
 
-    public static Request updateStoreInfo(final int requestCode, UpdateUserInfo updateUserInfo, String accessToken, final ResponseHandler responseHandler) {
+    public static Request updateStoreInfo(final int requestCode, UpdateUserInfo updateUserInfo, String accessToken,
+                                          String selectedCategories, final ResponseHandler responseHandler) {
 
         String url = String.format("%s/%s/%s/%s", APIConstants.DOMAIN, APIConstants.AUTH_API,
                 APIConstants.STORE_INFO_MERCHANT, APIConstants.UPDATE_STORE_INFO_API);
@@ -307,6 +308,9 @@ public class SellerApi {
         params.put(APIConstants.ACCESS_TOKEN, accessToken);
         params.put(APIConstants.STORE_NAME_PARAM, String.valueOf(updateUserInfo.getStoreName()));
         params.put(APIConstants.STORE_DESCRIPTION_PARAM, String.valueOf(updateUserInfo.getStoreDescription()));
+        /***selected categories are available in reseller only*/
+        if (!selectedCategories.isEmpty())
+        params.put(APIConstants.CATEGORY_IDS, selectedCategories);
 
         JSONObject jsonObject = new JSONObject(params);
         String stringJSON = jsonObject.toString();

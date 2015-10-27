@@ -260,6 +260,7 @@ public class APIConstants {
     public static final String CHANGE_PASSWORD_API = "changePassword";
     public static final String DISABLE_USER = "disable";
     public static final String ACCOUNT_API = "account";
+    public static final String CATEGORY_IDS = "categoryIds";
 
     //Bank
     public static final String BANK_API = "bank";
