@@ -121,7 +121,7 @@ public class ImageUtility {
 
                 Bitmap bitmap = BitmapFactory.decodeFile(filePath);
 
-                compressedFile = new File(String.format("%s/%s/compressed%s", Environment.getExternalStorageDirectory().toString(), TEMP_IMAGE_FOLDER,file.getName()));
+                compressedFile = new File(String.format("%s/%s/compressed%s.jpeg", Environment.getExternalStorageDirectory().toString(), TEMP_IMAGE_FOLDER,file.getName()));
                 FileOutputStream out = new FileOutputStream(compressedFile);
                 bitmap.compress(Bitmap.CompressFormat.JPEG,70,out);
                 out.flush();
