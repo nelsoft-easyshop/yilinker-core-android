@@ -14,6 +14,7 @@ public class CashHistory {
     private double amount;
 //    private String jobOrderNo;
     private String date;
+    private String type;
 
 //    public String getAction() {
 //        return action;
@@ -47,6 +48,14 @@ public class CashHistory {
 //        this.jobOrderNo = jobOrderNo;
 //    }
 
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public String getDate() {
         return date;
