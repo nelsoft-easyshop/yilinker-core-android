@@ -123,7 +123,7 @@ public class ImageUtility {
 
                 compressedFile = new File(String.format("%s/%s/compressed%s.jpeg", Environment.getExternalStorageDirectory().toString(), TEMP_IMAGE_FOLDER,file.getName()));
                 FileOutputStream out = new FileOutputStream(compressedFile);
-                bitmap.compress(Bitmap.CompressFormat.JPEG,70,out);
+                bitmap.compress(Bitmap.CompressFormat.JPEG,40,out);
                 out.flush();
                 out.close();
 
