@@ -18,6 +18,7 @@ public class Rider {
     private int completedJO;
     private int currentJO;
     private int currentDropoffJO;
+    private String areaCode;
 
     public String getName() {
         return name;
@@ -89,6 +90,14 @@ public class Rider {
 
     public void setCurrentDropoff(int currentDropoffJO) {
         this.currentDropoffJO = currentDropoffJO;
+    }
+
+    public String getAreaCode() {
+        return areaCode;
+    }
+
+    public void setAreaCode(String areaCode) {
+        this.areaCode = areaCode;
     }
 
     public static class RiderInstance implements InstanceCreator<Rider> {
