@@ -17,15 +17,32 @@ public class UpdateUserInfo {
     private String storeDescription;
     private String contactNumber;
     private String email;
-    private int productCount, transactionCount;
+    private int productCount, transactionCount, messageCount;
     private String totalSales;
     private boolean isReseller;
+    private String tin;
 
     private Bank bankAccount;
     private Address address;
     private CategoryList storeCategory;
 
     private boolean isEmailSubscribed, isSmsSubscribed;
+
+    public int getMessageCount() {
+        return messageCount;
+    }
+
+    public void setMessageCount(int messageCount) {
+        this.messageCount = messageCount;
+    }
+
+    public String getTin() {
+        return tin;
+    }
+
+    public void setTin(String tin) {
+        this.tin = tin;
+    }
 
     public Address getAddress() {
         return address;
