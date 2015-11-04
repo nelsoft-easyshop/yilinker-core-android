@@ -383,7 +383,7 @@ public class TransactionApi {
         params.put(APIConstants.SELLER_TRANSACTION_CANCEL_PARAMS_REASON_ID, reasonId);
         params.put(APIConstants.SELLER_TRANSACTION_CANCEL_PARAMS_TRANSACTION_ID, transactionId);
         params.put(APIConstants.SELLER_TRANSACTION_CANCEL_PARAMS_REMARK, remarks);
-        params.put(APIConstants.SELLER_TRANSACTION_DELIVERY_LOGS_PARAMS_ORDER_PRODUCT_ID, orderProductId);
+        params.put(APIConstants.SELLER_TRANSACTION_DELIVERY_LOGS_PARAMS_ORDER_PRODUCT_IDS, orderProductId);
 
 
         VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
