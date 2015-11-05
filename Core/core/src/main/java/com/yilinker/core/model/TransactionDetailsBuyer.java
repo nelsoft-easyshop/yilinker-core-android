@@ -183,7 +183,7 @@ public class TransactionDetailsBuyer {
         private static final String KEY_SELLER_ID = "sellerId";
         private static final String KEY_SELLER_STORE = "sellerStore";
         private static final String KEY_SELLER_CONTACT_NUMBER = "sellerContactNumber";
-        private static final String KEY_HAS_FEEDBACK = "hasFeedback";
+        private static final String KEY_HAS_FEEDBACK = "sellerHasFeedback";
         private static final String KEY_PRODUCTS = "products";
 
 
