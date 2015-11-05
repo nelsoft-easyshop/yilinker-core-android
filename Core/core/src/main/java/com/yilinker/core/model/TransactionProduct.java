@@ -38,6 +38,7 @@ public class TransactionProduct {
     private static final String KEY_IS_CANCELLABLE = "isCancellable";
     private static final String KEY_DELIVERY_LOGS = "deliveryLogs";
 
+
     @SerializedName(KEY_ORDER_PRODUCT_ID)
     private String orderProductId;
     @SerializedName(KEY_PRODUCT_ID)
