@@ -107,13 +107,19 @@ public class BaseApplication extends Application{
             requestQueue = Volley.newRequestQueue(getApplicationContext(), new HurlCookieStack(getApplicationContext()) {
                 @Override
                 protected HttpURLConnection createConnection(URL url) throws IOException {
+
+                    if (url.getProtocol().equals("http"))
+                        return super.createConnection(url);
+
                     HttpsURLConnection httpsURLConnection = (HttpsURLConnection) super.createConnection(url);
+
                     try {
                         httpsURLConnection.setSSLSocketFactory(SSLContext.getDefault().getSocketFactory());
                         httpsURLConnection.setHostnameVerifier(getHostnameVerifier());
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+
                     return httpsURLConnection;
                 }
             });
