@@ -8,6 +8,15 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.yilinker.core.helper.HurlCookieStack;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+
 //import org.apache.http.impl.client.CloseableHttpClient;
 //import org.apache.http.impl.client.DefaultHttpClient;
 //import org.apache.http.impl.client.HttpClients;
@@ -95,10 +104,34 @@ public class BaseApplication extends Application{
     public RequestQueue getRequestQueue() {
 
         if (requestQueue == null) {
-            requestQueue = Volley.newRequestQueue(getApplicationContext(), new HurlCookieStack(getApplicationContext()));
+            requestQueue = Volley.newRequestQueue(getApplicationContext(), new HurlCookieStack(getApplicationContext()) {
+                @Override
+                protected HttpURLConnection createConnection(URL url) throws IOException {
+                    HttpsURLConnection httpsURLConnection = (HttpsURLConnection) super.createConnection(url);
+                    try {
+                        httpsURLConnection.setSSLSocketFactory(SSLContext.getDefault().getSocketFactory());
+                        httpsURLConnection.setHostnameVerifier(getHostnameVerifier());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    return httpsURLConnection;
+                }
+            });
         }
 
         return requestQueue;
+    }
+
+    private HostnameVerifier getHostnameVerifier() {
+        return new HostnameVerifier() {
+            @Override
+            public boolean verify(String hostname, SSLSession session) {
+                //return true;
+//                HostnameVerifier hv = HttpsURLConnection.getDefaultHostnameVerifier();
+//                return hv.verify("localhost", session);
+                return true;
+            }
+        };
     }
 
 
