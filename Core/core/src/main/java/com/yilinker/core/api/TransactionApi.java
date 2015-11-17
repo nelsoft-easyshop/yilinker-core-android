@@ -39,13 +39,14 @@ import java.util.Map;
  */
 public class TransactionApi {
 
-    public static Request addProductReview(final int requestCode, int id,String accessToken,float rating,String review, final ResponseHandler responseHandler) {
+    public static Request addProductReview(final int requestCode, int productId, int orderProductId, String accessToken,float rating,String review, final ResponseHandler responseHandler) {
 
         String url = String.format("%s/%s/%s/%s", APIConstants.DOMAIN, APIConstants.AUTH_API,
                 APIConstants.PRODUCT_API,APIConstants.PRODUCT_ADD_PRODUCT_REVIEW );
 
         Map<String, String > params = new HashMap<>();
-        params.put( APIConstants.PRODUCT_ID,String.valueOf(id));
+        params.put(APIConstants.PRODUCT_ID,String.valueOf(productId));
+        params.put(APIConstants.ORDER_PRODUCT_ID, String.valueOf(orderProductId));
         params.put(APIConstants.PRODUCT_RATING,String.valueOf(rating));
         params.put(APIConstants.PRODUCT_REVIEW,review);
         params.put(APIConstants.PRODUCT_REVIEW_TITLE,"title");
