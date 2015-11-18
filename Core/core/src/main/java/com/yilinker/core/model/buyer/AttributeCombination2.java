@@ -13,6 +13,7 @@ public class AttributeCombination2 {
 
     private String productUnitId;
     private int[] combination;
+    private String[] combinationNames;
     private int quantity;
     private List<String> imageIds = new ArrayList<String>();
 
@@ -85,6 +86,14 @@ public class AttributeCombination2 {
 
     public void setDiscount(double discount) {
         this.discount = discount;
+    }
+
+    public String[] getCombinationNames() {
+        return combinationNames;
+    }
+
+    public void setCombinationNames(String[] combinationNames) {
+        this.combinationNames = combinationNames;
     }
 
     public static class AttributeCombination2Instance implements InstanceCreator<AttributeCombination2>{
