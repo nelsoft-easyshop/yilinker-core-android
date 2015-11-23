@@ -542,6 +542,11 @@ public class APIConstants {
     public final static String RESELLER_UPLOAD_API = "upload";
     public final static String RESELLER_UPLOAD_PARAMS_PRODUCT_IDS = "productIds[]";
 
+    //Voucher Api
+    public final static String APPLY_VOUCHER_API = "applyVoucher";
+
+    public final static String APPLY_VOUCHER_PARAMS_VOUCHER_CODE = "voucherCode";
+
 
     //Settings
     public final static String SETTINGS_API = "subscription";
