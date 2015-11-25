@@ -125,20 +125,22 @@ public class ProductManagementApi {
 
     private static void sendErrorMessage(int requestCode, VolleyError error, ResponseHandler responseHandler) {
 
-        if (error.networkResponse.statusCode == 400) {
-            try {
-                String jsonString = new String(error.networkResponse.data,
-                        HttpHeaderParser.parseCharset(error.networkResponse.headers));
-                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
-                APIResponse apiResponse = gson.fromJson(jsonString, APIResponse.class);
-                if (apiResponse != null) {
-                    responseHandler.onFailed(requestCode, apiResponse.getMessage());
-                } else {
-                    responseHandler.onFailed(requestCode,"Server Error.");
+        if (error.networkResponse != null) {
+            if (error.networkResponse.statusCode == 400) {
+                try {
+                    String jsonString = new String(error.networkResponse.data,
+                            HttpHeaderParser.parseCharset(error.networkResponse.headers));
+                    Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                    APIResponse apiResponse = gson.fromJson(jsonString, APIResponse.class);
+                    if (apiResponse != null) {
+                        responseHandler.onFailed(requestCode, apiResponse.getMessage());
+                    } else {
+                        responseHandler.onFailed(requestCode, "Server Error.");
+                    }
+                    return;
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
                 }
-                return;
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
             }
         }
 
@@ -154,6 +156,7 @@ public class ProductManagementApi {
         } else if (error instanceof ParseError) {
             message = "Parse error.";
         }
+
         responseHandler.onFailed(requestCode,message);
 
     }
