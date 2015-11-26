@@ -528,4 +528,34 @@ public class APIConstants {
     //Settings
     public final static String SETTINGS_API = "subscription";
     public final static String SETTINGS_PARAMS_SUBSCRIBE = "isSubscribe";
+
+    //Home V2
+    public final static String API_HOME_V2_STORE                                                    = "store";
+    public final static String API_HOME_V2_PRODUCT                                                  = "product";
+    public final static String API_HOME_V2_TARGET                                                   = "target";
+
+    public final static String API_HOME_V2_LAYOUT_ID                                                = "layoutId";
+    public final static String API_HOME_V2_SECTION_TITLE                                            = "sectionTitle";
+    public final static String API_HOME_V2_VIEW_MORE_AVAILABLE                                      = "isViewMoreAvailable";
+    public final static String API_HOME_V2_VIEW_MORE_TARGET                                         = "viewMoreTarget";
+    public final static String API_HOME_V2_DATA                                                     = "data";
+
+    public final static String API_HOME_V2_TARGET_URL                                               = "targetUrl";
+    public final static String API_HOME_V2_TARGET_TYPE                                              = "targetType";
+    public final static String API_HOME_V2_TARGET_IS_AUTHENTICATED                                  = "isAuthenticated";
+
+    public final static String API_HOME_V2_PRODUCT_NAME                                             = "name";
+    public final static String API_HOME_V2_PRODUCT_ORIGINAL_PRICE                                   = "originalPrice";
+    public final static String API_HOME_V2_PRODUCT_DISCOUNTED_PRICE                                 = "discountedPrice";
+    public final static String API_HOME_V2_PRODUCT_DISCOUNTED_PERCENTAGE                            = "discountedPercentage";
+    public final static String API_HOME_V2_PRODUCT_CURRENCY                                         = "currency";
+    public final static String API_HOME_V2_PRODUCT_IMAGE                                            = "image";
+
+    public final static String API_HOME_V2_STORE_NAME                                               = "name";
+    public final static String API_HOME_V2_STORE_SPECIALTY                                          = "specialty";
+    public final static String API_HOME_V2_STORE_IMAGE                                              = "image";
+    public final static String API_HOME_V2_STORE_TOP_PRODUCT                                        = "topProduct";
+
+    public final static String API_HOME_V2_SALE_REMAINING_TIME                                      = "remainingTime";
+    
 }
