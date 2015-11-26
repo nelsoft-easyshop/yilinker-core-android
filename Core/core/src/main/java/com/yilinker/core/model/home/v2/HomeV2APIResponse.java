@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import com.yilinker.core.constants.APIConstants;
 
 import java.lang.reflect.Type;
+import java.util.List;
 
 /**
  * Created by Adur Urbano on 11/25/2015.
@@ -20,7 +21,8 @@ public class HomeV2APIResponse<T> {
     @SerializedName(APIConstants.API_HOME_V2_VIEW_MORE_TARGET)
     private Target viewMoreTarget;
     @SerializedName(APIConstants.API_HOME_V2_DATA)
-    private T data;
+    private List<T> data;
+
 
     public int getLayoutId() {
         return layoutId;
@@ -54,11 +56,11 @@ public class HomeV2APIResponse<T> {
         this.viewMoreTarget = viewMoreTarget;
     }
 
-    public T getData() {
+    public List<T> getData() {
         return data;
     }
 
-    public void setData(T data) {
+    public void setData(List<T> data) {
         this.data = data;
     }
 

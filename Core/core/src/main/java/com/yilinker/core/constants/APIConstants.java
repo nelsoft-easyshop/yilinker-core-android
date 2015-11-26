@@ -579,4 +579,7 @@ public class APIConstants {
     public final static String API_HOME_V2_STORE_SPECIALTY                                          = "specialty";
     public final static String API_HOME_V2_STORE_IMAGE                                              = "image";
     public final static String API_HOME_V2_STORE_TOP_PRODUCT                                        = "topProduct";
+
+    public final static String API_HOME_V2_SALE_REMAINING_TIME                                      = "remainingTime";
+
 }
