@@ -557,6 +557,7 @@ public class APIConstants {
     public final static String API_HOME_V2_STORE                                                    = "store";
     public final static String API_HOME_V2_PRODUCT                                                  = "product";
     public final static String API_HOME_V2_TARGET                                                   = "target";
+    public final static String API_HOME_V2_IMAGE                                                    = "image";
 
     public final static String API_HOME_V2_LAYOUT_ID                                                = "layoutId";
     public final static String API_HOME_V2_SECTION_TITLE                                            = "sectionTitle";
