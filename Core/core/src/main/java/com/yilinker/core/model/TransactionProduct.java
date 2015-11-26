@@ -37,6 +37,8 @@ public class TransactionProduct {
     private static final String KEY_PRODUCT_CATEGORY_ID = "productCategoryId";
     private static final String KEY_IS_CANCELLABLE = "isCancellable";
     private static final String KEY_DELIVERY_LOGS = "deliveryLogs";
+    private static final String KEY_HAS_PRODUCT_REVIEW = "hasProductReview";
+
 
     @SerializedName(KEY_ORDER_PRODUCT_ID)
     private String orderProductId;
@@ -81,6 +83,8 @@ public class TransactionProduct {
     private Condition condition;
     @SerializedName(KEY_DELIVERY_LOGS)
     private DeliveryLogs deliveryLogs;
+    @SerializedName(KEY_HAS_PRODUCT_REVIEW)
+    private boolean hasProductReview;
 
     public String getProductImage() {
         return productImage;
@@ -248,6 +252,14 @@ public class TransactionProduct {
 
     public void setDeliveryLogs(DeliveryLogs deliveryLogs) {
         this.deliveryLogs = deliveryLogs;
+    }
+
+    public boolean isHasProductReview() {
+        return hasProductReview;
+    }
+
+    public void setHasProductReview(boolean hasProductReview) {
+        this.hasProductReview = hasProductReview;
     }
 
     public class Attributes {

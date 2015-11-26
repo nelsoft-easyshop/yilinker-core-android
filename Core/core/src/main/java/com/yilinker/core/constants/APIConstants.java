@@ -51,6 +51,7 @@ public class APIConstants {
     public static final String PRODUCT_UNIT_ID = "unitId";
     public static final String PRODUCT_QUANTITY = "quantity";
     public static final String PRODUCT_ID = "productId";
+    public static final String ORDER_PRODUCT_ID = "orderProductId";
 
     public static final String PRODUCT_GET_REVIEW = "getReviews";
     public static final String PRODUCT_GET_PRODUCT_REVIEW = "getProductReviews";
@@ -102,6 +103,7 @@ public class APIConstants {
     public static final String PROFILE_GET_DETAILS = "getUser";
     public static final String PROFILE_EDIT_DETAILS = "editProfile";
     public static final String PROFILE_PHOTO = "profilePhoto";
+    public static final String PROFILE_USER_DOCUMENTS = "userDocument";
     public static final String PROFILE_COVER_PHOTO = "coverPhoto";
     public static final String PROFILE_FIRST_NAME = "firstName";
     public static final String PROFILE_LAST_NAME = "lastName";
@@ -260,6 +262,7 @@ public class APIConstants {
     public static final String CHANGE_PASSWORD_API = "changePassword";
     public static final String DISABLE_USER = "disable";
     public static final String ACCOUNT_API = "account";
+    public static final String CATEGORY_IDS = "categoryIds";
 
     //Bank
     public static final String BANK_API = "bank";
@@ -373,6 +376,7 @@ public class APIConstants {
     public static final String RIDER_GET_JOB_ORDERS = "get-job-orders";
     public static final String RIDER_GET_JOB_ORDERS_PARAM_TOKEN = "access_token";
     public static final String RIDER_GET_JOB_ORDERS_PARAM_STATUS = "status";
+    public static final String RIDER_GET_JOB_ORDERS_PARAM_FILTERBYBRANCH = "filterByBranch";
 
     public static final String RIDER_GET_CASHDETAILS = "get-cash-details";
     public static final String RIDER_GET_CASHDETAILS_PARAM_TOKEN = "access_token";
@@ -395,6 +399,7 @@ public class APIConstants {
     public static final String RIDER_GET_JODETAILS = "get-job-order-details";
     public static final String RIDER_GET_JODETAILS_PARAM_TOKEN = "access_token";
     public static final String RIDER_GET_JODETAILS_PARAM_JONUMBER = "jobOrderNo";
+    public static final String RIDER_GET_JODETAILS_PARAM_WAYBILLNO = "waybillNo";
 
     public static final String RIDER_GET_WAREHOUSES = "get-warehouse";
     public static final String RIDER_GET_WAREHOUSES_PARAM_TOKEN = "access_token";
@@ -404,7 +409,7 @@ public class APIConstants {
     public static final String RIDER_REPORT_PROBLEMATIC_PARAM_TYPE = "problemType";
     public static final String RIDER_REPORT_PROBLEMATIC_PARAM_JONUMBER = "jobOrderNo";
     public static final String RIDER_REPORT_PROBLEMATIC_PARAM_NOTES = "notes";
-    public static final String RIDER_REPORT_PROBLEMATIC_PARAM_IMAGE = "images";
+    public static final String RIDER_REPORT_PROBLEMATIC_PARAM_IMAGE = "images[]";
 
     public static final String RIDER_LOGOUT = "confirm-rider-logout";
     public static final String RIDER_LOGOUT_PARAM_TOKEN = "access_token";
@@ -414,7 +419,20 @@ public class APIConstants {
     public static final String RIDER_UPLOAD_IMAGES = "upload-delivery-images";
     public static final String RIDER_UPLOAD_IMAGES_ACCESS_TOKEN = "access_token";
     public static final String RIDER_UPLOAD_IMAGES_WAYBILLNO = "waybillNo";
-    public static final String RIDER_UPLOAD_IMAGES_IMAGES = "images";
+    public static final String RIDER_UPLOAD_IMAGES_IMAGES = "images[]";
+
+    public static final String RIDER_EXTEND_CASH_LIMIT = "allow-exceed-cash-limit";
+    public static final String RIDER_EXTEND_CASH_LIMIT_PARAM_TOKEN = "access_token";
+    public static final String RIDER_EXTEND_CASH_LIMIT_PARAM_USERNAME = "username";
+    public static final String RIDER_EXTEND_CASH_LIMIT_PARAM_PASSWORD = "password";
+
+    public static final String RIDER_SEND_LOCATION = "add-location";
+    public static final String RIDER_SEND_LOCATION_PARAM_TOKEN = "access_token";
+    public static final String RIDER_SEND_LOCATION_PARAM_LATITUDE = "latitude";
+    public static final String RIDER_SEND_LOCATION_PARAM_LONGITUDE = "longitude";
+
+    public static final String RIDER_VERIFY = "is-rider";
+    public static final String RIDER_VERIFY_PARAM_TOKEN = "access_token";
 
     ////////////////////////////////////////////////////////////////////////////////
 
@@ -492,6 +510,7 @@ public class APIConstants {
 
     public static final String SELLER_TRANSACTION_DELIVERY_LOGS_API = "getTransactionDeliveryLogs";
     public static final String SELLER_TRANSACTION_DELIVERY_LOGS_PARAMS_ORDER_PRODUCT_ID = "orderProductId";
+    public static final String SELLER_TRANSACTION_DELIVERY_LOGS_PARAMS_ORDER_PRODUCT_IDS = "orderProductIds";
 
     public static final String ORDER_PRODUCT_DETAIL_API = "getOrderProductDetail";
     public static final String ORDER_PRODUCT_DETAIL_PARAMS_ORDER_PRODUCT_ID = "orderProductId";
@@ -523,6 +542,11 @@ public class APIConstants {
 
     public final static String RESELLER_UPLOAD_API = "upload";
     public final static String RESELLER_UPLOAD_PARAMS_PRODUCT_IDS = "productIds[]";
+
+    //Voucher Api
+    public final static String APPLY_VOUCHER_API = "applyVoucher";
+
+    public final static String APPLY_VOUCHER_PARAMS_VOUCHER_CODE = "voucherCode";
 
 
     //Settings
@@ -557,5 +581,5 @@ public class APIConstants {
     public final static String API_HOME_V2_STORE_TOP_PRODUCT                                        = "topProduct";
 
     public final static String API_HOME_V2_SALE_REMAINING_TIME                                      = "remainingTime";
-    
+
 }

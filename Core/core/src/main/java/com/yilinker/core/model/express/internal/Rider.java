@@ -14,9 +14,11 @@ public class Rider {
     private int currentDeliveryJO;
     private int currentPickupJO;
     private double cashOnHand;
-    private double totalEarning;
+//    private double totalEarning;
     private int completedJO;
     private int currentJO;
+    private int currentDropoffJO;
+    private String areaCode;
 
     public String getName() {
         return name;
@@ -58,13 +60,13 @@ public class Rider {
         this.cashOnHand = cashOnHand;
     }
 
-    public double getTotalEarning() {
-        return totalEarning;
-    }
-
-    public void setTotalEarning(double totalEarning) {
-        this.totalEarning = totalEarning;
-    }
+//    public double getTotalEarning() {
+//        return totalEarning;
+//    }
+//
+//    public void setTotalEarning(double totalEarning) {
+//        this.totalEarning = totalEarning;
+//    }
 
     public int getCompletedJO() {
         return completedJO;
@@ -80,6 +82,22 @@ public class Rider {
 
     public void setCurrentJO(int currentJO) {
         this.currentJO = currentJO;
+    }
+
+    public int getCurrentDropoffJO() {
+        return currentDropoffJO;
+    }
+
+    public void setCurrentDropoff(int currentDropoffJO) {
+        this.currentDropoffJO = currentDropoffJO;
+    }
+
+    public String getAreaCode() {
+        return areaCode;
+    }
+
+    public void setAreaCode(String areaCode) {
+        this.areaCode = areaCode;
     }
 
     public static class RiderInstance implements InstanceCreator<Rider> {

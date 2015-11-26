@@ -298,7 +298,8 @@ public class SellerApi {
     }
 
 
-    public static Request updateStoreInfo(final int requestCode, UpdateUserInfo updateUserInfo, String accessToken, final ResponseHandler responseHandler) {
+    public static Request updateStoreInfo(final int requestCode, UpdateUserInfo updateUserInfo, String accessToken,
+                                          String selectedCategories, final ResponseHandler responseHandler) {
 
         String url = String.format("%s/%s/%s/%s", APIConstants.DOMAIN, APIConstants.AUTH_API,
                 APIConstants.STORE_INFO_MERCHANT, APIConstants.UPDATE_STORE_INFO_API);
@@ -307,6 +308,9 @@ public class SellerApi {
         params.put(APIConstants.ACCESS_TOKEN, accessToken);
         params.put(APIConstants.STORE_NAME_PARAM, String.valueOf(updateUserInfo.getStoreName()));
         params.put(APIConstants.STORE_DESCRIPTION_PARAM, String.valueOf(updateUserInfo.getStoreDescription()));
+        /***selected categories are available in reseller only*/
+        if (!selectedCategories.isEmpty())
+            params.put(APIConstants.CATEGORY_IDS, selectedCategories);
 
         JSONObject jsonObject = new JSONObject(params);
         String stringJSON = jsonObject.toString();
@@ -426,7 +430,7 @@ public class SellerApi {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                String message = APIConstants.API_CONNECTION_PROBLEM;
+                String message = "";
 
                 if (error instanceof TimeoutError || error instanceof NoConnectionError) {
 
@@ -434,22 +438,25 @@ public class SellerApi {
 
                 } else if (error instanceof AuthFailureError) {
 
-                    message = "Authentication Failure.";
+                    message = APIConstants.API_CONNECTION_AUTH_ERROR;
 
-                }else{
+                } else {
                     try {
+
                         String responseBody = new String(error.networkResponse.data, "utf-8" );
                         JSONObject jsonObject = new JSONObject( responseBody );
-                        jsonObject = jsonObject.getJSONObject("data");
-                        JSONArray var = jsonObject.getJSONArray("errors");
-                        message = var.get(0).toString();
+                        String errorMessage = jsonObject.getString("message");
 
-                    } catch ( JSONException e ) {
+                        if (errorMessage.equals("Invalid password."))
+                            message = "Wrong old password";
+                        else
+                            message = jsonObject.getString("message");
+
+                    } catch ( Exception e ) {
                         //Handle a malformed json response
-                    } catch (UnsupportedEncodingException e){
-
                     }
                 }
+
                 responseHandler.onFailed(requestCode, message);
             }
         });

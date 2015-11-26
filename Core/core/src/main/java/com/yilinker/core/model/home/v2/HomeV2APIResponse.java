@@ -23,6 +23,7 @@ public class HomeV2APIResponse<T> {
     @SerializedName(APIConstants.API_HOME_V2_DATA)
     private List<T> data;
 
+
     public int getLayoutId() {
         return layoutId;
     }

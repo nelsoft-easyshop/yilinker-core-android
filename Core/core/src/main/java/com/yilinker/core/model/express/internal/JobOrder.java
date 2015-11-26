@@ -30,6 +30,9 @@ public class JobOrder {
     private Location location;
     private ProblemDetail problemDetails;
     private String packageDescription;
+    private double amountToCollect;
+    private boolean isOpen;
+    private String areaCode;
 
 
     public String getJobOrderNo() {
@@ -190,6 +193,30 @@ public class JobOrder {
 
     public void setPackageDescription(String packageDescription) {
         this.packageDescription = packageDescription;
+    }
+
+    public double getAmountToCollect() {
+        return amountToCollect;
+    }
+
+    public void setAmountToCollect(double amountToCollect) {
+        this.amountToCollect = amountToCollect;
+    }
+
+    public boolean isOpen() {
+        return isOpen;
+    }
+
+    public void setIsOpen(boolean isOpen) {
+        this.isOpen = isOpen;
+    }
+
+    public String getAreaCode() {
+        return areaCode;
+    }
+
+    public void setAreaCode(String areaCode) {
+        this.areaCode = areaCode;
     }
 
     public static class JobOrderInstance implements InstanceCreator<JobOrder> {
