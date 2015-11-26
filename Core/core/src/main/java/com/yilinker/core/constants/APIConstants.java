@@ -572,7 +572,7 @@ public class APIConstants {
     public final static String API_HOME_V2_PRODUCT_NAME                                             = "name";
     public final static String API_HOME_V2_PRODUCT_ORIGINAL_PRICE                                   = "originalPrice";
     public final static String API_HOME_V2_PRODUCT_DISCOUNTED_PRICE                                 = "discountedPrice";
-    public final static String API_HOME_V2_PRODUCT_DISCOUNTED_PERCENTAGE                            = "discountedPercentage";
+    public final static String API_HOME_V2_PRODUCT_DISCOUNTED_PERCENTAGE                            = "discountPercentage";
     public final static String API_HOME_V2_PRODUCT_CURRENCY                                         = "currency";
     public final static String API_HOME_V2_PRODUCT_IMAGE                                            = "image";
 
