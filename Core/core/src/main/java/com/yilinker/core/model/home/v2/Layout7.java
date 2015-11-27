@@ -48,7 +48,7 @@ public class Layout7 {
         @SerializedName(APIConstants.API_HOME_V2_STORE_IMAGE)
         private String image;
         @SerializedName(APIConstants.API_HOME_V2_STORE_TOP_PRODUCT)
-        private String topProduct;
+        private TopProduct topProduct;
 
         public String getName() {
             return name;
@@ -74,11 +74,11 @@ public class Layout7 {
             this.image = image;
         }
 
-        public String getTopProduct() {
+        public TopProduct getTopProduct() {
             return topProduct;
         }
 
-        public void setTopProduct(String topProduct) {
+        public void setTopProduct(TopProduct topProduct) {
             this.topProduct = topProduct;
         }
     }
