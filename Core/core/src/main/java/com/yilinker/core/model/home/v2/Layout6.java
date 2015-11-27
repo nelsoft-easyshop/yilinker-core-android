@@ -8,10 +8,10 @@ import java.util.List;
 /**
  * Created by rlcoronado on 27/11/2015.
  */
-public class Layout6<T> {
+public class Layout6 {
 
     private String image;
-    private List<T> data;
+    private Target target;
 
     public String getImage() {
         return image;
@@ -21,12 +21,12 @@ public class Layout6<T> {
         this.image = image;
     }
 
-    public List<T> getData() {
-        return data;
+    public Target getData() {
+        return target;
     }
 
-    public void setData(List<T> data) {
-        this.data = data;
+    public void setData(Target target) {
+        this.target = target;
     }
 
     public static class Layout6Instance implements InstanceCreator<Layout6>{
