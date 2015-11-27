@@ -558,12 +558,15 @@ public class APIConstants {
     public final static String API_HOME_V2_PRODUCT                                                  = "product";
     public final static String API_HOME_V2_TARGET                                                   = "target";
     public final static String API_HOME_V2_IMAGE                                                    = "image";
+    public final static String API_HOME_V2_CATEGORY                                                 = "category";
 
     public final static String API_HOME_V2_LAYOUT_ID                                                = "layoutId";
     public final static String API_HOME_V2_SECTION_TITLE                                            = "sectionTitle";
     public final static String API_HOME_V2_VIEW_MORE_AVAILABLE                                      = "isViewMoreAvailable";
     public final static String API_HOME_V2_VIEW_MORE_TARGET                                         = "viewMoreTarget";
     public final static String API_HOME_V2_DATA                                                     = "data";
+
+    public final static String API_HOME_V2_NAME                                                     = "name";
 
     public final static String API_HOME_V2_TARGET_URL                                               = "targetUrl";
     public final static String API_HOME_V2_TARGET_TYPE                                              = "targetType";
