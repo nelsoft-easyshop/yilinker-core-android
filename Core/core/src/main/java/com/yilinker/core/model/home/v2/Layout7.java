@@ -5,6 +5,8 @@ import com.google.gson.annotations.SerializedName;
 import com.yilinker.core.constants.APIConstants;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Adur Urbano on 11/25/2015.
@@ -48,7 +50,7 @@ public class Layout7 {
         @SerializedName(APIConstants.API_HOME_V2_STORE_IMAGE)
         private String image;
         @SerializedName(APIConstants.API_HOME_V2_STORE_TOP_PRODUCT)
-        private TopProduct topProduct;
+        private List<TopProduct> topProduct = new ArrayList<>();
 
         public String getName() {
             return name;
@@ -74,11 +76,11 @@ public class Layout7 {
             this.image = image;
         }
 
-        public TopProduct getTopProduct() {
+        public List<TopProduct> getTopProduct() {
             return topProduct;
         }
 
-        public void setTopProduct(TopProduct topProduct) {
+        public void setTopProduct(List<TopProduct> topProduct) {
             this.topProduct = topProduct;
         }
     }
