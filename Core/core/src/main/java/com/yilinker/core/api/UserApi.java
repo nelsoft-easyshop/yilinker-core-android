@@ -359,8 +359,8 @@ public class UserApi {
                 APIConstants.LOGIN_MERGE_API);
 
         Map<String, String> params = new HashMap<>();
-        params.put(APIConstants.API_CLIENT_ID, clientId);
-        params.put(APIConstants.API_CLIENT_SECRET, clientSecret);
+        params.put(APIConstants.LOGIN_PARAM_CLIENT_ID, clientId);
+        params.put(APIConstants.LOGIN_PARAM_CLIENT_SECRET, clientSecret);
         params.put(APIConstants.LOGIN_PARAM_GRANT_TYPE, grantType);
         params.put(APIConstants.TOKEN_API, token);
         params.put(APIConstants.LOGIN_ACCOUNT_TYPE, accountType);
