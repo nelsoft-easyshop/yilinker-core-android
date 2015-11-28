@@ -3,8 +3,10 @@ package com.yilinker.core.api;
 import android.net.Uri;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -537,7 +539,99 @@ public class JobOrderAPI {
 
     }
 
-    /**
+//    /**
+//     * Uploads signature image for a job order
+//     * @param requestCode
+//     * @param jobOrderNo
+//     * @param image
+//     * @param responseHandler
+//     * @return
+//     */
+//    public static Request uploadSignature(final int requestCode, String jobOrderNo ,String image, final ResponseHandler responseHandler){
+//
+//        String url = String.format("%s/%s/%s",
+//                APIConstants.DOMAIN, APIConstants.RIDER_API, APIConstants.RIDER_UPLOAD_SIGNATURE);
+//
+//        BaseApplication app = BaseApplication.getInstance();
+//
+//        Map<String, String> params = new HashMap<String, String>();
+//        params.put(APIConstants.RIDER_UPLOAD_SIGNATURE__PARAM_JONUMBER, jobOrderNo);
+//        params.put(APIConstants.RIDER_UPLOAD_SIGNATURE_PARAM_IMAGE, image);
+//        params.put(APIConstants.RIDER_UPLOAD_SIGNATURE_PARAM_TOKEN, app.getAccessToken());
+//
+//        VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
+//
+//            @Override
+//            public void onResponse(JSONObject response) {
+//
+//                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+//                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+//
+//                if(apiResponse.isSuccessful()) {
+//                    responseHandler.onSuccess(requestCode, apiResponse.getMessage());
+//                }
+//                else{
+//                    responseHandler.onFailed(requestCode, apiResponse.getMessage());
+//                }
+//
+//            }
+//        }, new Response.ErrorListener() {
+//
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//
+//                if(error.networkResponse == null){
+//
+//                    responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+//                    return;
+//                }
+//
+//                int statusCode = error.networkResponse.statusCode;
+//                String message = null;
+//
+//                if(statusCode == HttpStatus.SC_UNAUTHORIZED){
+//
+//                    responseHandler.onFailed(requestCode, ErrorMessages.ERR_EXPIRED_TOKEN);
+//
+//                }
+//                else if(statusCode == HttpStatus.SC_BAD_REQUEST){
+//
+//                    try {
+//
+//                        String responseBody = new String(error.networkResponse.data, "utf-8" );
+//                        Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+//                        APIResponse apiResponse = gson.fromJson(responseBody, APIResponse.class);
+//
+//                        if(apiResponse != null)
+//                        {
+//                            message = apiResponse.getMessage();
+//                        }
+//
+//
+//                    } catch ( Exception e ) {
+//
+//                        message = APIConstants.API_CONNECTION_PROBLEM;
+//                    }
+//                    finally {
+//
+//                        responseHandler.onFailed(requestCode, message);
+//                    }
+//
+//                }
+//                else {
+//
+//                    responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+//                }
+//
+//            }
+//        });
+//
+//        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
+//        return request;
+//
+//    }
+
+        /**
      * Uploads signature image for a job order
      * @param requestCode
      * @param jobOrderNo
@@ -547,82 +641,113 @@ public class JobOrderAPI {
      */
     public static Request uploadSignature(final int requestCode, String jobOrderNo ,String image, final ResponseHandler responseHandler){
 
-        String url = String.format("%s/%s/%s",
-                APIConstants.DOMAIN, APIConstants.RIDER_API, APIConstants.RIDER_UPLOAD_SIGNATURE);
-
         BaseApplication app = BaseApplication.getInstance();
+
+        String url = String.format("%s/%s/%s?%s=%s",
+                APIConstants.DOMAIN, APIConstants.RIDER_API, APIConstants.RIDER_UPLOAD_SIGNATURE, APIConstants.RIDER_UPLOAD_SIGNATURE_PARAM_TOKEN, app.getAccessToken());
+
+//        BaseApplication app = BaseApplication.getInstance();
 
         Map<String, String> params = new HashMap<String, String>();
         params.put(APIConstants.RIDER_UPLOAD_SIGNATURE__PARAM_JONUMBER, jobOrderNo);
-        params.put(APIConstants.RIDER_UPLOAD_SIGNATURE_PARAM_IMAGE, image);
-        params.put(APIConstants.RIDER_UPLOAD_SIGNATURE_PARAM_TOKEN, app.getAccessToken());
+//        params.put(APIConstants.RIDER_UPLOAD_SIGNATURE_PARAM_TOKEN, app.getAccessToken());
 
-        VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
-
+        MultiPartRequest2 request = new MultiPartRequest2<String>(url, params, image, new Response.Listener() {
             @Override
-            public void onResponse(JSONObject response) {
+            public void onResponse(Object response) {
 
-                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
-                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
-
-                if(apiResponse.isSuccessful()) {
-                    responseHandler.onSuccess(requestCode, apiResponse.getMessage());
-                }
-                else{
-                    responseHandler.onFailed(requestCode, apiResponse.getMessage());
-                }
+//                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+//                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+//
+//                if(apiResponse.isSuccessful()){
+//
+//                    responseHandler.onSuccess(requestCode, apiResponse.getMessage());
+//                }
+//                else{
+//
+//                    responseHandler.onFailed(requestCode, apiResponse.getMessage());
+//
+//                }
 
             }
         }, new Response.ErrorListener() {
-
             @Override
             public void onErrorResponse(VolleyError error) {
 
-                if(error.networkResponse == null){
-
-                    responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
-                    return;
-                }
-
-                int statusCode = error.networkResponse.statusCode;
-                String message = null;
-
-                if(statusCode == HttpStatus.SC_UNAUTHORIZED){
-
-                    responseHandler.onFailed(requestCode, ErrorMessages.ERR_EXPIRED_TOKEN);
-
-                }
-                else if(statusCode == HttpStatus.SC_BAD_REQUEST){
-
-                    try {
-
-                        String responseBody = new String(error.networkResponse.data, "utf-8" );
-                        Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
-                        APIResponse apiResponse = gson.fromJson(responseBody, APIResponse.class);
-
-                        if(apiResponse != null)
-                        {
-                            message = apiResponse.getMessage();
-                        }
-
-
-                    } catch ( Exception e ) {
-
-                        message = APIConstants.API_CONNECTION_PROBLEM;
-                    }
-                    finally {
-
-                        responseHandler.onFailed(requestCode, message);
-                    }
-
-                }
-                else {
-
-                    responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
-                }
+//                if(error.networkResponse == null){
+//
+//                    responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+//                    return;
+//                }
+//
+//                int statusCode = error.networkResponse.statusCode;
+//                String message = null;
+//
+//                if(statusCode == HttpStatus.SC_UNAUTHORIZED){
+//
+//                    responseHandler.onFailed(requestCode, ErrorMessages.ERR_EXPIRED_TOKEN);
+//
+//                }
+//                else if(statusCode == HttpStatus.SC_BAD_REQUEST){
+//
+//                    try {
+//
+//                        String responseBody = new String(error.networkResponse.data, "utf-8" );
+//                        Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+//                        APIResponse apiResponse = gson.fromJson(responseBody, APIResponse.class);
+//
+//                        if(apiResponse != null)
+//                        {
+//                            message = apiResponse.getMessage();
+//                        }
+//
+//
+//                    } catch ( Exception e ) {
+//
+//                        message = APIConstants.API_CONNECTION_PROBLEM;
+//                    }
+//                    finally {
+//
+//                        responseHandler.onFailed(requestCode, message);
+//                    }
+//
+//                }
+//                else {
+//
+//                    responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+//                }
 
             }
-        });
+        }) {
+            @Override
+            public HttpEntity buildEntity(String image) {
+
+                MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+
+
+                File file = new File(image);
+                builder.addBinaryBody(APIConstants.RIDER_UPLOAD_SIGNATURE_PARAM_IMAGE, file, ContentType.create(CONTENT_TYPE_IMAGE), file.getName());
+
+
+                Map<String, String> mHeaders = null;
+                try {
+
+                    mHeaders = getHeaders();
+
+                    for (Map.Entry<String, String> entry : mHeaders.entrySet()) {
+                        builder.addTextBody(entry.getKey(), entry.getValue());
+                    }
+
+                    builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
+                    builder.setBoundary("BOUNDARY");
+
+                } catch (AuthFailureError authFailureError) {
+                    authFailureError.printStackTrace();
+                }
+
+                return builder.build();
+            }
+        };
 
         request.setRetryPolicy(SocketTimeout.getRetryPolicy());
         return request;
@@ -654,15 +779,15 @@ public class JobOrderAPI {
             @Override
             public void onResponse(JSONObject response) {
 
-                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
-                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
-
-                if(apiResponse.isSuccessful()) {
-                    responseHandler.onSuccess(requestCode, apiResponse.getMessage());
-                }
-                else{
-                    responseHandler.onFailed(requestCode, apiResponse.getMessage());
-                }
+//                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+//                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+//
+//                if(apiResponse.isSuccessful()) {
+//                    responseHandler.onSuccess(requestCode, apiResponse.getMessage());
+//                }
+//                else{
+//                    responseHandler.onFailed(requestCode, apiResponse.getMessage());
+//                }
 
             }
         }, new Response.ErrorListener() {
@@ -670,48 +795,48 @@ public class JobOrderAPI {
             @Override
             public void onErrorResponse(VolleyError error) {
 
-                if(error.networkResponse == null){
-
-                    responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
-                    return;
-                }
-
-                int statusCode = error.networkResponse.statusCode;
-                String message = null;
-
-                if(statusCode == HttpStatus.SC_UNAUTHORIZED){
-
-                    responseHandler.onFailed(requestCode, ErrorMessages.ERR_EXPIRED_TOKEN);
-
-                }
-                else if(statusCode == HttpStatus.SC_BAD_REQUEST){
-
-                    try {
-
-                        String responseBody = new String(error.networkResponse.data, "utf-8" );
-                        Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
-                        APIResponse apiResponse = gson.fromJson(responseBody, APIResponse.class);
-
-                        if(apiResponse != null)
-                        {
-                            message = apiResponse.getMessage();
-                        }
-
-
-                    } catch ( Exception e ) {
-
-                        message = APIConstants.API_CONNECTION_PROBLEM;
-                    }
-                    finally {
-
-                        responseHandler.onFailed(requestCode, message);
-                    }
-
-                }
-                else {
-
-                    responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
-                }
+//                if(error.networkResponse == null){
+//
+//                    responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+//                    return;
+//                }
+//
+//                int statusCode = error.networkResponse.statusCode;
+//                String message = null;
+//
+//                if(statusCode == HttpStatus.SC_UNAUTHORIZED){
+//
+//                    responseHandler.onFailed(requestCode, ErrorMessages.ERR_EXPIRED_TOKEN);
+//
+//                }
+//                else if(statusCode == HttpStatus.SC_BAD_REQUEST){
+//
+//                    try {
+//
+//                        String responseBody = new String(error.networkResponse.data, "utf-8" );
+//                        Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+//                        APIResponse apiResponse = gson.fromJson(responseBody, APIResponse.class);
+//
+//                        if(apiResponse != null)
+//                        {
+//                            message = apiResponse.getMessage();
+//                        }
+//
+//
+//                    } catch ( Exception e ) {
+//
+//                        message = APIConstants.API_CONNECTION_PROBLEM;
+//                    }
+//                    finally {
+//
+//                        responseHandler.onFailed(requestCode, message);
+//                    }
+//
+//                }
+//                else {
+//
+//                    responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+//                }
 
             }
         });
@@ -960,66 +1085,66 @@ public class JobOrderAPI {
             @Override
             public void onResponse(Object response) {
 
-                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
-                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
-
-                if(apiResponse.isSuccessful()){
-
-                    responseHandler.onSuccess(requestCode, apiResponse.getMessage());
-                }
-                else{
-
-                    responseHandler.onFailed(requestCode, apiResponse.getMessage());
-
-                }
+//                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+//                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+//
+//                if(apiResponse.isSuccessful()){
+//
+//                    responseHandler.onSuccess(requestCode, apiResponse.getMessage());
+//                }
+//                else{
+//
+//                    responseHandler.onFailed(requestCode, apiResponse.getMessage());
+//
+//                }
 
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
 
-                if(error.networkResponse == null){
-
-                    responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
-                    return;
-                }
-
-                int statusCode = error.networkResponse.statusCode;
-                String message = null;
-
-                if(statusCode == HttpStatus.SC_UNAUTHORIZED){
-
-                    responseHandler.onFailed(requestCode, ErrorMessages.ERR_EXPIRED_TOKEN);
-
-                }
-                else if(statusCode == HttpStatus.SC_BAD_REQUEST){
-
-                    try {
-
-                        String responseBody = new String(error.networkResponse.data, "utf-8" );
-                        Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
-                        APIResponse apiResponse = gson.fromJson(responseBody, APIResponse.class);
-
-                        if(apiResponse != null)
-                        {
-                            message = apiResponse.getMessage();
-                        }
-
-
-                    } catch ( Exception e ) {
-
-                        message = APIConstants.API_CONNECTION_PROBLEM;
-                    }
-                    finally {
-
-                        responseHandler.onFailed(requestCode, message);
-                    }
-
-                }
-                else {
-
-                    responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
-                }
+//                if(error.networkResponse == null){
+//
+//                    responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+//                    return;
+//                }
+//
+//                int statusCode = error.networkResponse.statusCode;
+//                String message = null;
+//
+//                if(statusCode == HttpStatus.SC_UNAUTHORIZED){
+//
+//                    responseHandler.onFailed(requestCode, ErrorMessages.ERR_EXPIRED_TOKEN);
+//
+//                }
+//                else if(statusCode == HttpStatus.SC_BAD_REQUEST){
+//
+//                    try {
+//
+//                        String responseBody = new String(error.networkResponse.data, "utf-8" );
+//                        Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+//                        APIResponse apiResponse = gson.fromJson(responseBody, APIResponse.class);
+//
+//                        if(apiResponse != null)
+//                        {
+//                            message = apiResponse.getMessage();
+//                        }
+//
+//
+//                    } catch ( Exception e ) {
+//
+//                        message = APIConstants.API_CONNECTION_PROBLEM;
+//                    }
+//                    finally {
+//
+//                        responseHandler.onFailed(requestCode, message);
+//                    }
+//
+//                }
+//                else {
+//
+//                    responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+//                }
 
             }
         }) {
@@ -1067,7 +1192,14 @@ public class JobOrderAPI {
             }
         };
 
-        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
+//        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
+
+        RetryPolicy policy = new DefaultRetryPolicy(20000,
+                1,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+
+        request.setRetryPolicy(policy);
+
         return request;
 
     }

@@ -370,6 +370,7 @@ public class APIConstants {
     public static final String RIDER_ACCEPT_JOB_ORDER = "accept-job-order";
     public static final String RIDER_ACCEPT_JOB_ORDER_PARAM_TOKEN = "access_token";
     public static final String RIDER_ACCEPT_JOB_ORDER_PARAM_JONUMBER = "jobOrderNo";
+    public static final String RIDER_ACCEPT_JOB_ORDER_PARAM_WAYBILLNO = "waybillNo";
 
     public static final String RIDER_GET_JOB_ORDERS = "get-job-orders";
     public static final String RIDER_GET_JOB_ORDERS_PARAM_TOKEN = "access_token";
@@ -431,6 +432,10 @@ public class APIConstants {
 
     public static final String RIDER_VERIFY = "is-rider";
     public static final String RIDER_VERIFY_PARAM_TOKEN = "access_token";
+
+    public static final String RIDER_ACKNOWLEDGE = "accept-unverified-package";
+    public static final String RIDER_ACKNOWLEDGE_TOKEN = "access_token";
+    public static final String RIDER_ACKNOWLEDGE_WAYBILLNO = "waybillNo";
 
     ////////////////////////////////////////////////////////////////////////////////
 
