@@ -1,6 +1,7 @@
 package com.yilinker.core.model;
 
 import com.google.gson.InstanceCreator;
+import com.google.gson.annotations.SerializedName;
 
 import java.lang.reflect.Type;
 
@@ -17,12 +18,13 @@ public class Login {
     public final String KEY_REFRESH_TOKEN = "refresh_token";
     public final String KEY_ERROR = "error";
     public final String KEY_ERROR_DESCRIPTION = "error_description";
+    public final String KEY_IS_EXISTING = "isExisting";
 
 
     private String access_token, expires_in, token_type, scope, refresh_token;
     private String error, error_description;
-
-
+    @SerializedName(KEY_IS_EXISTING)
+    private boolean isExisting;
 
     public String getError() {
         return error;
@@ -79,6 +81,14 @@ public class Login {
 
     public void setScope(String scope) {
         this.scope = scope;
+    }
+
+    public boolean isExisting() {
+        return isExisting;
+    }
+
+    public void setExisting(boolean existing) {
+        isExisting = existing;
     }
 
     @Override

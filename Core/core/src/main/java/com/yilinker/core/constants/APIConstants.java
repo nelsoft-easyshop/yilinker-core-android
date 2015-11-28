@@ -160,6 +160,8 @@ public class APIConstants {
     //For Login API
     public static final String TOKEN_API = "token";
     public static final String LOGIN_API = "login";
+    public static final String LOGIN_SOCIAL_MEDIA_API = "socialmedia";
+    public static final String LOGIN_MERGE_API = "merge";
     public static final String LOGIN_FACEBOOK_API = "facebook";
     public static final String LOGIN_GOOGLE_API = "google";
     public static final String LOGIN_PARAM_CLIENT_ID = "client_id";
@@ -169,6 +171,7 @@ public class APIConstants {
     public static final String LOGIN_PARAM_PASSWORD = "password";
     public static final String LOGIN_PARAM_USERNAME = "username";
     public static final String LOGIN_PARAM_REFRESH_TOKEN = "refresh_token";
+    public static final String LOGIN_ACCOUNT_TYPE = "accountType";
 
     //For Product Upload API
     public static final String PRODUCT_UPLOAD_API="upload";
