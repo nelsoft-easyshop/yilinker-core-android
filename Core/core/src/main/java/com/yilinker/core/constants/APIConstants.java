@@ -235,6 +235,8 @@ public class APIConstants {
     public static final String ADDRESS_PARAMS_BARANGAY = "barangay";
     public static final String ADDRESS_PARAMS_LOCATIONID = "locationId";
     public static final String ADDRESS_PARAMS_LOCATION = "location";
+    public static final String ADDRESS_PARAMS_LATITUDE = "latitude";
+    public static final String ADDRESS_PARAMS_LONGITUDE = "longitude";
     public static final String ADDRESS_PARAMS_CITY = "city";
     public static final String ADDRESS_PARAMS_PROVINCE = "province";
     public static final String ADDRESS_PARAMS_ZIPCODE = "zipCode";
