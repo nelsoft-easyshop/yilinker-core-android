@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.InstanceCreator;
+import com.google.gson.annotations.SerializedName;
 
 import java.lang.reflect.Type;
 
@@ -17,11 +18,14 @@ public class HomeCategoryProductItems implements Parcelable {
     private static final String KEY_CATEGORY_NAME = "categoryName";
     private static final String KEY_IMAGE = "image";
     private static final String KEY_TARGET = "target";
+    private static final String KEY_TARGET_TYPE = "targetType";
 
     private int categoryId;
     private String categoryName;
     private String image;
     private String target;
+    @SerializedName(KEY_TARGET_TYPE)
+    private String targetType;
 
     public String getCategoryName() {
         return categoryName;
@@ -45,6 +49,14 @@ public class HomeCategoryProductItems implements Parcelable {
 
     public void setTarget(String target) {
         this.target = target;
+    }
+
+    public String getTargetType() {
+        return targetType;
+    }
+
+    public void setTargetType(String targetType) {
+        this.targetType = targetType;
     }
 
     public int getCategoryId() {
@@ -72,6 +84,7 @@ public class HomeCategoryProductItems implements Parcelable {
     public HomeCategoryProductItems() {
     }
 
+
     @Override
     public int describeContents() {
         return 0;
@@ -83,6 +96,7 @@ public class HomeCategoryProductItems implements Parcelable {
         dest.writeString(this.categoryName);
         dest.writeString(this.image);
         dest.writeString(this.target);
+        dest.writeString(this.targetType);
     }
 
     protected HomeCategoryProductItems(Parcel in) {
@@ -90,6 +104,7 @@ public class HomeCategoryProductItems implements Parcelable {
         this.categoryName = in.readString();
         this.image = in.readString();
         this.target = in.readString();
+        this.targetType = in.readString();
     }
 
     public static final Creator<HomeCategoryProductItems> CREATOR = new Creator<HomeCategoryProductItems>() {
@@ -101,4 +116,5 @@ public class HomeCategoryProductItems implements Parcelable {
             return new HomeCategoryProductItems[size];
         }
     };
+
 }

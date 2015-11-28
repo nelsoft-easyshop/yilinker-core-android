@@ -51,6 +51,7 @@ public class APIConstants {
     public static final String PRODUCT_UNIT_ID = "unitId";
     public static final String PRODUCT_QUANTITY = "quantity";
     public static final String PRODUCT_ID = "productId";
+    public static final String ORDER_PRODUCT_ID = "orderProductId";
 
     public static final String PRODUCT_GET_REVIEW = "getReviews";
     public static final String PRODUCT_GET_PRODUCT_REVIEW = "getProductReviews";
@@ -102,6 +103,7 @@ public class APIConstants {
     public static final String PROFILE_GET_DETAILS = "getUser";
     public static final String PROFILE_EDIT_DETAILS = "editProfile";
     public static final String PROFILE_PHOTO = "profilePhoto";
+    public static final String PROFILE_USER_DOCUMENTS = "userDocument";
     public static final String PROFILE_COVER_PHOTO = "coverPhoto";
     public static final String PROFILE_FIRST_NAME = "firstName";
     public static final String PROFILE_LAST_NAME = "lastName";
@@ -158,6 +160,8 @@ public class APIConstants {
     //For Login API
     public static final String TOKEN_API = "token";
     public static final String LOGIN_API = "login";
+    public static final String LOGIN_SOCIAL_MEDIA_API = "socialmedia";
+    public static final String LOGIN_MERGE_API = "merge";
     public static final String LOGIN_FACEBOOK_API = "facebook";
     public static final String LOGIN_GOOGLE_API = "google";
     public static final String LOGIN_PARAM_CLIENT_ID = "client_id";
@@ -167,6 +171,7 @@ public class APIConstants {
     public static final String LOGIN_PARAM_PASSWORD = "password";
     public static final String LOGIN_PARAM_USERNAME = "username";
     public static final String LOGIN_PARAM_REFRESH_TOKEN = "refresh_token";
+    public static final String LOGIN_ACCOUNT_TYPE = "accountType";
 
     //For Product Upload API
     public static final String PRODUCT_UPLOAD_API="upload";
@@ -230,6 +235,8 @@ public class APIConstants {
     public static final String ADDRESS_PARAMS_BARANGAY = "barangay";
     public static final String ADDRESS_PARAMS_LOCATIONID = "locationId";
     public static final String ADDRESS_PARAMS_LOCATION = "location";
+    public static final String ADDRESS_PARAMS_LATITUDE = "latitude";
+    public static final String ADDRESS_PARAMS_LONGITUDE = "longitude";
     public static final String ADDRESS_PARAMS_CITY = "city";
     public static final String ADDRESS_PARAMS_PROVINCE = "province";
     public static final String ADDRESS_PARAMS_ZIPCODE = "zipCode";
@@ -546,8 +553,47 @@ public class APIConstants {
     public final static String RESELLER_UPLOAD_API = "upload";
     public final static String RESELLER_UPLOAD_PARAMS_PRODUCT_IDS = "productIds[]";
 
+    //Voucher Api
+    public final static String APPLY_VOUCHER_API = "applyVoucher";
+
+    public final static String APPLY_VOUCHER_PARAMS_VOUCHER_CODE = "voucherCode";
+
 
     //Settings
     public final static String SETTINGS_API = "subscription";
     public final static String SETTINGS_PARAMS_SUBSCRIBE = "isSubscribe";
+
+    //Home V2
+    public final static String API_HOME_V2_STORE                                                    = "store";
+    public final static String API_HOME_V2_PRODUCT                                                  = "product";
+    public final static String API_HOME_V2_TARGET                                                   = "target";
+    public final static String API_HOME_V2_IMAGE                                                    = "image";
+    public final static String API_HOME_V2_CATEGORY                                                 = "category";
+
+    public final static String API_HOME_V2_LAYOUT_ID                                                = "layoutId";
+    public final static String API_HOME_V2_SECTION_TITLE                                            = "sectionTitle";
+    public final static String API_HOME_V2_VIEW_MORE_AVAILABLE                                      = "isViewMoreAvailable";
+    public final static String API_HOME_V2_VIEW_MORE_TARGET                                         = "viewMoreTarget";
+    public final static String API_HOME_V2_DATA                                                     = "data";
+
+    public final static String API_HOME_V2_NAME                                                     = "name";
+
+    public final static String API_HOME_V2_TARGET_URL                                               = "targetUrl";
+    public final static String API_HOME_V2_TARGET_TYPE                                              = "targetType";
+    public final static String API_HOME_V2_TARGET_IS_AUTHENTICATED                                  = "isAuthenticated";
+
+    public final static String API_HOME_V2_PRODUCT_NAME                                             = "name";
+    public final static String API_HOME_V2_PRODUCT_ORIGINAL_PRICE                                   = "originalPrice";
+    public final static String API_HOME_V2_PRODUCT_DISCOUNTED_PRICE                                 = "discountedPrice";
+    public final static String API_HOME_V2_PRODUCT_DISCOUNTED_PERCENTAGE                            = "discountPercentage";
+    public final static String API_HOME_V2_PRODUCT_CURRENCY                                         = "currency";
+    public final static String API_HOME_V2_PRODUCT_IMAGE                                            = "image";
+
+    public final static String API_HOME_V2_STORE_NAME                                               = "name";
+    public final static String API_HOME_V2_STORE_SPECIALTY                                          = "specialty";
+    public final static String API_HOME_V2_STORE_IMAGE                                              = "image";
+    public final static String API_HOME_V2_STORE_TOP_PRODUCT                                        = "topProduct";
+
+    public final static String API_HOME_V2_SALE_REMAINING_TIME                                      = "remainingTime";
+
 }

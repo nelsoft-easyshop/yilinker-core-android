@@ -111,7 +111,7 @@ public class ResellerApi {
 
         for (int i = 0; i < productIds.size(); i++) {
 
-            params.put(APIConstants.RESELLER_UPLOAD_PARAMS_PRODUCT_IDS, String.valueOf(productIds.get(i)));
+            params.put(String.format("productIds[%d]",i), String.valueOf(productIds.get(i)));
 
         }
 
