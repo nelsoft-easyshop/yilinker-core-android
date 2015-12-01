@@ -90,7 +90,7 @@ public class MultiPartRequest extends Request {
         mHttpEntity = buildMultipartEntityStoreInfo();
     }
 
-    public MultiPartRequest(String url, String path,
+    public MultiPartRequest(String url, String path, boolean isProfilePhoto,
                             Class clazz,
                             Map<String, String> headers,
                             Response.Listener listener,
@@ -106,7 +106,10 @@ public class MultiPartRequest extends Request {
             MultipartEntityBuilder builder = MultipartEntityBuilder.create();
             File file  = new File(path);
             String fileName = file.getName();
-            builder.addBinaryBody("profilePhoto", file, ContentType.create("image/*"), fileName);
+            if (isProfilePhoto)
+                builder.addBinaryBody("profilePhoto", file, ContentType.create("image/*"), fileName);
+            else
+                builder.addBinaryBody("userDocument", file, ContentType.create("image/*"), fileName);
 
             for (Map.Entry<String, String> entry : mHeaders.entrySet()) {
                 builder.addTextBody(entry.getKey(), entry.getValue());
