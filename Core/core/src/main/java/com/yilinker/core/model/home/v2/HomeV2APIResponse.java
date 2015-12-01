@@ -22,7 +22,8 @@ public class HomeV2APIResponse<T> {
     private Target viewMoreTarget;
     @SerializedName(APIConstants.API_HOME_V2_DATA)
     private List<T> data;
-
+    @SerializedName(APIConstants.API_HOME_V2_REMAINING_TIME)
+    private String remainingTime;
 
     public int getLayoutId() {
         return layoutId;
@@ -46,6 +47,18 @@ public class HomeV2APIResponse<T> {
 
     public void setIsViewMoreAvailable(boolean isViewMoreAvailable) {
         this.isViewMoreAvailable = isViewMoreAvailable;
+    }
+
+    public void setViewMoreAvailable(boolean viewMoreAvailable) {
+        isViewMoreAvailable = viewMoreAvailable;
+    }
+
+    public String getRemainingTime() {
+        return remainingTime;
+    }
+
+    public void setRemainingTime(String remainingTime) {
+        this.remainingTime = remainingTime;
     }
 
     public Target getViewMoreTarget() {

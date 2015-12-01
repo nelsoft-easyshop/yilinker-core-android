@@ -15,6 +15,10 @@ public class Layout4<T> {
     @SerializedName(APIConstants.API_HOME_V2_SALE_REMAINING_TIME)
     private String remainingTime;
     private List<T> data;
+    @SerializedName(APIConstants.API_HOME_V2_TARGET)
+    private Target target;
+    @SerializedName(APIConstants.API_HOME_V2_PRODUCT)
+    private Product product;
 
     public String getRemainingTime() {
         return remainingTime;
@@ -30,6 +34,22 @@ public class Layout4<T> {
 
     public void setRemainingTime(String remainingTime) {
         this.remainingTime = remainingTime;
+    }
+
+    public Target getTarget() {
+        return target;
+    }
+
+    public void setTarget(Target target) {
+        this.target = target;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     public static class Layout4Instance implements InstanceCreator<Layout4>{
