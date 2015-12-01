@@ -99,7 +99,8 @@ public class ProfileApi {
                                              String locationId, String title, String unitNumber, String buildingName,
                                              String streetNumber, String streetName, String subdivision, String zipCode,
                                              String streetAddress, String longitude, String latitude, String landline,
-                                             boolean isProfilePictureEmpty, final ResponseHandler responseHandler){
+                                             File userDocuments, boolean isProfilePictureEmpty, boolean isUserDocumentsEmpty,
+                                             final ResponseHandler responseHandler){
 
         String url = String.format("%s/%s/%s/%s",
                 APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.PROFILE_API, APIConstants.PROFILE_EDIT_DETAILS);
@@ -108,6 +109,8 @@ public class ProfileApi {
         //params.put(APIConstants.ACCESS_TOKEN, token);
         if (!isProfilePictureEmpty)
             params.put(APIConstants.PROFILE_PHOTO, profilePhoto.getName());
+        if (!isUserDocumentsEmpty)
+            params.put(APIConstants.PROFILE_USER_DOCUMENTS, userDocuments.getName());
         //params.put(APIConstants.PROFILE_COVER_PHOTO, coverPhoto);
         params.put(APIConstants.PROFILE_FIRST_NAME, firstName);
         params.put(APIConstants.PROFILE_LAST_NAME, lastName);
