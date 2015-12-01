@@ -154,7 +154,7 @@ public class ProfileApi {
         url = String.format("%s?%s=%s",url,APIConstants.ACCESS_TOKEN, token);
 
         if (!isProfilePictureEmpty) {
-            MultiPartRequest multiPartRequest = new MultiPartRequest(url, profilePhoto.getPath(), APIResponse.class, params, new Response.Listener<JSONObject>() {
+            MultiPartRequest multiPartRequest = new MultiPartRequest(url, profilePhoto.getPath(), true, APIResponse.class, params, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
 
@@ -180,8 +180,34 @@ public class ProfileApi {
             multiPartRequest.setRetryPolicy(SocketTimeout.getRetryPolicy());
 
             return multiPartRequest;
-        }
-        else {
+        } else if (!isUserDocumentsEmpty) {
+            MultiPartRequest multiPartRequest = new MultiPartRequest(url, userDocuments.getPath(), false, APIResponse.class, params, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+
+                    Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                    APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+
+                    if (apiResponse.isSuccessful()) {
+                        responseHandler.onSuccess(requestCode, apiResponse.isSuccessful());
+                    } else {
+                        responseHandler.onFailed(requestCode, apiResponse.getMessage());
+                    }
+
+                }
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                    responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+                }
+            });
+
+            multiPartRequest.setRetryPolicy(SocketTimeout.getRetryPolicy());
+
+            return multiPartRequest;
+        } else {
             VolleyPostHelper requestUpdateCart = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
 
                 @Override
