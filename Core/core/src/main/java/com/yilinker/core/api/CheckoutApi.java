@@ -93,6 +93,8 @@ public class CheckoutApi {
                     //Handle a malformed json response
                 } catch (UnsupportedEncodingException e){
 
+                } catch (NullPointerException npe) {
+                    npe.printStackTrace();
                 }
                 responseHandler.onFailed(requestCode, message);
             }
