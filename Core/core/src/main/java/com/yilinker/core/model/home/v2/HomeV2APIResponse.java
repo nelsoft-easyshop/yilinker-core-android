@@ -12,6 +12,10 @@ import java.util.List;
  */
 public class HomeV2APIResponse<T> {
 
+    /**
+     * Usual response
+     */
+
     @SerializedName(APIConstants.API_HOME_V2_LAYOUT_ID)
     private int layoutId;
     @SerializedName(APIConstants.API_HOME_V2_SECTION_TITLE)
@@ -22,6 +26,14 @@ public class HomeV2APIResponse<T> {
     private Target viewMoreTarget;
     @SerializedName(APIConstants.API_HOME_V2_DATA)
     private List<T> data;
+
+    /**
+     * Some returned data on other layouts
+     *
+     */
+
+    @SerializedName(APIConstants.API_HOME_V2_SALE_REMAINING_TIME)
+    private String remainingTime;
 
 
     public int getLayoutId() {
@@ -56,12 +68,22 @@ public class HomeV2APIResponse<T> {
         this.viewMoreTarget = viewMoreTarget;
     }
 
+
     public List<T> getData() {
         return data;
     }
 
     public void setData(List<T> data) {
         this.data = data;
+    }
+
+
+    public String getRemainingTime() {
+        return remainingTime;
+    }
+
+    public void setRemainingTime(String remainingTime) {
+        this.remainingTime = remainingTime;
     }
 
     public static class HomeV2APIResponseInstance<T> implements InstanceCreator<HomeV2APIResponse<T>> {
