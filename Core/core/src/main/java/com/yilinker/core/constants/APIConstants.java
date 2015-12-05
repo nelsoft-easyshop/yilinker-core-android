@@ -575,6 +575,7 @@ public class APIConstants {
     public final static String API_HOME_V2_VIEW_MORE_AVAILABLE                                      = "isViewMoreAvailable";
     public final static String API_HOME_V2_VIEW_MORE_TARGET                                         = "viewMoreTarget";
     public final static String API_HOME_V2_DATA                                                     = "data";
+    public final static String API_HOME_V2_REMAINING_TIME                                           = "remainingTime";
 
     public final static String API_HOME_V2_NAME                                                     = "name";
 

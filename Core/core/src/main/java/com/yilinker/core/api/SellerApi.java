@@ -445,12 +445,20 @@ public class SellerApi {
 
                         String responseBody = new String(error.networkResponse.data, "utf-8" );
                         JSONObject jsonObject = new JSONObject( responseBody );
-                        String errorMessage = jsonObject.getString("message");
+                        JSONObject objData = jsonObject.getJSONObject("data");
+                        JSONArray jsonArray = objData.getJSONArray("errors");
+
+                        StringBuilder builder = new StringBuilder();
+                        for (int i=0; i<jsonArray.length();i++){
+                            builder.append(jsonArray.get(i)+"\n");
+                        }
+                        String errorMessage = builder.toString();
+//                        String errorMessage = jsonObject.getString("message");
 
                         if (errorMessage.equals("Invalid password."))
                             message = "Wrong old password";
                         else
-                            message = jsonObject.getString("message");
+                            message = errorMessage;
 
                     } catch ( Exception e ) {
                         //Handle a malformed json response

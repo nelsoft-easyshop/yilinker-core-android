@@ -64,6 +64,18 @@ public class HomeApi {
         Request request = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
+//
+//                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+//                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+//
+////                gson = GsonUtility.createGsonBuilder(Home.class, new Home.HomeInstance()).create();
+////                String jsonString = new Gson().toJson(apiResponse.getData());
+////                Home obj = gson.fromJson(jsonString, Home.class);
+//
+//                gson = GsonUtility.createGsonBuilder(HomeV2APIResponse.class, new HomeV2APIResponse.HomeV2APIResponseInstance()).create();
+//                String jsonString = new Gson().toJson(apiResponse.getData());
+//                Type listType = new TypeToken<ArrayList<HomeV2APIResponse>>(){}.getType();
+//                List<HomeV2APIResponse> obj = gson.fromJson(jsonString, listType);
 
                 Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
                 APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);

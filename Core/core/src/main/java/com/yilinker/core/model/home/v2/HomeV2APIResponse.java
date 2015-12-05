@@ -26,7 +26,6 @@ public class HomeV2APIResponse<T> {
     private Target viewMoreTarget;
     @SerializedName(APIConstants.API_HOME_V2_DATA)
     private List<T> data;
-
     /**
      * Some returned data on other layouts
      *
@@ -58,6 +57,10 @@ public class HomeV2APIResponse<T> {
 
     public void setIsViewMoreAvailable(boolean isViewMoreAvailable) {
         this.isViewMoreAvailable = isViewMoreAvailable;
+    }
+
+    public void setViewMoreAvailable(boolean viewMoreAvailable) {
+        isViewMoreAvailable = viewMoreAvailable;
     }
 
     public Target getViewMoreTarget() {
