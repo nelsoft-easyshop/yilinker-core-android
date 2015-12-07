@@ -16,7 +16,7 @@ public class AttributeCombination2 {
     private String[] combinationNames;
     private int quantity;
     private List<String> imageIds = new ArrayList<String>();
-
+    private String sku;
     private String price;
     private String discountedPrice;
     private double discount;
@@ -90,6 +90,14 @@ public class AttributeCombination2 {
 
     public String[] getCombinationNames() {
         return combinationNames;
+    }
+
+    public String getSku() {
+        return sku;
+    }
+
+    public void setSku(String sku) {
+        this.sku = sku;
     }
 
     public void setCombinationNames(String[] combinationNames) {
