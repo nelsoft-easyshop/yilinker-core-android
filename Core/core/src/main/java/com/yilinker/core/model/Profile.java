@@ -31,6 +31,7 @@ public class Profile {
     private boolean isEmailVerified;
     private boolean isMobileVerified;
     private Address address;
+    private UserDocuments userDocuments;
 
     public int getUserId() {
         return userId;
@@ -156,32 +157,32 @@ public class Profile {
         return isEmailSubscribed;
     }
 
-    public void setIsEmailSubscribed(boolean isEmailSubscribed) {
-        this.isEmailSubscribed = isEmailSubscribed;
+    public void setEmailSubscribed(boolean emailSubscribed) {
+        isEmailSubscribed = emailSubscribed;
     }
 
     public boolean isSmsSubscribed() {
         return isSmsSubscribed;
     }
 
-    public void setIsSmsSubscribed(boolean isSmsSubscribed) {
-        this.isSmsSubscribed = isSmsSubscribed;
+    public void setSmsSubscribed(boolean smsSubscribed) {
+        isSmsSubscribed = smsSubscribed;
     }
 
     public boolean isEmailVerified() {
         return isEmailVerified;
     }
 
-    public void setIsEmailVerified(boolean isEmailVerified) {
-        this.isEmailVerified = isEmailVerified;
+    public void setEmailVerified(boolean emailVerified) {
+        isEmailVerified = emailVerified;
     }
 
     public boolean isMobileVerified() {
         return isMobileVerified;
     }
 
-    public void setIsMobileVerified(boolean isMobileVerified) {
-        this.isMobileVerified = isMobileVerified;
+    public void setMobileVerified(boolean mobileVerified) {
+        isMobileVerified = mobileVerified;
     }
 
     public Address getAddress() {
@@ -192,10 +193,48 @@ public class Profile {
         this.address = address;
     }
 
+    public UserDocuments getUserDocuments() {
+        return userDocuments;
+    }
+
+    public void setUserDocuments(UserDocuments userDocuments) {
+        this.userDocuments = userDocuments;
+    }
+
     public static class ProfileInstance implements InstanceCreator<Profile> {
         @Override
         public Profile createInstance(Type type) {
             return new Profile();
+        }
+    }
+
+    public class UserDocuments {
+        private int id;
+        private String file;
+        private com.yilinker.core.model.Date date;
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public String getFile() {
+            return file;
+        }
+
+        public void setFile(String file) {
+            this.file = file;
+        }
+
+        public com.yilinker.core.model.Date getDate() {
+            return date;
+        }
+
+        public void setDate(com.yilinker.core.model.Date date) {
+            this.date = date;
         }
     }
 }

@@ -351,6 +351,65 @@ public class UserApi {
         return request;
     }
 
+    public static Request mergeAccount(final int requestCode, String token, String clientId,
+                                       String clientSecret, String grantType, String accountType,
+                                       final ResponseHandler responseHandler) {
+
+        String endpoint = String.format("%s/%s/%s", APIConstants.DOMAIN, APIConstants.LOGIN_SOCIAL_MEDIA_API,
+                APIConstants.LOGIN_MERGE_API);
+
+        Map<String, String> params = new HashMap<>();
+        params.put(APIConstants.LOGIN_PARAM_CLIENT_ID, clientId);
+        params.put(APIConstants.LOGIN_PARAM_CLIENT_SECRET, clientSecret);
+        params.put(APIConstants.LOGIN_PARAM_GRANT_TYPE, grantType);
+        params.put(APIConstants.TOKEN_API, token);
+        params.put(APIConstants.LOGIN_ACCOUNT_TYPE, accountType);
+
+        VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, endpoint, params, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+
+                responseHandler.onFailed(requestCode, apiResponse.getMessage());
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                String message = APIConstants.API_CONNECTION_PROBLEM;
+
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+
+                    message = APIConstants.API_CONNECTION_PROBLEM;
+
+                } else if (error instanceof AuthFailureError) {
+
+                    message = APIConstants.API_CONNECTION_AUTH_ERROR;
+
+                } else {
+
+                    try {
+                        String responseBody = new String(error.networkResponse.data, "utf-8" );
+                        JSONObject jsonObject = new JSONObject( responseBody );
+                        jsonObject = jsonObject.getJSONObject("data");
+                        JSONArray errors = jsonObject.getJSONArray("errors");
+                        message = errors.getString(0);
+
+                    } catch ( Exception e ) {
+                        //Handle a malformed json response
+                    }
+                }
+
+                responseHandler.onFailed(requestCode, message);
+            }
+        });
+
+        return request;
+
+    }
+
     public static Request loginByUsername (final int requestCode, OAuthentication oAuth, final ResponseHandler responseHandler){
 
         String url = String.format("%s/%s",

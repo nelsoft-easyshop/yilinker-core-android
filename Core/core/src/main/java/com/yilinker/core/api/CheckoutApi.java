@@ -93,6 +93,8 @@ public class CheckoutApi {
                     //Handle a malformed json response
                 } catch (UnsupportedEncodingException e){
 
+                } catch (NullPointerException npe) {
+                    npe.printStackTrace();
                 }
                 responseHandler.onFailed(requestCode, message);
             }
@@ -401,6 +403,8 @@ public class CheckoutApi {
         params.put(String.format("%s[%s]", APIConstants.GUEST_ADDRESS_PARAMS, APIConstants.ADDRESS_PARAMS_ZIPCODE), String.valueOf(address.getZipCode()));
         params.put(String.format("%s[%s]", APIConstants.GUEST_ADDRESS_PARAMS, APIConstants.ADDRESS_PARAMS_ISDEFAULT), String.valueOf("1"));
         params.put(String.format("%s[%s]", APIConstants.GUEST_ADDRESS_PARAMS, APIConstants.ADDRESS_PARAMS_LOCATION), String.valueOf(address.getLocationId()));
+        params.put(String.format("%s[%s]", APIConstants.GUEST_ADDRESS_PARAMS, APIConstants.ADDRESS_PARAMS_LATITUDE),address.getLatitude());
+        params.put(String.format("%s[%s]", APIConstants.GUEST_ADDRESS_PARAMS, APIConstants.ADDRESS_PARAMS_LONGITUDE),address.getLongitude());
 //        JSONArray guestAddress = new JSONArray();
 //        JSONArray guestDetails = new JSONArray();
 //        JSONObject guestData = new JSONObject();
