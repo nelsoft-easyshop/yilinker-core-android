@@ -59,8 +59,9 @@ public class HomeApi {
 
     public static Request getHomeDataV2 (final int requestCode, final ResponseHandler responseHandler) {
 
-        String url = String.format("%s/%s/%s", APIConstants.DOMAIN, APIConstants.HOME_API, APIConstants.HOME_GET_ITEMS);
-
+//        String url = String.format("%s/%s/%s", APIConstants.DOMAIN, APIConstants.HOME_API, APIConstants.HOME_GET_ITEMS);
+        String url = "http://online.api.easydeal.ph/api/v2/home/getData";
+//        String url = "https://www.yilinker.com/api/v2/home/getData";
         Request request = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {

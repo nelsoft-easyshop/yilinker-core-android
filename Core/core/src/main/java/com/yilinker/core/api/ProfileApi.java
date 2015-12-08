@@ -35,9 +35,16 @@ public class ProfileApi {
 
     public static Request getUserDetails(final int requestCode, String token, final ResponseHandler responseHandler) {
 
-        String url = String.format("%s/%s/%s/%s?%s=%s",
-                APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.PROFILE_API, APIConstants.PROFILE_GET_DETAILS,
-                APIConstants.ACCESS_TOKEN, token);
+        String url;
+
+        if(token != null) {
+            url = String.format("%s/%s/%s/%s?%s=%s",
+                    APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.PROFILE_API, APIConstants.PROFILE_GET_DETAILS,
+                    APIConstants.ACCESS_TOKEN, token);
+        } else {
+           url = String.format("%s/%s/%s/%s",
+                    APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.PROFILE_API, APIConstants.PROFILE_GET_DETAILS);
+        }
 
         Request requestGetCart = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
             @Override
