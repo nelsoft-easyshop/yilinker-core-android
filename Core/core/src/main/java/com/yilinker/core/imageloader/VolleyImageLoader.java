@@ -22,19 +22,20 @@ public class VolleyImageLoader {
 
         this.context = context;
         requestQueue = getRequestQueue();
-        imageLoader = new ImageLoader(requestQueue, new ImageLoader.ImageCache() {
-            LruCache<String, Bitmap> cache = new LruCache<String, Bitmap>(10);
-
-            @Override
-            public Bitmap getBitmap(String url) {
-                return cache.get(url);
-            }
-            @Override
-            public void putBitmap(String url, Bitmap bitmap) {
-                cache.put(url, bitmap);
-            }
-
-        });
+//        imageLoader = new ImageLoader(requestQueue, new ImageLoader.ImageCache() {
+//            LruCache<String, Bitmap> cache = new LruCache<String, Bitmap>(10);
+//
+//            @Override
+//            public Bitmap getBitmap(String url) {
+//                return cache.get(url);
+//            }
+//            @Override
+//            public void putBitmap(String url, Bitmap bitmap) {
+//                cache.put(url, bitmap);
+//            }
+//
+//        });
+        imageLoader = new ImageLoader(requestQueue, new LruBitmapCache(LruBitmapCache.getCacheSize(context)));
     }
 
     public RequestQueue getRequestQueue(){
