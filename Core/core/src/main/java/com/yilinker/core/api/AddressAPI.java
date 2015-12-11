@@ -185,7 +185,7 @@ public class AddressAPI {
                     message = "Authentication Failure.";
                 } else if (error instanceof ServerError) {
                     message = "Server error.";
-                } else if (error instanceof NetworkError) {
+                } else if (error instanceof NetworkError) { 
                     message = "Network Error.";
                 } else if (error instanceof ParseError) {
                     message = "Parse error.";

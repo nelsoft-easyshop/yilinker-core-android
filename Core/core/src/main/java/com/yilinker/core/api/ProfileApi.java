@@ -3,6 +3,7 @@ package com.yilinker.core.api;
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkError;
 import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.ServerError;
@@ -179,8 +180,19 @@ public class ProfileApi {
 
                 @Override
                 public void onErrorResponse(VolleyError error) {
-
-                    responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+                    String message = "An error occured.";
+                    if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                        message = "No connection available.";
+                    } else if (error instanceof AuthFailureError) {
+                        message = "Authentication Failure.";
+                    } else if (error instanceof ServerError) {
+                        message = "Server error.";
+                    } else if (error instanceof NetworkError) {
+                        message = "Network Error.";
+                    } else if (error instanceof ParseError) {
+                        message = "Parse error.";
+                    }
+                    responseHandler.onFailed(requestCode, message);
                 }
             });
 
@@ -207,7 +219,19 @@ public class ProfileApi {
                 @Override
                 public void onErrorResponse(VolleyError error) {
 
-                    responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+                    String message = "An error occured.";
+                    if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                        message = "No connection available.";
+                    } else if (error instanceof AuthFailureError) {
+                        message = "Authentication Failure.";
+                    } else if (error instanceof ServerError) {
+                        message = "Server error.";
+                    } else if (error instanceof NetworkError) {
+                        message = "Network Error.";
+                    } else if (error instanceof ParseError) {
+                        message = "Parse error.";
+                    }
+                    responseHandler.onFailed(requestCode, message);
                 }
             });
 
@@ -234,7 +258,19 @@ public class ProfileApi {
 
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+                    String message = "An error occured.";
+                    if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                        message = "No connection available.";
+                    } else if (error instanceof AuthFailureError) {
+                        message = "Authentication Failure.";
+                    } else if (error instanceof ServerError) {
+                        message = "Server error.";
+                    } else if (error instanceof NetworkError) {
+                        message = "Network Error.";
+                    } else if (error instanceof ParseError) {
+                        message = "Parse error.";
+                    }
+                    responseHandler.onFailed(requestCode, message);
                 }
             });
 
