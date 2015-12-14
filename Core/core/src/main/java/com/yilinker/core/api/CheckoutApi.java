@@ -82,6 +82,10 @@ public class CheckoutApi {
             @Override
             public void onErrorResponse(VolleyError error) {
                 String message = APIConstants.API_CONNECTION_PROBLEM;
+                if (error.networkResponse.statusCode == 401) {
+                    responseHandler.onFailed(requestCode, "Authentication Problem.");
+                    return;
+                }
                 try {
                     String responseBody = new String(error.networkResponse.data, "utf-8" );
                     JSONObject jsonObject = new JSONObject( responseBody );
@@ -148,6 +152,10 @@ public class CheckoutApi {
             @Override
             public void onErrorResponse(VolleyError error) {
                 String message = APIConstants.API_CONNECTION_PROBLEM;
+                if (error.networkResponse.statusCode == 401) {
+                    responseHandler.onFailed(requestCode, "Authentication Problem.");
+                    return;
+                }
                 try {
                     String responseBody = new String(error.networkResponse.data, "utf-8" );
                     JSONObject jsonObject = new JSONObject( responseBody );
@@ -211,6 +219,10 @@ public class CheckoutApi {
             @Override
             public void onErrorResponse(VolleyError error) {
                 String message = APIConstants.API_CONNECTION_PROBLEM;
+                if (error.networkResponse.statusCode == 401) {
+                    responseHandler.onFailed(requestCode, "Authentication Problem.");
+                    return;
+                }
                 try {
                     String responseBody = new String(error.networkResponse.data, "utf-8" );
                     JSONObject jsonObject = new JSONObject( responseBody );
@@ -260,6 +272,11 @@ public class CheckoutApi {
             @Override
             public void onErrorResponse(VolleyError error) {
                 String message = APIConstants.API_CONNECTION_PROBLEM;
+
+                if (error.networkResponse.statusCode == 401) {
+                    responseHandler.onFailed(requestCode, "Authentication Problem.");
+                    return;
+                }
 
                 if (error instanceof TimeoutError || error instanceof NoConnectionError) {
 
