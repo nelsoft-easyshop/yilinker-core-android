@@ -3,6 +3,7 @@ package com.yilinker.core.model.home.v2;
 import com.google.gson.InstanceCreator;
 import com.google.gson.annotations.SerializedName;
 import com.yilinker.core.constants.APIConstants;
+import com.yilinker.core.model.buyer.Product;
 
 import java.lang.reflect.Type;
 import java.util.List;
