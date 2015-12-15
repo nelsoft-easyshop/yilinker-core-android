@@ -14,7 +14,7 @@ public class GoogleAnalyticsHelper {
 
     private Tracker mGaTracker = null;
     private static String TAG = "GoogleAnalyticsHelper";
-    private static final String PROPERTY_ID = "UA-68038640-2";
+    private static final String PROPERTY_ID = "UA-68038640-8";
 
     public void init(Context ctx) {
         try {
@@ -27,7 +27,7 @@ public class GoogleAnalyticsHelper {
         }
     }
 
-    public void sendScreenNameGoogleAnalytics(String screenName, Context iCtx)
+    public void sendScreenNameGoogleAnalytics(Context iCtx, String screenName)
     {
         init(iCtx);
 
