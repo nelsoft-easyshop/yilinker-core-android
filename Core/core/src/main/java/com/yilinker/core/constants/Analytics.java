@@ -5,6 +5,7 @@ package com.yilinker.core.constants;
  */
 public class Analytics {
 
+    public static final String PROPERTY_ID                                                          = "UA-68038640-2";
     public static final String URL_PRODUCT                                                          = "/api/v1/product/getProductDetail?productId=";
     public static final String URL_VENDOR                                                           = "/api/v1/user/getStoreInfo?userId=";
 
