@@ -6,6 +6,7 @@ import android.util.Log;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
+import com.yilinker.core.constants.Analytics;
 
 /**
  * Created by Adur Urbano on 12/14/2015.
@@ -14,13 +15,12 @@ public class GoogleAnalyticsHelper {
 
     private Tracker mGaTracker = null;
     private static String TAG = "GoogleAnalyticsHelper";
-    private static final String PROPERTY_ID = "UA-68038640-8";
 
     public void init(Context ctx) {
         try {
 
             if (mGaTracker == null && ctx != null) {
-                mGaTracker = GoogleAnalytics.getInstance(ctx).newTracker(PROPERTY_ID);
+                mGaTracker = GoogleAnalytics.getInstance(ctx).newTracker(Analytics.PROPERTY_ID);
             }
         } catch (Exception e) {
             Log.d(GoogleAnalyticsHelper.TAG, "init, e=" + e);
