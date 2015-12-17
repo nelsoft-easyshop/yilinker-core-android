@@ -38,7 +38,7 @@ public class TransactionProduct {
     private static final String KEY_IS_CANCELLABLE = "isCancellable";
     private static final String KEY_DELIVERY_LOGS = "deliveryLogs";
     private static final String KEY_HAS_PRODUCT_REVIEW = "hasProductReview";
-
+    private static  final String KEY_ORDER_PRODUCT_STATUS = "orderProductStatus";
 
     @SerializedName(KEY_ORDER_PRODUCT_ID)
     private String orderProductId;
@@ -85,6 +85,16 @@ public class TransactionProduct {
     private DeliveryLogs deliveryLogs;
     @SerializedName(KEY_HAS_PRODUCT_REVIEW)
     private boolean hasProductReview;
+    @SerializedName(KEY_ORDER_PRODUCT_STATUS)
+    private OrderProductStatus orderProductStatus;
+
+    public OrderProductStatus getOrderProductStatus() {
+        return orderProductStatus;
+    }
+
+    public void setOrderProductStatus(OrderProductStatus orderProductStatus) {
+        this.orderProductStatus = orderProductStatus;
+    }
 
     public String getProductImage() {
         return productImage;
@@ -507,6 +517,34 @@ public class TransactionProduct {
             }
         }
     }
+
+    public class OrderProductStatus {
+
+        private static final String KEY_STATUS_ID = "orderProductStatusId";
+        private static final String KEY_STATUS_NAME = "name";
+
+        @SerializedName(KEY_STATUS_ID)
+        private int statusId;
+        @SerializedName(KEY_STATUS_NAME)
+        private String statusName;
+
+        public int getStatusId() {
+            return statusId;
+        }
+
+        public void setStatusId(int statusId) {
+            this.statusId = statusId;
+        }
+
+        public String getStatusName() {
+            return statusName;
+        }
+
+        public void setStatusName(String statusName) {
+            this.statusName = statusName;
+        }
+    }
+
 
 
     public static class TransactionProductInstance implements InstanceCreator<TransactionProduct> {

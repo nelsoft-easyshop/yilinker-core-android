@@ -253,7 +253,7 @@ public class TransactionDetailsBuyer {
         private static final String KEY_ORDER_PRODUCT_STATUS = "orderProductStatus";
         private static final String KEY_PRODUCT_IMAGE = "productImage";
         private static final String KEY_IS_CANCELLABLE = "isCancellable";
-
+        private static final String KEY_HAS_PRODUCT_REVIEW = "hasProductReview";
 
         @SerializedName(KEY_ORDER_PRODUCT_ID)
         private String orderProductId;
@@ -279,6 +279,8 @@ public class TransactionDetailsBuyer {
         private String productImage;
         @SerializedName(KEY_IS_CANCELLABLE)
         private boolean isCancellable;
+        @SerializedName(KEY_HAS_PRODUCT_REVIEW)
+        private boolean hasProductReview;
 
         public String getOrderProductId() {
             return orderProductId;
@@ -294,6 +296,14 @@ public class TransactionDetailsBuyer {
 
         public void setProductId(int productId) {
             this.productId = productId;
+        }
+
+        public boolean isHasProductReview() {
+            return hasProductReview;
+        }
+
+        public void setHasProductReview(boolean hasProductReview) {
+            this.hasProductReview = hasProductReview;
         }
 
         public int getQuantity() {
