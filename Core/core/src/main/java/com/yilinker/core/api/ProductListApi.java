@@ -11,6 +11,7 @@ import com.yilinker.core.model.APIResponse;
 import com.yilinker.core.model.buyer.Product;
 import com.yilinker.core.model.buyer.ProductList;
 import com.yilinker.core.utility.GsonUtility;
+import com.yilinker.core.utility.SocketTimeout;
 
 import org.json.JSONObject;
 
@@ -24,10 +25,11 @@ public class ProductListApi {
                     APIConstants.DOMAIN,
                     target);
 
-        Request request = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
+        url = url.replaceAll(" ","%20");
+
+        Request request = new JsonObjectRequest(url, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-
                 Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
                 APIResponse<ProductList> apiResponse = gson.fromJson(response.toString(), APIResponse.class);
 
@@ -36,15 +38,15 @@ public class ProductListApi {
                 ProductList obj = gson.fromJson(jsonString, ProductList.class);
 
                 responseHandler.onSuccess(requestCode, obj);
-
             }
         }, new Response.ErrorListener() {
-
             @Override
             public void onErrorResponse(VolleyError error) {
                 responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
             }
         });
+
+        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
 
         return request;
 
