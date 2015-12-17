@@ -198,18 +198,30 @@ public class TransactionApi {
             public void onErrorResponse(VolleyError error) {
 
                 String message = APIConstants.API_CONNECTION_PROBLEM;
-                try {
-                    String responseBody = new String(error.networkResponse.data, "utf-8" );
-                    JSONObject jsonObject = new JSONObject( responseBody );
-                    jsonObject = jsonObject.getJSONObject("data");
-                    JSONArray errors = jsonObject.getJSONArray("errors");
-                    message = errors.getString(0);
 
-                } catch ( Exception e ) {
-                    //Handle a malformed json response
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+
+                    message = APIConstants.API_CONNECTION_PROBLEM;
+
+                } else if (error instanceof AuthFailureError) {
+
+                    message = APIConstants.API_CONNECTION_AUTH_ERROR;
+
+                } else {
+                    try {
+                        String responseBody = new String(error.networkResponse.data, "utf-8");
+                        JSONObject jsonObject = new JSONObject(responseBody);
+                        jsonObject = jsonObject.getJSONObject("data");
+                        JSONArray errors = jsonObject.getJSONArray("errors");
+                        message = errors.getString(0);
+
+                    } catch (Exception e) {
+                        //Handle a malformed json response
+                    }
                 }
-                responseHandler.onFailed(requestCode, message);
-            }
+                    responseHandler.onFailed(requestCode, message);
+                }
+
         });
 
         request.setRetryPolicy(SocketTimeout.getRetryPolicy());
