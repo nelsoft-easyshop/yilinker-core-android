@@ -568,6 +568,10 @@ public class APIConstants {
     public final static String API_HOME_V2_PRODUCT                                                  = "product";
     public final static String API_HOME_V2_TARGET                                                   = "target";
     public final static String API_HOME_V2_IMAGE                                                    = "image";
+    public final static String API_HOME_V2_THUMBNAIL                                                = "thumbnail";
+    public final static String API_HOME_V2_SMALL                                                    = "small";
+    public final static String API_HOME_V2_MEDIUM                                                   = "medium";
+    public final static String API_HOME_V2_LARGE                                                    = "large";
     public final static String API_HOME_V2_CATEGORY                                                 = "category";
 
     public final static String API_HOME_V2_LAYOUT_ID                                                = "layoutId";

@@ -13,6 +13,14 @@ public class TopProducts {
 
     @SerializedName(APIConstants.API_HOME_V2_IMAGE)
     private String image;
+    @SerializedName(APIConstants.API_HOME_V2_THUMBNAIL)
+    private String thumbnail;
+    @SerializedName(APIConstants.API_HOME_V2_SMALL)
+    private String small;
+    @SerializedName(APIConstants.API_HOME_V2_MEDIUM)
+    private String medium;
+    @SerializedName(APIConstants.API_HOME_V2_LARGE)
+    private String large;
     @SerializedName(APIConstants.API_HOME_V2_TARGET)
     private Target target;
     @SerializedName(APIConstants.API_HOME_V2_NAME)
@@ -72,6 +80,46 @@ public class TopProducts {
 
     public void setCurrency(String currency) {
         this.currency = currency;
+    }
+
+    public String getThumbnail() {
+        return thumbnail;
+    }
+
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
+    }
+
+    public String getSmall() {
+        return small;
+    }
+
+    public void setSmall(String small) {
+        this.small = small;
+    }
+
+    public String getMedium() {
+        return medium;
+    }
+
+    public void setMedium(String medium) {
+        this.medium = medium;
+    }
+
+    public String getLarge() {
+        return large;
+    }
+
+    public void setLarge(String large) {
+        this.large = large;
+    }
+
+    public String getOriginalPrice() {
+        return originalPrice;
+    }
+
+    public void setOriginalPrice(String originalPrice) {
+        this.originalPrice = originalPrice;
     }
 
     public static class TopProductsInstance implements InstanceCreator<TopProducts> {

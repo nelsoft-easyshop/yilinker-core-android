@@ -15,6 +15,14 @@ public class HomeData {
 
     @SerializedName(APIConstants.API_HOME_V2_IMAGE)
     private String image;
+    @SerializedName(APIConstants.API_HOME_V2_THUMBNAIL)
+    private String thumbnail;
+    @SerializedName(APIConstants.API_HOME_V2_LARGE)
+    private String large;
+    @SerializedName(APIConstants.API_HOME_V2_MEDIUM)
+    private String medium;
+    @SerializedName(APIConstants.API_HOME_V2_SMALL)
+    private String small;
     @SerializedName(APIConstants.API_HOME_V2_TARGET)
     private Target target;
     @SerializedName(APIConstants.API_HOME_V2_NAME)
@@ -99,6 +107,38 @@ public class HomeData {
 
     public List<TopProducts> getTopProducts() {
         return topProducts;
+    }
+
+    public String getThumbnail() {
+        return thumbnail;
+    }
+
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
+    }
+
+    public String getLarge() {
+        return large;
+    }
+
+    public void setLarge(String large) {
+        this.large = large;
+    }
+
+    public String getMedium() {
+        return medium;
+    }
+
+    public void setMedium(String medium) {
+        this.medium = medium;
+    }
+
+    public String getSmall() {
+        return small;
+    }
+
+    public void setSmall(String small) {
+        this.small = small;
     }
 
     public void setTopProducts(List<TopProducts> topProducts) {
