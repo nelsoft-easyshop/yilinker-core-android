@@ -185,7 +185,7 @@ public class TransactionDetailsBuyer {
         private static final String KEY_SELLER_CONTACT_NUMBER = "sellerContactNumber";
         private static final String KEY_HAS_FEEDBACK = "sellerHasFeedback";
         private static final String KEY_PRODUCTS = "products";
-
+        private static final String KEY_IS_AFFILIATE = "isAffiliate";
 
         @SerializedName(KEY_SELLER_ID)
         private int sellerId;
@@ -195,6 +195,8 @@ public class TransactionDetailsBuyer {
         private String sellerContactNumber;
         @SerializedName(KEY_HAS_FEEDBACK)
         private boolean hasFeedback;
+        @SerializedName(KEY_IS_AFFILIATE)
+        private boolean isAffiliate;
         @SerializedName(KEY_PRODUCTS)
         private List<Products> products = new ArrayList<>();
 
@@ -228,6 +230,14 @@ public class TransactionDetailsBuyer {
 
         public void setHasFeedback(boolean hasFeedback) {
             this.hasFeedback = hasFeedback;
+        }
+
+        public boolean isAffiliate() {
+            return isAffiliate;
+        }
+
+        public void setAffiliate(boolean affiliate) {
+            isAffiliate = affiliate;
         }
 
         public List<Products> getProducts() {
