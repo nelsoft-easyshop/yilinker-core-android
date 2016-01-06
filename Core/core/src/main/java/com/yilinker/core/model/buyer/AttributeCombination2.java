@@ -104,6 +104,19 @@ public class AttributeCombination2 {
         this.combinationNames = combinationNames;
     }
 
+    public String getCombinationString() {
+        StringBuilder stringBuilder = new StringBuilder();
+//        for (int id : this.getCombination()) {
+//            stringBuilder.append(id + "_");
+//        }
+
+        for (String name : this.getCombinationNames()) {
+            stringBuilder.append(name + "_");
+        }
+
+        return stringBuilder.toString();
+    }
+
     public static class AttributeCombination2Instance implements InstanceCreator<AttributeCombination2>{
 
         @Override
