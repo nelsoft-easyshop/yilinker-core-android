@@ -449,8 +449,8 @@ public class ProductUploadApi {
 
         String message = "An error occured.";
 
-        if (error.networkResponse.statusCode == 400) {
-            try {
+        try {
+            if (error.networkResponse.statusCode == 400) {
                 String jsonString = new String(error.networkResponse.data,
                         HttpHeaderParser.parseCharset(error.networkResponse.headers));
                 Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
@@ -458,12 +458,14 @@ public class ProductUploadApi {
                 if (apiResponse != null) {
                     responseHandler.onFailed(requestCode, apiResponse.getMessage());
                 } else {
-                    responseHandler.onFailed(requestCode,"Server Error.");
+                    responseHandler.onFailed(requestCode, "Server Error.");
                 }
                 return;
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
             }
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (NullPointerException npe) {
+            npe.printStackTrace();
         }
 
         if (error instanceof TimeoutError || error instanceof NoConnectionError) {
