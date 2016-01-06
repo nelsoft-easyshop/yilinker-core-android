@@ -372,7 +372,19 @@ public class UserApi {
                 Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
                 APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
 
-                responseHandler.onFailed(requestCode, apiResponse.getMessage());
+                if(apiResponse.isSuccessful()) {
+
+                    gson = GsonUtility.createGsonBuilder(Login.class, new Login.LoginInstance()).create();
+                    String jsonString = new Gson().toJson(apiResponse.getData());
+                    Login obj = gson.fromJson(jsonString, Login.class);
+
+                    responseHandler.onSuccess(requestCode, obj);
+
+                } else{
+
+                    responseHandler.onFailed(requestCode, apiResponse.getMessage());
+
+                }
 
             }
         }, new Response.ErrorListener() {
