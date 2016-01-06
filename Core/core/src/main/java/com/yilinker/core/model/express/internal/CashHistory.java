@@ -1,6 +1,7 @@
 package com.yilinker.core.model.express.internal;
 
 import com.google.gson.InstanceCreator;
+import com.google.gson.annotations.SerializedName;
 
 import java.lang.reflect.Type;
 
@@ -15,6 +16,8 @@ public class CashHistory {
 //    private String jobOrderNo;
     private String date;
     private String type;
+    @SerializedName("waybillNumber")
+    private String waybillNo;
 
 //    public String getAction() {
 //        return action;
@@ -63,6 +66,14 @@ public class CashHistory {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getWaybillNo() {
+        return waybillNo;
+    }
+
+    public void setWaybillNo(String waybillNo) {
+        this.waybillNo = waybillNo;
     }
 
     public static class CashHistoryInstance implements InstanceCreator<CashHistory> {
