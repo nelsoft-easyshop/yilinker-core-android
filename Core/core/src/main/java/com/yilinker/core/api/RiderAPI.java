@@ -18,6 +18,7 @@ import com.yilinker.core.model.Address;
 import com.yilinker.core.model.Login;
 import com.yilinker.core.model.express.internal.CashDetail;
 import com.yilinker.core.model.express.internal.CashHistory;
+import com.yilinker.core.model.express.internal.JobOrder;
 import com.yilinker.core.model.express.internal.Rider;
 import com.yilinker.core.model.OAuthentication;
 import com.yilinker.core.utility.GsonUtility;
@@ -1093,7 +1094,13 @@ public class RiderAPI {
                 APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
 
                 if(apiResponse.isSuccessful()) {
-                    responseHandler.onSuccess(requestCode, apiResponse.getMessage());
+
+                    gson = GsonUtility.createGsonBuilder(Address.class, new JobOrder.JobOrderInstance()).create();
+                    String jsonString = new Gson().toJson(apiResponse.getData());
+
+                    JobOrder obj = gson.fromJson(jsonString, JobOrder.class);
+
+                    responseHandler.onSuccess(requestCode, obj);
                 }
                 else{
                     responseHandler.onFailed(requestCode, apiResponse.getMessage());
