@@ -19,8 +19,10 @@ import com.yilinker.core.interfaces.ResponseHandler;
 import com.yilinker.core.model.APIResponse;
 import com.yilinker.core.model.Address;
 import com.yilinker.core.model.express.internal.JobOrder;
+import com.yilinker.core.model.express.internal.PackageType;
 import com.yilinker.core.model.express.internal.ProblematicJobOrder;
 import com.yilinker.core.model.express.internal.Rider;
+import com.yilinker.core.model.express.internal.ShippingFee;
 import com.yilinker.core.model.express.internal.Warehouse;
 import com.yilinker.core.utility.GsonUtility;
 import com.yilinker.core.utility.SocketTimeout;
@@ -1204,5 +1206,211 @@ public class JobOrderAPI {
 
     }
 
+    public static Request getPackages(final int requestCode, final ResponseHandler responseHandler) {
 
+        BaseApplication app = BaseApplication.getInstance();
+
+        String url = String.format("%s/%s/%s",
+                APIConstants.DOMAIN, APIConstants.RIDER_API, APIConstants.RIDER_GET_PACKAGE_TYPES);
+
+
+        Map<String, String> params = new HashMap<String, String>();
+        params.put(APIConstants.RIDER_UPLOAD_IMAGES_ACCESS_TOKEN, app.getAccessToken());
+
+        VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+
+                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+
+                if (apiResponse.isSuccessful()) {
+
+                    gson = GsonUtility.createGsonBuilder(Address.class, new PackageType.PackageTypeInstance()).create();
+                    String jsonString = new Gson().toJson(apiResponse.getData());
+
+                    Type listType = new TypeToken<ArrayList<PackageType>>() {
+                    }.getType();
+
+                    List<PackageType> obj = gson.fromJson(jsonString, listType);
+
+                    responseHandler.onSuccess(requestCode, obj);
+                } else {
+
+                    responseHandler.onFailed(requestCode, apiResponse.getMessage());
+
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                if(error.networkResponse == null){
+
+                    responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+                    return;
+                }
+
+                int statusCode = error.networkResponse.statusCode;
+                String message = null;
+
+                if(statusCode == HttpStatus.SC_UNAUTHORIZED){
+
+                    responseHandler.onFailed(requestCode, ErrorMessages.ERR_EXPIRED_TOKEN);
+
+                }
+                else if(statusCode == HttpStatus.SC_BAD_REQUEST){
+
+                    try {
+
+                        String responseBody = new String(error.networkResponse.data, "utf-8" );
+                        Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                        APIResponse apiResponse = gson.fromJson(responseBody, APIResponse.class);
+
+                        if(apiResponse != null)
+                        {
+                            message = apiResponse.getMessage();
+                        }
+
+
+                    } catch ( Exception e ) {
+
+                        message = APIConstants.API_CONNECTION_PROBLEM;
+                    }
+                    finally {
+
+                        responseHandler.onFailed(requestCode, message);
+                    }
+
+                }
+                else {
+
+                    responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+                }
+
+            }
+        });
+
+            RetryPolicy policy = new DefaultRetryPolicy(20000,
+                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+
+            request.setRetryPolicy(policy);
+
+            return request;
+
+        }
+
+
+    public static Request calculateShippingFee(final int requestCode, int packageTypeId,
+                                               String length, String width, String height, String weight,
+                                               String jobOrderNo, final ResponseHandler responseHandler) {
+
+        BaseApplication app = BaseApplication.getInstance();
+
+        String url = String.format("%s/%s/%s",
+                APIConstants.DOMAIN, APIConstants.RIDER_API, APIConstants.RIDER_CALCULATE_SHIPPING_FEE);
+
+
+        Map<String, String> params = new HashMap<String, String>();
+        params.put(APIConstants.RIDER_UPLOAD_IMAGES_ACCESS_TOKEN, app.getAccessToken());
+        params.put(APIConstants.RIDER_CALCULATE_PACKAGE_TYPE, String.valueOf(packageTypeId));
+        params.put(APIConstants.PRODUCT_UPLOAD_PARAM_WEIGHT, weight);
+
+        if(packageTypeId == 99){
+
+            params.put(APIConstants.PRODUCT_UPLOAD_PARAM_LENGTH, length);
+            params.put(APIConstants.PRODUCT_UPLOAD_PARAM_WIDTH, width);
+            params.put(APIConstants.PRODUCT_UPLOAD_PARAM_HEIGHT, height);
+
+        }
+
+        params.put(APIConstants.RIDER_ACCEPT_JOB_ORDER_PARAM_JONUMBER, jobOrderNo);
+
+
+        VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+
+                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+
+                if (apiResponse.isSuccessful()) {
+
+                    gson = GsonUtility.createGsonBuilder(ShippingFee.class, new ShippingFee.ShippingFeeInstance()).create();
+                    String jsonString = new Gson().toJson(apiResponse.getData());
+
+                    ShippingFee obj = gson.fromJson(jsonString, ShippingFee.class);
+
+                    responseHandler.onSuccess(requestCode, obj);
+
+                } else {
+
+                    responseHandler.onFailed(requestCode, apiResponse.getMessage());
+
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                if(error.networkResponse == null){
+
+                    responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+                    return;
+                }
+
+                int statusCode = error.networkResponse.statusCode;
+                String message = null;
+
+                if(statusCode == HttpStatus.SC_UNAUTHORIZED){
+
+                    responseHandler.onFailed(requestCode, ErrorMessages.ERR_EXPIRED_TOKEN);
+
+                }
+                else if(statusCode == HttpStatus.SC_BAD_REQUEST){
+
+                    try {
+
+                        String responseBody = new String(error.networkResponse.data, "utf-8" );
+                        Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                        APIResponse apiResponse = gson.fromJson(responseBody, APIResponse.class);
+
+                        if(apiResponse != null)
+                        {
+                            message = apiResponse.getMessage();
+                        }
+
+
+                    } catch ( Exception e ) {
+
+                        message = APIConstants.API_CONNECTION_PROBLEM;
+                    }
+                    finally {
+
+                        responseHandler.onFailed(requestCode, message);
+                    }
+
+                }
+                else {
+
+                    responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+                }
+
+            }
+        });
+
+        RetryPolicy policy = new DefaultRetryPolicy(20000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+
+        request.setRetryPolicy(policy);
+
+        return request;
+
+    }
 }

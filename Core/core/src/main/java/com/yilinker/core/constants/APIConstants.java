@@ -444,6 +444,11 @@ public class APIConstants {
     public static final String RIDER_ACKNOWLEDGE_TOKEN = "access_token";
     public static final String RIDER_ACKNOWLEDGE_WAYBILLNO = "waybillNo";
 
+    public static final String RIDER_GET_PACKAGE_TYPES = "get-package-types";
+    public static final String RIDER_CALCULATE_SHIPPING_FEE = "calculate-shipping-fee";
+    public static final String RIDER_CALCULATE_PACKAGE_TYPE = "packageType";
+
+
     ////////////////////////////////////////////////////////////////////////////////
 
     public static final String ADDRESS_ADD_ADDRESS = "addNewAddress";
