@@ -2,6 +2,7 @@ package com.yilinker.core.model;
 
 import com.google.gson.InstanceCreator;
 import com.google.gson.annotations.SerializedName;
+import com.yilinker.core.model.buyer.Voucher;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ public class TransactionDetailsBuyer {
     private static final String KEY_TRANSACTION_STATUS = "transactionStatus";
     private static final String KEY_TRANSACTION_PAYMENT = "transactionPayment";
     private static final String KEY_TRANSACTION_ORDER_PRODUCTS = "transactionItems";
+    private static final String KEY_TRANSACTION_VOUCHERS = "vouchers";
 
     @SerializedName(KEY_TRANSACTION_INVOICE)
     private String transactionInvoice;
@@ -40,6 +42,8 @@ public class TransactionDetailsBuyer {
     private String transactionPayment;
     @SerializedName(KEY_TRANSACTION_ORDER_PRODUCTS)
     private List<TransactionItems> transactionItems;
+    @SerializedName(KEY_TRANSACTION_VOUCHERS)
+    private List<Vouchers> vouchers;
 
     public String getTransactionInvoice() {
         return transactionInvoice;
@@ -111,6 +115,107 @@ public class TransactionDetailsBuyer {
 
     public void setTransactionItems(List<TransactionItems> transactionItems) {
         this.transactionItems = transactionItems;
+    }
+
+    public List<Vouchers> getVouchers() {
+        return vouchers;
+    }
+
+    public void setVouchers(List<Vouchers> vouchers) {
+        this.vouchers = vouchers;
+    }
+
+    /***class for vouchers*/
+    public class Vouchers{
+
+        private static final String KEY_AMOUNT = "amount";
+        private static final String KEY_VOUCHER = "voucher";
+        private static final String KEY_CODE =  "code";
+
+        @SerializedName(KEY_AMOUNT)
+        private String amount;
+        @SerializedName(KEY_CODE)
+        private String code;
+        @SerializedName(KEY_VOUCHER)
+        private VoucherItem voucher;
+
+        public String getAmount() {
+            return amount;
+        }
+
+        public void setAmount(String amount) {
+            this.amount = amount;
+        }
+
+        public String getCode() {
+            return code;
+        }
+
+        public void setCode(String code) {
+            this.code = code;
+        }
+
+        public VoucherItem getVoucher() {
+            return voucher;
+        }
+
+        public void setVoucher(VoucherItem voucher) {
+            this.voucher = voucher;
+        }
+    }
+
+    public class VoucherItem{
+
+        private static final String KEY_DISCOUNT_TYPE = "discountType";
+        private static final String KEY_USAGE_TYPE = "usageType";
+
+        @SerializedName(KEY_DISCOUNT_TYPE)
+        private DiscountAndUsageType discountType;
+        @SerializedName(KEY_USAGE_TYPE)
+        private DiscountAndUsageType usageType;
+
+        public DiscountAndUsageType getDiscountType() {
+            return discountType;
+        }
+
+        public void setDiscountType(DiscountAndUsageType discountType) {
+            this.discountType = discountType;
+        }
+
+        public DiscountAndUsageType getUsageType() {
+            return usageType;
+        }
+
+        public void setUsageType(DiscountAndUsageType usageType) {
+            this.usageType = usageType;
+        }
+    }
+
+    public class DiscountAndUsageType{
+
+        private static final String KEY_VALUE = "value";
+        private static final String KEY_NAME = "name";
+
+        @SerializedName(KEY_VALUE)
+        private int value;
+        @SerializedName(KEY_NAME)
+        private String name;
+
+        public int getValue() {
+            return value;
+        }
+
+        public void setValue(int value) {
+            this.value = value;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
     }
 
     public class DateAdded {
