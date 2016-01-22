@@ -601,4 +601,7 @@ public class APIConstants {
 
     public final static String API_HOME_V2_SALE_REMAINING_TIME                                      = "remainingTime";
 
+    public final static String API_HOME_V2_PRODUCT_ID                                               = "productId";
+    public final static String API_HOME_V2_PRODUCT_UNIT_ID                                          = "productUnitId";
+
 }
