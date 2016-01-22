@@ -1,5 +1,7 @@
 package com.yilinker.core.model.buyer;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 /**
@@ -7,9 +9,12 @@ import java.util.List;
  */
 public class Aggregation {
 
-    private double maxPrice,minPrice;
-
-    private List<FilterGroup> attributes;
+    @SerializedName("maxPrice")
+    private double maxPrice;
+    @SerializedName("minPrice")
+    private double minPrice;
+    @SerializedName("attributes")
+    private List<FilterGroup> filterGroups;
 
     public double getMaxPrice() {
         return maxPrice;
@@ -27,11 +32,12 @@ public class Aggregation {
         this.minPrice = minPrice;
     }
 
-    public List<FilterGroup> getAttributes() {
-        return attributes;
+    public List<FilterGroup> getFilterGroups() {
+        return filterGroups;
     }
 
-    public void setAttributes(List<FilterGroup> attributes) {
-        this.attributes = attributes;
+    public void setFilterGroups(List<FilterGroup> filterGroups) {
+        this.filterGroups = filterGroups;
     }
+
 }

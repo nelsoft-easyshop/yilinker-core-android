@@ -46,4 +46,5 @@ dependencies {
     compile 'com.google.android.gms:play-services-gcm:8.3.0'
     compile 'com.android.support:design:22.2.1'
     compile 'com.google.android.gms:play-services-analytics:8.3.0'
+    compile 'com.jakewharton:disklrucache:2.0.2'
 }

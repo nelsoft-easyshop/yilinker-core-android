@@ -35,7 +35,8 @@ public class VolleyImageLoader {
 //            }
 //
 //        });
-        imageLoader = new ImageLoader(requestQueue, new LruBitmapCache(LruBitmapCache.getCacheSize(context)));
+//        imageLoader = new ImageLoader(requestQueue, new LruBitmapCache(LruBitmapCache.getCacheSize(context)));
+        this.imageLoader = ImageCacheManager.getInstance().getImageLoader();
     }
 
     public RequestQueue getRequestQueue(){
