@@ -2,12 +2,14 @@ package com.yilinker.core.base;
 
 import android.app.Application;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.preference.PreferenceManager;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.yilinker.core.R;
 import com.yilinker.core.helper.HurlCookieStack;
+import com.yilinker.core.imageloader.ImageCacheManager;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,6 +33,10 @@ import javax.net.ssl.TrustManagerFactory;
  */
 public class BaseApplication extends Application{
 
+    private static int DISK_IMAGECACHE_SIZE = 1024*1024*20;
+    private static Bitmap.CompressFormat DISK_IMAGECACHE_COMPRESS_FORMAT = Bitmap.CompressFormat.JPEG;
+    private static int DISK_IMAGECACHE_QUALITY = 30;  //PNG is lossless so quality is ignored but must be provided
+
     private static BaseApplication instance;
 
     private static final String ACCESS_TOKEN = "accessToken";
@@ -46,6 +52,15 @@ public class BaseApplication extends Application{
         super.onCreate();
 
         instance = this;
+
+        //initializes image cache manager
+        ImageCacheManager.getInstance()
+                .init(this,
+                        getPackageCodePath(),
+                        DISK_IMAGECACHE_SIZE,
+                        DISK_IMAGECACHE_COMPRESS_FORMAT,
+                        DISK_IMAGECACHE_QUALITY,
+                        ImageCacheManager.CacheType.DISK);
 
     }
 
