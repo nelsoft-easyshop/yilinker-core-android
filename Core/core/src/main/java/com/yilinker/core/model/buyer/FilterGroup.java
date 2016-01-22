@@ -1,5 +1,7 @@
 package com.yilinker.core.model.buyer;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 /**
@@ -7,8 +9,11 @@ import java.util.List;
  */
 public class FilterGroup {
 
+    @SerializedName("id")
     private int id;
+    @SerializedName("filterName")
     private String filterName;
+    @SerializedName("filterItems")
     private List<String> filterItems;
 
     public int getId() {
