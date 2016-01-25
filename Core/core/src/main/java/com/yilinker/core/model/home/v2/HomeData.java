@@ -13,6 +13,10 @@ import java.util.List;
  */
 public class HomeData {
 
+    @SerializedName(APIConstants.API_HOME_V2_PRODUCT_ID)
+    private String productId;
+    @SerializedName(APIConstants.API_HOME_V2_PRODUCT_UNIT_ID)
+    private String productUnitId;
     @SerializedName(APIConstants.API_HOME_V2_IMAGE)
     private String image;
     @SerializedName(APIConstants.API_HOME_V2_THUMBNAIL)
@@ -40,6 +44,21 @@ public class HomeData {
     @SerializedName(APIConstants.API_HOME_V2_STORE_TOP_PRODUCT)
     private List<TopProducts> topProducts = new ArrayList<>();
 
+    public String getProductId() {
+        return productId;
+    }
+
+    public void setProductId(String productId) {
+        this.productId = productId;
+    }
+
+    public String getProductUnitId() {
+        return productUnitId;
+    }
+
+    public void setProductUnitId(String productUnitId) {
+        this.productUnitId = productUnitId;
+    }
 
     public String getImage() {
         return image;
