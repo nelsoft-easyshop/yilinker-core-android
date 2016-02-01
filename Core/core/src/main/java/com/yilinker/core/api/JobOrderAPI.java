@@ -1276,7 +1276,8 @@ public class JobOrderAPI {
 
     public static Request calculateShippingFee(final int requestCode, int packageTypeId,
                                                String length, String width, String height, String weight,
-                                               String jobOrderNo, final ResponseHandler responseHandler) {
+                                               String jobOrderNo, String isUpdate,
+                                               final ResponseHandler responseHandler) {
 
         BaseApplication app = BaseApplication.getInstance();
 
@@ -1298,6 +1299,7 @@ public class JobOrderAPI {
         }
 
         params.put(APIConstants.RIDER_ACCEPT_JOB_ORDER_PARAM_JONUMBER, jobOrderNo);
+        params.put(APIConstants.RIDER_IS_UPDATE_PACKAGE, String.valueOf(isUpdate));
 
 
         VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
