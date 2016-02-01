@@ -87,6 +87,17 @@ public class APIConstants {
     public static final String SEARCH_QUERY_TRANSACTION = "query";
     public static final String GENERATE_QR_CODE_API = "getQrCode";
 
+    /***Payout Module*/
+    public static final String PAYOUT_BALANCE_RECORD_DETAILS = "balanceRecordDetails";
+    public static final String PAYOUT_AMOUNT = "amount";
+    public static final String PAYOUT_WITHDRAWAL_METHOD = "withdrawalMethod";
+    public static final String PAYOUT_OTP = "otp";
+    public static final String PAYOUT_WITHDRAWAL_REQUEST = "withdrawal-request";
+
+    /***One Time Password*/
+    public static final String SEND = "send";
+    public static final String TYPE= "type";
+
     //For Cart API
     public static final String CART_API = "cart";
     public static final String CART_GET_ITEMS = "getCart";
