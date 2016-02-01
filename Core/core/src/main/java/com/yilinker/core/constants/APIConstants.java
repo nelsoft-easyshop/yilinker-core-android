@@ -447,6 +447,7 @@ public class APIConstants {
     public static final String RIDER_GET_PACKAGE_TYPES = "get-package-types";
     public static final String RIDER_CALCULATE_SHIPPING_FEE = "calculate-shipping-fee";
     public static final String RIDER_CALCULATE_PACKAGE_TYPE = "packageType";
+    public static final String RIDER_IS_UPDATE_PACKAGE = "isUpdate";
 
 
     ////////////////////////////////////////////////////////////////////////////////
