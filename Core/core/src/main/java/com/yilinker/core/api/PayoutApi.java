@@ -65,7 +65,7 @@ public class PayoutApi {
 
                 } else if (error instanceof AuthFailureError) {
 
-                    message = APIConstants.API_CONNECTION_AUTH_ERROR;
+                    message = APIConstants.API_AUTHENTICATION_ERROR;
 
                 }else{
                     try {
@@ -93,6 +93,8 @@ public class PayoutApi {
 
         String url = String.format("%s/%s/%s/%s", APIConstants.DOMAIN, APIConstants.AUTH_API,APIConstants.SMS_API,
                 APIConstants.SEND);
+        //TEMP for v2
+        url = url.replace("v1","v2");
 
         Map<String, String > params = new HashMap<>();
         params.put( APIConstants.ACCESS_TOKEN,String.valueOf(accessToken));
@@ -128,7 +130,7 @@ public class PayoutApi {
 
                 } else if (error instanceof AuthFailureError) {
 
-                    message = APIConstants.API_CONNECTION_AUTH_ERROR;
+                    message = APIConstants.API_AUTHENTICATION_ERROR;
 
                 }else{
                     try {
@@ -186,7 +188,7 @@ public class PayoutApi {
 
                 } else if (error instanceof AuthFailureError) {
 
-                    message = APIConstants.API_CONNECTION_AUTH_ERROR;
+                    message = APIConstants.API_AUTHENTICATION_ERROR;
 
                 }else{
                     try {
