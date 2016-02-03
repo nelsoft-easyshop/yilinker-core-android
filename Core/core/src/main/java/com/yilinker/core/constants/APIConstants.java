@@ -157,6 +157,17 @@ public class APIConstants {
     public static final String REG_PARAM_FIRST = "first";
     public static final String REG_PARAM_SECOND = "second";
 
+    //For Simplified Registration/Login
+    public static final String REG_PARAM_AREA_CODE = "areaCode";
+    public static final String REG_PARAM_UNAUTHENTICATION_TYPE = "type";
+    public static final String REG_PARAM_STORE_TYPE = "storeType";
+    public static final String REG_PARAM_VERIFICATION_CODE = "verificationCode";
+    public static final String REG_PARAM_NEW_PASSWORD = "newPassword";
+    public static final String REG_GET_ACTIVATION_CODE_API = "send";
+
+    //For Simplified Reset Password API
+    public static final String RESET_PASSWORD_API = "resetPassword";
+
     //For Login API
     public static final String TOKEN_API = "token";
     public static final String LOGIN_API = "login";
