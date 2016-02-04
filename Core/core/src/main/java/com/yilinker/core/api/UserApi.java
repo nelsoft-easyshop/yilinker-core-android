@@ -802,7 +802,7 @@ public class UserApi {
                         JSONObject jsonObject = new JSONObject( responseBody );
                         jsonObject = jsonObject.getJSONObject("data");
                         JSONArray var = jsonObject.getJSONArray("errors");
-                        message = var.get(0).toString();
+                        message = var.toString();
 
                     } catch ( Exception e ) {
                         //Handle a malformed json response
@@ -910,11 +910,16 @@ public class UserApi {
                 APIConstants.LOGIN_API);
 
         Map<String,String> params = new HashMap<String,String>();
-        params.put(APIConstants.LOGIN_PARAM_CLIENT_ID, APIConstants.API_CLIENT_ID);
-        params.put(APIConstants.LOGIN_PARAM_CLIENT_SECRET, APIConstants.API_CLIENT_SECRET);
-        params.put(APIConstants.LOGIN_PARAM_GRANT_TYPE, grantType);
-        params.put(APIConstants.LOGIN_PARAM_EMAIL, email);
-        params.put(APIConstants.LOGIN_PARAM_PASSWORD, password);
+        if(grantType.contains("affiliate")){
+            params.put(APIConstants.LOGIN_PARAM_CLIENT_ID, APIConstants.AFFILIATE_API_CLIENT_ID);
+            params.put(APIConstants.LOGIN_PARAM_CLIENT_SECRET, APIConstants.AFFILIATE_API_CLIENT_SECRET);
+        }else {
+            params.put(APIConstants.LOGIN_PARAM_CLIENT_ID, APIConstants.API_CLIENT_ID);
+            params.put(APIConstants.LOGIN_PARAM_CLIENT_SECRET, APIConstants.API_CLIENT_SECRET);
+        }
+            params.put(APIConstants.LOGIN_PARAM_GRANT_TYPE, grantType);
+            params.put(APIConstants.LOGIN_PARAM_EMAIL, email);
+            params.put(APIConstants.LOGIN_PARAM_PASSWORD, password);
 
         VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
             @Override
@@ -946,9 +951,7 @@ public class UserApi {
                     try {
                         String responseBody = new String(error.networkResponse.data, "utf-8" );
                         JSONObject jsonObject = new JSONObject( responseBody );
-                        jsonObject = jsonObject.getJSONObject("data");
-                        JSONArray var = jsonObject.getJSONArray("error_description");
-                        message = var.get(0).toString();
+                        message = jsonObject.getString("error_description");
 
                     } catch ( Exception e ) {
                         //Handle a malformed json response
@@ -964,7 +967,7 @@ public class UserApi {
         return request;
     }
 
-    public static Request resetPasswordSimplified (final int requestCode, String verificationCode, String password,
+    public static Request resetPasswordSimplified (final int requestCode, String verificationCode, String password, String storeType,
                                               final ResponseHandler responseHandler){
 
         String url = String.format("%s/%s/%s",
@@ -974,6 +977,7 @@ public class UserApi {
         Map<String, String> params = new HashMap<String, String>();
         params.put(APIConstants.REG_PARAM_VERIFICATION_CODE, verificationCode);
         params.put(APIConstants.REG_PARAM_NEW_PASSWORD, password);
+        params.put(APIConstants.REG_PARAM_STORE_TYPE, storeType);
 
         VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
 
