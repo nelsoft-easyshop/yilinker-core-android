@@ -93,6 +93,7 @@ public class APIConstants {
     public static final String PAYOUT_WITHDRAWAL_METHOD = "withdrawalMethod";
     public static final String PAYOUT_OTP = "otp";
     public static final String PAYOUT_WITHDRAWAL_REQUEST = "withdrawal-request";
+    public static final String PAYOUT_WITHDRAWAL_LIST = "withdraw-list";
 
     /***One Time Password*/
     public static final String SEND = "send";
