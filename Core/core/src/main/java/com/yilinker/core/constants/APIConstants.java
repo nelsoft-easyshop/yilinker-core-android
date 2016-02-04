@@ -87,6 +87,17 @@ public class APIConstants {
     public static final String SEARCH_QUERY_TRANSACTION = "query";
     public static final String GENERATE_QR_CODE_API = "getQrCode";
 
+    /***Payout Module*/
+    public static final String PAYOUT_BALANCE_RECORD_DETAILS = "balanceRecordDetails";
+    public static final String PAYOUT_AMOUNT = "amount";
+    public static final String PAYOUT_WITHDRAWAL_METHOD = "withdrawalMethod";
+    public static final String PAYOUT_OTP = "otp";
+    public static final String PAYOUT_WITHDRAWAL_REQUEST = "withdrawal-request";
+
+    /***One Time Password*/
+    public static final String SEND = "send";
+    public static final String TYPE= "type";
+
     //For Cart API
     public static final String CART_API = "cart";
     public static final String CART_GET_ITEMS = "getCart";
@@ -157,6 +168,17 @@ public class APIConstants {
     public static final String REG_PARAM_PLAIN_PASSWORD = "plainPassword";
     public static final String REG_PARAM_FIRST = "first";
     public static final String REG_PARAM_SECOND = "second";
+
+    //For Simplified Registration/Login
+    public static final String REG_PARAM_AREA_CODE = "areaCode";
+    public static final String REG_PARAM_UNAUTHENTICATION_TYPE = "type";
+    public static final String REG_PARAM_STORE_TYPE = "storeType";
+    public static final String REG_PARAM_VERIFICATION_CODE = "verificationCode";
+    public static final String REG_PARAM_NEW_PASSWORD = "newPassword";
+    public static final String REG_GET_ACTIVATION_CODE_API = "send";
+
+    //For Simplified Reset Password API
+    public static final String RESET_PASSWORD_API = "resetPassword";
 
     //For Login API
     public static final String TOKEN_API = "token";
@@ -444,6 +466,12 @@ public class APIConstants {
     public static final String RIDER_ACKNOWLEDGE = "accept-unverified-package";
     public static final String RIDER_ACKNOWLEDGE_TOKEN = "access_token";
     public static final String RIDER_ACKNOWLEDGE_WAYBILLNO = "waybillNo";
+
+    public static final String RIDER_GET_PACKAGE_TYPES = "get-package-types";
+    public static final String RIDER_CALCULATE_SHIPPING_FEE = "calculate-shipping-fee";
+    public static final String RIDER_CALCULATE_PACKAGE_TYPE = "packageType";
+    public static final String RIDER_IS_UPDATE_PACKAGE = "isUpdate";
+
 
     ////////////////////////////////////////////////////////////////////////////////
 
