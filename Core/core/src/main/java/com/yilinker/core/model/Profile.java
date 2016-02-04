@@ -21,6 +21,9 @@ public class Profile {
     private String coverPhoto;
     private String gender;
     private String birthDate;
+    private String referralCode;
+    private String referrerCode;
+    private String referrerName;
     private int transactionCount;
     private int wishlistCount;
     private int cartCount;
@@ -183,6 +186,30 @@ public class Profile {
 
     public void setMobileVerified(boolean mobileVerified) {
         isMobileVerified = mobileVerified;
+    }
+
+    public String getReferralCode() {
+        return referralCode;
+    }
+
+    public void setReferralCode(String referralCode) {
+        this.referralCode = referralCode;
+    }
+
+    public String getReferrerCode() {
+        return referrerCode;
+    }
+
+    public void setReferrerCode(String referrerCode) {
+        this.referrerCode = referrerCode;
+    }
+
+    public String getReferrerName() {
+        return referrerName;
+    }
+
+    public void setReferrerName(String referrerName) {
+        this.referrerName = referrerName;
     }
 
     public Address getAddress() {

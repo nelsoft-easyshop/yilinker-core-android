@@ -130,6 +130,7 @@ public class APIConstants {
     public static final String PROFILE_LANDLINE = "landline";
     public static final String PROFILE_ISSUBSCRIBE = "isSubscribe";
     public static final String PROFILE_SUBSCRIPTION_API = "subscription";
+    public static final String PROFILE_REFERRAL_CODE = "referralCode";
 
     //For Activity Log
     public static final String ACTIVITY_LOG_GET_ITEMS = "activityLog";
