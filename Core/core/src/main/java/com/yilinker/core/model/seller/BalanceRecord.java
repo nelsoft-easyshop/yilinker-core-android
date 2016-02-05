@@ -15,7 +15,7 @@ public class BalanceRecord {
     private final static String TOTAL_EARNING = "totalEarning";
     private final static String ACTIVE_EARNING = "activeEarning";
     private final static String TENTATIVE_EARNING = "tentativeEarning";
-    private final static String TOTAL_WITHDREW = "totalWidthrew";
+    private final static String TOTAL_WITHDREW = "totalWithdrew";
     private final static String TOTAL_WITHDREW_IN_PROCESS = "totalWithdrewInProcess";
     private final static String AVAILABLE_BALANCE = "availableBalance";
     private final static String CURRENCY_CODE = "currencyCode";

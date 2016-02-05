@@ -21,6 +21,7 @@ public class UpdateUserInfo {
     private String totalSales;
     private boolean isReseller;
     private String tin;
+    private String fullName;
 
     private String referralCode;
     private String referrerCode;
@@ -42,6 +43,14 @@ public class UpdateUserInfo {
 
     public String getTin() {
         return tin;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public void setTin(String tin) {
