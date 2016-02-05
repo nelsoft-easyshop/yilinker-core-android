@@ -802,7 +802,7 @@ public class UserApi {
                         JSONObject jsonObject = new JSONObject( responseBody );
                         jsonObject = jsonObject.getJSONObject("data");
                         JSONArray var = jsonObject.getJSONArray("errors");
-                        message = var.toString();
+                        message = var.get(0).toString();
 
                     } catch ( Exception e ) {
                         //Handle a malformed json response
@@ -903,7 +903,7 @@ public class UserApi {
      */
 
     public static Request loginSimplified (final int requestCode, String grantType, String email,
-                                 String password, final ResponseHandler responseHandler){
+                                 String password, String clientId, String clientSecret, final ResponseHandler responseHandler){
 
         String url = String.format("%s/%s",
                 APIConstants.DOMAIN,
@@ -911,8 +911,8 @@ public class UserApi {
 
         Map<String,String> params = new HashMap<String,String>();
         if(grantType.contains("affiliate")){
-            params.put(APIConstants.LOGIN_PARAM_CLIENT_ID, APIConstants.AFFILIATE_API_CLIENT_ID);
-            params.put(APIConstants.LOGIN_PARAM_CLIENT_SECRET, APIConstants.AFFILIATE_API_CLIENT_SECRET);
+            params.put(APIConstants.LOGIN_PARAM_CLIENT_ID, clientId);
+            params.put(APIConstants.LOGIN_PARAM_CLIENT_SECRET, clientSecret);
         }else {
             params.put(APIConstants.LOGIN_PARAM_CLIENT_ID, APIConstants.API_CLIENT_ID);
             params.put(APIConstants.LOGIN_PARAM_CLIENT_SECRET, APIConstants.API_CLIENT_SECRET);
