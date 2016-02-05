@@ -57,6 +57,7 @@ public abstract class MultiPartRequest2<T> extends Request {
 
 //        mHeaders.put("Content-Type", "multipart/form-data; boundary=" + "BOUNDARY"  + "; charset=utf-8");
         mHeaders.put("Content-Type","multipart/form-data; charset=utf-8");
+        mHeaders.put("Accept", "application/json");
         return mHeaders != null ? mHeaders : super.getHeaders();
 //        return mHeaders;
     }

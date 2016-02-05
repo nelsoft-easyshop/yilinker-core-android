@@ -653,50 +653,48 @@ public class JobOrderAPI {
             @Override
             public void onErrorResponse(VolleyError error) {
 
-//                if(error.networkResponse == null){
-//
-//                    responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
-//                    return;
-//                }
-//
-//                int statusCode = error.networkResponse.statusCode;
-//                String message = null;
-//
-//                if(statusCode == HttpStatus.SC_UNAUTHORIZED){
-//
-//                    responseHandler.onFailed(requestCode, ErrorMessages.ERR_EXPIRED_TOKEN);
-//
-//                }
-//                else if(statusCode == HttpStatus.SC_BAD_REQUEST){
-//
-//                    try {
-//
-//                        String responseBody = new String(error.networkResponse.data, "utf-8" );
-//                        Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
-//                        APIResponse apiResponse = gson.fromJson(responseBody, APIResponse.class);
-//
-//                        if(apiResponse != null)
-//                        {
-//                            message = apiResponse.getMessage();
-//                        }
-//
-//
-//                    } catch ( Exception e ) {
-//
-//                        message = APIConstants.API_CONNECTION_PROBLEM;
-//                    }
-//                    finally {
-//
-//                        responseHandler.onFailed(requestCode, message);
-//                    }
-//
-//                }
-//                else {
-//
-//                    responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
-//                }
+                if(error.networkResponse == null){
 
-                responseHandler.onFailed(requestCode, error.getMessage());
+                    responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+                    return;
+                }
+
+                int statusCode = error.networkResponse.statusCode;
+                String message = null;
+
+                if(statusCode == HttpStatus.SC_UNAUTHORIZED){
+
+                    responseHandler.onFailed(requestCode, ErrorMessages.ERR_EXPIRED_TOKEN);
+
+                }
+                else if(statusCode == HttpStatus.SC_BAD_REQUEST){
+
+                    try {
+
+                        String responseBody = new String(error.networkResponse.data, "utf-8" );
+                        Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                        APIResponse apiResponse = gson.fromJson(responseBody, APIResponse.class);
+
+                        if(apiResponse != null)
+                        {
+                            message = apiResponse.getMessage();
+                        }
+
+
+                    } catch ( Exception e ) {
+
+                        message = APIConstants.API_CONNECTION_PROBLEM;
+                    }
+                    finally {
+
+                        responseHandler.onFailed(requestCode, message);
+                    }
+
+                }
+                else {
+
+                    responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+                }
 
             }
         }) {
@@ -1050,7 +1048,7 @@ public class JobOrderAPI {
 
 
         Map<String, String> params = new HashMap<String, String>();
-        params.put(APIConstants.RIDER_UPLOAD_IMAGES_ACCESS_TOKEN, app.getAccessToken());
+//        params.put(APIConstants.RIDER_UPLOAD_IMAGES_ACCESS_TOKEN, app.getAccessToken());
         params.put(APIConstants.RIDER_UPLOAD_IMAGES_WAYBILLNO, waybillNo);
 
         MultiPartRequest2 request = new MultiPartRequest2<List<String>>(url, params, imageURIs, new Response.Listener() {
@@ -1076,53 +1074,51 @@ public class JobOrderAPI {
             @Override
             public void onErrorResponse(VolleyError error) {
 
-//                if(error.networkResponse == null){
-//
-//                    responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
-//                    return;
-//                }
-//
-//                int statusCode = error.networkResponse.statusCode;
-//                String message = null;
-//
-//                if(statusCode == HttpStatus.SC_UNAUTHORIZED){
-//
-//                    responseHandler.onFailed(requestCode, ErrorMessages.ERR_EXPIRED_TOKEN);
-//
-//                }
-//                else if(statusCode == HttpStatus.SC_BAD_REQUEST){
-//
-//                    try {
-//
-//                        String responseBody = new String(error.networkResponse.data, "utf-8" );
-//                        Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
-//                        APIResponse apiResponse = gson.fromJson(responseBody, APIResponse.class);
-//
-//                        if(apiResponse != null)
-//                        {
-//                            message = apiResponse.getMessage();
-//                        }
-//
-//
-//                    } catch ( Exception e ) {
-//
-//                        message = APIConstants.API_CONNECTION_PROBLEM;
-//                    }
-//                    finally {
-//
-//                        responseHandler.onFailed(requestCode, message);
-//                    }
-//
-//                }
-//                else {
-//
-//                    responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
-//                }
+                if(error.networkResponse == null){
+
+                    responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+                    return;
+                }
+
+                int statusCode = error.networkResponse.statusCode;
+                String message = null;
+
+                if(statusCode == HttpStatus.SC_UNAUTHORIZED){
+
+                    responseHandler.onFailed(requestCode, ErrorMessages.ERR_EXPIRED_TOKEN);
+
+                }
+                else if(statusCode == HttpStatus.SC_BAD_REQUEST){
+
+                    try {
+
+                        String responseBody = new String(error.networkResponse.data, "utf-8" );
+                        Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                        APIResponse apiResponse = gson.fromJson(responseBody, APIResponse.class);
+
+                        if(apiResponse != null)
+                        {
+                            message = apiResponse.getMessage();
+                        }
 
 
-                responseHandler.onFailed(requestCode, error.getMessage());
+                    } catch ( Exception e ) {
+
+                        message = APIConstants.API_CONNECTION_PROBLEM;
+                    }
+                    finally {
+
+                        responseHandler.onFailed(requestCode, message);
+                    }
+
+                }
+                else {
+
+                    responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+                }
 
             }
+
         }) {
             @Override
             public HttpEntity buildEntity(List<String> objects) {
@@ -1168,13 +1164,13 @@ public class JobOrderAPI {
             }
         };
 
-//        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
+        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
 
-        RetryPolicy policy = new DefaultRetryPolicy(20000,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
-
-        request.setRetryPolicy(policy);
+//        RetryPolicy policy = new DefaultRetryPolicy(20000,
+//                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+//                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+//
+//        request.setRetryPolicy(policy);
 
         return request;
 
