@@ -113,6 +113,16 @@ public class APIConstants {
     public static final String WISH_LIST_TO_CART = "wishlistToCart";
     public static final String ITEM_IDS = "itemIds";
 
+    //For Checkout
+    public static final String CHECKOUT_VERIFICATION_CODE = "verificationCode";
+    public static final String CHECKOUT_CONTACT_NUMBER = "contactNumber";
+    public static final String CHECKOUT_FIRST_NAME = "firstName";
+    public static final String CHECKOUT_LAST_NAME = "lastName";
+    public static final String CHECKOUT_MOBILE_PHONE = "contactNo";
+    public static final String CHECKOUT_UPDATE_BASIC_INFO = "update-basic-info";
+    public static final String CHECKOUT_TOKEN = "token";
+    public static final String CHECKOUT_VALIDATE = "validate";
+
     //For Profile API
     public static final String PROFILE_API = "user";
     public static final String PROFILE_GET_DETAILS = "getUser";
@@ -156,7 +166,6 @@ public class APIConstants {
 
     //For User API
     public static final String USER_API = "user";
-
 
     //For Registration API
     public static final String REG_API = "register";

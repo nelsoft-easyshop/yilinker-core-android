@@ -1,7 +1,9 @@
 package com.yilinker.core.api;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
 import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.ServerError;
@@ -10,6 +12,7 @@ import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.yilinker.core.constants.APIConstants;
+import com.yilinker.core.helper.MultiPartRequest;
 import com.yilinker.core.helper.VolleyPostHelper;
 import com.yilinker.core.interfaces.ResponseHandler;
 import com.yilinker.core.model.APIResponse;
@@ -26,6 +29,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -471,6 +475,111 @@ public class CheckoutApi {
         });
 
             request.setRetryPolicy(SocketTimeout.getRetryPolicy());
+
+        return request;
+    }
+
+    public static Request updateBasicInfo (final int requestCode, String token, String firstName, String lastName,
+                                             String contactNumber, final ResponseHandler responseHandler){
+
+        String url = String.format("%s/%s/%s",
+                APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.CHECKOUT_UPDATE_BASIC_INFO);
+
+        Map<String, String> params = new HashMap<String, String>();
+        params.put(APIConstants.CHECKOUT_FIRST_NAME, firstName);
+        params.put(APIConstants.CHECKOUT_LAST_NAME, lastName);
+        params.put(APIConstants.CHECKOUT_MOBILE_PHONE, contactNumber);
+
+        url = String.format("%s?%s=%s",url,APIConstants.ACCESS_TOKEN, token);
+
+        VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+
+                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+
+                if (apiResponse.isSuccessful()) {
+                    responseHandler.onSuccess(requestCode, apiResponse.getData());
+                } else {
+                    responseHandler.onFailed(requestCode, apiResponse.getMessage());
+                }
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                String message = "An error occured.";
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                    message = "No connection available.";
+                } else if (error instanceof AuthFailureError) {
+                    message = "Authentication Failure.";
+                } else if (error instanceof ServerError) {
+                    message = "Server error.";
+                } else if (error instanceof NetworkError) {
+                    message = "Network Error.";
+                } else if (error instanceof ParseError) {
+                    message = "Parse error.";
+                }
+                responseHandler.onFailed(requestCode, message);
+            }
+        });
+
+        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
+
+        return request;
+    }
+
+    public static Request verifyNumber (final int requestCode, String token, String contactNumber,
+                                        String verificationCode,final ResponseHandler responseHandler){
+
+        String url = String.format("%s/%s/%s/%s",
+                APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.CHECKOUT_TOKEN, APIConstants.CHECKOUT_VALIDATE);
+
+        Map<String, String> params = new HashMap<String, String>();
+        params.put(APIConstants.CHECKOUT_CONTACT_NUMBER, contactNumber);
+        params.put(APIConstants.CHECKOUT_VERIFICATION_CODE, verificationCode);
+
+        url = String.format("%s?%s=%s",url,APIConstants.ACCESS_TOKEN, token);
+
+        VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+
+                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+
+                if (apiResponse.isSuccessful()) {
+                    responseHandler.onSuccess(requestCode, apiResponse.getData());
+                } else {
+                    responseHandler.onFailed(requestCode, apiResponse.getMessage());
+                }
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                String message = "An error occured.";
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                    message = "No connection available.";
+                } else if (error instanceof AuthFailureError) {
+                    message = "Authentication Failure.";
+                } else if (error instanceof ServerError) {
+                    message = "Server error.";
+                } else if (error instanceof NetworkError) {
+                    message = "Network Error.";
+                } else if (error instanceof ParseError) {
+                    message = "Parse error.";
+                }
+                responseHandler.onFailed(requestCode, message);
+            }
+        });
+
+        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
 
         return request;
     }
