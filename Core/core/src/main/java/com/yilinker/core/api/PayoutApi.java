@@ -35,13 +35,20 @@ import java.util.Map;
  */
 public class PayoutApi {
 
-    public static Request getBalanceRecordDetails(final int requestCode, String accessToken, final ResponseHandler responseHandler) {
+    public static Request getBalanceRecordDetails(final int requestCode, String accessToken, String dateTo, String dateFrom, final ResponseHandler responseHandler) {
 
         String url = String.format("%s/%s/%s/%s", APIConstants.DOMAIN, APIConstants.AUTH_API,APIConstants.BANK_API,
                 APIConstants.PAYOUT_BALANCE_RECORD_DETAILS);
 
         Map<String, String > params = new HashMap<>();
         params.put( APIConstants.ACCESS_TOKEN,String.valueOf(accessToken));
+
+        if(dateFrom != null && dateTo != null) {
+
+            params.put(APIConstants.SALES_REPORT_PARAM_DATE_FROM, dateFrom);
+            params.put(APIConstants.SALES_REPORT_PARAM_DATE_TO, dateTo);
+
+        }
 
         VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
             @Override
