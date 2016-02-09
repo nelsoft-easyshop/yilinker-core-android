@@ -412,15 +412,15 @@ public class CheckoutApi {
 
         params.put(String.format("%s[%s]", APIConstants.GUEST_USER_PARAMS, APIConstants.GUEST_PARAMS_FIRST_NAME), firstName);
         params.put(String.format("%s[%s]", APIConstants.GUEST_USER_PARAMS, APIConstants.GUEST_PARAMS_LAST_NAME), lastName);
-        params.put(String.format("%s[%s]", APIConstants.GUEST_USER_PARAMS, APIConstants.GUEST_PARAMS_EMAIL), emailAddress);
+//        params.put(String.format("%s[%s]", APIConstants.GUEST_USER_PARAMS, APIConstants.GUEST_PARAMS_EMAIL), emailAddress);
         params.put(String.format("%s[%s]", APIConstants.GUEST_USER_PARAMS, APIConstants.GUEST_PARAMS_CONTACT_NUMBER), mobileNumber);
 
-        params.put(String.format("%s[%s]", APIConstants.GUEST_ADDRESS_PARAMS, APIConstants.ADDRESS_PARAMS_TITLE), String.valueOf(address.getAddressTitle()));
-        params.put(String.format("%s[%s]", APIConstants.GUEST_ADDRESS_PARAMS, APIConstants.ADDRESS_PARAMS_UNIT_NUMBER), String.valueOf(address.getUnitNumber()));
-        params.put(String.format("%s[%s]", APIConstants.GUEST_ADDRESS_PARAMS, APIConstants.ADDRESS_PARAMS_BUILDING_NAME), String.valueOf(address.getBuildingName()));
-        params.put(String.format("%s[%s]", APIConstants.GUEST_ADDRESS_PARAMS, APIConstants.ADDRESS_PARAMS_STREET_NUMBER), String.valueOf(address.getStreetNumber()));
+//        params.put(String.format("%s[%s]", APIConstants.GUEST_ADDRESS_PARAMS, APIConstants.ADDRESS_PARAMS_TITLE), String.valueOf(address.getAddressTitle()));
+//        params.put(String.format("%s[%s]", APIConstants.GUEST_ADDRESS_PARAMS, APIConstants.ADDRESS_PARAMS_UNIT_NUMBER), String.valueOf(address.getUnitNumber()));
+//        params.put(String.format("%s[%s]", APIConstants.GUEST_ADDRESS_PARAMS, APIConstants.ADDRESS_PARAMS_BUILDING_NAME), String.valueOf(address.getBuildingName()));
+//        params.put(String.format("%s[%s]", APIConstants.GUEST_ADDRESS_PARAMS, APIConstants.ADDRESS_PARAMS_STREET_NUMBER), String.valueOf(address.getStreetNumber()));
         params.put(String.format("%s[%s]", APIConstants.GUEST_ADDRESS_PARAMS, APIConstants.ADDRESS_PARAMS_STREET_NAME), String.valueOf(address.getStreetName()));
-        params.put(String.format("%s[%s]", APIConstants.GUEST_ADDRESS_PARAMS, APIConstants.ADDRESS_PARAMS_SUBDIVISION), String.valueOf(address.getSubdivision()));
+//        params.put(String.format("%s[%s]", APIConstants.GUEST_ADDRESS_PARAMS, APIConstants.ADDRESS_PARAMS_SUBDIVISION), String.valueOf(address.getSubdivision()));
         params.put(String.format("%s[%s]", APIConstants.GUEST_ADDRESS_PARAMS, APIConstants.ADDRESS_PARAMS_ZIPCODE), String.valueOf(address.getZipCode()));
         params.put(String.format("%s[%s]", APIConstants.GUEST_ADDRESS_PARAMS, APIConstants.ADDRESS_PARAMS_ISDEFAULT), String.valueOf("1"));
         params.put(String.format("%s[%s]", APIConstants.GUEST_ADDRESS_PARAMS, APIConstants.ADDRESS_PARAMS_LOCATION), String.valueOf(address.getLocationId()));
@@ -500,11 +500,11 @@ public class CheckoutApi {
                 Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
                 APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
 
-                if (apiResponse.isSuccessful()) {
+//                if (apiResponse.isSuccessful()) {
                     responseHandler.onSuccess(requestCode, apiResponse.getData());
-                } else {
-                    responseHandler.onFailed(requestCode, apiResponse.getMessage());
-                }
+//                } else {
+//                    responseHandler.onFailed(requestCode, apiResponse.getMessage());
+//                }
 
             }
         }, new Response.ErrorListener() {
