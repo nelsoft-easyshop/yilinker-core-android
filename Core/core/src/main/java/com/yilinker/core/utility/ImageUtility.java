@@ -139,6 +139,51 @@ public class ImageUtility {
             return null;
     }
 
+    /**
+     * Resizes camera bitmap and returns new file path
+     * @param filePath
+     * @param context
+     * @return
+     */
+    public final static String compressCameraFileBitmap(final String filePath, Context context) {
+
+        File compressedFile = null;
+        File file = new File(filePath);
+
+            File cacheFolder = new File(Environment.getExternalStorageDirectory().toString(), TEMP_IMAGE_FOLDER);
+
+            if(!cacheFolder.exists()){
+                cacheFolder.mkdir();
+            }
+
+//        File cacheFolder = context.getExternalCacheDir();
+
+
+        try {
+
+            Bitmap bitmap = BitmapFactory.decodeFile(filePath);
+
+            String tempFileName = String.format("compressed_%s", Long.toString(System.currentTimeMillis()));
+
+            compressedFile = new File(String.format("%s/%s/%s.jpeg", Environment.getExternalStorageDirectory().toString(), TEMP_IMAGE_FOLDER, tempFileName));
+//            compressedFile = File.createTempFile(tempFileName, ".jpg", cacheFolder);
+            FileOutputStream out = new FileOutputStream(compressedFile);
+            bitmap.compress(Bitmap.CompressFormat.JPEG,40,out);
+            out.flush();
+            out.close();
+
+
+            return compressedFile.getPath();
+
+        } catch (FileNotFoundException e1) {
+            e1.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
     public static void clearCache(){
 
         File file = new File(String.format("%s/%s", Environment.getExternalStorageDirectory().toString(), TEMP_IMAGE_FOLDER));
@@ -150,6 +195,39 @@ public class ImageUtility {
         }
 
     }
+
+    /**
+     * Delete all images in cache folder
+     * @param context
+     */
+    public static void clearCachedImages(Context context){
+
+//        File cacheFolder = context.getExternalCacheDir();
+        File cacheFolder = new File(Environment.getExternalStorageDirectory().toString(), TEMP_IMAGE_FOLDER);
+
+        if(!cacheFolder.exists()){
+            return;
+        }
+
+        File[] files = cacheFolder.listFiles();
+        String fileName = null;
+
+        //Delete image files
+        for(File object : files){
+
+            if(!object.isDirectory()){
+
+                fileName = object.getName();
+
+                if(fileName.contains("jpg") || fileName.contains("jpeg") || fileName.contains("png")){
+
+                    object.delete();
+                }
+            }
+        }
+
+    }
+
 
 
     /**

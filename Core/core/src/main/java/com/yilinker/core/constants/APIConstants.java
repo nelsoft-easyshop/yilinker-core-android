@@ -25,10 +25,6 @@ public class APIConstants {
     public static final String RESELLER_API = "reseller";
     //public static final String DOMAIN = "http://online.api.easydeal.ph/api/v1";
 
-    // Simplified Affiliate Login Credentials
-    public static final String AFFILIATE_API_CLIENT_ID = "3_4qzm05tv6uwwko4c4c8gs00sco0c40os08owg8sg0wswoo0w8o";
-    public static final String AFFILIATE_API_CLIENT_SECRET = "1vgsjw5b0u74kssco8cooock0oc8c0sscoksk0sgsc08s8k4gw";
-
     //For Product API
     public static final String PRODUCT_API = "product";
     public static final String PRODUCT_GET_DETAILS = "getProductDetail";
@@ -97,6 +93,7 @@ public class APIConstants {
     public static final String PAYOUT_WITHDRAWAL_METHOD = "withdrawalMethod";
     public static final String PAYOUT_OTP = "otp";
     public static final String PAYOUT_WITHDRAWAL_REQUEST = "withdrawal-request";
+    public static final String PAYOUT_WITHDRAWAL_LIST = "withdraw-list";
 
     /***One Time Password*/
     public static final String SEND = "send";

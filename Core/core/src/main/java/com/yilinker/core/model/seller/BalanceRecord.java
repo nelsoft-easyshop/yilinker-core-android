@@ -4,6 +4,8 @@ import com.google.gson.InstanceCreator;
 import com.google.gson.annotations.SerializedName;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Patrick on 1/29/2016.
@@ -13,10 +15,11 @@ public class BalanceRecord {
     private final static String TOTAL_EARNING = "totalEarning";
     private final static String ACTIVE_EARNING = "activeEarning";
     private final static String TENTATIVE_EARNING = "tentativeEarning";
-    private final static String TOTAL_WITHDREW = "totalWithdrew";
+    private final static String TOTAL_WITHDREW = "totalWidthrew";
     private final static String TOTAL_WITHDREW_IN_PROCESS = "totalWithdrewInProcess";
     private final static String AVAILABLE_BALANCE = "availableBalance";
     private final static String CURRENCY_CODE = "currencyCode";
+    private final static String EARNINGS = "earnings";
 
     @SerializedName(TOTAL_EARNING)
     private String totalEarning;
@@ -32,6 +35,8 @@ public class BalanceRecord {
     private String availableBalance;
     @SerializedName(CURRENCY_CODE)
     private String currency;
+    @SerializedName(EARNINGS)
+    private List<Earnings> earnings = new ArrayList<>();
 
     public String getTotalEarning() {
         return totalEarning;
@@ -88,6 +93,15 @@ public class BalanceRecord {
     public void setCurrency(String currency) {
         this.currency = currency;
     }
+
+    public List<Earnings> getEarnings() {
+        return earnings;
+    }
+
+    public void setEarnings(List<Earnings> earnings) {
+        this.earnings = earnings;
+    }
+
     public static class BalanceRecordInstance implements InstanceCreator<BalanceRecord> {
 
         @Override
@@ -98,4 +112,30 @@ public class BalanceRecord {
     }
 
 
+    public class Earnings {
+
+        private final static String EARNINGS_DATE = "date";
+        private final static String EARNINGS_AMOUNT = "amount";
+
+        @SerializedName(EARNINGS_DATE)
+        private String date;
+        @SerializedName(EARNINGS_AMOUNT)
+        private String amount;
+
+        public String getDate() {
+            return date;
+        }
+
+        public void setDate(String date) {
+            this.date = date;
+        }
+
+        public String getAmount() {
+            return amount;
+        }
+
+        public void setAmount(String amount) {
+            this.amount = amount;
+        }
+    }
 }
