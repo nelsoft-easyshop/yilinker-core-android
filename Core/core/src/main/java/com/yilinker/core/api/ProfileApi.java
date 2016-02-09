@@ -106,8 +106,9 @@ public class ProfileApi {
                                              String newPassword, String newPasswordConfirm, String userAddressId,
                                              String locationId, String title, String unitNumber, String buildingName,
                                              String streetNumber, String streetName, String subdivision, String zipCode,
-                                             String streetAddress, String longitude, String latitude, String landline, File userDocuments, boolean isProfilePictureEmpty,
-                                             boolean isUserDocumentsEmpty, final ResponseHandler responseHandler){
+                                             String streetAddress, String longitude, String latitude, String landline,
+                                             String referralCode, File userDocuments, boolean isProfilePictureEmpty,
+                                             boolean isUserDocumentsEmpty, boolean isReferralPersonEmpty, final ResponseHandler responseHandler){
 
         String url = String.format("%s/%s/%s/%s",
                 APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.PROFILE_API, APIConstants.PROFILE_EDIT_DETAILS);
@@ -123,6 +124,8 @@ public class ProfileApi {
         params.put(APIConstants.PROFILE_LAST_NAME, lastName);
         params.put(APIConstants.PROFILE_CONTACT_NUMBER, contactNumber);
         params.put(APIConstants.PROFILE_GENDER, gender);
+        if (isReferralPersonEmpty)
+            params.put(APIConstants.PROFILE_REFERRAL_CODE, referralCode);
 //        params.put(APIConstants.PROFILE_BIRTH_DATE, birthDate);
 //        params.put(APIConstants.PROFILE_NICK_NAME, nickName);
 //        params.put(APIConstants.PROFILE_SLUG, slug);
@@ -151,6 +154,158 @@ public class ProfileApi {
 //        params.put(APIConstants.PROFILE_LONGITUDE, longitude);
 //        params.put(APIConstants.PROFILE_LATITUDE, latitude);
 //        params.put(APIConstants.PROFILE_LANDLINE, landline);
+
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for(String key:params.keySet()) {
+            stringBuilder.append(key+"="+params.get(key)+"&");
+        }
+
+        url = String.format("%s?%s=%s",url,APIConstants.ACCESS_TOKEN, token);
+
+        if (!isProfilePictureEmpty) {
+            MultiPartRequest multiPartRequest = new MultiPartRequest(url, profilePhoto.getPath(), true, APIResponse.class, params, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+
+                    Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                    APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+
+                    if (apiResponse.isSuccessful()) {
+                        responseHandler.onSuccess(requestCode, apiResponse.isSuccessful());
+                    } else {
+                        responseHandler.onFailed(requestCode, apiResponse.getMessage());
+                    }
+
+                }
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    String message = "An error occured.";
+                    if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                        message = "No connection available.";
+                    } else if (error instanceof AuthFailureError) {
+                        message = "Authentication Failure.";
+                    } else if (error instanceof ServerError) {
+                        message = "Server error.";
+                    } else if (error instanceof NetworkError) {
+                        message = "Network Error.";
+                    } else if (error instanceof ParseError) {
+                        message = "Parse error.";
+                    }
+                    responseHandler.onFailed(requestCode, message);
+                }
+            });
+
+            multiPartRequest.setRetryPolicy(SocketTimeout.getRetryPolicy());
+
+            return multiPartRequest;
+        } else if (!isUserDocumentsEmpty) {
+            MultiPartRequest multiPartRequest = new MultiPartRequest(url, userDocuments.getPath(), false, APIResponse.class, params, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+
+                    Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                    APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+
+                    if (apiResponse.isSuccessful()) {
+                        responseHandler.onSuccess(requestCode, apiResponse.isSuccessful());
+                    } else {
+                        responseHandler.onFailed(requestCode, apiResponse.getMessage());
+                    }
+
+                }
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                    String message = "An error occured.";
+                    if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                        message = "No connection available.";
+                    } else if (error instanceof AuthFailureError) {
+                        message = "Authentication Failure.";
+                    } else if (error instanceof ServerError) {
+                        message = "Server error.";
+                    } else if (error instanceof NetworkError) {
+                        message = "Network Error.";
+                    } else if (error instanceof ParseError) {
+                        message = "Parse error.";
+                    }
+                    responseHandler.onFailed(requestCode, message);
+                }
+            });
+
+            multiPartRequest.setRetryPolicy(SocketTimeout.getRetryPolicy());
+
+            return multiPartRequest;
+        } else {
+            VolleyPostHelper requestUpdateCart = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
+
+                @Override
+                public void onResponse(JSONObject response) {
+
+                    Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                    APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+
+                    if (apiResponse.isSuccessful()) {
+                        responseHandler.onSuccess(requestCode, apiResponse.isSuccessful());
+                    } else {
+                        responseHandler.onFailed(requestCode, apiResponse.getMessage());
+                    }
+
+                }
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    String message = "An error occured.";
+                    if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                        message = "No connection available.";
+                    } else if (error instanceof AuthFailureError) {
+                        message = "Authentication Failure.";
+                    } else if (error instanceof ServerError) {
+                        message = "Server error.";
+                    } else if (error instanceof NetworkError) {
+                        message = "Network Error.";
+                    } else if (error instanceof ParseError) {
+                        message = "Parse error.";
+                    }
+                    responseHandler.onFailed(requestCode, message);
+                }
+            });
+
+            requestUpdateCart.setRetryPolicy(SocketTimeout.getRetryPolicy());
+
+            return requestUpdateCart;
+        }
+    }
+
+    public static Request updateUserDetails (final int requestCode, String token, File profilePhoto, String coverPhoto,
+                                             String firstName, String lastName, String contactNumber, String gender,
+                                             String birthDate, String nickName, String slug, String oldPassword,
+                                             String newPassword, String newPasswordConfirm, String userAddressId,
+                                             String locationId, String title, String unitNumber, String buildingName,
+                                             String streetNumber, String streetName, String subdivision, String zipCode,
+                                             String streetAddress, String longitude, String latitude, String landline,
+                                             String referralCode, File userDocuments, boolean isProfilePictureEmpty,
+                                             boolean isUserDocumentsEmpty, boolean isReferralPersonEmpty, final ResponseHandler responseHandler){
+
+        String url = String.format("%s/%s/%s/%s",
+                APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.PROFILE_API, APIConstants.PROFILE_EDIT_DETAILS);
+
+        Map<String, String> params = new HashMap<String, String>();
+        if (!isProfilePictureEmpty)
+            params.put(APIConstants.PROFILE_PHOTO, profilePhoto.getName());
+        if (!isUserDocumentsEmpty)
+            params.put(APIConstants.PROFILE_USER_DOCUMENTS, userDocuments.getName());
+        params.put(APIConstants.PROFILE_FIRST_NAME, firstName);
+        params.put(APIConstants.PROFILE_LAST_NAME, lastName);
+        params.put(APIConstants.PROFILE_CONTACT_NUMBER, contactNumber);
+        params.put(APIConstants.PROFILE_GENDER, gender);
+        if (isReferralPersonEmpty)
+            params.put(APIConstants.PROFILE_REFERRAL_CODE, referralCode);
 
         StringBuilder stringBuilder = new StringBuilder();
 
