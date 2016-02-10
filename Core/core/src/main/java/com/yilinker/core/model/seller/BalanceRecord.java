@@ -20,6 +20,9 @@ public class BalanceRecord {
     private final static String AVAILABLE_BALANCE = "availableBalance";
     private final static String CURRENCY_CODE = "currencyCode";
     private final static String EARNINGS = "earnings";
+    private final static String BANK_ACCOUNT = "bankDetails";
+    private final static String CONTACT_NUMBER = "contactNumber";
+    private final static String FULL_NAME =  "fullName";
 
     @SerializedName(TOTAL_EARNING)
     private String totalEarning;
@@ -35,8 +38,38 @@ public class BalanceRecord {
     private String availableBalance;
     @SerializedName(CURRENCY_CODE)
     private String currency;
+    @SerializedName(BANK_ACCOUNT)
+    private Bank bankAccount;
+    @SerializedName(CONTACT_NUMBER)
+    private String contactNumber;
+    @SerializedName(FULL_NAME)
+    private String fullName;
     @SerializedName(EARNINGS)
     private List<Earnings> earnings = new ArrayList<>();
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public Bank getBankAccount() {
+        return bankAccount;
+    }
+
+    public void setBankAccount(Bank bankAccount) {
+        this.bankAccount = bankAccount;
+    }
+
+    public String getContactNumber() {
+        return contactNumber;
+    }
+
+    public void setContactNumber(String contactNumber) {
+        this.contactNumber = contactNumber;
+    }
 
     public String getTotalEarning() {
         return totalEarning;
