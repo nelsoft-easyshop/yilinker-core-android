@@ -106,9 +106,8 @@ public class ProfileApi {
                                              String newPassword, String newPasswordConfirm, String userAddressId,
                                              String locationId, String title, String unitNumber, String buildingName,
                                              String streetNumber, String streetName, String subdivision, String zipCode,
-                                             String streetAddress, String longitude, String latitude, String landline,
-                                             String referralCode, File userDocuments, boolean isProfilePictureEmpty,
-                                             boolean isUserDocumentsEmpty, boolean isReferralPersonEmpty, final ResponseHandler responseHandler){
+                                             String streetAddress, String longitude, String latitude, String landline, File userDocuments, boolean isProfilePictureEmpty,
+                                             boolean isUserDocumentsEmpty, final ResponseHandler responseHandler){
 
         String url = String.format("%s/%s/%s/%s",
                 APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.PROFILE_API, APIConstants.PROFILE_EDIT_DETAILS);
@@ -124,8 +123,6 @@ public class ProfileApi {
         params.put(APIConstants.PROFILE_LAST_NAME, lastName);
         params.put(APIConstants.PROFILE_CONTACT_NUMBER, contactNumber);
         params.put(APIConstants.PROFILE_GENDER, gender);
-        if (isReferralPersonEmpty)
-            params.put(APIConstants.PROFILE_REFERRAL_CODE, referralCode);
 //        params.put(APIConstants.PROFILE_BIRTH_DATE, birthDate);
 //        params.put(APIConstants.PROFILE_NICK_NAME, nickName);
 //        params.put(APIConstants.PROFILE_SLUG, slug);
