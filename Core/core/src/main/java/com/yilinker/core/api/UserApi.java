@@ -906,7 +906,7 @@ public class UserApi {
                                  String password, String clientId, String clientSecret, final ResponseHandler responseHandler){
 
         String url = String.format("%s/%s",
-                APIConstants.DOMAIN,
+                APIConstants.DOMAIN.replace("v1","v2"),
                 APIConstants.LOGIN_API);
 
         Map<String,String> params = new HashMap<String,String>();
