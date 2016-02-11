@@ -21,7 +21,7 @@ import org.json.JSONObject;
 public class ProductListApi {
 
     public static Request getProductList(final int requestCode, String target,final ResponseHandler responseHandler) {
-        String url= String.format("%s/%s" ,
+        String url= String.format("%s/product/getProductList?%s" ,
                     APIConstants.DOMAIN,
                     target);
 
@@ -36,8 +36,15 @@ public class ProductListApi {
                 gson = GsonUtility.createGsonBuilder(Product.class, new ProductList.ProductListInstance()).create();
                 String jsonString = new Gson().toJson(apiResponse.getData());
                 ProductList obj = gson.fromJson(jsonString, ProductList.class);
+                if (obj != null) {
+                    if (apiResponse.isSuccessful())
+                        responseHandler.onSuccess(requestCode, obj);
+                    else
+                        responseHandler.onFailed(requestCode, "No products found.");
+                } else {
+                    responseHandler.onFailed(requestCode, "No more products.");
+                }
 
-                responseHandler.onSuccess(requestCode, obj);
             }
         }, new Response.ErrorListener() {
             @Override

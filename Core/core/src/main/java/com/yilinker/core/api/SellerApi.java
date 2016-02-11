@@ -376,7 +376,7 @@ public class SellerApi {
         params.put(APIConstants.ACCESS_TOKEN, token);
         params.put(APIConstants.SELLER_PARAMS_PAGE, String.valueOf(page));
         params.put(APIConstants.SELLER_PARAMS_LIMIT, String.valueOf(limit));
-        params.put(APIConstants.SELLER_PARAMS_KEYWORD, keyword);
+//        params.put(APIConstants.SELLER_PARAMS_KEYWORD, keyword);
 
         VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
             @Override
@@ -389,7 +389,6 @@ public class SellerApi {
                 Type listType = new TypeToken<ArrayList<FollowedSeller>>(){}.getType();
 
                 List<FollowedSeller> obj = gson.fromJson(jsonString, listType);
-
 
                 responseHandler.onSuccess(requestCode, obj);
 
