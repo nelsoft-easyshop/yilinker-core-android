@@ -30,37 +30,6 @@ import java.util.Map;
 public class CartApi {
 
     public static Request getCart(final int requestCode, String token, boolean isWishList, boolean isGuest, final ResponseHandler responseHandler) {
-        //POST
-
-//        String url = String.format("%s/%s/%s",
-//                APIConstants.DOMAIN, APIConstants.CART_API, APIConstants.CART_GET_ITEMS);
-
-//        Map<String,String> params = new HashMap<>();
-//        params.put(APIConstants.ACCESS_TOKEN, token);
-//
-//        VolleyPostHelper requestGetCart = new VolleyPostHelper(Request.Method.POST,url, params, new Response.Listener<JSONObject>() {
-//            @Override
-//            public void onResponse(JSONObject response) {
-//
-//                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
-//                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
-//
-//                gson = GsonUtility.createGsonBuilder(Cart.class, new Cart.CartInstance()).create();
-//                String jsonString = new Gson().toJson(apiResponse.getData());
-//                Cart obj = gson.fromJson(jsonString, Cart.class);
-//
-//                responseHandler.onSuccess(requestCode, obj);
-//
-//            }
-//        }, new Response.ErrorListener() {
-//
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
-//            }
-//        });
-
-        //GET
 
         String url;
 

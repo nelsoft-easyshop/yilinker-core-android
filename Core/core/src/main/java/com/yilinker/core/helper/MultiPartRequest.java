@@ -90,7 +90,8 @@ public class MultiPartRequest extends Request {
         mHttpEntity = buildMultipartEntityStoreInfo();
     }
 
-    public MultiPartRequest(String url, String path, boolean isProfilePhoto,
+    public MultiPartRequest(String url, File profilePhoto,
+                            File userDocuments,
                             Class clazz,
                             Map<String, String> headers,
                             Response.Listener listener,
@@ -101,27 +102,23 @@ public class MultiPartRequest extends Request {
         mListener = listener;
         gson = new Gson();
 
-        if (url.contains(APIConstants.PROFILE_EDIT_DETAILS)) {
+        MultipartEntityBuilder builder = MultipartEntityBuilder.create();
 
-            MultipartEntityBuilder builder = MultipartEntityBuilder.create();
-            File file  = new File(path);
-            String fileName = file.getName();
-            if (isProfilePhoto)
-                builder.addBinaryBody("profilePhoto", file, ContentType.create("image/*"), fileName);
-            else
-                builder.addBinaryBody("userDocument", file, ContentType.create("image/*"), fileName);
-
-            for (Map.Entry<String, String> entry : mHeaders.entrySet()) {
-                builder.addTextBody(entry.getKey(), entry.getValue());
-            }
-
-            builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
-            builder.setBoundary("BOUNDARY");
-
-            mHttpEntity = builder.build();
-        } else {
-            mHttpEntity = buildMultipartEntity(path);
+        if (profilePhoto != null) {
+            builder.addBinaryBody("profilePhoto", profilePhoto, ContentType.create("image/*"), profilePhoto.getName());
         }
+        if (userDocuments != null)
+            builder.addBinaryBody("userDocument", userDocuments, ContentType.create("image/*"), userDocuments.getName());
+
+        for (Map.Entry<String, String> entry : mHeaders.entrySet()) {
+            builder.addTextBody(entry.getKey(), entry.getValue());
+        }
+
+        builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
+        builder.setBoundary("BOUNDARY");
+
+        mHttpEntity = builder.build();
+
     }
 
     public MultiPartRequest(String url, Class clazz, File file, Response.Listener listener, Response.ErrorListener errorListener) {
