@@ -173,7 +173,7 @@ public class APIConstants {
     public static final String REG_PARAM_MOBILE = "contactNumber";
     public static final String REG_PARAM_EMAIL = "email";
     public static final String REG_PARAM_PASSWORD = "password";
-    public static final String REG_PARAM_REFERRAL = "referralCode";
+    public static final String REG_PARAM_REFERRAL = "referrerCode";
     public static final String REG_PARAM_GUEST = "user_guest";
     public static final String REG_PARAM_PLAIN_PASSWORD = "plainPassword";
     public static final String REG_PARAM_FIRST = "first";
