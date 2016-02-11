@@ -17,6 +17,7 @@ public class WithdrawalRequest {
     private final static String KEY_NET_AMOUNT = "netAmount";
     private final static String KEY_CURRENCY_CODE = "currencyCode";
     private final static String KEY_STATUS = "status";
+    private final static String STATUS_ID = "statusId";
     private final static String KEY_PAY_TO = "payTo";
     private final static String KEY_BANK_NAME = "bankName";
     private final static String KEY_ACCOUNT_NUMBER = "accountNumber";
@@ -36,6 +37,8 @@ public class WithdrawalRequest {
     private String currencyCode;
     @SerializedName(KEY_STATUS)
     private String status;
+    @SerializedName(STATUS_ID)
+    private int statusId;
     @SerializedName(KEY_PAY_TO)
     private String payTo;
     @SerializedName(KEY_BANK_NAME)
@@ -44,6 +47,14 @@ public class WithdrawalRequest {
     private String accountNumber;
     @SerializedName(KEY_ACCOUNT_NAME)
     private String accountName;
+
+    public int getStatusId() {
+        return statusId;
+    }
+
+    public void setStatusId(int statusId) {
+        this.statusId = statusId;
+    }
 
     public String getDate() {
         return date;
