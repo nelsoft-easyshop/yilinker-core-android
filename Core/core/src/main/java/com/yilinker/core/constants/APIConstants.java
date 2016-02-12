@@ -117,6 +117,7 @@ public class APIConstants {
     public static final String CHECKOUT_FIRST_NAME = "firstName";
     public static final String CHECKOUT_LAST_NAME = "lastName";
     public static final String CHECKOUT_MOBILE_PHONE = "contactNo";
+    public static final String CHECKOUT_EMAIL     = "email";
     public static final String CHECKOUT_UPDATE_BASIC_INFO = "update-basic-info";
     public static final String CHECKOUT_TOKEN = "token";
     public static final String CHECKOUT_VALIDATE = "validate";
