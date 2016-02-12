@@ -111,6 +111,7 @@ public class APIConstants {
     public static final String ITEM_IDS = "itemIds";
 
     //For Checkout
+    public static final String CHECKOUT_GUEST             = "isGuest";
     public static final String CHECKOUT_VERIFICATION_CODE = "verificationCode";
     public static final String CHECKOUT_CONTACT_NUMBER = "contactNumber";
     public static final String CHECKOUT_FIRST_NAME = "firstName";
@@ -381,9 +382,8 @@ public class APIConstants {
     public static final String CHECKOUT_SELECT_ITEMS = "cartToCheckout";
     public static final String CHECKOUT_TRANSACTION_CLEAR = "transactionClear";
 
-
     //Checkout Guest
-
+    public static final String GUEST_CONFIRMATION_CODE = "confirmationCode";
     public static final String GUEST_CHECKOUT_API = "guestUser";
     public static final String GUEST_PARAMS_FIRST_NAME = "firstName";
     public static final String GUEST_PARAMS_LAST_NAME = "lastName";
