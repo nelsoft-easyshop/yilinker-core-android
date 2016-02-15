@@ -22,6 +22,10 @@ public class UpdateUserInfo {
     private boolean isReseller;
     private String tin;
 
+    private String referralCode;
+    private String referrerCode;
+    private String referrerName;
+
     private Bank bankAccount;
     private Address address;
     private CategoryList storeCategory;
@@ -168,6 +172,30 @@ public class UpdateUserInfo {
 
     public void setStoreCategory(CategoryList storeCategory) {
         this.storeCategory = storeCategory;
+    }
+
+    public String getReferralCode() {
+        return referralCode;
+    }
+
+    public void setReferralCode(String referralCode) {
+        this.referralCode = referralCode;
+    }
+
+    public String getReferrerCode() {
+        return referrerCode;
+    }
+
+    public void setReferrerCode(String referrerCode) {
+        this.referrerCode = referrerCode;
+    }
+
+    public String getReferrerName() {
+        return referrerName;
+    }
+
+    public void setReferrerName(String referrerName) {
+        this.referrerName = referrerName;
     }
 
     public static class UpdateUserInfoInstance implements InstanceCreator<UpdateUserInfo> {

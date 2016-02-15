@@ -87,6 +87,18 @@ public class APIConstants {
     public static final String SEARCH_QUERY_TRANSACTION = "query";
     public static final String GENERATE_QR_CODE_API = "getQrCode";
 
+    /***Payout Module*/
+    public static final String PAYOUT_BALANCE_RECORD_DETAILS = "balanceRecordDetails";
+    public static final String PAYOUT_AMOUNT = "amount";
+    public static final String PAYOUT_WITHDRAWAL_METHOD = "withdrawalMethod";
+    public static final String PAYOUT_OTP = "otp";
+    public static final String PAYOUT_WITHDRAWAL_REQUEST = "withdrawal-request";
+    public static final String PAYOUT_WITHDRAWAL_LIST = "withdraw-list";
+
+    /***One Time Password*/
+    public static final String SEND = "send";
+    public static final String TYPE= "type";
+
     //For Cart API
     public static final String CART_API = "cart";
     public static final String CART_GET_ITEMS = "getCart";
@@ -97,6 +109,18 @@ public class APIConstants {
     public static final String WISH_LIST_GET_ITEMS = "wishlist";
     public static final String WISH_LIST_TO_CART = "wishlistToCart";
     public static final String ITEM_IDS = "itemIds";
+
+    //For Checkout
+    public static final String CHECKOUT_GUEST             = "isGuest";
+    public static final String CHECKOUT_VERIFICATION_CODE = "verificationCode";
+    public static final String CHECKOUT_CONTACT_NUMBER = "contactNumber";
+    public static final String CHECKOUT_FIRST_NAME = "firstName";
+    public static final String CHECKOUT_LAST_NAME = "lastName";
+    public static final String CHECKOUT_MOBILE_PHONE = "contactNo";
+    public static final String CHECKOUT_EMAIL     = "email";
+    public static final String CHECKOUT_UPDATE_BASIC_INFO = "update-basic-info";
+    public static final String CHECKOUT_TOKEN = "token";
+    public static final String CHECKOUT_VALIDATE = "validate";
 
     //For Profile API
     public static final String PROFILE_API = "user";
@@ -130,6 +154,7 @@ public class APIConstants {
     public static final String PROFILE_LANDLINE = "landline";
     public static final String PROFILE_ISSUBSCRIBE = "isSubscribe";
     public static final String PROFILE_SUBSCRIPTION_API = "subscription";
+    public static final String PROFILE_REFERRAL_CODE = "referralCode";
 
     //For Activity Log
     public static final String ACTIVITY_LOG_GET_ITEMS = "activityLog";
@@ -141,7 +166,6 @@ public class APIConstants {
     //For User API
     public static final String USER_API = "user";
 
-
     //For Registration API
     public static final String REG_API = "register";
     public static final String REG_GUEST_API = "registerGuestUser";
@@ -151,11 +175,22 @@ public class APIConstants {
     public static final String REG_PARAM_MOBILE = "contactNumber";
     public static final String REG_PARAM_EMAIL = "email";
     public static final String REG_PARAM_PASSWORD = "password";
-    public static final String REG_PARAM_REFERRAL = "referralCode";
+    public static final String REG_PARAM_REFERRAL = "referrerCode";
     public static final String REG_PARAM_GUEST = "user_guest";
     public static final String REG_PARAM_PLAIN_PASSWORD = "plainPassword";
     public static final String REG_PARAM_FIRST = "first";
     public static final String REG_PARAM_SECOND = "second";
+
+    //For Simplified Registration/Login
+    public static final String REG_PARAM_AREA_CODE = "areaCode";
+    public static final String REG_PARAM_UNAUTHENTICATION_TYPE = "type";
+    public static final String REG_PARAM_STORE_TYPE = "storeType";
+    public static final String REG_PARAM_VERIFICATION_CODE = "verificationCode";
+    public static final String REG_PARAM_NEW_PASSWORD = "newPassword";
+    public static final String REG_GET_ACTIVATION_CODE_API = "send";
+
+    //For Simplified Reset Password API
+    public static final String RESET_PASSWORD_API = "resetPassword";
 
     //For Login API
     public static final String TOKEN_API = "token";
@@ -348,9 +383,8 @@ public class APIConstants {
     public static final String CHECKOUT_SELECT_ITEMS = "cartToCheckout";
     public static final String CHECKOUT_TRANSACTION_CLEAR = "transactionClear";
 
-
     //Checkout Guest
-
+    public static final String GUEST_CONFIRMATION_CODE = "confirmationCode";
     public static final String GUEST_CHECKOUT_API = "guestUser";
     public static final String GUEST_PARAMS_FIRST_NAME = "firstName";
     public static final String GUEST_PARAMS_LAST_NAME = "lastName";
@@ -447,6 +481,7 @@ public class APIConstants {
     public static final String RIDER_GET_PACKAGE_TYPES = "get-package-types";
     public static final String RIDER_CALCULATE_SHIPPING_FEE = "calculate-shipping-fee";
     public static final String RIDER_CALCULATE_PACKAGE_TYPE = "packageType";
+    public static final String RIDER_IS_UPDATE_PACKAGE = "isUpdate";
 
 
     ////////////////////////////////////////////////////////////////////////////////
@@ -605,5 +640,8 @@ public class APIConstants {
     public final static String API_HOME_V2_STORE_TOP_PRODUCT                                        = "data";
 
     public final static String API_HOME_V2_SALE_REMAINING_TIME                                      = "remainingTime";
+
+    public final static String API_HOME_V2_PRODUCT_ID                                               = "productId";
+    public final static String API_HOME_V2_PRODUCT_UNIT_ID                                          = "productUnitId";
 
 }
