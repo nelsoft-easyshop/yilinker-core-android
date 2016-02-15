@@ -14,6 +14,7 @@ public class CheckoutOverview {
     private String orderId;
     private String invoiceNumber;
     private String totalPrice;
+    private String message;
     private ArrayList<CheckoutOverviewItem> orderProducts = new ArrayList<>();
 
     public String getOrderId() {
@@ -46,6 +47,14 @@ public class CheckoutOverview {
 
     public void setOrderProduct(ArrayList<CheckoutOverviewItem> orderProducts) {
         this.orderProducts = orderProducts;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public static class CheckoutOverviewInstance implements InstanceCreator<CheckoutOverview>{

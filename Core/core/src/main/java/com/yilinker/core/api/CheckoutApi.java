@@ -516,7 +516,7 @@ public class CheckoutApi {
                 APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
 
 //                if (apiResponse.isSuccessful()) {
-                    responseHandler.onSuccess(requestCode, apiResponse.getData());
+                    responseHandler.onSuccess(requestCode, apiResponse);
 //                } else {
 //                    responseHandler.onFailed(requestCode, apiResponse.getMessage());
 //                }
@@ -533,6 +533,18 @@ public class CheckoutApi {
                     message = "Authentication Failure.";
                 } else if (error instanceof ServerError) {
                     message = "Server error.";
+
+                    try {
+                        String responseBody = new String(error.networkResponse.data, "utf-8" );
+                        JSONObject jsonObject = new JSONObject( responseBody );
+                        jsonObject = jsonObject.getJSONObject("data");
+                        JSONArray var = jsonObject.getJSONArray("errors");
+                        message = var.get(0).toString();
+
+                    } catch ( Exception e ) {
+                        //Handle a malformed json response
+                    }
+
                 } else if (error instanceof NetworkError) {
                     message = "Network Error.";
                 } else if (error instanceof ParseError) {
@@ -601,7 +613,7 @@ public class CheckoutApi {
 
     public static Request getRequestCode(final int requestCode, String accessToken, String type, String contactNumber, final ResponseHandler responseHandler) {
 
-        String url = String.format("%s/%s/%s/%s", APIConstants.DOMAIN, APIConstants.AUTH_API,APIConstants.SMS_API,
+        String url = String.format("%s/%s/%s/%s", APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.SMS_API,
                 APIConstants.SEND);
         //TEMP for v2
         url = url.replace("v1","v2");
