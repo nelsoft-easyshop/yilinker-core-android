@@ -25,10 +25,6 @@ public class APIConstants {
     public static final String RESELLER_API = "reseller";
     //public static final String DOMAIN = "http://online.api.easydeal.ph/api/v1";
 
-    // Simplified Affiliate Login Credentials
-    public static final String AFFILIATE_API_CLIENT_ID = "3_4qzm05tv6uwwko4c4c8gs00sco0c40os08owg8sg0wswoo0w8o";
-    public static final String AFFILIATE_API_CLIENT_SECRET = "1vgsjw5b0u74kssco8cooock0oc8c0sscoksk0sgsc08s8k4gw";
-
     //For Product API
     public static final String PRODUCT_API = "product";
     public static final String PRODUCT_GET_DETAILS = "getProductDetail";
@@ -97,6 +93,7 @@ public class APIConstants {
     public static final String PAYOUT_WITHDRAWAL_METHOD = "withdrawalMethod";
     public static final String PAYOUT_OTP = "otp";
     public static final String PAYOUT_WITHDRAWAL_REQUEST = "withdrawal-request";
+    public static final String PAYOUT_WITHDRAWAL_LIST = "withdraw-list";
 
     /***One Time Password*/
     public static final String SEND = "send";
@@ -114,11 +111,13 @@ public class APIConstants {
     public static final String ITEM_IDS = "itemIds";
 
     //For Checkout
+    public static final String CHECKOUT_GUEST             = "isGuest";
     public static final String CHECKOUT_VERIFICATION_CODE = "verificationCode";
     public static final String CHECKOUT_CONTACT_NUMBER = "contactNumber";
     public static final String CHECKOUT_FIRST_NAME = "firstName";
     public static final String CHECKOUT_LAST_NAME = "lastName";
     public static final String CHECKOUT_MOBILE_PHONE = "contactNo";
+    public static final String CHECKOUT_EMAIL     = "email";
     public static final String CHECKOUT_UPDATE_BASIC_INFO = "update-basic-info";
     public static final String CHECKOUT_TOKEN = "token";
     public static final String CHECKOUT_VALIDATE = "validate";
@@ -176,7 +175,7 @@ public class APIConstants {
     public static final String REG_PARAM_MOBILE = "contactNumber";
     public static final String REG_PARAM_EMAIL = "email";
     public static final String REG_PARAM_PASSWORD = "password";
-    public static final String REG_PARAM_REFERRAL = "referralCode";
+    public static final String REG_PARAM_REFERRAL = "referrerCode";
     public static final String REG_PARAM_GUEST = "user_guest";
     public static final String REG_PARAM_PLAIN_PASSWORD = "plainPassword";
     public static final String REG_PARAM_FIRST = "first";
@@ -384,9 +383,8 @@ public class APIConstants {
     public static final String CHECKOUT_SELECT_ITEMS = "cartToCheckout";
     public static final String CHECKOUT_TRANSACTION_CLEAR = "transactionClear";
 
-
     //Checkout Guest
-
+    public static final String GUEST_CONFIRMATION_CODE = "confirmationCode";
     public static final String GUEST_CHECKOUT_API = "guestUser";
     public static final String GUEST_PARAMS_FIRST_NAME = "firstName";
     public static final String GUEST_PARAMS_LAST_NAME = "lastName";

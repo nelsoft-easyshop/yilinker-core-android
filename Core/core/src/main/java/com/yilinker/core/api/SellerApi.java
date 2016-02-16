@@ -350,6 +350,18 @@ public class SellerApi {
                     message = "Authentication Failure.";
                 } else if (error instanceof ServerError) {
                     message = "Server error.";
+
+                    try {
+                        String responseBody = new String(error.networkResponse.data, "utf-8" );
+                        JSONObject jsonObject = new JSONObject( responseBody );
+                        jsonObject = jsonObject.getJSONObject("data");
+                        JSONArray var = jsonObject.getJSONArray("errors");
+                        message = var.get(0).toString();
+
+                    } catch ( Exception e ) {
+                        //Handle a malformed json response
+                    }
+
                 } else if (error instanceof NetworkError) {
                     message = "Network Error.";
                 } else if (error instanceof ParseError) {
