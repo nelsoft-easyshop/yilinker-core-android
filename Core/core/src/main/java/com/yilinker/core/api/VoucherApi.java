@@ -35,11 +35,11 @@ public class VoucherApi {
         String endpoint = null;
 
         if (accessToken == null) {
-            endpoint = String.format("%s/%s/%s?%s=%s", APIConstants.DOMAIN, APIConstants.CART_API,
+            endpoint = String.format("%s/%s/%s?%s=%s", APIConstants.DOMAIN.replace("v1", "v2"), APIConstants.CART_API,
                     APIConstants.APPLY_VOUCHER_API,
                     APIConstants.APPLY_VOUCHER_PARAMS_VOUCHER_CODE, voucherCode);
         } else {
-            endpoint = String.format("%s/%s/%s/%s?%s=%s&%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API,
+            endpoint = String.format("%s/%s/%s/%s?%s=%s&%s=%s", APIConstants.DOMAIN.replace("v1", "v2"), APIConstants.AUTH_API,
                     APIConstants.CART_API, APIConstants.APPLY_VOUCHER_API,
                     APIConstants.ACCESS_TOKEN, accessToken,
                     APIConstants.APPLY_VOUCHER_PARAMS_VOUCHER_CODE, voucherCode);

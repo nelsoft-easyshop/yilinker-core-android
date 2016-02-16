@@ -115,6 +115,18 @@ public class APIConstants {
     public static final String WISH_LIST_TO_CART = "wishlistToCart";
     public static final String ITEM_IDS = "itemIds";
 
+    //For Checkout
+    public static final String CHECKOUT_GUEST             = "isGuest";
+    public static final String CHECKOUT_VERIFICATION_CODE = "verificationCode";
+    public static final String CHECKOUT_CONTACT_NUMBER = "contactNumber";
+    public static final String CHECKOUT_FIRST_NAME = "firstName";
+    public static final String CHECKOUT_LAST_NAME = "lastName";
+    public static final String CHECKOUT_MOBILE_PHONE = "contactNo";
+    public static final String CHECKOUT_EMAIL     = "email";
+    public static final String CHECKOUT_UPDATE_BASIC_INFO = "update-basic-info";
+    public static final String CHECKOUT_TOKEN = "token";
+    public static final String CHECKOUT_VALIDATE = "validate";
+
     //For Profile API
     public static final String PROFILE_API = "user";
     public static final String PROFILE_GET_DETAILS = "getUser";
@@ -159,7 +171,6 @@ public class APIConstants {
     //For User API
     public static final String USER_API = "user";
 
-
     //For Registration API
     public static final String REG_API = "register";
     public static final String REG_GUEST_API = "registerGuestUser";
@@ -169,7 +180,7 @@ public class APIConstants {
     public static final String REG_PARAM_MOBILE = "contactNumber";
     public static final String REG_PARAM_EMAIL = "email";
     public static final String REG_PARAM_PASSWORD = "password";
-    public static final String REG_PARAM_REFERRAL = "referralCode";
+    public static final String REG_PARAM_REFERRAL = "referrerCode";
     public static final String REG_PARAM_GUEST = "user_guest";
     public static final String REG_PARAM_PLAIN_PASSWORD = "plainPassword";
     public static final String REG_PARAM_FIRST = "first";
@@ -377,9 +388,8 @@ public class APIConstants {
     public static final String CHECKOUT_SELECT_ITEMS = "cartToCheckout";
     public static final String CHECKOUT_TRANSACTION_CLEAR = "transactionClear";
 
-
     //Checkout Guest
-
+    public static final String GUEST_CONFIRMATION_CODE = "confirmationCode";
     public static final String GUEST_CHECKOUT_API = "guestUser";
     public static final String GUEST_PARAMS_FIRST_NAME = "firstName";
     public static final String GUEST_PARAMS_LAST_NAME = "lastName";
