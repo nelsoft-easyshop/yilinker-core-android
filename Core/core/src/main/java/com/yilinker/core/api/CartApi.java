@@ -69,6 +69,7 @@ public class CartApi {
 
             @Override
             public void onErrorResponse(VolleyError error) {
+
                 String message = APIConstants.API_CONNECTION_PROBLEM;
 
                 if (error instanceof TimeoutError || error instanceof NoConnectionError) {
@@ -82,12 +83,13 @@ public class CartApi {
                 } else {
 
                     try {
-                        String responseBody = new String(error.networkResponse.data, "utf-8" );
-                        JSONObject jsonObject = new JSONObject( responseBody );
-                        jsonObject = jsonObject.getJSONObject("data");
-                        JSONArray errors = jsonObject.getJSONArray("errors");
-                        message = errors.getString(0);
-
+                        if (error.networkResponse != null) {
+                            String responseBody = new String(error.networkResponse.data, "utf-8");
+                            JSONObject jsonObject = new JSONObject(responseBody);
+                            jsonObject = jsonObject.getJSONObject("data");
+                            JSONArray errors = jsonObject.getJSONArray("errors");
+                            message = errors.getString(0);
+                        }
                     } catch ( JSONException e ) {
                         //Handle a malformed json response
                     } catch (UnsupportedEncodingException e){
