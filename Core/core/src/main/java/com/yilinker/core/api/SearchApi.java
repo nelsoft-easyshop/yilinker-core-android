@@ -116,10 +116,10 @@ public class SearchApi {
     public static Request getSearchStore(final int requestCode, String keyword,String accessToken, final ResponseHandler responseHandler) {
 
         String url="";
-        if (accessToken.isEmpty()){
-            url = String.format("%s/%s/%s?%s=%s",
+        if (accessToken == null || accessToken.isEmpty()){
+            url = String.format("%s/%s/%s?%s",
                     APIConstants.DOMAIN, APIConstants.STORE_API, APIConstants.GET_SEARCH,
-                    APIConstants.SEARCH_QUERY, keyword);
+                    keyword);
         }else{
 
             url = String.format("%s/%s/%s?%s=%s&%s=%s",

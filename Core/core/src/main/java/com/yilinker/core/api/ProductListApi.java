@@ -37,7 +37,7 @@ public class ProductListApi {
                 String jsonString = new Gson().toJson(apiResponse.getData());
                 ProductList obj = gson.fromJson(jsonString, ProductList.class);
                 if (obj != null) {
-                    if (apiResponse.isSuccessful())
+                    if (apiResponse.isSuccessful() && obj.getProducts().size() > 0)
                         responseHandler.onSuccess(requestCode, obj);
                     else
                         responseHandler.onFailed(requestCode, "No products found.");
