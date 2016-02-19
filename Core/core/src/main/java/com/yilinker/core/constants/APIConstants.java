@@ -644,4 +644,11 @@ public class APIConstants {
     public final static String API_HOME_V2_PRODUCT_ID                                               = "productId";
     public final static String API_HOME_V2_PRODUCT_UNIT_ID                                          = "productUnitId";
 
+    //For Store Setup API
+    public final static String STORE_SETUP_STORE                                                    = "store";
+    public final static String STORE_SETUP_SETUP                                                    = "setup";
+    public final static String STORE_SETUP_SLUG                                                     = "storeSlug";
+    public final static String STORE_SETUP_NAME                                                     = "storeName";
+    public final static String STORE_SETUP_DESCRIPTION                                              = "storeDescription";
+
 }
