@@ -831,6 +831,7 @@ public class UserApi {
      */
     public static Request registerSimplified (final int requestCode, String contactNumber, String password,
                                     String areaCode, String referralCode, String verificationCode, String grantType,
+                                    String clientId, String clientSecret,
                                     final ResponseHandler responseHandler){
 
         String url = String.format("%s/%s/%s",
@@ -844,8 +845,13 @@ public class UserApi {
         params.put(APIConstants.REG_PARAM_REFERRAL, referralCode);
         params.put(APIConstants.REG_PARAM_VERIFICATION_CODE, verificationCode);
         params.put(APIConstants.LOGIN_PARAM_GRANT_TYPE, grantType);
-        params.put(APIConstants.LOGIN_PARAM_CLIENT_ID, APIConstants.API_CLIENT_ID);
-        params.put(APIConstants.LOGIN_PARAM_CLIENT_SECRET, APIConstants.API_CLIENT_SECRET);
+        if(grantType.contains("affiliate")){
+            params.put(APIConstants.LOGIN_PARAM_CLIENT_ID, clientId);
+            params.put(APIConstants.LOGIN_PARAM_CLIENT_SECRET, clientSecret);
+        }else {
+            params.put(APIConstants.LOGIN_PARAM_CLIENT_ID, APIConstants.API_CLIENT_ID);
+            params.put(APIConstants.LOGIN_PARAM_CLIENT_SECRET, APIConstants.API_CLIENT_SECRET);
+        }
 
 
         VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
