@@ -21,10 +21,11 @@ public class UpdateUserInfo {
     private String totalSales;
     private boolean isReseller;
     private String tin;
+    private String storeSlug;
+    private String validId;
     private String fullName;
     private String firstName;
     private String lastName;
-
     private String referralCode;
     private String referrerCode;
     private String referrerName;
@@ -73,6 +74,22 @@ public class UpdateUserInfo {
 
     public void setTin(String tin) {
         this.tin = tin;
+    }
+
+    public String getStoreSlug() {
+        return storeSlug;
+    }
+
+    public void setStoreSlug(String storeSlug) {
+        this.storeSlug = storeSlug;
+    }
+
+    public String getValidId() {
+        return validId;
+    }
+
+    public void setValidId(String validId) {
+        this.validId = validId;
     }
 
     public Address getAddress() {
