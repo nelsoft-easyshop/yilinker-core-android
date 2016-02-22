@@ -656,4 +656,13 @@ public class APIConstants {
     public final static String STORE_SETUP_NAME                                                     = "storeName";
     public final static String STORE_SETUP_DESCRIPTION                                              = "storeDescription";
 
+
+
+
+
+
+
+    //For Edit Profile API
+    public final static String VERIFY_EMAIL_API                                                     = "verifyEmail";
+
 }

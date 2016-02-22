@@ -22,6 +22,8 @@ public class UpdateUserInfo {
     private boolean isReseller;
     private String tin;
     private String fullName;
+    private String firstName;
+    private String lastName;
 
     private String referralCode;
     private String referrerCode;
@@ -51,6 +53,22 @@ public class UpdateUserInfo {
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public void setTin(String tin) {
