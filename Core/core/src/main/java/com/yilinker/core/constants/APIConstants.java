@@ -660,20 +660,10 @@ public class APIConstants {
     public static final String UPLOAD                                                               = "upload";
     public static final String IMAGE                                                                = "image";
 
-    //For Edit Profile
-    public static final String FIRST_NAME                                                           = "firstName";
-    public static final String LAST_NAME                                                            = "lastName";
-    public static final String TIN                                                                  = "tin";
-    public static final String EMAIL                                                                = "email";
-    public static final String IS_SENT                                                              = "isSent";
-
-
-
-
-
-
-
     //For Edit Profile API
     public final static String VERIFY_EMAIL_API                                                     = "verifyEmail";
+    public final static String UPDATE_USER_PROFILE_API                                              = "updateUser";
+    public final static String EDIT_PROFILE_PARAM_TIN                                               = "tin";
+    public final static String EDIT_PROFILE_PARAM_IS_SENT                                           = "isSent";
 
 }
