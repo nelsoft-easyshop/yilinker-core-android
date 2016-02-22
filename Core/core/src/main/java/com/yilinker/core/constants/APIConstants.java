@@ -645,10 +645,21 @@ public class APIConstants {
     public final static String API_HOME_V2_PRODUCT_UNIT_ID                                          = "productUnitId";
 
     //For Store Setup API
-    public final static String STORE_SETUP_STORE                                                    = "store";
-    public final static String STORE_SETUP_SETUP                                                    = "setup";
-    public final static String STORE_SETUP_SLUG                                                     = "storeSlug";
-    public final static String STORE_SETUP_NAME                                                     = "storeName";
-    public final static String STORE_SETUP_DESCRIPTION                                              = "storeDescription";
+    public static final String STORE_SETUP_STORE                                                    = "store";
+    public static final String STORE_SETUP_SETUP                                                    = "setup";
+    public static final String STORE_SETUP_SLUG                                                     = "storeSlug";
+    public static final String STORE_SETUP_NAME                                                     = "storeName";
+    public static final String STORE_SETUP_DESCRIPTION                                              = "storeDescription";
+
+    //For Upload Image API
+    public static final String UPLOAD                                                               = "upload";
+    public static final String IMAGE                                                                = "image";
+
+    //For Edit Profile
+    public static final String FIRST_NAME                                                           = "firstName";
+    public static final String LAST_NAME                                                            = "lastName";
+    public static final String TIN                                                                  = "tin";
+    public static final String EMAIL                                                                = "email";
+    public static final String IS_SENT                                                              = "isSent";
 
 }
