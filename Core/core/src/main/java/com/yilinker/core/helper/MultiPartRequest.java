@@ -134,7 +134,7 @@ public class MultiPartRequest extends Request {
         mListener = listener;
         gson = new Gson();
 
-        if (url.contains(APIConstants.PROFILE_EDIT_DETAILS)) {
+        if (url.contains(APIConstants.UPLOAD)) {
 
             MultipartEntityBuilder builder = MultipartEntityBuilder.create();
             File file  = new File(path);
