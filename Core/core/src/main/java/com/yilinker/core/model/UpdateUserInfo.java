@@ -23,6 +23,9 @@ public class UpdateUserInfo {
     private String tin;
     private String storeSlug;
     private String validId;
+    private String fullName;
+    private String firstName;
+    private String lastName;
     private String referralCode;
     private String referrerCode;
     private String referrerName;
@@ -43,6 +46,30 @@ public class UpdateUserInfo {
 
     public String getTin() {
         return tin;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public void setTin(String tin) {

@@ -94,6 +94,11 @@ public class APIConstants {
     public static final String PAYOUT_OTP = "otp";
     public static final String PAYOUT_WITHDRAWAL_REQUEST = "withdrawal-request";
     public static final String PAYOUT_WITHDRAWAL_LIST = "withdraw-list";
+    public static final String PAYOUT_GET_EARNING_GROUPS = "earning-groups";
+    public static final String PAYOUT_GET_EARNING_LIST = "earning-list";
+    public static final String PAYOUT_PARAMS_EARNINGS_GROUP_ID = "earningGroupId";
+    public static final String PAYOUT_PARAMS_EARNINGS_GROUP_PAGE = "page";
+    public static final String PAYOUT_PARAMS_EARNINGS_GROUP_PER_PAGE = "perPage";
 
     /***One Time Password*/
     public static final String SEND = "send";
@@ -661,5 +666,14 @@ public class APIConstants {
     public static final String TIN                                                                  = "tin";
     public static final String EMAIL                                                                = "email";
     public static final String IS_SENT                                                              = "isSent";
+
+
+
+
+
+
+
+    //For Edit Profile API
+    public final static String VERIFY_EMAIL_API                                                     = "verifyEmail";
 
 }
