@@ -34,7 +34,7 @@ public class UploadImageApi {
                                              final ResponseHandler responseHandler) {
 
         String url = String.format("%s/%s/%s/%s",
-                APIConstants.DOMAIN.replace("v1", "v2"), APIConstants.AUTH_API, APIConstants.PROFILE_API, APIConstants.PROFILE_EDIT_DETAILS);
+                APIConstants.DOMAIN.replace("v1", "v2"), APIConstants.AUTH_API, APIConstants.IMAGE, APIConstants.UPLOAD);
 
         Map<String, String> params = new HashMap<String, String>();
         params.put(APIConstants.ACCESS_TOKEN, token);
