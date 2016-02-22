@@ -92,7 +92,7 @@ public class EditProfileApi {
                                                  final ResponseHandler responseHandler){
 
         String url = String.format("%s/%s/%s/%s",
-                APIConstants.DOMAIN.replace("v1","v2"), APIConstants.AUTH_API, APIConstants.MERCHANT_API,
+                APIConstants.DOMAIN.replace("v1","v2"), APIConstants.AUTH_API, APIConstants.AFFILIATE_API,
                 APIConstants.UPDATE_USER_PROFILE_API);
 
 

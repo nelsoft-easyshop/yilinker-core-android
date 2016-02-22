@@ -20,6 +20,7 @@ public class APIConstants {
     public static final String API_CLIENT_SECRET = BaseApplication.getClientSecretFromApplication();
     public static final String AUTH_API = "auth";
     public static final String MERCHANT_API = "merchant";
+    public static final String AFFILIATE_API = "affiliate";
     public static final String CANCELLATION_API = "cancellation";
     public static final String TRANSACTION_API = "transaction";
     public static final String RESELLER_API = "reseller";
