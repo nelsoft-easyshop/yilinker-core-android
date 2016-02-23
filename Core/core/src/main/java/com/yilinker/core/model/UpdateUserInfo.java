@@ -30,6 +30,11 @@ public class UpdateUserInfo {
     private String referrerCode;
     private String referrerName;
 
+    private boolean isBankEditable;
+    private boolean isBusinessEditable;
+    private boolean isLegalDocsEditable;
+    private boolean isEmailVerified;
+
     private Bank bankAccount;
     private Address address;
     private CategoryList storeCategory;
@@ -240,6 +245,38 @@ public class UpdateUserInfo {
 
     public void setReferrerName(String referrerName) {
         this.referrerName = referrerName;
+    }
+
+    public boolean isBankEditable() {
+        return isBankEditable;
+    }
+
+    public void setBankEditable(boolean bankEditable) {
+        isBankEditable = bankEditable;
+    }
+
+    public boolean isBusinessEditable() {
+        return isBusinessEditable;
+    }
+
+    public void setBusinessEditable(boolean businessEditable) {
+        isBusinessEditable = businessEditable;
+    }
+
+    public boolean isLegalDocsEditable() {
+        return isLegalDocsEditable;
+    }
+
+    public void setLegalDocsEditable(boolean legalDocsEditable) {
+        isLegalDocsEditable = legalDocsEditable;
+    }
+
+    public boolean isEmailVerified() {
+        return isEmailVerified;
+    }
+
+    public void setEmailVerified(boolean emailVerified) {
+        isEmailVerified = emailVerified;
     }
 
     public static class UpdateUserInfoInstance implements InstanceCreator<UpdateUserInfo> {
