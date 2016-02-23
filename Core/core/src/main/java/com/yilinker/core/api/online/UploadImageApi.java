@@ -1,4 +1,4 @@
-package com.yilinker.core.api;
+package com.yilinker.core.api.online;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkError;
@@ -33,11 +33,11 @@ public class UploadImageApi {
     public static Request uploadImage (final int requestCode, String token, File image, String type,
                                              final ResponseHandler responseHandler) {
 
-        String url = String.format("%s/%s/%s/%s",
-                APIConstants.DOMAIN.replace("v1", "v2"), APIConstants.AUTH_API, APIConstants.IMAGE, APIConstants.UPLOAD);
+        String url = String.format("%s/%s/%s/%s?%s=%s",
+                APIConstants.DOMAIN.replace("v1", "v2"), APIConstants.AUTH_API, APIConstants.IMAGE, APIConstants.UPLOAD,
+                APIConstants.ACCESS_TOKEN, token);
 
         Map<String, String> params = new HashMap<String, String>();
-        params.put(APIConstants.ACCESS_TOKEN, token);
         params.put(APIConstants.TYPE, type);
 
         MultiPartRequest multiPartRequest = new MultiPartRequest(url, image.getPath(), APIResponse.class, params, new Response.Listener<JSONObject>() {

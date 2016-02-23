@@ -20,6 +20,7 @@ public class APIConstants {
     public static final String API_CLIENT_SECRET = BaseApplication.getClientSecretFromApplication();
     public static final String AUTH_API = "auth";
     public static final String MERCHANT_API = "merchant";
+    public static final String AFFILIATE_API = "affiliate";
     public static final String CANCELLATION_API = "cancellation";
     public static final String TRANSACTION_API = "transaction";
     public static final String RESELLER_API = "reseller";
@@ -660,20 +661,10 @@ public class APIConstants {
     public static final String UPLOAD                                                               = "upload";
     public static final String IMAGE                                                                = "image";
 
-    //For Edit Profile
-    public static final String FIRST_NAME                                                           = "firstName";
-    public static final String LAST_NAME                                                            = "lastName";
-    public static final String TIN                                                                  = "tin";
-    public static final String EMAIL                                                                = "email";
-    public static final String IS_SENT                                                              = "isSent";
-
-
-
-
-
-
-
     //For Edit Profile API
     public final static String VERIFY_EMAIL_API                                                     = "verifyEmail";
+    public final static String UPDATE_USER_PROFILE_API                                              = "updateUser";
+    public final static String EDIT_PROFILE_PARAM_TIN                                               = "tin";
+    public final static String EDIT_PROFILE_PARAM_IS_SENT                                           = "isSent";
 
 }
