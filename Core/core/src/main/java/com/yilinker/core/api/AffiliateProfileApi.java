@@ -28,7 +28,7 @@ import java.util.Map;
  */
 public class AffiliateProfileApi {
 
-    public static Request setUpStore (final int requestCode, String token, String storeSlug,
+    public static Request setUpStore (final int requestCode, String token, String coverPhoto, String profilePhoto, String storeSlug,
                                       String storeName, String storeDescription, final ResponseHandler responseHandler){
 
         String url = String.format("%s/%s/%s/%s",
@@ -36,6 +36,8 @@ public class AffiliateProfileApi {
 
         Map<String, String> params = new HashMap<String, String>();
         params.put(APIConstants.ACCESS_TOKEN, token);
+        params.put(APIConstants.PROFILE_COVER_PHOTO, coverPhoto);
+        params.put(APIConstants.PROFILE_PHOTO, profilePhoto);
         params.put(APIConstants.STORE_SETUP_SLUG, storeSlug);
         params.put(APIConstants.STORE_SETUP_NAME, storeName);
         params.put(APIConstants.STORE_SETUP_DESCRIPTION, storeDescription);
