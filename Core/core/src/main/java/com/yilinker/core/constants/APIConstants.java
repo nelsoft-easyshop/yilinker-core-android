@@ -663,9 +663,10 @@ public class APIConstants {
 
     //For Edit Profile API
     public final static String VERIFY_EMAIL_API                                                     = "verifyEmail";
-    public final static String UPDATE_USER_PROFILE_API                                              = "updateUser";
+    public final static String UPDATE_USER_PROFILE_API                                              = "update-user-info";
     public final static String EDIT_PROFILE_PARAM_TIN                                               = "tin";
     public final static String EDIT_PROFILE_PARAM_IS_SENT                                           = "isSent";
+    public final static String EDIT_PROFILE_PARAM_VALID_ID                                          = "validId";
 
     //Select Product API
     public final static String GET_AFFILLIATE_PRODUCTS                                              = "getAffiliateProducts";
