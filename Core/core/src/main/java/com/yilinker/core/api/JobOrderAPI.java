@@ -1,6 +1,7 @@
 package com.yilinker.core.api;
 
 import android.net.Uri;
+import android.text.Html;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -927,7 +928,7 @@ public class JobOrderAPI {
         Map<String, String> params = new HashMap<String, String>();
         params.put(APIConstants.RIDER_REPORT_PROBLEMATIC_PARAM_TOKEN, app.getAccessToken());
         params.put(APIConstants.RIDER_REPORT_PROBLEMATIC_PARAM_JONUMBER, problematicJobOrder.getJobOrderNo());
-        params.put(APIConstants.RIDER_REPORT_PROBLEMATIC_PARAM_NOTES, problematicJobOrder.getNotes());
+        params.put(APIConstants.RIDER_REPORT_PROBLEMATIC_PARAM_NOTES, problematicJobOrder.getNotes().replace("\n", String.valueOf(" ")));
         params.put(APIConstants.RIDER_REPORT_PROBLEMATIC_PARAM_TYPE, problematicJobOrder.getProblemType());
 //        params.put(APIConstants.RIDER_REPORT_PROBLEMATIC_PARAM_IMAGE, problematicJobOrder.getImage());
 
