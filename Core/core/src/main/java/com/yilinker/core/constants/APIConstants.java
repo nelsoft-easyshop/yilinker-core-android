@@ -667,4 +667,19 @@ public class APIConstants {
     public final static String EDIT_PROFILE_PARAM_TIN                                               = "tin";
     public final static String EDIT_PROFILE_PARAM_IS_SENT                                           = "isSent";
 
+    //Select Product API
+    public final static String GET_AFFILLIATE_PRODUCTS                                              = "getAffiliateProducts";
+    public final static String PARAMS_CATEGORY_IDS                                                  = "categoryIds";
+    public final static String PARAMS_SORT_BY                                                       = "sortBy";
+    public final static String PARAMS_STATUS                                                        = "status";
+    public final static String PARAMS_PAGE_NO                                                       = "pageNo";
+    public final static String PARAMS_LIMIT                                                         = "limit";
+    public final static String PARAMS_NAME                                                          = "name";
+
+    public final static String GET_CATEGORIES                                                       = "getCategories";
+
+    public final static String SAVE_AFFILIATE_PRODUCTS                                              = "saveAffiliateProducts";
+    public final static String PARAMS_MANUFACTURER_PRODUCT_IDS                                      = "manufacturerProductIds";
+    public final static String PARAMS_REMOVE_MANUFACTURER_PRODUCT_IDS                               = "removeManufacturerProductIds";
+
 }
