@@ -662,7 +662,7 @@ public class APIConstants {
     public static final String IMAGE                                                                = "image";
 
     //For Edit Profile API
-    public final static String VERIFY_EMAIL_API                                                     = "verifyEmail";
+    public final static String VERIFY_EMAIL_API                                                     = "verify-email";
     public final static String UPDATE_USER_PROFILE_API                                              = "update-user-info";
     public final static String EDIT_PROFILE_PARAM_TIN                                               = "tin";
     public final static String EDIT_PROFILE_PARAM_IS_SENT                                           = "isSent";
