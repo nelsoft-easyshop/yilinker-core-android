@@ -673,7 +673,7 @@ public class APIConstants {
     public final static String PARAMS_CATEGORY_IDS                                                  = "categoryIds";
     public final static String PARAMS_SORT_BY                                                       = "sortBy";
     public final static String PARAMS_STATUS                                                        = "status";
-    public final static String PARAMS_PAGE_NO                                                       = "pageNo";
+    public final static String PARAMS_PAGE                                                          = "page";
     public final static String PARAMS_LIMIT                                                         = "limit";
     public final static String PARAMS_NAME                                                          = "name";
 

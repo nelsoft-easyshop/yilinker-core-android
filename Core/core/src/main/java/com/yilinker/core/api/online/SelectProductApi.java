@@ -51,7 +51,7 @@ public class SelectProductApi {
             params.put(APIConstants.PARAMS_STATUS, status);
         if (query != null)
             params.put(APIConstants.PARAMS_NAME, query);
-        params.put(APIConstants.PARAMS_PAGE_NO, String.valueOf(pageNo));
+        params.put(APIConstants.PARAMS_PAGE, String.valueOf(pageNo));
         params.put(APIConstants.PARAMS_LIMIT, String.valueOf(limit));
 
         logger.severe("---------------------********************" + endpoint);
