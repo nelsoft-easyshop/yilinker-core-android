@@ -59,8 +59,10 @@ public class AddressAPI {
         params.put(APIConstants.ADDRESS_PARAMS_PROVINCE, String.valueOf(address.getProvince()));
         params.put(APIConstants.ADDRESS_PARAMS_ZIPCODE, String.valueOf(address.getZipCode()));
         params.put(APIConstants.ADDRESS_PARAMS_LOCATIONID, String.valueOf(address.getLocationId()));
-        params.put(APIConstants.ADDRESS_PARAMS_LATITUDE, address.getLatitude());
-        params.put(APIConstants.ADDRESS_PARAMS_LONGITUDE, address.getLongitude());
+        if(address.getLatitude() != null && address.getLongitude() != null) {
+            params.put(APIConstants.ADDRESS_PARAMS_LATITUDE, address.getLatitude());
+            params.put(APIConstants.ADDRESS_PARAMS_LONGITUDE, address.getLongitude());
+        }
 
         VolleyPostHelper requestAddStoreAddress = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
 
@@ -70,7 +72,11 @@ public class AddressAPI {
                 Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
                 APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
 
-                responseHandler.onSuccess(requestCode, apiResponse);
+                if(apiResponse.isSuccessful()) {
+                    responseHandler.onSuccess(requestCode, apiResponse);
+                }else{
+                    responseHandler.onFailed(requestCode, apiResponse.getMessage());
+                }
 
             }
         }, new Response.ErrorListener() {
