@@ -1,5 +1,6 @@
 package com.yilinker.core.api.online;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -158,7 +159,8 @@ public class SelectProductApi {
             }
         }, errorListener);
 
-        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
+        request.setRetryPolicy(new DefaultRetryPolicy(50000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
         return request;
     }
