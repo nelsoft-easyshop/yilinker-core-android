@@ -31,6 +31,7 @@ public class UpdateUserInfo {
     private String referralCode;
     private String referrerCode;
     private String referrerName;
+    private String validIdMessage;
 
     private boolean isBankEditable;
     private boolean isBusinessEditable;
@@ -295,6 +296,14 @@ public class UpdateUserInfo {
 
     public void setCoverPhotoFileName(String coverPhotoFileName) {
         this.coverPhotoFileName = coverPhotoFileName;
+    }
+
+    public String getValidIdMessage() {
+        return validIdMessage;
+    }
+
+    public void setValidIdMessage(String validIdMessage) {
+        this.validIdMessage = validIdMessage;
     }
 
     public static class UpdateUserInfoInstance implements InstanceCreator<UpdateUserInfo> {
