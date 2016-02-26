@@ -12,7 +12,9 @@ public class UpdateUserInfo {
 
     private int userId;
     private String profilePhoto;
+    private String profilePhotoFileName;
     private String coverPhoto;
+    private String coverPhotoFileName;
     private String storeName;
     private String storeDescription;
     private String contactNumber;
@@ -278,6 +280,22 @@ public class UpdateUserInfo {
 
     public void setEmailVerified(boolean emailVerified) {
         isEmailVerified = emailVerified;
+    }
+
+    public String getProfilePhotoFileName() {
+        return profilePhotoFileName;
+    }
+
+    public void setProfilePhotoFileName(String profilePhotoFileName) {
+        this.profilePhotoFileName = profilePhotoFileName;
+    }
+
+    public String getCoverPhotoFileName() {
+        return coverPhotoFileName;
+    }
+
+    public void setCoverPhotoFileName(String coverPhotoFileName) {
+        this.coverPhotoFileName = coverPhotoFileName;
     }
 
     public String getValidIdMessage() {
