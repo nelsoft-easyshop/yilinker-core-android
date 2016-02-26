@@ -88,7 +88,7 @@ public class EditProfileApi {
 
     public static Request updateUserProfile (final int requestCode, String accessToken, String firstName,
                                              String lastName, String tin, String email, String referralCode,
-                                             boolean isSent, String validId,
+                                             boolean isSent, String validId, boolean isReferred,
                                                  final ResponseHandler responseHandler){
 
         String url = String.format("%s/%s/%s/%s",
@@ -102,9 +102,11 @@ public class EditProfileApi {
         params.put(APIConstants.REG_PARAM_LAST_NAME, lastName);
         params.put(APIConstants.EDIT_PROFILE_PARAM_TIN, tin);
         params.put(APIConstants.EDIT_PROFILE_PARAM_IS_SENT, String.valueOf(isSent));
-        params.put(APIConstants.PROFILE_REFERRAL_CODE, referralCode);
         params.put(APIConstants.REG_PARAM_EMAIL, email);
         params.put(APIConstants.EDIT_PROFILE_PARAM_VALID_ID, validId);
+        if(isReferred) {
+            params.put(APIConstants.PROFILE_REFERRAL_CODE, referralCode);
+        }
         VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
 
             @Override
