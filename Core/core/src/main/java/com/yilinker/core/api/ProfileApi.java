@@ -295,7 +295,7 @@ public class ProfileApi {
             params.put(APIConstants.PROFILE_USER_DOCUMENTS, userDocuments.getName());
         params.put(APIConstants.PROFILE_FIRST_NAME, profile.getFirstName());
         params.put(APIConstants.PROFILE_LAST_NAME, profile.getLastName());
-        params.put(APIConstants.PROFILE_CONTACT_NUMBER, profile.getContactNumber());
+//        params.put(APIConstants.PROFILE_CONTACT_NUMBER, profile.getContactNumber());
         params.put(APIConstants.PROFILE_GENDER, profile.getGender());
         if (profile.getReferrerName() == null)
             params.put(APIConstants.PROFILE_REFERRAL_CODE, profile.getReferrerCode());
