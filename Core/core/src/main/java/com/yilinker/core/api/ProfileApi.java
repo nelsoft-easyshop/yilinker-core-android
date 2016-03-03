@@ -283,16 +283,15 @@ public class ProfileApi {
     }
 
     public static Request updateUserDetails (final int requestCode, String token, File profilePhoto, File userDocuments, Profile profile,
-                                             boolean isProfilePictureEmpty, boolean isUserDocumentsEmpty,
                                              final ResponseHandler responseHandler){
 
         String url = String.format("%s/%s/%s/%s",
                 APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.PROFILE_API, APIConstants.PROFILE_EDIT_DETAILS);
 
         Map<String, String> params = new HashMap<String, String>();
-        if (!isProfilePictureEmpty)
+        if (profilePhoto != null)
             params.put(APIConstants.PROFILE_PHOTO, profilePhoto.getName());
-        if (!isUserDocumentsEmpty)
+        if (userDocuments !=  null)
             params.put(APIConstants.PROFILE_USER_DOCUMENTS, userDocuments.getName());
         params.put(APIConstants.PROFILE_FIRST_NAME, profile.getFirstName());
         params.put(APIConstants.PROFILE_LAST_NAME, profile.getLastName());
@@ -309,7 +308,7 @@ public class ProfileApi {
 
         url = String.format("%s?%s=%s",url,APIConstants.ACCESS_TOKEN, token);
 
-        if (!isProfilePictureEmpty) {
+        if (profilePhoto != null) {
             MultiPartRequest multiPartRequest = new MultiPartRequest(url, profilePhoto.getPath(), true, APIResponse.class, params, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
@@ -360,7 +359,7 @@ public class ProfileApi {
             multiPartRequest.setRetryPolicy(SocketTimeout.getRetryPolicy());
 
             return multiPartRequest;
-        } else if (!isUserDocumentsEmpty) {
+        } else if (userDocuments != null) {
             MultiPartRequest multiPartRequest = new MultiPartRequest(url, userDocuments.getPath(), false, APIResponse.class, params, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
