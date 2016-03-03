@@ -297,8 +297,9 @@ public class ProfileApi {
         params.put(APIConstants.PROFILE_LAST_NAME, profile.getLastName());
 //        params.put(APIConstants.PROFILE_CONTACT_NUMBER, profile.getContactNumber());
         params.put(APIConstants.PROFILE_GENDER, profile.getGender());
-        if (profile.getReferrerName() == null)
+        if (profile.getReferrerName() == null || profile.getReferrerName().trim().isEmpty()) {
             params.put(APIConstants.PROFILE_REFERRAL_CODE, profile.getReferrerCode());
+        }
 
         StringBuilder stringBuilder = new StringBuilder();
 
