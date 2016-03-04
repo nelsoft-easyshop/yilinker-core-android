@@ -124,6 +124,41 @@ public class MultiPartRequest extends Request {
         }
     }
 
+    public MultiPartRequest(String url, String path, Class clazz,
+                            Map<String, String> headers,
+                            Response.Listener listener,
+                            Response.ErrorListener errorListener) {
+        super(Request.Method.POST, url, errorListener);
+        mHeaders = headers;
+        mClass = clazz;
+        mListener = listener;
+        gson = new Gson();
+
+        if (url.contains(APIConstants.UPLOAD)) {
+
+            MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+            File file  = new File(path);
+            String fileName = file.getName();
+            builder.addBinaryBody(APIConstants.IMAGE, file, ContentType.create("image/*"), fileName);
+
+            for (Map.Entry<String, String> entry : mHeaders.entrySet()) {
+
+                builder.addTextBody(entry.getKey(), entry.getValue());
+
+            }
+
+            builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
+            builder.setBoundary("BOUNDARY");
+
+            mHttpEntity = builder.build();
+
+        } else {
+
+            mHttpEntity = buildMultipartEntity(path);
+
+        }
+    }
+
     public MultiPartRequest(String url, Class clazz, File file, Response.Listener listener, Response.ErrorListener errorListener) {
         super(Method.POST, url, errorListener);
 

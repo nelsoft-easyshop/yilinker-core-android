@@ -12,7 +12,9 @@ public class UpdateUserInfo {
 
     private int userId;
     private String profilePhoto;
+    private String profilePhotoFileName;
     private String coverPhoto;
+    private String coverPhotoFileName;
     private String storeName;
     private String storeDescription;
     private String contactNumber;
@@ -21,10 +23,20 @@ public class UpdateUserInfo {
     private String totalSales;
     private boolean isReseller;
     private String tin;
-
+    private String storeSlug;
+    private String validId;
+    private String fullName;
+    private String firstName;
+    private String lastName;
     private String referralCode;
     private String referrerCode;
     private String referrerName;
+    private String validIdMessage;
+
+    private boolean isBankEditable;
+    private boolean isBusinessEditable;
+    private boolean isLegalDocsEditable;
+    private boolean isEmailVerified;
 
     private Bank bankAccount;
     private Address address;
@@ -44,8 +56,48 @@ public class UpdateUserInfo {
         return tin;
     }
 
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
     public void setTin(String tin) {
         this.tin = tin;
+    }
+
+    public String getStoreSlug() {
+        return storeSlug;
+    }
+
+    public void setStoreSlug(String storeSlug) {
+        this.storeSlug = storeSlug;
+    }
+
+    public String getValidId() {
+        return validId;
+    }
+
+    public void setValidId(String validId) {
+        this.validId = validId;
     }
 
     public Address getAddress() {
@@ -196,6 +248,62 @@ public class UpdateUserInfo {
 
     public void setReferrerName(String referrerName) {
         this.referrerName = referrerName;
+    }
+
+    public boolean isBankEditable() {
+        return isBankEditable;
+    }
+
+    public void setBankEditable(boolean bankEditable) {
+        isBankEditable = bankEditable;
+    }
+
+    public boolean isBusinessEditable() {
+        return isBusinessEditable;
+    }
+
+    public void setBusinessEditable(boolean businessEditable) {
+        isBusinessEditable = businessEditable;
+    }
+
+    public boolean isLegalDocsEditable() {
+        return isLegalDocsEditable;
+    }
+
+    public void setLegalDocsEditable(boolean legalDocsEditable) {
+        isLegalDocsEditable = legalDocsEditable;
+    }
+
+    public boolean isEmailVerified() {
+        return isEmailVerified;
+    }
+
+    public void setEmailVerified(boolean emailVerified) {
+        isEmailVerified = emailVerified;
+    }
+
+    public String getProfilePhotoFileName() {
+        return profilePhotoFileName;
+    }
+
+    public void setProfilePhotoFileName(String profilePhotoFileName) {
+        this.profilePhotoFileName = profilePhotoFileName;
+    }
+
+    public String getCoverPhotoFileName() {
+        return coverPhotoFileName;
+    }
+
+    public void setCoverPhotoFileName(String coverPhotoFileName) {
+        this.coverPhotoFileName = coverPhotoFileName;
+    }
+
+    public String getValidIdMessage() {
+        return validIdMessage;
+    }
+
+    public void setValidIdMessage(String validIdMessage) {
+        this.validIdMessage = validIdMessage;
     }
 
     public static class UpdateUserInfoInstance implements InstanceCreator<UpdateUserInfo> {

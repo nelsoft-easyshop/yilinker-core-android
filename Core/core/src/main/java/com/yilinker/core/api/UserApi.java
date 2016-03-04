@@ -830,7 +830,8 @@ public class UserApi {
      * @return
      */
     public static Request registerSimplified (final int requestCode, String contactNumber, String password,
-                                    String areaCode, String referralCode, String verificationCode,
+                                    String areaCode, String referralCode, String verificationCode, String grantType,
+                                    String clientId, String clientSecret,
                                     final ResponseHandler responseHandler){
 
         String url = String.format("%s/%s/%s",
@@ -843,6 +844,15 @@ public class UserApi {
         params.put(APIConstants.REG_PARAM_AREA_CODE, areaCode);
         params.put(APIConstants.REG_PARAM_REFERRAL, referralCode);
         params.put(APIConstants.REG_PARAM_VERIFICATION_CODE, verificationCode);
+        params.put(APIConstants.LOGIN_PARAM_GRANT_TYPE, grantType);
+        if(grantType.contains("affiliate")){
+            params.put(APIConstants.LOGIN_PARAM_CLIENT_ID, clientId);
+            params.put(APIConstants.LOGIN_PARAM_CLIENT_SECRET, clientSecret);
+        }else {
+            params.put(APIConstants.LOGIN_PARAM_CLIENT_ID, APIConstants.API_CLIENT_ID);
+            params.put(APIConstants.LOGIN_PARAM_CLIENT_SECRET, APIConstants.API_CLIENT_SECRET);
+        }
+
 
         VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
 
@@ -850,9 +860,16 @@ public class UserApi {
             public void onResponse(JSONObject response) {
 
                 Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
-                Register obj = gson.fromJson(response.toString(), Register.class);
+                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
 
-                responseHandler.onSuccess(requestCode, obj);
+                if (apiResponse.isSuccessful()) {
+                    gson = GsonUtility.createGsonBuilder(Login.class, new Login.LoginInstance()).create();
+                    String jsonString = new Gson().toJson(apiResponse.getData());
+                    Login obj = gson.fromJson(jsonString, Login.class);
+                    responseHandler.onSuccess(requestCode, obj);
+                } else {
+                    responseHandler.onFailed(requestCode, apiResponse.getMessage());
+                }
 
             }
         }, new Response.ErrorListener() {
