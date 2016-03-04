@@ -48,8 +48,12 @@ public class RiderAPI {
      */
     public static Request loginByUsername (final int requestCode, OAuthentication oAuth, final ResponseHandler responseHandler){
 
-        String url = String.format("%s/%s",
-                APIConstants.DOMAIN,
+        //temp
+//        String url = String.format("%s/%s",
+//                APIConstants.DOMAIN,
+//                APIConstants.RIDER_GET_TOKEN);
+
+        String url = String.format("http://sprint.api.express.api.easydeal.ph/v1/%s",
                 APIConstants.RIDER_GET_TOKEN);
 
         Map<String,String> params = new HashMap<String,String>();
