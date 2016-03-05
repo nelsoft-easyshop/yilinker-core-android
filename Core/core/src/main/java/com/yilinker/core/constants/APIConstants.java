@@ -20,6 +20,7 @@ public class APIConstants {
     public static final String API_CLIENT_SECRET = BaseApplication.getClientSecretFromApplication();
     public static final String AUTH_API = "auth";
     public static final String MERCHANT_API = "merchant";
+    public static final String AFFILIATE_API = "affiliate";
     public static final String CANCELLATION_API = "cancellation";
     public static final String TRANSACTION_API = "transaction";
     public static final String RESELLER_API = "reseller";
@@ -648,5 +649,39 @@ public class APIConstants {
 
     public final static String API_HOME_V2_PRODUCT_ID                                               = "productId";
     public final static String API_HOME_V2_PRODUCT_UNIT_ID                                          = "productUnitId";
+
+    //For Store Setup API
+    public static final String STORE_SETUP_STORE                                                    = "store";
+    public static final String STORE_SETUP_SETUP                                                    = "setup";
+    public static final String STORE_SETUP_SLUG                                                     = "storeSlug";
+    public static final String STORE_SETUP_NAME                                                     = "storeName";
+    public static final String STORE_SETUP_DESCRIPTION                                              = "storeDescription";
+
+    //For Upload Image API
+    public static final String UPLOAD                                                               = "upload";
+    public static final String IMAGE                                                                = "image";
+
+    //For Edit Profile API
+    public final static String VERIFY_EMAIL_API                                                     = "verify-email";
+    public final static String UPDATE_USER_PROFILE_API                                              = "update-user-info";
+    public final static String EDIT_PROFILE_PARAM_TIN                                               = "tin";
+    public final static String EDIT_PROFILE_PARAM_IS_SENT                                           = "isSent";
+    public final static String EDIT_PROFILE_PARAM_VALID_ID                                          = "validId";
+
+    //Select Product API
+    public final static String GET_AFFILLIATE_PRODUCTS                                              = "getAffiliateProducts";
+    public final static String PARAMS_CATEGORY_IDS                                                  = "categoryIds";
+    public final static String PARAMS_SORT_BY                                                       = "sortBy";
+    public final static String PARAMS_STATUS                                                        = "status";
+    public final static String PARAMS_PAGE                                                          = "page";
+    public final static String PARAMS_LIMIT                                                         = "limit";
+    public final static String PARAMS_NAME                                                          = "name";
+
+    public final static String GET_CATEGORIES                                                       = "getCategories";
+
+    public final static String SAVE_AFFILIATE_PRODUCTS                                              = "saveAffiliateProducts";
+    public final static String PARAMS_MANUFACTURER_PRODUCT_IDS                                      = "manufacturerProductIds";
+    public final static String PARAMS_REMOVE_MANUFACTURER_PRODUCT_IDS                               = "removeManufacturerProductIds";
+
 
 }
