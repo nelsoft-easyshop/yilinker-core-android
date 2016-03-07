@@ -43,23 +43,26 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 /**
  * Created by Adur Urbano on 8/4/2015.
  */
 public class SellerApi {
 
+    private static final Logger logger = Logger.getLogger(SellerApi.class.getSimpleName());
+
     static int socketTimeout = 300000;
     static RetryPolicy policy = new DefaultRetryPolicy(socketTimeout,
             DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
             DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
 
-    public static Request getSellerDetails(final int requestCode, int id, String accessToken, final ResponseHandler responseHandler) {
+    public static Request getSellerDetails(final int requestCode, String userId, String accessToken, final ResponseHandler responseHandler) {
 
         String url;
 
         Map<String, String > params = new HashMap<>();
-        params.put( APIConstants.SELLER_USER_ID,String.valueOf(id));
+        params.put( APIConstants.SELLER_USER_ID, userId);
 
         if (!accessToken.isEmpty()) {
 
@@ -71,6 +74,8 @@ public class SellerApi {
             url = String.format("%s/%s/%s", APIConstants.DOMAIN, APIConstants.USER_API, APIConstants.SELLER_GET_STORE_INFO);
 
         }
+
+        logger.severe("URL : " + url + "\nparams : " + params.toString());
 
         VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
             @Override
@@ -84,6 +89,8 @@ public class SellerApi {
                 Seller obj = gson.fromJson(jsonString, Seller.class);
 
                 responseHandler.onSuccess(requestCode, obj);
+
+                logger.severe("Get Seller Details : " + jsonString);
 
             }
         }, new Response.ErrorListener() {
@@ -113,6 +120,8 @@ public class SellerApi {
                     }
                 }
                 responseHandler.onFailed(requestCode, message);
+
+                logger.severe("Get Seller Details : " + message);
             }});
 
         request.setRetryPolicy(SocketTimeout.getRetryPolicy());
@@ -175,12 +184,14 @@ public class SellerApi {
 
     }
 
-    public static Request getSellerReview(final int requestCode, int id, final ResponseHandler responseHandler){
+    public static Request getSellerReview(final int requestCode, String user, final ResponseHandler responseHandler){
 
-        String url = String.format("%s/%s/%s?%s=%d", APIConstants.DOMAIN, APIConstants.PRODUCT_FEEDBACK, APIConstants.PRODUCT_GET_SELLER_REVIEW, APIConstants.SELLER_GET_DETAILS_PARAM_ID, id);
+        String url = String.format("%s/%s/%s?%s=%s", APIConstants.DOMAIN, APIConstants.PRODUCT_FEEDBACK, APIConstants.PRODUCT_GET_SELLER_REVIEW, APIConstants.SELLER_GET_DETAILS_PARAM_ID, user);
 
         Map<String,String> params = new HashMap<>();
-        params.put(APIConstants.SELLER_GET_DETAILS_PARAM_ID,String.valueOf(id));
+        params.put(APIConstants.SELLER_GET_DETAILS_PARAM_ID,user);
+
+        logger.severe("URL : " + url + "\nparams : " + params.toString());
 
         VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
             @Override
@@ -193,6 +204,8 @@ public class SellerApi {
                 ProductReview obj = gson.fromJson(jsonString, ProductReview.class);
 
                 responseHandler.onSuccess(requestCode, obj);
+
+                logger.severe("Get Seller Reviews : " + jsonString);
 
             }
         } , new Response.ErrorListener() {
@@ -221,6 +234,8 @@ public class SellerApi {
                     }
                 }
                 responseHandler.onFailed(requestCode, message);
+
+                logger.severe("Get Seller Reviews : " + message);
             }});
 
         request.setRetryPolicy(SocketTimeout.getRetryPolicy());

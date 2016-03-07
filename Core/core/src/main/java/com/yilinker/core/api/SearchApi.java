@@ -53,6 +53,8 @@ public class SearchApi {
 //            Log.d("URL", sample);
 //        }
 
+        url = url.replaceAll(" ", "%20");
+
         Request requestGetSearch = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -116,7 +118,7 @@ public class SearchApi {
     public static Request getSearchStore(final int requestCode, String keyword,String accessToken, final ResponseHandler responseHandler) {
 
         String url="";
-        if (accessToken.isEmpty()){
+        if (accessToken == null || accessToken.isEmpty()){
             url = String.format("%s/%s/%s?%s=%s",
                     APIConstants.DOMAIN, APIConstants.STORE_API, APIConstants.GET_SEARCH,
                     APIConstants.SEARCH_QUERY, keyword);
@@ -127,6 +129,8 @@ public class SearchApi {
                 APIConstants.SEARCH_QUERY, keyword,APIConstants.ACCESS_TOKEN,accessToken);
 
         }
+
+        url = url.replaceAll(" ", "%20");
 
 //        String url = "http://online.api.easydeal.ph/api/v1/store/search?queryString=seller";
 
