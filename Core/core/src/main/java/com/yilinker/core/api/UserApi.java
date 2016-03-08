@@ -321,7 +321,8 @@ public class UserApi {
 
     public static Request refreshToken(final int requestCode, String refreshToken, final ResponseHandler responseHandler){
 
-        String url = String.format("%s/%s", APIConstants.DOMAIN, APIConstants.LOGIN_API);
+        String url = String.format("%s/%s", APIConstants.DOMAIN.replace("v1","v2")
+                , APIConstants.LOGIN_API);
 
         Map<String, String> params = new HashMap<>();
         params.put(APIConstants.LOGIN_PARAM_CLIENT_ID, APIConstants.API_CLIENT_ID);
