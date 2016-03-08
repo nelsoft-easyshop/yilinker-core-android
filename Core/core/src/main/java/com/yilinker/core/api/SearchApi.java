@@ -80,7 +80,9 @@ public class SearchApi {
                 }
 
             }
-        }, new Response.ErrorListener() {
+        },
+
+                new Response.ErrorListener() {
 
             @Override
             public void onErrorResponse(VolleyError error) {
@@ -94,7 +96,7 @@ public class SearchApi {
 
                     message = APIConstants.API_CONNECTION_AUTH_ERROR;
 
-                }else{
+                }else if (error.networkResponse.data != null){
                     try {
                         String responseBody = new String(error.networkResponse.data, "utf-8" );
                         JSONObject jsonObject = new JSONObject( responseBody );
