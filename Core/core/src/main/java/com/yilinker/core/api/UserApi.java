@@ -321,7 +321,8 @@ public class UserApi {
 
     public static Request refreshToken(final int requestCode, String refreshToken, final ResponseHandler responseHandler){
 
-        String url = String.format("%s/%s", APIConstants.DOMAIN, APIConstants.LOGIN_API);
+        String url = String.format("%s/%s", APIConstants.DOMAIN.replace("v1","v2")
+                , APIConstants.LOGIN_API);
 
         Map<String, String> params = new HashMap<>();
         params.put(APIConstants.LOGIN_PARAM_CLIENT_ID, APIConstants.API_CLIENT_ID);
@@ -743,4 +744,305 @@ public class UserApi {
 
         return request;
     }
+
+    /**
+     * Start of Line for v2 Simplified Login/Register
+     * This method request for activation through sms
+     * static url should be change upon implementation of v2 API url
+     * @param requestCode
+     * @param contactNumber
+     * @param areaCode
+     * @param type
+     * @param storeType
+     * @param responseHandler
+     * @return
+     */
+
+    public static Request requestActivationCode (final int requestCode, String contactNumber, String areaCode, String type, String storeType,
+                                    final ResponseHandler responseHandler){
+
+        String url = String.format("%s/%s/%s",
+                APIConstants.DOMAIN.replace("v1","v2"), APIConstants.SMS_API, APIConstants.REG_GET_ACTIVATION_CODE_API);
+
+
+        Map<String, String> params = new HashMap<String, String>();
+        params.put(APIConstants.REG_PARAM_MOBILE, contactNumber);
+        params.put(APIConstants.REG_PARAM_AREA_CODE, areaCode);
+        params.put(APIConstants.REG_PARAM_UNAUTHENTICATION_TYPE, type);
+        params.put(APIConstants.REG_PARAM_STORE_TYPE, storeType);
+
+        VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+
+                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+
+                responseHandler.onSuccess(requestCode, apiResponse);
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                String message = APIConstants.API_CONNECTION_PROBLEM;
+
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+
+                    message = APIConstants.API_CONNECTION_PROBLEM;
+
+                } else if (error instanceof AuthFailureError) {
+
+                    message = APIConstants.API_CONNECTION_AUTH_ERROR;
+
+                } else {
+
+                    try {
+                        String responseBody = new String(error.networkResponse.data, "utf-8" );
+                        JSONObject jsonObject = new JSONObject( responseBody );
+                        jsonObject = jsonObject.getJSONObject("data");
+                        JSONArray var = jsonObject.getJSONArray("errors");
+                        message = var.get(0).toString();
+
+                    } catch ( Exception e ) {
+                        //Handle a malformed json response
+                    }
+                }
+
+                responseHandler.onFailed(requestCode, message);
+            }
+        });
+
+        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
+
+        return request;
+    }
+
+    /**
+     * Simplified Register request these parameters
+     * @param requestCode
+     * @param contactNumber
+     * @param password
+     * @param areaCode
+     * @param referralCode
+     * @param verificationCode
+     * @param responseHandler
+     * @return
+     */
+    public static Request registerSimplified (final int requestCode, String contactNumber, String password,
+                                    String areaCode, String referralCode, String verificationCode, String grantType,
+                                    String clientId, String clientSecret,
+                                    final ResponseHandler responseHandler){
+
+        String url = String.format("%s/%s/%s",
+                APIConstants.DOMAIN.replace("v1","v2"), APIConstants.USER_API, APIConstants.REG_API);
+        //String url = "http://online.api.easydeal.ph/api/v2/user/register";
+
+        Map<String, String> params = new HashMap<String, String>();
+        params.put(APIConstants.REG_PARAM_MOBILE, contactNumber);
+        params.put(APIConstants.REG_PARAM_PASSWORD, password);
+        params.put(APIConstants.REG_PARAM_AREA_CODE, areaCode);
+        params.put(APIConstants.REG_PARAM_REFERRAL, referralCode);
+        params.put(APIConstants.REG_PARAM_VERIFICATION_CODE, verificationCode);
+        params.put(APIConstants.LOGIN_PARAM_GRANT_TYPE, grantType);
+        if(grantType.contains("affiliate")){
+            params.put(APIConstants.LOGIN_PARAM_CLIENT_ID, clientId);
+            params.put(APIConstants.LOGIN_PARAM_CLIENT_SECRET, clientSecret);
+        }else {
+            params.put(APIConstants.LOGIN_PARAM_CLIENT_ID, APIConstants.API_CLIENT_ID);
+            params.put(APIConstants.LOGIN_PARAM_CLIENT_SECRET, APIConstants.API_CLIENT_SECRET);
+        }
+
+
+        VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+
+                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+
+                if (apiResponse.isSuccessful()) {
+                    gson = GsonUtility.createGsonBuilder(Login.class, new Login.LoginInstance()).create();
+                    String jsonString = new Gson().toJson(apiResponse.getData());
+                    Login obj = gson.fromJson(jsonString, Login.class);
+                    responseHandler.onSuccess(requestCode, obj);
+                } else {
+                    responseHandler.onFailed(requestCode, apiResponse.getMessage());
+                }
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                String message = APIConstants.API_CONNECTION_PROBLEM;
+
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+
+                    message = APIConstants.API_CONNECTION_PROBLEM;
+
+                } else if (error instanceof AuthFailureError) {
+
+                    message = APIConstants.API_CONNECTION_AUTH_ERROR;
+
+                } else {
+
+                    try {
+                        String responseBody = new String(error.networkResponse.data, "utf-8" );
+                        JSONObject jsonObject = new JSONObject( responseBody );
+                        jsonObject = jsonObject.getJSONObject("data");
+                        JSONArray var = jsonObject.getJSONArray("errors");
+                        message = var.get(0).toString();
+
+                    } catch ( Exception e ) {
+                        //Handle a malformed json response
+                    }
+                }
+
+                responseHandler.onFailed(requestCode, message);
+            }
+        });
+
+        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
+
+        return request;
+    }
+
+    /**
+     * API key email also accept mobile number value
+     * @param requestCode
+     * @param grantType
+     * @param email
+     * @param password
+     * @param responseHandler
+     * @return
+     */
+
+    public static Request loginSimplified (final int requestCode, String grantType, String email,
+                                 String password, String clientId, String clientSecret, final ResponseHandler responseHandler){
+
+        String url = String.format("%s/%s",
+                APIConstants.DOMAIN.replace("v1","v2"),
+                APIConstants.LOGIN_API);
+
+        Map<String,String> params = new HashMap<String,String>();
+        if(grantType.contains("affiliate")){
+            params.put(APIConstants.LOGIN_PARAM_CLIENT_ID, clientId);
+            params.put(APIConstants.LOGIN_PARAM_CLIENT_SECRET, clientSecret);
+        }else {
+            params.put(APIConstants.LOGIN_PARAM_CLIENT_ID, APIConstants.API_CLIENT_ID);
+            params.put(APIConstants.LOGIN_PARAM_CLIENT_SECRET, APIConstants.API_CLIENT_SECRET);
+        }
+            params.put(APIConstants.LOGIN_PARAM_GRANT_TYPE, grantType);
+            params.put(APIConstants.LOGIN_PARAM_EMAIL, email);
+            params.put(APIConstants.LOGIN_PARAM_PASSWORD, password);
+
+        VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+                Gson gson = GsonUtility.createGsonBuilder(Login.class, new Login.LoginInstance()).create();
+                Login obj = gson.fromJson(response.toString(), Login.class);
+
+                responseHandler.onSuccess(requestCode, obj);
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                String message = APIConstants.API_CONNECTION_PROBLEM;
+
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+
+                    message = APIConstants.API_CONNECTION_PROBLEM;
+
+                } else if (error instanceof AuthFailureError) {
+
+                    message = APIConstants.API_CONNECTION_AUTH_ERROR;
+
+                } else {
+
+                    try {
+                        String responseBody = new String(error.networkResponse.data, "utf-8" );
+                        JSONObject jsonObject = new JSONObject( responseBody );
+                        message = jsonObject.getString("error_description");
+
+                    } catch ( Exception e ) {
+                        //Handle a malformed json response
+                    }
+                }
+
+                responseHandler.onFailed(requestCode, message);
+            }
+        });
+
+        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
+
+        return request;
+    }
+
+    public static Request resetPasswordSimplified (final int requestCode, String verificationCode, String password, String storeType,
+                                              final ResponseHandler responseHandler){
+
+        String url = String.format("%s/%s/%s",
+                APIConstants.DOMAIN.replace("v1","v2"), APIConstants.USER_API, APIConstants.RESET_PASSWORD_API);
+        //String url = "http://online.api.easydeal.ph/api/v2/user/resetPassword";
+
+        Map<String, String> params = new HashMap<String, String>();
+        params.put(APIConstants.REG_PARAM_VERIFICATION_CODE, verificationCode);
+        params.put(APIConstants.REG_PARAM_NEW_PASSWORD, password);
+        params.put(APIConstants.REG_PARAM_STORE_TYPE, storeType);
+
+        VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+
+                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+
+                responseHandler.onSuccess(requestCode, apiResponse);
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                String message = APIConstants.API_CONNECTION_PROBLEM;
+
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+
+                    message = APIConstants.API_CONNECTION_PROBLEM;
+
+                } else if (error instanceof AuthFailureError) {
+
+                    message = APIConstants.API_CONNECTION_AUTH_ERROR;
+
+                } else {
+
+                    try {
+                        String responseBody = new String(error.networkResponse.data, "utf-8" );
+                        JSONObject jsonObject = new JSONObject( responseBody );
+                        jsonObject = jsonObject.getJSONObject("data");
+                        JSONArray var = jsonObject.getJSONArray("errors");
+                        message = var.get(0).toString();
+
+                    } catch ( Exception e ) {
+                        //Handle a malformed json response
+                    }
+                }
+
+                responseHandler.onFailed(requestCode, message);
+            }
+        });
+
+        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
+
+        return request;
+    }
+
 }

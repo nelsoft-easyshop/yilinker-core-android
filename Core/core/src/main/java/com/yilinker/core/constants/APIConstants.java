@@ -20,6 +20,7 @@ public class APIConstants {
     public static final String API_CLIENT_SECRET = BaseApplication.getClientSecretFromApplication();
     public static final String AUTH_API = "auth";
     public static final String MERCHANT_API = "merchant";
+    public static final String AFFILIATE_API = "affiliate";
     public static final String CANCELLATION_API = "cancellation";
     public static final String TRANSACTION_API = "transaction";
     public static final String RESELLER_API = "reseller";
@@ -87,6 +88,23 @@ public class APIConstants {
     public static final String SEARCH_QUERY_TRANSACTION = "query";
     public static final String GENERATE_QR_CODE_API = "getQrCode";
 
+    /***Payout Module*/
+    public static final String PAYOUT_BALANCE_RECORD_DETAILS = "balanceRecordDetails";
+    public static final String PAYOUT_AMOUNT = "amount";
+    public static final String PAYOUT_WITHDRAWAL_METHOD = "withdrawalMethod";
+    public static final String PAYOUT_OTP = "otp";
+    public static final String PAYOUT_WITHDRAWAL_REQUEST = "withdrawal-request";
+    public static final String PAYOUT_WITHDRAWAL_LIST = "withdraw-list";
+    public static final String PAYOUT_GET_EARNING_GROUPS = "earning-groups";
+    public static final String PAYOUT_GET_EARNING_LIST = "earning-list";
+    public static final String PAYOUT_PARAMS_EARNINGS_GROUP_ID = "earningGroupId";
+    public static final String PAYOUT_PARAMS_EARNINGS_GROUP_PAGE = "page";
+    public static final String PAYOUT_PARAMS_EARNINGS_GROUP_PER_PAGE = "perPage";
+
+    /***One Time Password*/
+    public static final String SEND = "send";
+    public static final String TYPE= "type";
+
     //For Cart API
     public static final String CART_API = "cart";
     public static final String CART_GET_ITEMS = "getCart";
@@ -97,6 +115,18 @@ public class APIConstants {
     public static final String WISH_LIST_GET_ITEMS = "wishlist";
     public static final String WISH_LIST_TO_CART = "wishlistToCart";
     public static final String ITEM_IDS = "itemIds";
+
+    //For Checkout
+    public static final String CHECKOUT_GUEST             = "isGuest";
+    public static final String CHECKOUT_VERIFICATION_CODE = "verificationCode";
+    public static final String CHECKOUT_CONTACT_NUMBER = "contactNumber";
+    public static final String CHECKOUT_FIRST_NAME = "firstName";
+    public static final String CHECKOUT_LAST_NAME = "lastName";
+    public static final String CHECKOUT_MOBILE_PHONE = "contactNo";
+    public static final String CHECKOUT_EMAIL     = "email";
+    public static final String CHECKOUT_UPDATE_BASIC_INFO = "update-basic-info";
+    public static final String CHECKOUT_TOKEN = "token";
+    public static final String CHECKOUT_VALIDATE = "validate";
 
     //For Profile API
     public static final String PROFILE_API = "user";
@@ -130,6 +160,7 @@ public class APIConstants {
     public static final String PROFILE_LANDLINE = "landline";
     public static final String PROFILE_ISSUBSCRIBE = "isSubscribe";
     public static final String PROFILE_SUBSCRIPTION_API = "subscription";
+    public static final String PROFILE_REFERRAL_CODE = "referralCode";
 
     //For Activity Log
     public static final String ACTIVITY_LOG_GET_ITEMS = "activityLog";
@@ -141,7 +172,6 @@ public class APIConstants {
     //For User API
     public static final String USER_API = "user";
 
-
     //For Registration API
     public static final String REG_API = "register";
     public static final String REG_GUEST_API = "registerGuestUser";
@@ -151,11 +181,22 @@ public class APIConstants {
     public static final String REG_PARAM_MOBILE = "contactNumber";
     public static final String REG_PARAM_EMAIL = "email";
     public static final String REG_PARAM_PASSWORD = "password";
-    public static final String REG_PARAM_REFERRAL = "referralCode";
+    public static final String REG_PARAM_REFERRAL = "referrerCode";
     public static final String REG_PARAM_GUEST = "user_guest";
     public static final String REG_PARAM_PLAIN_PASSWORD = "plainPassword";
     public static final String REG_PARAM_FIRST = "first";
     public static final String REG_PARAM_SECOND = "second";
+
+    //For Simplified Registration/Login
+    public static final String REG_PARAM_AREA_CODE = "areaCode";
+    public static final String REG_PARAM_UNAUTHENTICATION_TYPE = "type";
+    public static final String REG_PARAM_STORE_TYPE = "storeType";
+    public static final String REG_PARAM_VERIFICATION_CODE = "verificationCode";
+    public static final String REG_PARAM_NEW_PASSWORD = "newPassword";
+    public static final String REG_GET_ACTIVATION_CODE_API = "send";
+
+    //For Simplified Reset Password API
+    public static final String RESET_PASSWORD_API = "resetPassword";
 
     //For Login API
     public static final String TOKEN_API = "token";
@@ -348,9 +389,8 @@ public class APIConstants {
     public static final String CHECKOUT_SELECT_ITEMS = "cartToCheckout";
     public static final String CHECKOUT_TRANSACTION_CLEAR = "transactionClear";
 
-
     //Checkout Guest
-
+    public static final String GUEST_CONFIRMATION_CODE = "confirmationCode";
     public static final String GUEST_CHECKOUT_API = "guestUser";
     public static final String GUEST_PARAMS_FIRST_NAME = "firstName";
     public static final String GUEST_PARAMS_LAST_NAME = "lastName";
@@ -609,5 +649,39 @@ public class APIConstants {
 
     public final static String API_HOME_V2_PRODUCT_ID                                               = "productId";
     public final static String API_HOME_V2_PRODUCT_UNIT_ID                                          = "productUnitId";
+
+    //For Store Setup API
+    public static final String STORE_SETUP_STORE                                                    = "store";
+    public static final String STORE_SETUP_SETUP                                                    = "setup";
+    public static final String STORE_SETUP_SLUG                                                     = "storeSlug";
+    public static final String STORE_SETUP_NAME                                                     = "storeName";
+    public static final String STORE_SETUP_DESCRIPTION                                              = "storeDescription";
+
+    //For Upload Image API
+    public static final String UPLOAD                                                               = "upload";
+    public static final String IMAGE                                                                = "image";
+
+    //For Edit Profile API
+    public final static String VERIFY_EMAIL_API                                                     = "verify-email";
+    public final static String UPDATE_USER_PROFILE_API                                              = "update-user-info";
+    public final static String EDIT_PROFILE_PARAM_TIN                                               = "tin";
+    public final static String EDIT_PROFILE_PARAM_IS_SENT                                           = "isSent";
+    public final static String EDIT_PROFILE_PARAM_VALID_ID                                          = "validId";
+
+    //Select Product API
+    public final static String GET_AFFILLIATE_PRODUCTS                                              = "getAffiliateProducts";
+    public final static String PARAMS_CATEGORY_IDS                                                  = "categoryIds";
+    public final static String PARAMS_SORT_BY                                                       = "sortBy";
+    public final static String PARAMS_STATUS                                                        = "status";
+    public final static String PARAMS_PAGE                                                          = "page";
+    public final static String PARAMS_LIMIT                                                         = "limit";
+    public final static String PARAMS_NAME                                                          = "name";
+
+    public final static String GET_CATEGORIES                                                       = "getCategories";
+
+    public final static String SAVE_AFFILIATE_PRODUCTS                                              = "saveAffiliateProducts";
+    public final static String PARAMS_MANUFACTURER_PRODUCT_IDS                                      = "manufacturerProductIds";
+    public final static String PARAMS_REMOVE_MANUFACTURER_PRODUCT_IDS                               = "removeManufacturerProductIds";
+
 
 }

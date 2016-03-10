@@ -1,7 +1,9 @@
 package com.yilinker.core.api;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
 import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.ServerError;
@@ -10,10 +12,12 @@ import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.yilinker.core.constants.APIConstants;
+import com.yilinker.core.helper.MultiPartRequest;
 import com.yilinker.core.helper.VolleyPostHelper;
 import com.yilinker.core.interfaces.ResponseHandler;
 import com.yilinker.core.model.APIResponse;
 import com.yilinker.core.model.Address;
+import com.yilinker.core.model.AuthenticatedOTP;
 import com.yilinker.core.model.buyer.Cart;
 import com.yilinker.core.model.buyer.CartItem2;
 import com.yilinker.core.model.buyer.CheckoutOverview;
@@ -26,6 +30,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -45,7 +50,7 @@ public class CheckoutApi {
         if(!isGuest) {
 
             url = String.format("%s/%s/%s/%s",
-                    APIConstants.DOMAIN, APIConstants.AUTH_API,
+                    APIConstants.DOMAIN.replace("v1", "v2"), APIConstants.AUTH_API,
                     APIConstants.CHECKOUT_PAYMENT_API,
                     APIConstants.CHECKOUT_PAYMENT_COD);
             params.put(APIConstants.ACCESS_TOKEN, token);
@@ -53,7 +58,7 @@ public class CheckoutApi {
         } else {
 
             url = String.format("%s/%s/%s",
-                    APIConstants.DOMAIN, APIConstants.CHECKOUT_PAYMENT_API, APIConstants.CHECKOUT_PAYMENT_COD);
+                    APIConstants.DOMAIN.replace("v1", "v2"), APIConstants.CHECKOUT_PAYMENT_API, APIConstants.CHECKOUT_PAYMENT_COD);
 
         }
 
@@ -117,13 +122,13 @@ public class CheckoutApi {
         Map<String, String> params = new HashMap<String, String>();
         if(!isGuest) {
             url = String.format("%s/%s/%s/%s",
-                    APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.CHECKOUT_PAYMENT_API,
+                    APIConstants.DOMAIN.replace("v1", "v2"), APIConstants.AUTH_API, APIConstants.CHECKOUT_PAYMENT_API,
                     APIConstants.CHECKOUT_PAYMENT_PESOPAY);
             params.put(APIConstants.ACCESS_TOKEN, token);
 
         } else {
             url = String.format("%s/%s/%s",
-                    APIConstants.DOMAIN, APIConstants.CHECKOUT_PAYMENT_API,
+                    APIConstants.DOMAIN.replace("v1", "v2"), APIConstants.CHECKOUT_PAYMENT_API,
                     APIConstants.CHECKOUT_PAYMENT_PESOPAY);
         }
 
@@ -185,12 +190,12 @@ public class CheckoutApi {
         Map<String, String> params = new HashMap<String, String>();
 
         if(!isGuest) {
-            url = String.format("%s/%s/%s/%s",
-                APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.CHECKOUT_PAYMENT_API, APIConstants.CHECKOUT_PAYMENT_OVERVIEW);
+            url = String.format("%s/%s/%s/%s", APIConstants.DOMAIN.replace("v1", "v2"),
+                    APIConstants.AUTH_API, APIConstants.CHECKOUT_PAYMENT_API, APIConstants.CHECKOUT_PAYMENT_OVERVIEW);
             params.put(APIConstants.ACCESS_TOKEN, token);
         } else {
-            url = String.format("%s/%s/%s",
-                    APIConstants.DOMAIN, APIConstants.CHECKOUT_PAYMENT_API, APIConstants.CHECKOUT_PAYMENT_OVERVIEW);
+            url = String.format("%s/%s/%s", APIConstants.DOMAIN.replace("v1", "v2"),
+                    APIConstants.CHECKOUT_PAYMENT_API, APIConstants.CHECKOUT_PAYMENT_OVERVIEW);
         }
 
         params.put(APIConstants.CHECKOUT_PARAMS_TRANSACTION_ID, transactionId);
@@ -248,7 +253,7 @@ public class CheckoutApi {
 
     public static Request setDefaultAddress(final int requestCode, String token, int addressId, final ResponseHandler responseHandler){
 
-        String url = String.format("%s/%s/%s/%s", APIConstants.DOMAIN, APIConstants.AUTH_API,
+        String url = String.format("%s/%s/%s/%s", APIConstants.DOMAIN.replace("v1", "v2"), APIConstants.AUTH_API,
                 APIConstants.USER_API, APIConstants.CHECKCOUT_ADDRESS_SET_ADDRESS);
 
         Map<String, String> params = new HashMap<String, String>();
@@ -318,11 +323,11 @@ public class CheckoutApi {
         Map<String, String> params = new HashMap<>();
 
         if(!isGuest){
-            url = String.format("%s/%s/%s/%s", APIConstants.DOMAIN, APIConstants.AUTH_API,
+            url = String.format("%s/%s/%s/%s", APIConstants.DOMAIN.replace("v1", "v2"), APIConstants.AUTH_API,
                     APIConstants.CART_API, APIConstants.CHECKOUT_SELECT_ITEMS);
             params.put(APIConstants.ACCESS_TOKEN, token);
         } else {
-            url = String.format("%s/%s/%s", APIConstants.DOMAIN, APIConstants.CART_API,
+            url = String.format("%s/%s/%s", APIConstants.DOMAIN.replace("v1", "v2"), APIConstants.CART_API,
                     APIConstants.CHECKOUT_SELECT_ITEMS);
         }
 
@@ -400,28 +405,39 @@ public class CheckoutApi {
     }
 
     public static Request requestGuestAccount(final int requestCode, Address address, String firstName,
-                                              String lastName, String mobileNumber, String emailAddress,
+                                              String lastName, String mobileNumber, String confirmationCode,
                                               final ResponseHandler responseHandler){
-        String url = String.format("%s/%s", APIConstants.DOMAIN, APIConstants.GUEST_CHECKOUT_API);
+        String url = String.format("%s/%s", APIConstants.DOMAIN.replace("v1","v2"), APIConstants.GUEST_CHECKOUT_API);
 
         Map<String, String> params = new HashMap<String, String>();
 
-        params.put(String.format("%s[%s]", APIConstants.GUEST_USER_PARAMS, APIConstants.GUEST_PARAMS_FIRST_NAME), firstName);
-        params.put(String.format("%s[%s]", APIConstants.GUEST_USER_PARAMS, APIConstants.GUEST_PARAMS_LAST_NAME), lastName);
-        params.put(String.format("%s[%s]", APIConstants.GUEST_USER_PARAMS, APIConstants.GUEST_PARAMS_EMAIL), emailAddress);
-        params.put(String.format("%s[%s]", APIConstants.GUEST_USER_PARAMS, APIConstants.GUEST_PARAMS_CONTACT_NUMBER), mobileNumber);
+        params.put(APIConstants.GUEST_PARAMS_FIRST_NAME, firstName);
+        params.put(APIConstants.GUEST_PARAMS_LAST_NAME, lastName);
+        params.put(APIConstants.GUEST_PARAMS_CONTACT_NUMBER, mobileNumber);
+        params.put(APIConstants.ADDRESS_PARAMS_STREET_NAME, String.valueOf(address.getStreetName()));
+        params.put(APIConstants.ADDRESS_PARAMS_ZIPCODE, String.valueOf(address.getZipCode()));
+        params.put(APIConstants.ADDRESS_PARAMS_ISDEFAULT, String.valueOf("1"));
+        params.put(APIConstants.ADDRESS_PARAMS_LOCATION, String.valueOf(address.getLocationId()));
+        params.put(APIConstants.ADDRESS_PARAMS_LATITUDE, address.getLatitude());
+        params.put(APIConstants.ADDRESS_PARAMS_LONGITUDE, address.getLongitude());
+        params.put(APIConstants.GUEST_CONFIRMATION_CODE, confirmationCode);
 
-        params.put(String.format("%s[%s]", APIConstants.GUEST_ADDRESS_PARAMS, APIConstants.ADDRESS_PARAMS_TITLE), String.valueOf(address.getAddressTitle()));
-        params.put(String.format("%s[%s]", APIConstants.GUEST_ADDRESS_PARAMS, APIConstants.ADDRESS_PARAMS_UNIT_NUMBER), String.valueOf(address.getUnitNumber()));
-        params.put(String.format("%s[%s]", APIConstants.GUEST_ADDRESS_PARAMS, APIConstants.ADDRESS_PARAMS_BUILDING_NAME), String.valueOf(address.getBuildingName()));
-        params.put(String.format("%s[%s]", APIConstants.GUEST_ADDRESS_PARAMS, APIConstants.ADDRESS_PARAMS_STREET_NUMBER), String.valueOf(address.getStreetNumber()));
-        params.put(String.format("%s[%s]", APIConstants.GUEST_ADDRESS_PARAMS, APIConstants.ADDRESS_PARAMS_STREET_NAME), String.valueOf(address.getStreetName()));
-        params.put(String.format("%s[%s]", APIConstants.GUEST_ADDRESS_PARAMS, APIConstants.ADDRESS_PARAMS_SUBDIVISION), String.valueOf(address.getSubdivision()));
-        params.put(String.format("%s[%s]", APIConstants.GUEST_ADDRESS_PARAMS, APIConstants.ADDRESS_PARAMS_ZIPCODE), String.valueOf(address.getZipCode()));
-        params.put(String.format("%s[%s]", APIConstants.GUEST_ADDRESS_PARAMS, APIConstants.ADDRESS_PARAMS_ISDEFAULT), String.valueOf("1"));
-        params.put(String.format("%s[%s]", APIConstants.GUEST_ADDRESS_PARAMS, APIConstants.ADDRESS_PARAMS_LOCATION), String.valueOf(address.getLocationId()));
-        params.put(String.format("%s[%s]", APIConstants.GUEST_ADDRESS_PARAMS, APIConstants.ADDRESS_PARAMS_LATITUDE),address.getLatitude());
-        params.put(String.format("%s[%s]", APIConstants.GUEST_ADDRESS_PARAMS, APIConstants.ADDRESS_PARAMS_LONGITUDE),address.getLongitude());
+//        params.put(String.format("%s[%s]", APIConstants.GUEST_USER_PARAMS, APIConstants.GUEST_PARAMS_FIRST_NAME), firstName);
+//        params.put(String.format("%s[%s]", APIConstants.GUEST_USER_PARAMS, APIConstants.GUEST_PARAMS_LAST_NAME), lastName);
+//        params.put(String.format("%s[%s]", APIConstants.GUEST_USER_PARAMS, APIConstants.GUEST_PARAMS_EMAIL), emailAddress);
+//        params.put(String.format("%s[%s]", APIConstants.GUEST_USER_PARAMS, APIConstants.GUEST_PARAMS_CONTACT_NUMBER), mobileNumber);
+
+//        params.put(String.format("%s[%s]", APIConstants.GUEST_ADDRESS_PARAMS, APIConstants.ADDRESS_PARAMS_TITLE), String.valueOf(address.getAddressTitle()));
+//        params.put(String.format("%s[%s]", APIConstants.GUEST_ADDRESS_PARAMS, APIConstants.ADDRESS_PARAMS_UNIT_NUMBER), String.valueOf(address.getUnitNumber()));
+//        params.put(String.format("%s[%s]", APIConstants.GUEST_ADDRESS_PARAMS, APIConstants.ADDRESS_PARAMS_BUILDING_NAME), String.valueOf(address.getBuildingName()));
+//        params.put(String.format("%s[%s]", APIConstants.GUEST_ADDRESS_PARAMS, APIConstants.ADDRESS_PARAMS_STREET_NUMBER), String.valueOf(address.getStreetNumber()));
+//        params.put(String.format("%s[%s]", APIConstants.GUEST_ADDRESS_PARAMS, APIConstants.ADDRESS_PARAMS_STREET_NAME), String.valueOf(address.getStreetName()));
+//        params.put(String.format("%s[%s]", APIConstants.GUEST_ADDRESS_PARAMS, APIConstants.ADDRESS_PARAMS_SUBDIVISION), String.valueOf(address.getSubdivision()));
+//        params.put(String.format("%s[%s]", APIConstants.GUEST_ADDRESS_PARAMS, APIConstants.ADDRESS_PARAMS_ZIPCODE), String.valueOf(address.getZipCode()));
+//        params.put(String.format("%s[%s]", APIConstants.GUEST_ADDRESS_PARAMS, APIConstants.ADDRESS_PARAMS_ISDEFAULT), String.valueOf("1"));
+//        params.put(String.format("%s[%s]", APIConstants.GUEST_ADDRESS_PARAMS, APIConstants.ADDRESS_PARAMS_LOCATION), String.valueOf(address.getLocationId()));
+//        params.put(String.format("%s[%s]", APIConstants.GUEST_ADDRESS_PARAMS, APIConstants.ADDRESS_PARAMS_LATITUDE),address.getLatitude());
+//        params.put(String.format("%s[%s]", APIConstants.GUEST_ADDRESS_PARAMS, APIConstants.ADDRESS_PARAMS_LONGITUDE),address.getLongitude());
 //        JSONArray guestAddress = new JSONArray();
 //        JSONArray guestDetails = new JSONArray();
 //        JSONObject guestData = new JSONObject();
@@ -471,6 +487,191 @@ public class CheckoutApi {
         });
 
             request.setRetryPolicy(SocketTimeout.getRetryPolicy());
+
+        return request;
+    }
+
+    public static Request updateBasicInfo (final int requestCode, String token, String firstName, String lastName,
+                                           String contactNumber, String email, String confirmationCode,
+                                           final ResponseHandler responseHandler){
+
+        String url = String.format("%s/%s/%s",
+                APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.CHECKOUT_UPDATE_BASIC_INFO);
+
+        Map<String, String> params = new HashMap<String, String>();
+        params.put(APIConstants.CHECKOUT_FIRST_NAME, firstName);
+        params.put(APIConstants.CHECKOUT_LAST_NAME, lastName);
+        params.put(APIConstants.CHECKOUT_MOBILE_PHONE, contactNumber);
+        params.put(APIConstants.CHECKOUT_EMAIL, email);
+        params.put(APIConstants.GUEST_CONFIRMATION_CODE, confirmationCode);
+
+        url = String.format("%s?%s=%s",url,APIConstants.ACCESS_TOKEN, token);
+
+        VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+
+                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+
+//                if (apiResponse.isSuccessful()) {
+                    responseHandler.onSuccess(requestCode, apiResponse);
+//                } else {
+//                    responseHandler.onFailed(requestCode, apiResponse.getMessage());
+//                }
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                String message = "An error occured.";
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                    message = "No connection available.";
+                } else if (error instanceof AuthFailureError) {
+                    message = "Authentication Failure.";
+                } else if (error instanceof ServerError) {
+                    message = "Server error.";
+
+                    try {
+                        String responseBody = new String(error.networkResponse.data, "utf-8" );
+                        JSONObject jsonObject = new JSONObject( responseBody );
+                        jsonObject = jsonObject.getJSONObject("data");
+                        JSONArray var = jsonObject.getJSONArray("errors");
+                        message = var.get(0).toString();
+
+                    } catch ( Exception e ) {
+                        //Handle a malformed json response
+                    }
+
+                } else if (error instanceof NetworkError) {
+                    message = "Network Error.";
+                } else if (error instanceof ParseError) {
+                    message = "Parse error.";
+                }
+                responseHandler.onFailed(requestCode, message);
+            }
+        });
+
+        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
+
+        return request;
+    }
+
+    public static Request verifyNumber (final int requestCode, String token, String contactNumber,
+                                        String verificationCode, String type, final ResponseHandler responseHandler){
+
+        String url = String.format("%s/%s/%s/%s",
+                APIConstants.DOMAIN.replace("v1", "v2"), APIConstants.AUTH_API, APIConstants.CHECKOUT_TOKEN, APIConstants.CHECKOUT_VALIDATE);
+
+        Map<String, String> params = new HashMap<String, String>();
+        params.put(APIConstants.ACCESS_TOKEN, token);
+        params.put(APIConstants.CHECKOUT_CONTACT_NUMBER, contactNumber);
+        params.put(APIConstants.CHECKOUT_VERIFICATION_CODE, verificationCode);
+        params.put(APIConstants.TYPE, type);
+
+        VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+
+                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+
+//                if (apiResponse.isSuccessful()) {
+                    responseHandler.onSuccess(requestCode, apiResponse);
+//                } else {
+//                    responseHandler.onFailed(requestCode, apiResponse.getMessage());
+//                }
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                String message = "An error occured.";
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                    message = "No connection available.";
+                } else if (error instanceof AuthFailureError) {
+                    message = "Authentication Failure.";
+                } else if (error instanceof ServerError) {
+                    message = "Server error.";
+                } else if (error instanceof NetworkError) {
+                    message = "Network Error.";
+                } else if (error instanceof ParseError) {
+                    message = "Parse error.";
+                }
+                responseHandler.onFailed(requestCode, message);
+            }
+        });
+
+        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
+
+        return request;
+    }
+
+    public static Request getRequestCode(final int requestCode, String accessToken, String type, String contactNumber, final ResponseHandler responseHandler) {
+
+        String url = String.format("%s/%s/%s/%s", APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.SMS_API,
+                APIConstants.SEND);
+        //TEMP for v2
+        url = url.replace("v1","v2");
+
+        Map<String, String > params = new HashMap<>();
+        params.put( APIConstants.ACCESS_TOKEN,String.valueOf(accessToken));
+        params.put(APIConstants.TYPE, type);
+        params.put(APIConstants.CHECKOUT_CONTACT_NUMBER, contactNumber);
+
+        VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+
+                gson = GsonUtility.createGsonBuilder(AuthenticatedOTP.class, new AuthenticatedOTP.AuthenticatedOTPInstance()).create();
+                String jsonString = new Gson().toJson(apiResponse.getData());
+                AuthenticatedOTP obj = gson.fromJson(jsonString, AuthenticatedOTP.class);
+
+                if (apiResponse.isSuccessful()){
+
+                    responseHandler.onSuccess(requestCode, obj);
+
+                }else{
+                    responseHandler.onFailed(requestCode, apiResponse.getMessage());
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                String message = APIConstants.API_CONNECTION_PROBLEM;
+
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+
+                    message = APIConstants.API_CONNECTION_PROBLEM;
+
+                } else if (error instanceof AuthFailureError) {
+
+                    message = APIConstants.API_AUTHENTICATION_ERROR;
+
+                }else{
+                    try {
+                        String responseBody = new String(error.networkResponse.data, "utf-8" );
+                        JSONObject jsonObject = new JSONObject( responseBody );
+                        message = jsonObject.getString("message");
+
+                    } catch ( JSONException e ) {
+                        //Handle a malformed json response
+                    } catch (UnsupportedEncodingException e){
+
+                    }
+                }
+                responseHandler.onFailed(requestCode, message);
+            }});
+
+
+        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
 
         return request;
     }

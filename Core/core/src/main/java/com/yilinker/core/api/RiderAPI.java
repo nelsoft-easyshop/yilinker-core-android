@@ -46,7 +46,7 @@ public class RiderAPI {
      * @param responseHandler
      * @return
      */
-    public static Request loginByUsername (final int requestCode, OAuthentication oAuth, final ResponseHandler responseHandler){
+    public static Request loginByUsername (final int requestCode, OAuthentication oAuth, String locale, final ResponseHandler responseHandler){
 
         //temp
 //        String url = String.format("%s/%s",
@@ -55,6 +55,9 @@ public class RiderAPI {
 
         String url = String.format("http://sprint.api.express.api.easydeal.ph/v1/%s",
                 APIConstants.RIDER_GET_TOKEN);
+
+        //remove language locale on url for login only
+        url = url.replaceFirst(String.format("/%s",locale), "");
 
         Map<String,String> params = new HashMap<String,String>();
         params.put(APIConstants.LOGIN_PARAM_CLIENT_ID, oAuth.getClientId());

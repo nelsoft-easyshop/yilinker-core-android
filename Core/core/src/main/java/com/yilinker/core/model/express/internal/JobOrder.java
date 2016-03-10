@@ -33,6 +33,8 @@ public class JobOrder {
     private double amountToCollect;
     private boolean isOpen;
     private String areaCode;
+    private String dateCreated;
+    private String dateAccepted;
 
 
     public String getJobOrderNo() {
@@ -217,6 +219,22 @@ public class JobOrder {
 
     public void setAreaCode(String areaCode) {
         this.areaCode = areaCode;
+    }
+
+    public String getDateCreated() {
+        return dateCreated;
+    }
+
+    public void setDateCreated(String dateCreated) {
+        this.dateCreated = dateCreated;
+    }
+
+    public String getDateAccepted() {
+        return dateAccepted;
+    }
+
+    public void setDateAccepted(String dateAccepted) {
+        this.dateAccepted = dateAccepted;
     }
 
     public static class JobOrderInstance implements InstanceCreator<JobOrder> {

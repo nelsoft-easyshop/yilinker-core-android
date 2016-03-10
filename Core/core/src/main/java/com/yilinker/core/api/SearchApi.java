@@ -53,6 +53,8 @@ public class SearchApi {
 //            Log.d("URL", sample);
 //        }
 
+        url = url.replaceAll(" ", "%20");
+
         Request requestGetSearch = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -78,7 +80,9 @@ public class SearchApi {
                 }
 
             }
-        }, new Response.ErrorListener() {
+        },
+
+                new Response.ErrorListener() {
 
             @Override
             public void onErrorResponse(VolleyError error) {
@@ -92,7 +96,7 @@ public class SearchApi {
 
                     message = APIConstants.API_CONNECTION_AUTH_ERROR;
 
-                }else{
+                }else if (error.networkResponse.data != null){
                     try {
                         String responseBody = new String(error.networkResponse.data, "utf-8" );
                         JSONObject jsonObject = new JSONObject( responseBody );
@@ -116,7 +120,7 @@ public class SearchApi {
     public static Request getSearchStore(final int requestCode, String keyword,String accessToken, final ResponseHandler responseHandler) {
 
         String url="";
-        if (accessToken.isEmpty()){
+        if (accessToken == null || accessToken.isEmpty()){
             url = String.format("%s/%s/%s?%s=%s",
                     APIConstants.DOMAIN, APIConstants.STORE_API, APIConstants.GET_SEARCH,
                     APIConstants.SEARCH_QUERY, keyword);
@@ -127,6 +131,8 @@ public class SearchApi {
                 APIConstants.SEARCH_QUERY, keyword,APIConstants.ACCESS_TOKEN,accessToken);
 
         }
+
+        url = url.replaceAll(" ", "%20");
 
 //        String url = "http://online.api.easydeal.ph/api/v1/store/search?queryString=seller";
 
