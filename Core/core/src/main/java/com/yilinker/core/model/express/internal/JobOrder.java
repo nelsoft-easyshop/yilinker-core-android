@@ -3,6 +3,7 @@ package com.yilinker.core.model.express.internal;
 import com.google.gson.InstanceCreator;
 
 import java.lang.reflect.Type;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -35,6 +36,9 @@ public class JobOrder {
     private String areaCode;
     private String dateCreated;
     private String dateAccepted;
+
+    private String shipperName;
+    private String shipperContactNo;
     private int jobOrderTypeId;
 
     public int getJobOrderTypeId() {
@@ -229,6 +233,7 @@ public class JobOrder {
         this.areaCode = areaCode;
     }
 
+
     public String getDateCreated() {
         return dateCreated;
     }
@@ -243,6 +248,22 @@ public class JobOrder {
 
     public void setDateAccepted(String dateAccepted) {
         this.dateAccepted = dateAccepted;
+    }
+
+    public String getShipperName() {
+        return shipperName;
+    }
+
+    public void setShipperName(String shipperName) {
+        this.shipperName = shipperName;
+    }
+
+    public String getShipperContactNo() {
+        return shipperContactNo;
+    }
+
+    public void setShipperContactNo(String shipperContactNo) {
+        this.shipperContactNo = shipperContactNo;
     }
 
     public static class JobOrderInstance implements InstanceCreator<JobOrder> {
