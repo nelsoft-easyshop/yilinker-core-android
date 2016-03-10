@@ -35,7 +35,8 @@ public class JobOrder {
     private String areaCode;
     private String dateCreated;
     private String dateAccepted;
-
+    private String shipperName;
+    private String shipperContactNo;
 
     public String getJobOrderNo() {
         return jobOrderNo;
@@ -235,6 +236,22 @@ public class JobOrder {
 
     public void setDateAccepted(String dateAccepted) {
         this.dateAccepted = dateAccepted;
+    }
+
+    public String getShipperName() {
+        return shipperName;
+    }
+
+    public void setShipperName(String shipperName) {
+        this.shipperName = shipperName;
+    }
+
+    public String getShipperContactNo() {
+        return shipperContactNo;
+    }
+
+    public void setShipperContactNo(String shipperContactNo) {
+        this.shipperContactNo = shipperContactNo;
     }
 
     public static class JobOrderInstance implements InstanceCreator<JobOrder> {
