@@ -34,8 +34,8 @@ public class JobOrder {
     private double amountToCollect;
     private boolean isOpen;
     private String areaCode;
-    private Date dateCreated;
-    private Date dateAccepted;
+    private String dateCreated;
+    private String dateAccepted;
 
     private String shipperName;
     private String shipperContactNo;
@@ -233,23 +233,22 @@ public class JobOrder {
         this.areaCode = areaCode;
     }
 
-    public Date getDateCreated() {
+
+    public String getDateCreated() {
         return dateCreated;
     }
 
-    public void setDateCreated(Date dateCreated) {
+    public void setDateCreated(String dateCreated) {
         this.dateCreated = dateCreated;
     }
 
-    public Date getDateAccepted() {
+    public String getDateAccepted() {
         return dateAccepted;
     }
 
-    public void setDateAccepted(Date dateAccepted) {
+    public void setDateAccepted(String dateAccepted) {
         this.dateAccepted = dateAccepted;
     }
-
-
 
     public String getShipperName() {
         return shipperName;
