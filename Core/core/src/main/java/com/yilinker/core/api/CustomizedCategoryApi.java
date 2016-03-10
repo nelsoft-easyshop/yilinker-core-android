@@ -68,12 +68,16 @@ public class CustomizedCategoryApi {
                     message = "No connection available.";
                 } else if (error instanceof AuthFailureError) {
                     message = "Authentication Failure.";
-                } else if (error instanceof ServerError) {
-                    message = "Server error.";
-                } else if (error instanceof NetworkError) {
-                    message = "Network Error.";
-                } else if (error instanceof ParseError) {
-                    message = "Parse error.";
+                } else {
+
+                    try {
+                        String responseBody = new String(error.networkResponse.data, "utf-8" );
+                        JSONObject jsonObject = new JSONObject( responseBody );
+                        message = jsonObject.getString("message");
+
+                    } catch ( Exception e ) {
+                        //Handle a malformed json response
+                    }
                 }
                 responseHandler.onFailed(requestCode, message);
             }
