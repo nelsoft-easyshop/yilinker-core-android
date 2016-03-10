@@ -48,12 +48,8 @@ public class RiderAPI {
      */
     public static Request loginByUsername (final int requestCode, OAuthentication oAuth, String locale, final ResponseHandler responseHandler){
 
-        //temp
-//        String url = String.format("%s/%s",
-//                APIConstants.DOMAIN,
-//                APIConstants.RIDER_GET_TOKEN);
-
-        String url = String.format("http://sprint.api.express.api.easydeal.ph/v1/%s",
+        String url = String.format("%s/%s",
+                APIConstants.DOMAIN,
                 APIConstants.RIDER_GET_TOKEN);
 
         //remove language locale on url for login only
