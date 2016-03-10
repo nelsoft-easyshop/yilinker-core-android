@@ -35,7 +35,15 @@ public class JobOrder {
     private String areaCode;
     private String dateCreated;
     private String dateAccepted;
+    private int jobOrderTypeId;
 
+    public int getJobOrderTypeId() {
+        return jobOrderTypeId;
+    }
+
+    public void setJobOrderTypeId(int jobOrderTypeId) {
+        this.jobOrderTypeId = jobOrderTypeId;
+    }
 
     public String getJobOrderNo() {
         return jobOrderNo;
