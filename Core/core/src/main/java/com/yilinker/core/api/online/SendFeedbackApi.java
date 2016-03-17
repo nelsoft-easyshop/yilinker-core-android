@@ -80,7 +80,7 @@ public class SendFeedbackApi {
                         String responseBody = new String(error.networkResponse.data, "utf-8" );
                         JSONObject jsonObject = new JSONObject( responseBody );
                         jsonObject = jsonObject.getJSONObject("data");
-                        JSONArray var = jsonObject.getJSONArray("errors");
+                        JSONArray var = jsonObject.getJSONArray("error");
                         message = var.get(0).toString();
 
                     } catch ( Exception e ) {
