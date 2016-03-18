@@ -11,6 +11,7 @@
     <string name="no_network_connection">No Network Connection</string>
     <string name="parsing_failed">Parsing Failed</string>
     <string name="auth_failed">Authentication Failed</string>
+    <string name="something_went_wrong">Something Went Wrong</string>
     <!-- End Error Messages -->
     
     <!-- Transaction Types -->
