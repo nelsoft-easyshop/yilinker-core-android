@@ -688,5 +688,13 @@ public class APIConstants {
     public final static String PARAMS_MANUFACTURER_PRODUCT_IDS                                      = "manufacturerProductIds";
     public final static String PARAMS_REMOVE_MANUFACTURER_PRODUCT_IDS                               = "removeManufacturerProductIds";
 
+    //Send Feedback API
+    public final static String MOBILE_FEEDBACK                                                      = "mobile-feedback";
+    public final static String SEND_FEEDBACK_API                                                    = "add";
+    public final static String SEND_FEEDBACK_PARAMS_TITLE                                           = "title";
+    public final static String SEND_FEEDBACK_PARAMS_DESCRIPTION                                     = "description";
+    public final static String SEND_FEEDBACK_PARAMS_PHONE_MODEL                                     = "phoneModel";
+    public final static String SEND_FEEDBACK_PARAMS_OS_VERSION                                      = "osVersion";
+    public final static String SEND_FEEDBACK_PARAMS_OS_NAME                                         = "osName";
 
 }
