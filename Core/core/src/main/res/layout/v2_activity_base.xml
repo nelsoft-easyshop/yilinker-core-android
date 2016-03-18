@@ -41,14 +41,13 @@
             android:text="@string/something_went_wrong"
             android:textSize="@dimen/page_title_font_size"
             android:gravity="center"
-            android:visibility="visible"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
             onlinebuyer:fontName="HelveticaWorld-Regular.ttf"/>
 
         <ImageView
             style="@style/WrapViewStyle"
-            android:src="@mipmap/ic_reload"
+            android:src="@drawable/ic_reload"
             android:layout_above="@+id/tvError"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="18dp"
