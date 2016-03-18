@@ -1,6 +1,7 @@
 package com.yilinker.core.base;
 
 import android.app.Application;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.preference.PreferenceManager;
@@ -316,6 +317,16 @@ public class BaseApplication extends Application{
                 .getDefaultSharedPreferences(getApplicationContext());
 
         return pref.getBoolean(KEEP_LOGGED_IN, false);
+    }
+
+    public void deleteSharedPrefs(Context context) {
+
+        SharedPreferences pref = PreferenceManager
+                .getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.clear();
+        editor.apply();
+
     }
 
 }
