@@ -490,6 +490,11 @@ public class APIConstants {
     public static final String RIDER_IS_UPDATE_PACKAGE = "isUpdate";
 
 
+    //TODO to move to express rider constant
+    public static final String RIDER_REGISTRATION_MOBILE_NO = "mobileNo";
+    public static final String RIDER_REGISTRATION_PASSWORD = "password";
+    public static final String RIDER_REGISTRATION_CODE = "code";
+
     ////////////////////////////////////////////////////////////////////////////////
 
     public static final String ADDRESS_ADD_ADDRESS = "addNewAddress";
