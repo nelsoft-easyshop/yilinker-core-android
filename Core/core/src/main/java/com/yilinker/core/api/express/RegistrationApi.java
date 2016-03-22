@@ -27,14 +27,15 @@ import java.util.Map;
  */
 public class RegistrationApi {
 
-    public static Request getVerificationCode (final int requestCode, String mobileNumber, final ResponseHandler responseHandler, final Response.ErrorListener errorHandler ) {
+    public static Request getVerificationCode (final int requestCode, String mobileNumber,String accessToken, final ResponseHandler responseHandler, final Response.ErrorListener errorHandler ) {
 
-        String url = String.format("%s/%s/",
+        String url = String.format("%s/%s/%s",
                 APIConstants.DOMAIN,
-                APIConstants.RIDER_API);
+                APIConstants.RIDER_PARTNERS_API,APIConstants.RIDER_GENERATE_OTP);
 
         Map<String, String> params = new HashMap<String, String>();
         params.put(APIConstants.RIDER_REGISTRATION_MOBILE_NO, mobileNumber );
+        params.put(APIConstants.ACCESS_TOKEN,accessToken);
 
         VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
 
@@ -58,13 +59,14 @@ public class RegistrationApi {
         return request;
     }
 
-    public static Request verifyCode (final int requestCode,String code, String mobileNumber, final ResponseHandler responseHandler, final Response.ErrorListener errorHandler ) {
+    public static Request verifyCode (final int requestCode,String code, String mobileNumber,String accessToken, final ResponseHandler responseHandler, final Response.ErrorListener errorHandler ) {
 
-        String url = String.format("%s/%s/",
+        String url = String.format("%s/%s/%s",
                 APIConstants.DOMAIN,
-                APIConstants.RIDER_API);
+                APIConstants.RIDER_PARTNERS_API,APIConstants.RIDER_VERIFY_OTP);
 
         Map<String, String> params = new HashMap<String, String>();
+        params.put(APIConstants.ACCESS_TOKEN,accessToken);
         params.put(APIConstants.RIDER_REGISTRATION_MOBILE_NO, mobileNumber);
         params.put(APIConstants.RIDER_REGISTRATION_CODE, code);
 
@@ -91,17 +93,18 @@ public class RegistrationApi {
     }
 
 
-    public static Request submitRegistration (final int requestCode,String mobileNumber,String password, final ResponseHandler responseHandler, final Response.ErrorListener errorHandler ) {
+    public static Request submitRegistration (final int requestCode,String mobileNumber,String password,String accessToken, final ResponseHandler responseHandler, final Response.ErrorListener errorHandler ) {
 
-        String url = String.format("%s/%s/",
+        String url = String.format("%s/%s/%s",
                 APIConstants.DOMAIN,
-                APIConstants.RIDER_API);
+                APIConstants.RIDER_API, APIConstants.RIDER_REGISTER);
 
         BaseApplication app = BaseApplication.getInstance();
 
         Map<String, String> params = new HashMap<String, String>();
         params.put(APIConstants.RIDER_REGISTRATION_MOBILE_NO, mobileNumber);
         params.put(APIConstants.RIDER_REGISTRATION_PASSWORD, password);
+        params.put(APIConstants.ACCESS_TOKEN, accessToken);
 
         VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
 
