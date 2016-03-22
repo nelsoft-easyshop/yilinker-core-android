@@ -46,6 +46,42 @@ public class RiderAPI {
      * @param responseHandler
      * @return
      */
+
+    public static Request loginForVerificationCode (final int requestCode, OAuthentication oAuth, final ResponseHandler responseHandler, final Response.ErrorListener errorHandler ) {
+
+        String url = String.format("%s/%s",
+                APIConstants.DOMAIN,
+                APIConstants.RIDER_GET_TOKEN);
+
+        //remove language locale on url for login only
+        url = url.replaceFirst("en/", "");
+        url = url.replaceFirst("cn/", "");
+
+        Map<String,String> params = new HashMap<String,String>();
+        params.put(APIConstants.LOGIN_PARAM_CLIENT_ID, oAuth.getClientId());
+        params.put(APIConstants.LOGIN_PARAM_CLIENT_SECRET, oAuth.getClientSecret());
+        params.put(APIConstants.LOGIN_PARAM_GRANT_TYPE, oAuth.getGrantType());
+
+        VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+
+
+                Gson gson = GsonUtility.createGsonBuilder(Login.class, new Login.LoginInstance()).create();
+                Login obj = gson.fromJson(response.toString(), Login.class);
+
+                responseHandler.onSuccess(requestCode, obj);
+
+
+            }
+        }, errorHandler);
+
+        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
+        return request;
+    }
+
+
     public static Request loginByUsername (final int requestCode, OAuthentication oAuth, String locale, final ResponseHandler responseHandler){
 
         String url = String.format("%s/%s",

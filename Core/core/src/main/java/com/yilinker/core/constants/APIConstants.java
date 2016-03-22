@@ -491,9 +491,14 @@ public class APIConstants {
 
 
     //TODO to move to express rider constant
-    public static final String RIDER_REGISTRATION_MOBILE_NO = "mobileNo";
+    public static final String RIDER_REGISTRATION_MOBILE_NO = "mobileNumber";
     public static final String RIDER_REGISTRATION_PASSWORD = "password";
-    public static final String RIDER_REGISTRATION_CODE = "code";
+    public static final String RIDER_REGISTRATION_CODE = "otp";
+    public static final String RIDER_PARTNERS_API = "partners";
+    public static final String RIDER_GENERATE_OTP = "generate-otp";
+    public static final String RIDER_VERIFY_OTP = "verify-otp";
+    public static final String RIDER_REGISTER = "register";
+
 
     ////////////////////////////////////////////////////////////////////////////////
 
