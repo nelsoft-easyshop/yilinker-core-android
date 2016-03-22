@@ -27,16 +27,14 @@ import java.util.Map;
  */
 public class RegistrationApi {
 
-    public static Request getVerificationCode (final int requestCode, final ResponseHandler responseHandler, final Response.ErrorListener errorHandler ) {
+    public static Request getVerificationCode (final int requestCode, String mobileNumber, final ResponseHandler responseHandler, final Response.ErrorListener errorHandler ) {
 
         String url = String.format("%s/%s/",
                 APIConstants.DOMAIN,
                 APIConstants.RIDER_API);
 
-        BaseApplication app = BaseApplication.getInstance();
-
         Map<String, String> params = new HashMap<String, String>();
-        params.put(APIConstants.ACCESS_TOKEN, app.getAccessToken());
+        params.put(APIConstants.RIDER_REGISTRATION_MOBILE_NO, mobileNumber );
 
         VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
 
@@ -47,9 +45,7 @@ public class RegistrationApi {
                 APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
 
                 if (apiResponse.isSuccessful()) {
-                    String jsonString = new Gson().toJson(apiResponse.getData());
-
-                    responseHandler.onSuccess(requestCode, jsonString);
+                    responseHandler.onSuccess(requestCode, apiResponse.getMessage());
                 } else {
 
                     responseHandler.onFailed(requestCode, apiResponse.getMessage());
@@ -62,16 +58,15 @@ public class RegistrationApi {
         return request;
     }
 
-    public static Request verifyCode (final int requestCode, final ResponseHandler responseHandler, final Response.ErrorListener errorHandler ) {
+    public static Request verifyCode (final int requestCode,String code, String mobileNumber, final ResponseHandler responseHandler, final Response.ErrorListener errorHandler ) {
 
         String url = String.format("%s/%s/",
                 APIConstants.DOMAIN,
                 APIConstants.RIDER_API);
 
-        BaseApplication app = BaseApplication.getInstance();
-
         Map<String, String> params = new HashMap<String, String>();
-        params.put(APIConstants.ACCESS_TOKEN, app.getAccessToken());
+        params.put(APIConstants.RIDER_REGISTRATION_MOBILE_NO, mobileNumber);
+        params.put(APIConstants.RIDER_REGISTRATION_CODE, code);
 
         VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
 
@@ -82,9 +77,7 @@ public class RegistrationApi {
                 APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
 
                 if (apiResponse.isSuccessful()) {
-                    String jsonString = new Gson().toJson(apiResponse.getData());
-
-                    responseHandler.onSuccess(requestCode, jsonString);
+                    responseHandler.onSuccess(requestCode, apiResponse.getMessage());
                 } else {
 
                     responseHandler.onFailed(requestCode, apiResponse.getMessage());
@@ -98,7 +91,7 @@ public class RegistrationApi {
     }
 
 
-    public static Request submitRegistration (final int requestCode, final ResponseHandler responseHandler, final Response.ErrorListener errorHandler ) {
+    public static Request submitRegistration (final int requestCode,String mobileNumber,String password, final ResponseHandler responseHandler, final Response.ErrorListener errorHandler ) {
 
         String url = String.format("%s/%s/",
                 APIConstants.DOMAIN,
@@ -107,7 +100,8 @@ public class RegistrationApi {
         BaseApplication app = BaseApplication.getInstance();
 
         Map<String, String> params = new HashMap<String, String>();
-        params.put(APIConstants.ACCESS_TOKEN, app.getAccessToken());
+        params.put(APIConstants.RIDER_REGISTRATION_MOBILE_NO, mobileNumber);
+        params.put(APIConstants.RIDER_REGISTRATION_PASSWORD, password);
 
         VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
 
