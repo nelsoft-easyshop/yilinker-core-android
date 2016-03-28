@@ -97,7 +97,7 @@ public class RegistrationApi {
 
         String url = String.format("%s/%s/%s",
                 APIConstants.DOMAIN,
-                APIConstants.RIDER_API, APIConstants.RIDER_REGISTER);
+                APIConstants.RIDER_PARTNERS_API, APIConstants.RIDER_REGISTER);
 
         BaseApplication app = BaseApplication.getInstance();
 
@@ -115,11 +115,9 @@ public class RegistrationApi {
                 APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
 
                 if (apiResponse.isSuccessful()) {
-                    String jsonString = new Gson().toJson(apiResponse.getData());
+                    responseHandler.onSuccess(requestCode, apiResponse.getMessage());
 
-                    responseHandler.onSuccess(requestCode, jsonString);
                 } else {
-
                     responseHandler.onFailed(requestCode, apiResponse.getMessage());
                 }
 
