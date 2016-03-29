@@ -19,6 +19,15 @@ public class Rider {
     private int currentJO;
     private int currentDropoffJO;
     private String areaCode;
+    private String accreditationStatus;
+
+    public String getAccreditationStatus() {
+        return accreditationStatus;
+    }
+
+    public void setAccreditationStatus(String accreditationStatus) {
+        this.accreditationStatus = accreditationStatus;
+    }
 
     public String getName() {
         return name;
