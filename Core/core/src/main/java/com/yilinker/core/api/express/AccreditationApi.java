@@ -96,10 +96,13 @@ public class AccreditationApi {
      */
     public static Request submitAccreditation(final int requestCode, Accreditation accreditation,final ResponseHandler responseHandler, Response.ErrorListener errorHandler){
 
-        String url = String.format("%s/%s/%s?%s=%s",
-                APIConstants.DOMAIN, ExpressAPIConstants.PARTNERS_API, ExpressAPIConstants.ACCREDITATION_SUBMIT, ExpressAPIConstants.ACCREDITATION_SUBMIT_PARAM_TOKEN,"NjRkMjM5NTgzMTcyZDEzZTFmZDcwYzlhZDhiNDg3M2ZiYWE5YmZmM2JmNTliMTI1YjJjZDBmYjI1ZTgxMzAzYw");
-
         BaseApplication app = BaseApplication.getInstance();
+
+//        String url = String.format("%s/%s/%s?%s=%s",
+//                APIConstants.DOMAIN, ExpressAPIConstants.PARTNERS_API, ExpressAPIConstants.ACCREDITATION_SUBMIT, ExpressAPIConstants.ACCREDITATION_SUBMIT_PARAM_TOKEN,"NjRkMjM5NTgzMTcyZDEzZTFmZDcwYzlhZDhiNDg3M2ZiYWE5YmZmM2JmNTliMTI1YjJjZDBmYjI1ZTgxMzAzYw");
+
+        String url = String.format("%s/%s/%s?%s=%s",
+                APIConstants.DOMAIN, ExpressAPIConstants.PARTNERS_API, ExpressAPIConstants.ACCREDITATION_SUBMIT, ExpressAPIConstants.ACCREDITATION_SUBMIT_PARAM_TOKEN, app.getAccessToken());
 
         Map<String, String> params = new HashMap<String, String>();
         params.put(ExpressAPIConstants.ACCREDITATION_SUBMIT_PARAM_FIRSTNAME, accreditation.getFirstName());
