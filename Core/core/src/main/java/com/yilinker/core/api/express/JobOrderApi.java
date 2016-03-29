@@ -740,9 +740,9 @@ public class JobOrderApi {
 
         if (packageRequest.getPackageTypeId() == 99) {
 
-            params.put(APIConstants.PRODUCT_UPLOAD_PARAM_LENGTH, String.valueOf(packageRequest.getLength()));
-            params.put(APIConstants.PRODUCT_UPLOAD_PARAM_WIDTH, String.valueOf(packageRequest.getWidth()));
-            params.put(APIConstants.PRODUCT_UPLOAD_PARAM_HEIGHT, String.valueOf(packageRequest.getHeight()));
+            params.put(APIConstants.PRODUCT_UPLOAD_PARAM_LENGTH, packageRequest.getLength());
+            params.put(APIConstants.PRODUCT_UPLOAD_PARAM_WIDTH, packageRequest.getWidth());
+            params.put(APIConstants.PRODUCT_UPLOAD_PARAM_HEIGHT, packageRequest.getHeight());
 
         }
 
