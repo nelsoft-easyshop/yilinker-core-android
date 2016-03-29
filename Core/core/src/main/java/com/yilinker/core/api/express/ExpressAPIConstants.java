@@ -13,7 +13,7 @@ public class ExpressAPIConstants {
     public static final String ACCREDITATION_GET_REQUIREMENTS_PARAM_TOKEN = "access_token";
 
     //Submit Accreditation
-    public static final String ACCREDITATION_SUBMIT = "";
+    public static final String ACCREDITATION_SUBMIT = "process-accreditation-fields";
     public static final String ACCREDITATION_SUBMIT_PARAM_TOKEN = "access_token";
     public static final String ACCREDITATION_SUBMIT_PARAM_FIRSTNAME = "firstName";
     public static final String ACCREDITATION_SUBMIT_PARAM_LASTNAME = "lastName";
