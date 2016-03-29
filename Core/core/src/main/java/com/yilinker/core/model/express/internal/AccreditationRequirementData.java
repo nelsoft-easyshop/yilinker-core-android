@@ -9,14 +9,14 @@ import java.lang.reflect.Type;
  */
 public class AccreditationRequirementData {
 
-    private int id;
+    private String id;
     private String label;
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

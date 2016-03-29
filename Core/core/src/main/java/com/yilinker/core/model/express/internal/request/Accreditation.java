@@ -12,6 +12,7 @@ public class Accreditation {
     private String birthday;
     private String gender;
     private String requirements;
+    private List<String> images;
 
     public String getFirstName() {
         return firstName;
@@ -54,6 +55,14 @@ public class Accreditation {
      */
     public void setRequirements(String requirements) {
         this.requirements = requirements;
+    }
+
+    public List<String> getImages() {
+        return images;
+    }
+
+    public void setImages(List<String> images) {
+        this.images = images;
     }
 }
 
