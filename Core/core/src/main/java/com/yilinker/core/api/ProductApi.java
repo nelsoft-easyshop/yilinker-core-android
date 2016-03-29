@@ -31,9 +31,9 @@ import java.util.Map;
  */
 public class ProductApi {
 
-    public static Request getProductDetails(final int requestCode, int id, final ResponseHandler responseHandler) {
+    public static Request getProductDetails(final int requestCode, String id, final ResponseHandler responseHandler) {
 
-        String url =  String.format("%s/%s/%s?%s=%d", APIConstants.DOMAIN, APIConstants.PRODUCT_API,
+        String url =  String.format("%s/%s/%s?%s=%s", APIConstants.DOMAIN, APIConstants.PRODUCT_API,
                     APIConstants.PRODUCT_GET_DETAILS, APIConstants.PRODUCT_GET_DETAILS_PARAM_ID, id);
 
 
@@ -135,12 +135,12 @@ public class ProductApi {
 
     }
 
-    public static Request getProductReview(final int requestCode, int id, final ResponseHandler responseHandler){
+    public static Request getProductReview(final int requestCode, String id, final ResponseHandler responseHandler){
 
         String url = String.format("%s/%s/%s", APIConstants.DOMAIN, APIConstants.PRODUCT_API, APIConstants.PRODUCT_GET_PRODUCT_REVIEW);
 
         Map<String, String > params = new HashMap<>();
-        params.put( APIConstants.PRODUCT_ID,String.valueOf(id));
+        params.put( APIConstants.PRODUCT_ID,id);
 
         VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
             @Override
@@ -214,6 +214,61 @@ public class ProductApi {
 //        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
 //        return request;
 
+    }
+
+    public static Request getProductReview(final int requestCode, int id, final ResponseHandler responseHandler) {
+
+        String url = String.format("%s/%s/%s", APIConstants.DOMAIN, APIConstants.PRODUCT_API, APIConstants.PRODUCT_GET_PRODUCT_REVIEW);
+
+        Map<String, String> params = new HashMap<>();
+        params.put(APIConstants.PRODUCT_ID, String.valueOf(id));
+
+        VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+
+                gson = GsonUtility.createGsonBuilder(ProductReview.class, new ProductReview.ProductReviewInstance()).create();
+                String jsonString = new Gson().toJson(apiResponse.getData());
+                ProductReview obj = gson.fromJson(jsonString, ProductReview.class);
+
+                responseHandler.onSuccess(requestCode, obj);
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                String message = APIConstants.API_CONNECTION_PROBLEM;
+
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+
+                    message = APIConstants.API_CONNECTION_PROBLEM;
+
+                } else if (error instanceof AuthFailureError) {
+
+                    message = APIConstants.API_CONNECTION_AUTH_ERROR;
+
+                } else {
+                    try {
+                        String responseBody = new String(error.networkResponse.data, "utf-8");
+                        JSONObject jsonObject = new JSONObject(responseBody);
+                        message = jsonObject.getString("message");
+
+                    } catch (JSONException e) {
+                        //Handle a malformed json response
+                    } catch (UnsupportedEncodingException e) {
+
+                    }
+                }
+                responseHandler.onFailed(requestCode, message);
+            }
+        });
+
+
+        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
+
+        return request;
     }
 
 //    public static Request uploadProduct(final int requestCode, ProductUpload productUpload, String accessToken, final ResponseHandler responseHandler) {
