@@ -7,10 +7,10 @@ public class PackageRequest {
 
     private int packageTypeId;
     private String jobOrderNo;
-    private double length;
-    private double width;
-    private double height;
-    private double weight;
+    private String length;
+    private String width;
+    private String height;
+    private String weight;
 
     public int getPackageTypeId() {
         return packageTypeId;
@@ -28,35 +28,35 @@ public class PackageRequest {
         this.jobOrderNo = jobOrderNo;
     }
 
-    public double getLength() {
+    public String getLength() {
         return length;
     }
 
-    public void setLength(double length) {
+    public void setLength(String length) {
         this.length = length;
     }
 
-    public double getWidth() {
+    public String getWidth() {
         return width;
     }
 
-    public void setWidth(double width) {
+    public void setWidth(String width) {
         this.width = width;
     }
 
-    public double getHeight() {
+    public String getHeight() {
         return height;
     }
 
-    public void setHeight(double height) {
+    public void setHeight(String height) {
         this.height = height;
     }
 
-    public double getWeight() {
+    public String getWeight() {
         return weight;
     }
 
-    public void setWeight(double weight) {
+    public void setWeight(String weight) {
         this.weight = weight;
     }
 }
