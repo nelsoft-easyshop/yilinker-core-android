@@ -13,12 +13,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
 import com.yilinker.core.R;
 import com.yilinker.core.api.UserApi;
 import com.yilinker.core.base.BaseApplication;
 import com.yilinker.core.constants.ErrorMessages;
 import com.yilinker.core.interfaces.ResponseHandler;
 import com.yilinker.core.v2.constants.RequestCodes;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Adur Urbano on 1/5/2016.
@@ -31,14 +36,19 @@ public abstract class BaseActivity extends AppCompatActivity implements Response
     public BaseApplication baseApplication;
 
     /**
-     * Reference of Request
+     * Reference of RequestQueue
      */
-    private Request currentRequest;
+    private RequestQueue requestQueue;
+
+    /**
+     * Reference of Requests
+     */
+    private List<Request> requestList = new ArrayList<>();
 
     /**
      * Boolean for Toolbar
      */
-    private boolean hasToolbar = false;
+    private boolean hasToolbar = true;
 
     /**
      * Integer for layoutID
@@ -51,14 +61,14 @@ public abstract class BaseActivity extends AppCompatActivity implements Response
     private String toolbarTitle = null;
 
     /**
-     * Object for request tag
-     */
-    private Object requestTag = null;
-
-    /**
      * Reference of Reload Layout
      */
     private RelativeLayout rlReload;
+
+    /**
+     * Reference of Error TextView
+     */
+    private TextView tvError;
 
     /**
      * Integer for entrance of animation
@@ -78,6 +88,9 @@ public abstract class BaseActivity extends AppCompatActivity implements Response
         //declaration of application to be used by classes extending this base class
         baseApplication = (BaseApplication) getApplicationContext();
 
+        //initialization of requestqueue object
+        requestQueue = Volley.newRequestQueue(this);
+
         //passing of data through intent
         initData(getIntent());
 
@@ -88,7 +101,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Response
 
             inflateView(((FrameLayout) findViewById(R.id.flBaseContainer)), layoutId);
 
-            initViews((findViewById(layoutId)), savedInstanceState);
+            initViews(findViewById(R.id.flBaseContainer), savedInstanceState);
 
         }
 
@@ -97,6 +110,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Response
 
         //initialization of views in base
         rlReload = (RelativeLayout) findViewById(R.id.rlReload);
+        tvError = (TextView) findViewById(R.id.tvError);
 
         //setting onClickListener for rlReload if request failed
         rlReload.setOnClickListener(this);
@@ -108,7 +122,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Response
         super.onPause();
 
         //cancels request when activity pauses
-        baseApplication.getRequestQueue().cancelAll(requestTag);
+        this.cancelRequests();
 
     }
 
@@ -128,7 +142,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Response
         switch (item.getItemId()) {
 
             case android.R.id.home:
-                finish();
+                onBackPressed();
                 return true;
 
             default:
@@ -137,21 +151,6 @@ public abstract class BaseActivity extends AppCompatActivity implements Response
         }
 
         return super.onOptionsItemSelected(item);
-
-    }
-
-    @Override
-    public void onClick(View v) {
-
-        if (v == rlReload) {
-
-            if (currentRequest != null) {
-
-                baseApplication.getRequestQueue().add(currentRequest);
-
-            }
-
-        }
 
     }
 
@@ -172,6 +171,9 @@ public abstract class BaseActivity extends AppCompatActivity implements Response
         //hid progress bar
         changeProgressBarVisibility(false);
 
+        //remove request from requestList
+        removeFromRequestQueue(requestCode);
+
     }
 
     @Override
@@ -179,6 +181,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Response
 
         if(message.equalsIgnoreCase(ErrorMessages.ERR_EXPIRED_TOKEN)) {
 
+            cancelRequests();
             refreshToken(this);
 
             return;
@@ -199,6 +202,9 @@ public abstract class BaseActivity extends AppCompatActivity implements Response
 
         //hid progress bar
         changeProgressBarVisibility(false);
+
+        //remove request from requestList
+        removeFromRequestQueue(requestCode);
 
     }
 
@@ -245,6 +251,32 @@ public abstract class BaseActivity extends AppCompatActivity implements Response
     }
 
     /**
+     * Called to most recent failed request
+     */
+    private void retryRequests() {
+
+        for (Request request : this.requestList) {
+
+            this.requestQueue.add(request);
+
+        }
+
+    }
+
+    /**
+     * Called to cancel all requests
+     */
+    public void cancelRequests() {
+
+        for (Request request : this.requestList) {
+
+            request.cancel();
+
+        }
+
+    }
+
+    /**
      * This method handles refresh token
      * @param object
      */
@@ -253,11 +285,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Response
         com.yilinker.core.model.Login login = (com.yilinker.core.model.Login) object;
         baseApplication.saveToken(login.getAccess_token(), login.getRefresh_token());
 
-        if (currentRequest != null) {
-
-            baseApplication.getRequestQueue().add(currentRequest);
-
-        }
+        this.retryRequests();
 
     }
 
@@ -321,8 +349,8 @@ public abstract class BaseActivity extends AppCompatActivity implements Response
     public void handleSuccessfulRequest() {
 
         (findViewById(R.id.flBaseContainer)).setVisibility(View.VISIBLE);
-        (findViewById(R.id.rlReload)).setVisibility(View.GONE);
-        ((TextView) findViewById(R.id.tvError)).setText("");
+        rlReload.setVisibility(View.GONE);
+        tvError.setText("");
 
     }
 
@@ -333,8 +361,8 @@ public abstract class BaseActivity extends AppCompatActivity implements Response
     public void handleFailedRequest(String errorMessage) {
 
         (findViewById(R.id.flBaseContainer)).setVisibility(View.GONE);
-        (findViewById(R.id.rlReload)).setVisibility(View.VISIBLE);
-        ((TextView) findViewById(R.id.tvError)).setText(errorMessage);
+        rlReload.setVisibility(View.VISIBLE);
+        tvError.setText(errorMessage);
 
     }
 
@@ -369,22 +397,33 @@ public abstract class BaseActivity extends AppCompatActivity implements Response
     }
 
     /**
-     * Sets request tag of all requests for cancellation
-     * @param requestTag
+     * Called to add request to request queue
+     * @param request
      */
-    public void setRequestTag(Object requestTag) {
+    public void addToRequestQueue(Request request) {
 
-        this.requestTag = requestTag;
+        this.requestList.add(request);
+        this.requestQueue.add(request);
 
     }
 
     /**
-     * Sets current request if token expires
-     * @param request
+     * Called to remove successful request from requestList
+     * @param requestCode
      */
-    public void setCurrentRequest(Request request) {
+    private void removeFromRequestQueue(int requestCode) {
 
-        this.currentRequest = request;
+        for (Request request : this.requestList) {
+
+            if ((int)request.getTag() == requestCode) {
+
+                this.requestList.remove(request);
+
+                break;
+
+            }
+
+        }
 
     }
 

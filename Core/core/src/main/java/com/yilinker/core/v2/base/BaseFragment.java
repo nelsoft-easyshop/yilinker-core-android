@@ -1,10 +1,10 @@
 package com.yilinker.core.v2.base;
 
+import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
 import com.yilinker.core.R;
 import com.yilinker.core.api.UserApi;
 import com.yilinker.core.base.BaseApplication;
@@ -23,6 +25,8 @@ import com.yilinker.core.interfaces.ResponseHandler;
 import com.yilinker.core.v2.constants.RequestCodes;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Adur Urbano on 1/5/2016.
@@ -35,9 +39,14 @@ public abstract class BaseFragment extends Fragment implements ResponseHandler, 
     public BaseApplication baseApplication;
 
     /**
-     * Reference of Request
+     * Reference of RequestQueue
      */
-    private Request currentRequest;
+    private RequestQueue requestQueue;
+
+    /**
+     * Reference of Requests
+     */
+    private List<Request> requestList = new ArrayList<>();
 
     /**
      * Boolean for Toolbar
@@ -54,10 +63,6 @@ public abstract class BaseFragment extends Fragment implements ResponseHandler, 
      */
     private String toolbarTitle = null;
 
-    /**
-     * Object for request tag
-     */
-    private Object requestTag = null;
 
     /**
      * Reference of Frame Layout to be inflated
@@ -72,12 +77,12 @@ public abstract class BaseFragment extends Fragment implements ResponseHandler, 
     /**
      * Reference of Reload Layout
      */
-    private RelativeLayout rlReload;
+    public RelativeLayout rlReload;
 
     /**
      * Reference of TextView to be inflated with error messages
      */
-    private TextView tvError;
+    public TextView tvError;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -85,6 +90,8 @@ public abstract class BaseFragment extends Fragment implements ResponseHandler, 
 
         //declaration of application to be used by classes extending this base class
         baseApplication = (BaseApplication) getActivity().getApplicationContext();
+
+        requestQueue = Volley.newRequestQueue(getActivity());
 
         //passing of data through arguments
         initData(getArguments());
@@ -142,8 +149,8 @@ public abstract class BaseFragment extends Fragment implements ResponseHandler, 
     public void onPause() {
         super.onPause();
 
-        //cancels request when fragment pauses
-        baseApplication.getRequestQueue().cancelAll(requestTag);
+        //cancels request when activity pauses
+        this.cancelRequests();
 
     }
 
@@ -189,21 +196,6 @@ public abstract class BaseFragment extends Fragment implements ResponseHandler, 
     }
 
     @Override
-    public void onClick(View v) {
-
-        if (v == rlReload) {
-
-            if (currentRequest != null) {
-
-                baseApplication.getRequestQueue().add(currentRequest);
-
-            }
-
-        }
-
-    }
-
-    @Override
     public void onSuccess(int requestCode, Object object) {
 
         switch (requestCode) {
@@ -220,6 +212,8 @@ public abstract class BaseFragment extends Fragment implements ResponseHandler, 
         //hid progress bar
         changeProgressBarVisibility(false);
 
+        removeFromRequestQueue(requestCode);
+
     }
 
     @Override
@@ -227,6 +221,7 @@ public abstract class BaseFragment extends Fragment implements ResponseHandler, 
 
         if(message.equalsIgnoreCase(ErrorMessages.ERR_EXPIRED_TOKEN)){
 
+            cancelRequests();
             refreshToken(this);
 
             return;
@@ -239,14 +234,17 @@ public abstract class BaseFragment extends Fragment implements ResponseHandler, 
                 baseApplication.deleteSharedPrefs(getActivity());
                 break;
 
-            default:
-                Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
-                break;
+//            default:
+//                Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+//                break;
 
         }
 
         //hid progress bar
         changeProgressBarVisibility(false);
+
+        //remove request from requestList
+        removeFromRequestQueue(requestCode);
 
     }
 
@@ -293,6 +291,32 @@ public abstract class BaseFragment extends Fragment implements ResponseHandler, 
     }
 
     /**
+     * Called to most recent failed request
+     */
+    private void retryRequests() {
+
+        for (Request request : this.requestList) {
+
+            this.requestQueue.add(request);
+
+        }
+
+    }
+
+    /**
+     * Called to cancel all requests
+     */
+    public void cancelRequests() {
+
+        for (Request request : this.requestList) {
+
+            request.cancel();
+
+        }
+
+    }
+
+    /**
      * This method handles refresh token
      * @param object
      */
@@ -301,11 +325,7 @@ public abstract class BaseFragment extends Fragment implements ResponseHandler, 
         com.yilinker.core.model.Login login = (com.yilinker.core.model.Login) object;
         baseApplication.saveToken(login.getAccess_token(), login.getRefresh_token());
 
-        if (currentRequest != null) {
-
-            baseApplication.getRequestQueue().add(currentRequest);
-
-        }
+        this.retryRequests();
 
     }
 
@@ -385,22 +405,34 @@ public abstract class BaseFragment extends Fragment implements ResponseHandler, 
     }
 
     /**
-     * Sets request tag of all requests for cancellation
-     * @param requestTag
+     * Called to add request to request queue
+     * @param request
      */
-    public void setRequestTag(Object requestTag) {
+    public void addToRequestQueue(Request request) {
 
-        this.requestTag = requestTag;
+        this.requestList.add(request);
+        this.requestQueue.add(request);
 
     }
 
     /**
-     * Sets current request if token expires
-     * @param request
+     * Called to remove successful request from requestList
+     * @param requestCode
      */
-    public void setCurrentRequest(Request request) {
+    private void removeFromRequestQueue(int requestCode) {
 
-        this.currentRequest = request;
+        for (Request request : this.requestList) {
+
+            if ((int)request.getTag() == requestCode) {
+
+                this.requestList.remove(request);
+
+                break;
+
+            }
+
+        }
 
     }
+
 }
