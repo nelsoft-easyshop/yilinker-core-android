@@ -140,7 +140,14 @@ public class CustomizedCategoryApi {
 
     public static Request getCategoryDetails(final int requestCode, String token, int id, final ResponseHandler responseHandler) {
 
-        String url = String.format("%s/%s/%s", APIConstants.DOMAIN, APIConstants.CATEGORY_API, APIConstants.GET_CATEGORY_DETAILS);
+        String url;
+            if(token.isEmpty()){
+                url = String.format("%s/%s/%s", APIConstants.DOMAIN,
+                        APIConstants.CATEGORY_API, APIConstants.GET_CATEGORY_DETAILS);
+            }else{
+                url = String.format("%s/%s/%s/%s", APIConstants.DOMAIN, APIConstants.AUTH_API,
+                        APIConstants.CATEGORY_API, APIConstants.GET_CATEGORY_DETAILS);
+            }
 
         Map<String, String> params = new HashMap<String,String>();
         params.put(APIConstants.ACCESS_TOKEN, token);
