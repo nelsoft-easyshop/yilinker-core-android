@@ -11,6 +11,6 @@ public interface FragmentSwitchListener {
      * Use this interface every time you switch fragments
      * @param fragment
      */
-    void onFragmentSwitch(Fragment fragment);
+    void onFragmentSwitch(Fragment fragment, boolean addToBackStack);
 
 }
