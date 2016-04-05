@@ -68,12 +68,16 @@ public class CustomizedCategoryApi {
                     message = "No connection available.";
                 } else if (error instanceof AuthFailureError) {
                     message = "Authentication Failure.";
-                } else if (error instanceof ServerError) {
-                    message = "Server error.";
-                } else if (error instanceof NetworkError) {
-                    message = "Network Error.";
-                } else if (error instanceof ParseError) {
-                    message = "Parse error.";
+                } else {
+
+                    try {
+                        String responseBody = new String(error.networkResponse.data, "utf-8" );
+                        JSONObject jsonObject = new JSONObject( responseBody );
+                        message = jsonObject.getString("message");
+
+                    } catch ( Exception e ) {
+                        //Handle a malformed json response
+                    }
                 }
                 responseHandler.onFailed(requestCode, message);
             }
@@ -136,7 +140,14 @@ public class CustomizedCategoryApi {
 
     public static Request getCategoryDetails(final int requestCode, String token, int id, final ResponseHandler responseHandler) {
 
-        String url = String.format("%s/%s/%s", APIConstants.DOMAIN, APIConstants.CATEGORY_API, APIConstants.GET_CATEGORY_DETAILS);
+        String url;
+            if(token.isEmpty()){
+                url = String.format("%s/%s/%s", APIConstants.DOMAIN,
+                        APIConstants.CATEGORY_API, APIConstants.GET_CATEGORY_DETAILS);
+            }else{
+                url = String.format("%s/%s/%s/%s", APIConstants.DOMAIN, APIConstants.AUTH_API,
+                        APIConstants.CATEGORY_API, APIConstants.GET_CATEGORY_DETAILS);
+            }
 
         Map<String, String> params = new HashMap<String,String>();
         params.put(APIConstants.ACCESS_TOKEN, token);

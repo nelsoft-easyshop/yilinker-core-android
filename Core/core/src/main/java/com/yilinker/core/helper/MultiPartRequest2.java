@@ -33,6 +33,7 @@ import java.util.Map;
 public abstract class MultiPartRequest2<T> extends Request {
 
     public static final String CONTENT_TYPE_IMAGE = "image/jpeg";
+    public static final String CONTENT_BOUNDARY = "BOUNDARY";
 
     private HttpEntity mHttpEntity;
     private Response.Listener mListener;
