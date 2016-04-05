@@ -124,8 +124,7 @@ public abstract class BaseFragment extends Fragment implements ResponseHandler, 
 
             View viewFragment = view.findViewById(R.id.header);
 
-            if (toolbarTitle != null)
-                ((TextView) viewFragment.findViewById(R.id.tvHeaderName)).setText(toolbarTitle == null ? "" : toolbarTitle);
+            ((TextView) viewFragment.findViewById(R.id.tvHeaderName)).setText(toolbarTitle == null ? "" : toolbarTitle);
 
         } else {
 
