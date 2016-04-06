@@ -52,6 +52,9 @@ public class RiderAPI {
                 APIConstants.DOMAIN,
                 APIConstants.RIDER_GET_TOKEN);
 
+        //temp
+        url = url.replace("/en/", "/");
+
         Map<String,String> params = new HashMap<String,String>();
         params.put(APIConstants.LOGIN_PARAM_CLIENT_ID, oAuth.getClientId());
         params.put(APIConstants.LOGIN_PARAM_CLIENT_SECRET, oAuth.getClientSecret());
