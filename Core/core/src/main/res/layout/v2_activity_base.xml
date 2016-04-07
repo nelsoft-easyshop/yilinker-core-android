@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:onlinebuyer="http://schemas.android.com/apk/res-auto"
     style="@style/FullScreenViewStyle">
 
     <include
@@ -43,8 +42,7 @@
             android:textSize="@dimen/page_title_font_size"
             android:gravity="center"
             android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
-            onlinebuyer:fontName="HelveticaWorld-Regular.ttf"/>
+            android:layout_centerHorizontal="true"/>
 
         <ImageView
             style="@style/WrapViewStyle"
