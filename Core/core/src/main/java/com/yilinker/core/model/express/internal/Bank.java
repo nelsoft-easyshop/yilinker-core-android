@@ -9,11 +9,10 @@ import java.lang.reflect.Type;
  */
 public class Bank {
 
-    private int id;
-    private String bankName;
-    private String accountNumber;
-    private String accountName;
-    private String bankLogoURL;
+    private String bank_name;
+    private String account_number;
+    private String account_name;
+    private String logo;
 
     public static class BankInstance implements InstanceCreator<Bank> {
 
@@ -24,43 +23,35 @@ public class Bank {
         }
     }
 
-    public int getId() {
-        return id;
+    public String getBank_name() {
+        return bank_name;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setBank_name(String bank_name) {
+        this.bank_name = bank_name;
     }
 
-    public String getBankName() {
-        return bankName;
+    public String getAccount_number() {
+        return account_number;
     }
 
-    public void setBankName(String bankName) {
-        this.bankName = bankName;
+    public void setAccount_number(String account_number) {
+        this.account_number = account_number;
     }
 
-    public String getAccountNumber() {
-        return accountNumber;
+    public String getAccount_name() {
+        return account_name;
     }
 
-    public void setAccountNumber(String accountNumber) {
-        this.accountNumber = accountNumber;
+    public void setAccount_name(String account_name) {
+        this.account_name = account_name;
     }
 
-    public String getAcountName() {
-        return accountName;
+    public String getLogo() {
+        return logo;
     }
 
-    public void setAcountName(String acountName) {
-        this.accountName = acountName;
-    }
-
-    public String getLogoURL() {
-        return bankLogoURL;
-    }
-
-    public void setLogoURL(String logoURL) {
-        this.bankLogoURL = logoURL;
+    public void setLogo(String logo) {
+        this.logo = logo;
     }
 }

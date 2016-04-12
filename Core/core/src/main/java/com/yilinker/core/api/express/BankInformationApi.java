@@ -33,7 +33,7 @@ public class BankInformationApi {
 //          TODO add url for get Bank Information
         String url = String.format("%s/%s/%s",
                 APIConstants.DOMAIN,
-                APIConstants.RIDER_API);
+                APIConstants.RIDER_PARTNERS_API, APIConstants.RIDER_GET_BANK_DETAILS);
 
 
         BaseApplication app = BaseApplication.getInstance();
