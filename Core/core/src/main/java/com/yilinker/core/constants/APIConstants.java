@@ -489,6 +489,7 @@ public class APIConstants {
     public static final String RIDER_CALCULATE_PACKAGE_TYPE = "packageType";
     public static final String RIDER_IS_UPDATE_PACKAGE = "isUpdate";
 
+    public static final String RIDER_GET_BANK_DETAILS = "get-bank-details";
 
     //TODO to move to express rider constant
     public static final String RIDER_REGISTRATION_MOBILE_NO = "mobileNumber";
