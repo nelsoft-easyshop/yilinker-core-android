@@ -59,7 +59,6 @@ public class Countries {
         this.area_code = area_code;
     }
 
-
     public Language getDefaultLanguage() {
         return defaultLanguage;
     }
@@ -75,7 +74,6 @@ public class Countries {
     public void setActive(boolean active) {
         isActive = active;
     }
-
     public String getFlag() {
         return flag;
     }
