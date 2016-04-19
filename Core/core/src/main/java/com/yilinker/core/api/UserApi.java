@@ -831,7 +831,7 @@ public class UserApi {
      * @return
      */
     public static Request registerSimplified (final int requestCode, String contactNumber, String password,
-                                    String areaCode, String referralCode, String verificationCode, String grantType,
+                                    String areaCode, int languageId, String referralCode, String verificationCode, String grantType,
                                     String clientId, String clientSecret,
                                     final ResponseHandler responseHandler){
 
@@ -843,6 +843,7 @@ public class UserApi {
         params.put(APIConstants.REG_PARAM_MOBILE, contactNumber);
         params.put(APIConstants.REG_PARAM_PASSWORD, password);
         params.put(APIConstants.REG_PARAM_AREA_CODE, areaCode);
+        params.put(com.yilinker.core.v2.constants.APIConstants.LANGUAGE_PARAM_LANGUAGE_ID, String.valueOf(languageId));
         params.put(APIConstants.REG_PARAM_REFERRAL, referralCode);
         params.put(APIConstants.REG_PARAM_VERIFICATION_CODE, verificationCode);
         params.put(APIConstants.LOGIN_PARAM_GRANT_TYPE, grantType);
