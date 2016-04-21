@@ -14,7 +14,10 @@ public class Countries {
     private String code;
     private String domain;
     private String area_code;
+    private Language defaultLanguage;
+    private boolean isActive;
     private String flag;
+
 
     public int getCountryId() {
         return countryId;
@@ -56,6 +59,21 @@ public class Countries {
         this.area_code = area_code;
     }
 
+    public Language getDefaultLanguage() {
+        return defaultLanguage;
+    }
+
+    public void setDefaultLanguage(Language defaultLanguage) {
+        this.defaultLanguage = defaultLanguage;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
     public String getFlag() {
         return flag;
     }
