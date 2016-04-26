@@ -283,6 +283,7 @@ public class ProfileApi {
     }
 
     public static Request updateUserDetails (final int requestCode, String token, File profilePhoto, File userDocuments, Profile profile,
+                                             int languageId, int countryId,
                                              final ResponseHandler responseHandler){
 
         String url = String.format("%s/%s/%s/%s",
@@ -300,6 +301,9 @@ public class ProfileApi {
         if (profile.getReferrerName() == null || profile.getReferrerName().trim().isEmpty()) {
             params.put(APIConstants.PROFILE_REFERRAL_CODE, profile.getReferrerCode());
         }
+        params.put(APIConstants.PROFILE_LANGUAGE_ID, String.valueOf(languageId));
+        params.put(APIConstants.PROFILE_COUNTRY_ID, String.valueOf(countryId));
+
 
         StringBuilder stringBuilder = new StringBuilder();
 
