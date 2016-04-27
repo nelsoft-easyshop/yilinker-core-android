@@ -1,6 +1,8 @@
 package com.yilinker.core.model;
 
 import com.google.gson.InstanceCreator;
+import com.yilinker.core.v2.model.Countries;
+import com.yilinker.core.v2.model.Language;
 
 import java.lang.reflect.Type;
 import java.util.Date;
@@ -37,6 +39,9 @@ public class Profile {
     private boolean isMobileVerified;
     private Address address;
     private UserDocuments userDocuments;
+
+    private Language language;
+    private Countries country;
 
     public int getUserId() {
         return userId;
@@ -236,6 +241,22 @@ public class Profile {
 
     public void setUserDocuments(UserDocuments userDocuments) {
         this.userDocuments = userDocuments;
+    }
+
+    public Language getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(Language language) {
+        this.language = language;
+    }
+
+    public Countries getCountry() {
+        return country;
+    }
+
+    public void setCountry(Countries country) {
+        this.country = country;
     }
 
     public static class ProfileInstance implements InstanceCreator<Profile> {
