@@ -9,6 +9,7 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
+import com.yilinker.core.base.BaseApplication;
 import com.yilinker.core.constants.APIConstants;
 import com.yilinker.core.helper.VolleyPostHelper;
 import com.yilinker.core.interfaces.ResponseHandler;
@@ -33,7 +34,7 @@ public class ProductApi {
 
     public static Request getProductDetails(final int requestCode, String id, final ResponseHandler responseHandler) {
 
-        String url =  String.format("%s/%s/%s?%s=%s", APIConstants.DOMAIN, APIConstants.PRODUCT_API,
+        String url =  String.format("%s/%s/%s?%s=%s", BaseApplication.getDomainURL(), APIConstants.PRODUCT_API,
                     APIConstants.PRODUCT_GET_DETAILS, APIConstants.PRODUCT_GET_DETAILS_PARAM_ID, id);
 
 
@@ -92,7 +93,7 @@ public class ProductApi {
 
     public static Request getProductDetails2(final int requestCode, String accessToken, int id, final ResponseHandler responseHandler) {
 
-        String url =  String.format("%s/%s/%s/%s?%s=%s&%s=%d", APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.PRODUCT_API,
+        String url =  String.format("%s/%s/%s/%s?%s=%s&%s=%d", BaseApplication.getDomainURL(), APIConstants.AUTH_API, APIConstants.PRODUCT_API,
                     APIConstants.PRODUCT_GET_DETAILS,
                     APIConstants.ACCESS_TOKEN, accessToken,
                     APIConstants.PRODUCT_GET_DETAILS_PARAM_ID, id);
@@ -137,7 +138,7 @@ public class ProductApi {
 
     public static Request getProductReview(final int requestCode, String id, final ResponseHandler responseHandler){
 
-        String url = String.format("%s/%s/%s", APIConstants.DOMAIN, APIConstants.PRODUCT_API, APIConstants.PRODUCT_GET_PRODUCT_REVIEW);
+        String url = String.format("%s/%s/%s", BaseApplication.getDomainURL(), APIConstants.PRODUCT_API, APIConstants.PRODUCT_GET_PRODUCT_REVIEW);
 
         Map<String, String > params = new HashMap<>();
         params.put( APIConstants.PRODUCT_ID,id);
@@ -218,7 +219,7 @@ public class ProductApi {
 
     public static Request getProductReview(final int requestCode, int id, final ResponseHandler responseHandler) {
 
-        String url = String.format("%s/%s/%s", APIConstants.DOMAIN, APIConstants.PRODUCT_API, APIConstants.PRODUCT_GET_PRODUCT_REVIEW);
+        String url = String.format("%s/%s/%s", BaseApplication.getDomainURL(), APIConstants.PRODUCT_API, APIConstants.PRODUCT_GET_PRODUCT_REVIEW);
 
         Map<String, String> params = new HashMap<>();
         params.put(APIConstants.PRODUCT_ID, String.valueOf(id));
@@ -278,7 +279,7 @@ public class ProductApi {
 //                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
 //                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
 //
-//        String url = String.format("%s/%s/%s",APIConstants.DOMAIN, APIConstants.PRODUCT_API, APIConstants.PRODUCT_UPLOAD_API);
+//        String url = String.format("%s/%s/%s",BaseApplication.getDomainURL(), APIConstants.PRODUCT_API, APIConstants.PRODUCT_UPLOAD_API);
 //
 //        Map<String,String> params = new HashMap<String,String>();
 //        params.put(APIConstants.ACCESS_TOKEN, accessToken);

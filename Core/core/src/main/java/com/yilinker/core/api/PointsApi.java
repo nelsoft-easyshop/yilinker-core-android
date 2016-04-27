@@ -10,6 +10,7 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
+import com.yilinker.core.base.BaseApplication;
 import com.yilinker.core.constants.APIConstants;
 import com.yilinker.core.helper.VolleyPostHelper;
 import com.yilinker.core.interfaces.ResponseHandler;
@@ -34,7 +35,7 @@ public class PointsApi {
 
     public static Request getPoints(final int requestCode, String token, final ResponseHandler responseHandler) {
 
-        String url = String.format("%s/%s/%s/%s", APIConstants.DOMAIN,
+        String url = String.format("%s/%s/%s/%s", BaseApplication.getDomainURL(),
                 APIConstants.AUTH_API, APIConstants.USER_API, APIConstants.GET_POINTS);
 
         Map<String, String> params = new HashMap<String,String>();
@@ -85,7 +86,7 @@ public class PointsApi {
 
     public static Request getPointsHistory(final int requestCode, String token, int pageNo, int perPage, final ResponseHandler responseHandler) {
 
-        String url = String.format("%s/%s/%s/%s", APIConstants.DOMAIN,
+        String url = String.format("%s/%s/%s/%s", BaseApplication.getDomainURL(),
                 APIConstants.AUTH_API, APIConstants.USER_API, APIConstants.GET_POINT_HISTORY);
 
         Map<String, String> params = new HashMap<String,String>();

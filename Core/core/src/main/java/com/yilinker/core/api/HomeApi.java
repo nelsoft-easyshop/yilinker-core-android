@@ -28,7 +28,7 @@ public class HomeApi {
 
     public static Request getHomeDetails (final int requestCode, String id, final ResponseHandler responseHandler){
 
-        String url = String.format("%s/%s/%s", APIConstants.DOMAIN, APIConstants.HOME_API, APIConstants.HOME_GET_ITEMS);
+        String url = String.format("%s/%s/%s", BaseApplication.getDomainURL(), APIConstants.HOME_API, APIConstants.HOME_GET_ITEMS);
 
         Request request = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
             @Override
