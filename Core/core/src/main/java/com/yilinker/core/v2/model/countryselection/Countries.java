@@ -1,4 +1,4 @@
-package com.yilinker.core.v2.model;
+package com.yilinker.core.v2.model.countryselection;
 
 import com.google.gson.InstanceCreator;
 
@@ -14,10 +14,9 @@ public class Countries {
     private String code;
     private String domain;
     private String area_code;
-    private Language defaultLanguage;
     private boolean isActive;
+    private Language defaultLanguage;
     private String flag;
-
 
     public int getCountryId() {
         return countryId;
@@ -59,6 +58,14 @@ public class Countries {
         this.area_code = area_code;
     }
 
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
+
     public Language getDefaultLanguage() {
         return defaultLanguage;
     }
@@ -67,13 +74,6 @@ public class Countries {
         this.defaultLanguage = defaultLanguage;
     }
 
-    public boolean isActive() {
-        return isActive;
-    }
-
-    public void setActive(boolean active) {
-        isActive = active;
-    }
     public String getFlag() {
         return flag;
     }
