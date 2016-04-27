@@ -40,7 +40,7 @@ public class DeviceApi
     {
         // Build endpoint
         String endpoint = String.format("%s/%s/%s",
-                APIConstants.DOMAIN, APIConstants.DEVICE_API, APIConstants.ADD_REGISTRATION_ID);
+                BaseApplication.getDomainURL(), APIConstants.DEVICE_API, APIConstants.ADD_REGISTRATION_ID);
 
         // Build request parameters
         Map<String, String> params = new HashMap<String, String>();
@@ -82,7 +82,7 @@ public class DeviceApi
     {
         // Build endpoint
         String endpoint = String.format("%s/%s/%s?%s=%s",
-                APIConstants.DOMAIN, APIConstants.DEVICE_API, APIConstants.DELETE_REGISTRATION_ID,
+                BaseApplication.getDomainURL(), APIConstants.DEVICE_API, APIConstants.DELETE_REGISTRATION_ID,
                 APIConstants.DEVICE_PARAM_ACCESS_TOKEN, accessToken);
 
         // Build request parameters
@@ -125,7 +125,7 @@ public class DeviceApi
     {
         // Build endpoint
         String endpoint = String.format("%s/%s/%s",
-                APIConstants.DOMAIN, APIConstants.DEVICE_API, APIConstants.UPDATE_REGISTRATION_ID);
+                BaseApplication.getDomainURL(), APIConstants.DEVICE_API, APIConstants.UPDATE_REGISTRATION_ID);
 
         // Build request parameters
         Map<String, String> params = new HashMap<String, String>();

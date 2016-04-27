@@ -11,6 +11,7 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.yilinker.core.base.BaseApplication;
 import com.yilinker.core.constants.APIConstants;
 import com.yilinker.core.helper.MultiPartRequest;
 import com.yilinker.core.helper.VolleyPostHelper;
@@ -50,7 +51,7 @@ public class CheckoutApi {
         if(!isGuest) {
 
             url = String.format("%s/%s/%s/%s",
-                    APIConstants.DOMAIN.replace("v1", "v2"), APIConstants.AUTH_API,
+                    BaseApplication.getDomainURL(), APIConstants.AUTH_API,
                     APIConstants.CHECKOUT_PAYMENT_API,
                     APIConstants.CHECKOUT_PAYMENT_COD);
             params.put(APIConstants.ACCESS_TOKEN, token);
@@ -58,7 +59,7 @@ public class CheckoutApi {
         } else {
 
             url = String.format("%s/%s/%s",
-                    APIConstants.DOMAIN.replace("v1", "v2"), APIConstants.CHECKOUT_PAYMENT_API, APIConstants.CHECKOUT_PAYMENT_COD);
+                    BaseApplication.getDomainURL(), APIConstants.CHECKOUT_PAYMENT_API, APIConstants.CHECKOUT_PAYMENT_COD);
 
         }
 
@@ -122,13 +123,13 @@ public class CheckoutApi {
         Map<String, String> params = new HashMap<String, String>();
         if(!isGuest) {
             url = String.format("%s/%s/%s/%s",
-                    APIConstants.DOMAIN.replace("v1", "v2"), APIConstants.AUTH_API, APIConstants.CHECKOUT_PAYMENT_API,
+                    BaseApplication.getDomainURL(), APIConstants.AUTH_API, APIConstants.CHECKOUT_PAYMENT_API,
                     APIConstants.CHECKOUT_PAYMENT_PESOPAY);
             params.put(APIConstants.ACCESS_TOKEN, token);
 
         } else {
             url = String.format("%s/%s/%s",
-                    APIConstants.DOMAIN.replace("v1", "v2"), APIConstants.CHECKOUT_PAYMENT_API,
+                    BaseApplication.getDomainURL(), APIConstants.CHECKOUT_PAYMENT_API,
                     APIConstants.CHECKOUT_PAYMENT_PESOPAY);
         }
 
@@ -190,11 +191,11 @@ public class CheckoutApi {
         Map<String, String> params = new HashMap<String, String>();
 
         if(!isGuest) {
-            url = String.format("%s/%s/%s/%s", APIConstants.DOMAIN.replace("v1", "v2"),
+            url = String.format("%s/%s/%s/%s", BaseApplication.getDomainURL(),
                     APIConstants.AUTH_API, APIConstants.CHECKOUT_PAYMENT_API, APIConstants.CHECKOUT_PAYMENT_OVERVIEW);
             params.put(APIConstants.ACCESS_TOKEN, token);
         } else {
-            url = String.format("%s/%s/%s", APIConstants.DOMAIN.replace("v1", "v2"),
+            url = String.format("%s/%s/%s", BaseApplication.getDomainURL(),
                     APIConstants.CHECKOUT_PAYMENT_API, APIConstants.CHECKOUT_PAYMENT_OVERVIEW);
         }
 
@@ -253,7 +254,7 @@ public class CheckoutApi {
 
     public static Request setDefaultAddress(final int requestCode, String token, int addressId, final ResponseHandler responseHandler){
 
-        String url = String.format("%s/%s/%s/%s", APIConstants.DOMAIN.replace("v1", "v2"), APIConstants.AUTH_API,
+        String url = String.format("%s/%s/%s/%s", BaseApplication.getDomainURL(), APIConstants.AUTH_API,
                 APIConstants.USER_API, APIConstants.CHECKCOUT_ADDRESS_SET_ADDRESS);
 
         Map<String, String> params = new HashMap<String, String>();
@@ -323,11 +324,11 @@ public class CheckoutApi {
         Map<String, String> params = new HashMap<>();
 
         if(!isGuest){
-            url = String.format("%s/%s/%s/%s", APIConstants.DOMAIN.replace("v1", "v2"), APIConstants.AUTH_API,
+            url = String.format("%s/%s/%s/%s", BaseApplication.getDomainURL(), APIConstants.AUTH_API,
                     APIConstants.CART_API, APIConstants.CHECKOUT_SELECT_ITEMS);
             params.put(APIConstants.ACCESS_TOKEN, token);
         } else {
-            url = String.format("%s/%s/%s", APIConstants.DOMAIN.replace("v1", "v2"), APIConstants.CART_API,
+            url = String.format("%s/%s/%s", BaseApplication.getDomainURL(), APIConstants.CART_API,
                     APIConstants.CHECKOUT_SELECT_ITEMS);
         }
 
@@ -407,7 +408,7 @@ public class CheckoutApi {
     public static Request requestGuestAccount(final int requestCode, Address address, String firstName,
                                               String lastName, String mobileNumber, String confirmationCode,
                                               final ResponseHandler responseHandler){
-        String url = String.format("%s/%s", APIConstants.DOMAIN.replace("v1","v2"), APIConstants.GUEST_CHECKOUT_API);
+        String url = String.format("%s/%s", BaseApplication.getDomainURL().replace("v1","v2"), APIConstants.GUEST_CHECKOUT_API);
 
         Map<String, String> params = new HashMap<String, String>();
 
@@ -496,7 +497,7 @@ public class CheckoutApi {
                                            final ResponseHandler responseHandler){
 
         String url = String.format("%s/%s/%s",
-                APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.CHECKOUT_UPDATE_BASIC_INFO);
+                BaseApplication.getDomainURL(), APIConstants.AUTH_API, APIConstants.CHECKOUT_UPDATE_BASIC_INFO);
 
         Map<String, String> params = new HashMap<String, String>();
         params.put(APIConstants.CHECKOUT_FIRST_NAME, firstName);
@@ -563,7 +564,7 @@ public class CheckoutApi {
                                         String verificationCode, String type, final ResponseHandler responseHandler){
 
         String url = String.format("%s/%s/%s/%s",
-                APIConstants.DOMAIN.replace("v1", "v2"), APIConstants.AUTH_API, APIConstants.CHECKOUT_TOKEN, APIConstants.CHECKOUT_VALIDATE);
+                BaseApplication.getDomainURL(), APIConstants.AUTH_API, APIConstants.CHECKOUT_TOKEN, APIConstants.CHECKOUT_VALIDATE);
 
         Map<String, String> params = new HashMap<String, String>();
         params.put(APIConstants.ACCESS_TOKEN, token);
@@ -613,7 +614,7 @@ public class CheckoutApi {
 
     public static Request getRequestCode(final int requestCode, String accessToken, String type, String contactNumber, final ResponseHandler responseHandler) {
 
-        String url = String.format("%s/%s/%s/%s", APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.SMS_API,
+        String url = String.format("%s/%s/%s/%s", BaseApplication.getDomainURL(), APIConstants.AUTH_API, APIConstants.SMS_API,
                 APIConstants.SEND);
         //TEMP for v2
         url = url.replace("v1","v2");

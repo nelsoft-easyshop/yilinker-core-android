@@ -52,7 +52,7 @@ public class MessagingApi
     {
         // Build endpoint
         String endpoint = String.format("%s/%s/%s",
-                APIConstants.DOMAIN, APIConstants.MESSAGING_API, APIConstants.SEND_MESSAGE);
+                BaseApplication.getDomainURL(), APIConstants.MESSAGING_API, APIConstants.SEND_MESSAGE);
 
         // Build request parameters
         Map<String, String> params = new HashMap<String, String>();
@@ -128,7 +128,7 @@ public class MessagingApi
     {
         // Build endpoint
         String endpoint = String.format("%s/%s/%s",
-                APIConstants.DOMAIN, APIConstants.MESSAGING_API, APIConstants.GET_CONVERSATION_HEAD);
+                BaseApplication.getDomainURL(), APIConstants.MESSAGING_API, APIConstants.GET_CONVERSATION_HEAD);
 
         // Build request parameters
         Map<String, String> params = new HashMap<String, String>();
@@ -195,7 +195,7 @@ public class MessagingApi
     {
         // Build endpoint
         String endpoint = String.format("%s/%s/%s",
-                APIConstants.DOMAIN, APIConstants.MESSAGING_API, APIConstants.GET_CONTACTS);
+                BaseApplication.getDomainURL(), APIConstants.MESSAGING_API, APIConstants.GET_CONTACTS);
 
         // Build request parameters
         Map<String, String> params = new HashMap<String, String>();
@@ -264,7 +264,7 @@ public class MessagingApi
     {
         // Build endpoint
         String endpoint = String.format("%s/%s/%s",
-                APIConstants.DOMAIN, APIConstants.MESSAGING_API, APIConstants.GET_CONVERSATION_MESSAGES);
+                BaseApplication.getDomainURL(), APIConstants.MESSAGING_API, APIConstants.GET_CONVERSATION_MESSAGES);
 
         // Build request parameters
         Map<String, String> params = new HashMap<String, String>();
@@ -324,7 +324,7 @@ public class MessagingApi
     {
         // Build endpoint
         String endpoint = String.format("%s/%s/%s",
-                APIConstants.DOMAIN, APIConstants.MESSAGING_API, APIConstants.SET_CONVERSATION_AS_READ);
+                BaseApplication.getDomainURL(), APIConstants.MESSAGING_API, APIConstants.SET_CONVERSATION_AS_READ);
 
         // Build request parameters
         Map<String, String> params = new HashMap<String, String>();
@@ -380,7 +380,7 @@ public class MessagingApi
     public static Request attachImage(String accessToken, File file, final int requestCode,final ResponseHandler responseHandler) {
 
         String url = String.format("%s/%s/%s?%s=%s",
-                APIConstants.DOMAIN, APIConstants.MESSAGING_API, APIConstants.IMAGE_ATTACH, APIConstants.ACCESS_TOKEN, accessToken);
+                BaseApplication.getDomainURL(), APIConstants.MESSAGING_API, APIConstants.IMAGE_ATTACH, APIConstants.ACCESS_TOKEN, accessToken);
 
         MultiPartRequest multiPartRequest = new MultiPartRequest(url, EvImageAttachResp.class, file, new Response.Listener() {
             @Override
