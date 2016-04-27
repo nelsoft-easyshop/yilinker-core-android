@@ -16,8 +16,7 @@ import com.yilinker.core.interfaces.ResponseHandler;
 import com.yilinker.core.model.APIResponse;
 import com.yilinker.core.utility.GsonUtility;
 import com.yilinker.core.utility.SocketTimeout;
-import com.yilinker.core.v2.model.Countries;
-import com.yilinker.core.v2.model.Language;
+import com.yilinker.core.v2.model.countryselection.Countries;
 
 import org.json.JSONObject;
 
@@ -45,7 +44,6 @@ public class CountriesApi {
                 gson = GsonUtility.createGsonBuilder(Countries.class, new Countries.CountriesInstance()).create();
                 String jsonString = new Gson().toJson(apiResponse.getData());
                 Countries[] obj = gson.fromJson(jsonString, Countries[].class);
-
 
                 responseHandler.onSuccess(requestCode, obj);
             }
