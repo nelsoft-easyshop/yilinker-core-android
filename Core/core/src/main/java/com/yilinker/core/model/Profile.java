@@ -1,8 +1,8 @@
 package com.yilinker.core.model;
 
 import com.google.gson.InstanceCreator;
-import com.yilinker.core.v2.model.Countries;
-import com.yilinker.core.v2.model.Language;
+import com.yilinker.core.v2.model.countryselection.Countries;
+import com.yilinker.core.v2.model.countryselection.Language;
 
 import java.lang.reflect.Type;
 import java.util.Date;
