@@ -1,4 +1,4 @@
-package com.yilinker.core.v2.model;
+package com.yilinker.core.v2.model.countryselection;
 
 import com.google.gson.InstanceCreator;
 

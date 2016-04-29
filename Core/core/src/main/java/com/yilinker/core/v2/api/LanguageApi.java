@@ -14,11 +14,9 @@ import com.yilinker.core.constants.APIConstants;
 import com.yilinker.core.helper.VolleyPostHelper;
 import com.yilinker.core.interfaces.ResponseHandler;
 import com.yilinker.core.model.APIResponse;
-import com.yilinker.core.model.AddressList;
-import com.yilinker.core.model.seller.Bank;
 import com.yilinker.core.utility.GsonUtility;
 import com.yilinker.core.utility.SocketTimeout;
-import com.yilinker.core.v2.model.Language;
+import com.yilinker.core.v2.model.countryselection.Language;
 
 import org.json.JSONObject;
 
@@ -32,7 +30,7 @@ public class LanguageApi {
 
     public static Request getLanguage(final int requestCode, final ResponseHandler responseHandler) {
 
-        String url = String.format("%s/%s", APIConstants.DOMAIN.replace("v1", "v3"), com.yilinker.core.v2.constants.APIConstants.LANGUAGE_API);
+        String url = String.format("%s/%s", APIConstants.DOMAIN.replace("v1","v3"), com.yilinker.core.v2.constants.APIConstants.LANGUAGE_API);
 
         Map<String, String> params = new HashMap<String,String>();
 
