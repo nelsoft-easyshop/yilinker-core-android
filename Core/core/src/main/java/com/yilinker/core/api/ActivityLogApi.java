@@ -11,6 +11,7 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
+import com.yilinker.core.base.BaseApplication;
 import com.yilinker.core.constants.APIConstants;
 import com.yilinker.core.interfaces.ResponseHandler;
 import com.yilinker.core.model.APIResponse;
@@ -29,7 +30,7 @@ public class ActivityLogApi {
                                          int pageNo, int perPage, final ResponseHandler responseHandler) {
 
         String url = String.format("%s/%s/%s/%s?%s=%s&%s=%s&%s=%s",
-                APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.PROFILE_API, APIConstants.ACTIVITY_LOG_GET_ITEMS,
+                BaseApplication.getDomainURL(), APIConstants.AUTH_API, APIConstants.PROFILE_API, APIConstants.ACTIVITY_LOG_GET_ITEMS,
                 APIConstants.ACCESS_TOKEN, token,
                 APIConstants.SEARCH_PAGE, String.valueOf(pageNo),
                 APIConstants.SEARCH_PER_PAGE, String.valueOf(perPage));

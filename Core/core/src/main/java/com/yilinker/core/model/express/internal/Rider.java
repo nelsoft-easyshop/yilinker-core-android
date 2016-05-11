@@ -20,6 +20,7 @@ public class Rider {
     private int currentDropoffJO;
     private String areaCode;
     private String accreditationStatus;
+    private Branch branch;
 
     public String getAccreditationStatus() {
         return accreditationStatus;
@@ -107,6 +108,18 @@ public class Rider {
 
     public void setAreaCode(String areaCode) {
         this.areaCode = areaCode;
+    }
+
+    public void setCurrentDropoffJO(int currentDropoffJO) {
+        this.currentDropoffJO = currentDropoffJO;
+    }
+
+    public Branch getBranch() {
+        return branch;
+    }
+
+    public void setBranch(Branch branch) {
+        this.branch = branch;
     }
 
     public static class RiderInstance implements InstanceCreator<Rider> {

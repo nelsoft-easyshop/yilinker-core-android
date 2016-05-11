@@ -7,9 +7,9 @@ import com.android.volley.Response;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.google.android.gms.common.api.Api;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.yilinker.core.base.BaseApplication;
 import com.yilinker.core.constants.APIConstants;
 import com.yilinker.core.helper.VolleyPostHelper;
 import com.yilinker.core.interfaces.ResponseHandler;
@@ -41,7 +41,7 @@ public class TransactionApi {
 
     public static Request addProductReview(final int requestCode, int productId, int orderProductId, String accessToken,float rating,String review, final ResponseHandler responseHandler) {
 
-        String url = String.format("%s/%s/%s/%s", APIConstants.DOMAIN, APIConstants.AUTH_API,
+        String url = String.format("%s/%s/%s/%s", BaseApplication.getDomainURL(), APIConstants.AUTH_API,
                 APIConstants.PRODUCT_API,APIConstants.PRODUCT_ADD_PRODUCT_REVIEW );
 
         Map<String, String > params = new HashMap<>();
@@ -105,7 +105,7 @@ public class TransactionApi {
 
     public static Request addSellerReview(final int requestCode, int sellerId,int orderId,String accessToken,String rating,String review, final ResponseHandler responseHandler) {
 
-        String url = String.format("%s/%s/%s/%s", APIConstants.DOMAIN, APIConstants.AUTH_API,
+        String url = String.format("%s/%s/%s/%s", BaseApplication.getDomainURL(), APIConstants.AUTH_API,
                 APIConstants.PRODUCT_FEEDBACK,APIConstants.PRODUCT_ADD_SELLER_REVIEW );
 
         Map<String, String > params = new HashMap<>();
@@ -162,11 +162,11 @@ public class TransactionApi {
     public static Request getTransactionList(final int requestCode, String accessToken, String type, String orderStatusId, String page, String perItem, final ResponseHandler responseHandler) {
         String endpoint;
         if(orderStatusId.isEmpty()) {
-            endpoint = String.format("%s/%s/%s?%s=%s&%s=%s&%s=%s&%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.SELLER_TRANSACTION_LIST_API,
+            endpoint = String.format("%s/%s/%s?%s=%s&%s=%s&%s=%s&%s=%s", BaseApplication.getDomainURL(), APIConstants.AUTH_API, APIConstants.SELLER_TRANSACTION_LIST_API,
                     APIConstants.ACCESS_TOKEN, accessToken, APIConstants.SELLER_TRANSACTION_LIST_PARAMS_TYPE, type,
                     APIConstants.SELLER_TRANSACTION_LIST_PARAMS_PAGE, page, APIConstants.SELLER_TRANSACTION_LIST_PARAMS_PER_PAGE, perItem);
         }else{
-            endpoint = String.format("%s/%s/%s?%s=%s&%s=%s&%s=%s&%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.SELLER_TRANSACTION_LIST_API,
+            endpoint = String.format("%s/%s/%s?%s=%s&%s=%s&%s=%s&%s=%s", BaseApplication.getDomainURL(), APIConstants.AUTH_API, APIConstants.SELLER_TRANSACTION_LIST_API,
                     APIConstants.ACCESS_TOKEN, accessToken, APIConstants.SELLER_TRANSACTION_LIST_PARAMS_ORDER_STATUS, orderStatusId,
                     APIConstants.SELLER_TRANSACTION_LIST_PARAMS_PAGE, page, APIConstants.SELLER_TRANSACTION_LIST_PARAMS_PER_PAGE, perItem);
         }
@@ -231,7 +231,7 @@ public class TransactionApi {
 
     public static Request getTransactionDetails(final int requestCode, String accessToken, String transactionId, final ResponseHandler responseHandler) {
 
-        String url = String.format("%s/%s/%s?%s=%s&%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.SELLER_TRANSACTION_API,
+        String url = String.format("%s/%s/%s?%s=%s&%s=%s", BaseApplication.getDomainURL(), APIConstants.AUTH_API, APIConstants.SELLER_TRANSACTION_API,
                 APIConstants.ACCESS_TOKEN, accessToken, APIConstants.SELLER_TRANSACTION_PARAMS_TRANSACTION_ID, transactionId);
 
         url = url.replace(" ", "%20");
@@ -285,7 +285,7 @@ public class TransactionApi {
 
     public static Request getOrderProductDetails(final int requestCode, String accessToken, String orderProductId, final ResponseHandler responseHandler) {
 
-        String url = String.format("%s/%s/%s?%s=%s&%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.SELLER_TRANSACTION_ORDER_PRODUCT_DETAILS_API,
+        String url = String.format("%s/%s/%s?%s=%s&%s=%s", BaseApplication.getDomainURL(), APIConstants.AUTH_API, APIConstants.SELLER_TRANSACTION_ORDER_PRODUCT_DETAILS_API,
                 APIConstants.ACCESS_TOKEN, accessToken, APIConstants.SELLER_TRANSACTION_DELIVERY_LOGS_PARAMS_ORDER_PRODUCT_ID, orderProductId);
 
         url = url.replace(" ", "%20");
@@ -338,7 +338,7 @@ public class TransactionApi {
 
     public static Request getCancellationReasons(final int requestCode , String accessToken, final ResponseHandler responseHandler) {
 
-        String url = String.format("%s/%s/%s/%s?%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.CANCELLATION_API,APIConstants.SELLER_TRANSACTION_REASONS_API,
+        String url = String.format("%s/%s/%s/%s?%s=%s", BaseApplication.getDomainURL(), APIConstants.AUTH_API, APIConstants.CANCELLATION_API,APIConstants.SELLER_TRANSACTION_REASONS_API,
                 APIConstants.ACCESS_TOKEN, accessToken);
 
         Request request = new JsonObjectRequest(url, new Response.Listener<JSONObject>() {
@@ -388,7 +388,7 @@ public class TransactionApi {
 
     public static Request sendCancelOrder(final int requestCode , String accessToken, String reasonId, String transactionId, String orderProductId, String remarks, final ResponseHandler responseHandler) {
 
-        String url = String.format("%s/%s/%s/%s", APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.TRANSACTION_API, APIConstants.SELLER_TRANSACTION_CANCEL_API,
+        String url = String.format("%s/%s/%s/%s", BaseApplication.getDomainURL(), APIConstants.AUTH_API, APIConstants.TRANSACTION_API, APIConstants.SELLER_TRANSACTION_CANCEL_API,
                 APIConstants.ACCESS_TOKEN, accessToken);
 
         Map<String, String > params = new HashMap<>();
