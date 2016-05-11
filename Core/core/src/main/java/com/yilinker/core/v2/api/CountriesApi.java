@@ -10,6 +10,7 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
+import com.yilinker.core.base.BaseApplication;
 import com.yilinker.core.constants.APIConstants;
 import com.yilinker.core.helper.VolleyPostHelper;
 import com.yilinker.core.interfaces.ResponseHandler;
@@ -30,7 +31,10 @@ public class CountriesApi {
 
     public static Request getCountries(final int requestCode, final ResponseHandler responseHandler) {
 
-        String url = String.format("%s/%s", APIConstants.DOMAIN.replace("v1", "v3"), com.yilinker.core.v2.constants.APIConstants.COUNTRIES_API);
+        //String url = String.format("%s/%s", APIConstants.DOMAIN.replace("v1", "v3"), com.yilinker.core.v2.constants.APIConstants.COUNTRIES_API);
+
+        String url = String.format("%s/%s", BaseApplication.getDomainURL(), com.yilinker.core.v2.constants.APIConstants.COUNTRIES_API);
+
 
         Map<String, String> params = new HashMap<String,String>();
 

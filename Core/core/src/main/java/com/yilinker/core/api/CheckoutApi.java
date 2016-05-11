@@ -21,6 +21,7 @@ import com.yilinker.core.model.Address;
 import com.yilinker.core.model.AuthenticatedOTP;
 import com.yilinker.core.model.buyer.Cart;
 import com.yilinker.core.model.buyer.CartItem2;
+import com.yilinker.core.model.buyer.CheckoutCart;
 import com.yilinker.core.model.buyer.CheckoutOverview;
 import com.yilinker.core.model.buyer.CheckoutPayment;
 import com.yilinker.core.model.buyer.CheckoutTransactionOverview;
@@ -350,14 +351,18 @@ public class CheckoutApi {
                 Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
                 APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
 
-                gson = GsonUtility.createGsonBuilder(Cart.class, new Cart.CartInstance()).create();
+                //For version 3. The data format changed from list of cart items to object
+//                gson = GsonUtility.createGsonBuilder(Cart.class, new Cart.CartInstance()).create();
+                gson = GsonUtility.createGsonBuilder(CheckoutCart.class, new CheckoutCart.CheckoutCartInstance()).create();
                 String jsonString = new Gson().toJson(apiResponse.getData());
 
                 if(apiResponse.isSuccessful()){
-                    Type listType = new TypeToken<ArrayList<CartItem2>>(){}.getType();
-                    List<CartItem2> obj = gson.fromJson(jsonString, listType);
+//                    Type listType = new TypeToken<ArrayList<CartItem2>>(){}.getType();
+//                    List<CartItem2> obj = gson.fromJson(jsonString, listType);
 
-                    responseHandler.onSuccess(requestCode, obj);
+                    CheckoutCart obj = gson.fromJson(jsonString, CheckoutCart.class);
+
+                    responseHandler.onSuccess(requestCode, obj.getItems());
 
                 } else {
 
