@@ -43,8 +43,6 @@ public class Product {
     private String name;
     private String productId;
     private String imageUrl;
-    private boolean hasCOD;
-    private boolean isInternationalWarehouse;
 
     public String getImageUrl() {
         return imageUrl;
@@ -166,22 +164,6 @@ public class Product {
 
     public void setSlug(String slug) {
         this.slug = slug;
-    }
-
-    public boolean isHasCOD() {
-        return hasCOD;
-    }
-
-    public void setHasCOD(boolean hasCOD) {
-        this.hasCOD = hasCOD;
-    }
-
-    public boolean isInternationalWarehouse() {
-        return isInternationalWarehouse;
-    }
-
-    public void setInternationalWarehouse(boolean internationalWarehouse) {
-        isInternationalWarehouse = internationalWarehouse;
     }
 
     //    public double getOriginalPrice() {

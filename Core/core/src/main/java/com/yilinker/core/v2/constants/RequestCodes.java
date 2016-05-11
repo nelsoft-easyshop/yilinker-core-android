@@ -6,6 +6,6 @@ package com.yilinker.core.v2.constants;
 public class RequestCodes {
 
     //For Refresh Token
-    public static final int REQUEST_CODE_REFRESH_TOKEN                                              = 1000;
+    public static final int REQUEST_CODE_REFRESH_TOKEN                                             = 1000;
 
 }

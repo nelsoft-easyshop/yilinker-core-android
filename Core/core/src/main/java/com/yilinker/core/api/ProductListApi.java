@@ -5,7 +5,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
-import com.yilinker.core.base.BaseApplication;
 import com.yilinker.core.constants.APIConstants;
 import com.yilinker.core.interfaces.ResponseHandler;
 import com.yilinker.core.model.APIResponse;
@@ -23,7 +22,7 @@ public class ProductListApi {
 
     public static Request getProductList(final int requestCode, String target,final ResponseHandler responseHandler) {
         String url= String.format("%s/%s" ,
-                    BaseApplication.getDomainURL(),
+                    APIConstants.DOMAIN,
                     target);
 
         url = url.replaceAll(" ","%20");

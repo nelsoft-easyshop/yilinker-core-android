@@ -13,7 +13,6 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
-import com.yilinker.core.base.BaseApplication;
 import com.yilinker.core.constants.APIConstants;
 import com.yilinker.core.helper.VolleyPostHelper;
 import com.yilinker.core.interfaces.ResponseHandler;
@@ -43,7 +42,7 @@ public class SettingsApi {
                                       final ResponseHandler responseHandler){
 
         String url = String.format("%s/%s/%s/%s",
-                BaseApplication.getDomainURL(), APIConstants.AUTH_API, APIConstants.LOGIN_PARAM_EMAIL, APIConstants.SETTINGS_API);
+                APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.LOGIN_PARAM_EMAIL, APIConstants.SETTINGS_API);
 
         Map<String, String> params = new HashMap<String, String>();
         params.put(APIConstants.ACCESS_TOKEN, token);
@@ -90,7 +89,7 @@ public class SettingsApi {
                                                 final ResponseHandler responseHandler){
 
         String url = String.format("%s/%s/%s/%s?%s=%s",
-                BaseApplication.getDomainURL(), APIConstants.AUTH_API, APIConstants.SMS_API, APIConstants.SETTINGS_API,
+                APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.SMS_API, APIConstants.SETTINGS_API,
                 APIConstants.ACCESS_TOKEN, token);
 
         Map<String, String> params = new HashMap<String, String>();
@@ -135,7 +134,7 @@ public class SettingsApi {
 
     public static Request deactivateAccount(final int requestCode, String accessToken, String password, final ResponseHandler responseHandler) {
 
-        String url = String.format("%s/%s/%s/%s", BaseApplication.getDomainURL(), APIConstants.AUTH_API, APIConstants.ACCOUNT_API,
+        String url = String.format("%s/%s/%s/%s", APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.ACCOUNT_API,
                APIConstants.DISABLE_USER);
 
         Map<String, String> params = new HashMap<String, String>();

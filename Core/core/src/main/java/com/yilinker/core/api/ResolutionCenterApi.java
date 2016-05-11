@@ -12,7 +12,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.yilinker.core.base.BaseApplication;
 import com.yilinker.core.constants.APIConstants;
 import com.yilinker.core.helper.VolleyPostHelper;
 import com.yilinker.core.interfaces.ResponseHandler;
@@ -41,7 +40,7 @@ public class ResolutionCenterApi {
 
     public static Request getCases(final int requestCode, String accessToken, String filter, final ResponseHandler responseHandler) {
 
-        String endpoint = String.format("%s/%s/%s/%s?%s=%s", BaseApplication.getDomainURL(), APIConstants.AUTH_API,
+        String endpoint = String.format("%s/%s/%s/%s?%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API,
                 APIConstants.RESOLUTION_CENTER_DISPUTE,APIConstants.RESOLUTION_CENTER_GET_CASES,APIConstants.ACCESS_TOKEN, accessToken);
 
         String finalUrl = endpoint;
@@ -105,7 +104,7 @@ public class ResolutionCenterApi {
 
     public static Request getCaseDetails(final int requestCode, String accessToken, String disputeId, final ResponseHandler responseHandler) {
 
-        String url = String.format("%s/%s/%s/%s?%s=%s&%s=%s", BaseApplication.getDomainURL(), APIConstants.AUTH_API,
+        String url = String.format("%s/%s/%s/%s?%s=%s&%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API,
                 APIConstants.RESOLUTION_CENTER_DISPUTE,APIConstants.RESOLUTION_CENTER_GET_CASE_DETAILS,
                 APIConstants.ACCESS_TOKEN, accessToken,APIConstants.RESOLUTION_CENTER_DISPUTE_ID,disputeId);
 
@@ -160,7 +159,7 @@ public class ResolutionCenterApi {
                                                  final ResponseHandler responseHandler){
 
         String url = String.format("%s/%s/%s/%s",
-                BaseApplication.getDomainURL(), APIConstants.AUTH_API,
+                APIConstants.DOMAIN, APIConstants.AUTH_API,
                 APIConstants.RESOLUTION_CENTER_DISPUTE, APIConstants.RESOLUTION_CENTER_ADD_CASE);
 
         Map<String, String> params = new HashMap<String, String>();
@@ -212,7 +211,7 @@ public class ResolutionCenterApi {
 
     public static Request getAllDisputeReasons(final int requestCode, String accessToken, final ResponseHandler responseHandler) {
 
-        String url = String.format("%s/%s/%s/%s?%s=%s", BaseApplication.getDomainURL(), APIConstants.AUTH_API,
+        String url = String.format("%s/%s/%s/%s?%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API,
                 APIConstants.RESOLUTION_CENTER_DISPUTE,APIConstants.RESOLUTION_CENTER_GET_SELLER_REASONS_API,
                 APIConstants.ACCESS_TOKEN, accessToken);
 

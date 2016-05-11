@@ -101,7 +101,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Response
 
             inflateView(((FrameLayout) findViewById(R.id.flBaseContainer)), layoutId);
 
-            initViews(findViewById(layoutId), savedInstanceState);
+            initViews(findViewById(R.id.flBaseContainer), savedInstanceState);
 
         }
 
@@ -327,6 +327,19 @@ public abstract class BaseActivity extends AppCompatActivity implements Response
     public void changeProgressBarVisibility(boolean isLoading) {
 
         (findViewById(R.id.rlProgressBar)).setVisibility(isLoading ? View.VISIBLE : View.GONE);
+
+    }
+
+    /**
+     * Enables intent
+     * @param context
+     * @param activityClass
+     */
+    public void enableIntent(Context context, Class activityClass) {
+
+        Intent intent = new Intent(context, activityClass);
+        context.startActivity(intent);
+        overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
 
     }
 
