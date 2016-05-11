@@ -48,7 +48,7 @@ public class ProfileApi {
                     BaseApplication.getDomainURL(), APIConstants.AUTH_API, APIConstants.PROFILE_API, APIConstants.PROFILE_GET_DETAILS);
         }
 
-        Request requestGetCart = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
+        Request request = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
 
@@ -95,9 +95,9 @@ public class ProfileApi {
         });
 
 
-        requestGetCart.setRetryPolicy(SocketTimeout.getRetryPolicy());
+        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
 
-        return requestGetCart;
+        return request;
 
     }
 
