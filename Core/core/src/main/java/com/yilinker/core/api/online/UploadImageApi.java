@@ -10,6 +10,7 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
+import com.yilinker.core.base.BaseApplication;
 import com.yilinker.core.constants.APIConstants;
 import com.yilinker.core.helper.MultiPartRequest;
 import com.yilinker.core.interfaces.ResponseHandler;
@@ -94,6 +95,42 @@ public class UploadImageApi {
                 responseHandler.onFailed(requestCode, message);
             }
         });
+
+        multiPartRequest.setRetryPolicy(SocketTimeout.getRetryPolicy());
+
+        return multiPartRequest;
+
+    }
+
+    public static Request uploadImageV2 (final int requestCode, String token, File image, String type,
+                                       final ResponseHandler responseHandler, final Response.ErrorListener errorHandler) {
+
+        String url = String.format("%s/%s/%s/%s?%s=%s",
+                BaseApplication.getDomainURL(), APIConstants.AUTH_API, APIConstants.IMAGE, APIConstants.UPLOAD,
+                APIConstants.ACCESS_TOKEN, token);
+
+        Map<String, String> params = new HashMap<String, String>();
+        params.put(APIConstants.TYPE, type);
+
+        MultiPartRequest multiPartRequest = new MultiPartRequest(url, image.getPath(), APIResponse.class, params, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+
+                if (apiResponse.isSuccessful()) {
+
+                    responseHandler.onSuccess(requestCode, apiResponse.getData());
+
+                } else {
+
+                    responseHandler.onFailed(requestCode, apiResponse.getMessage());
+
+                }
+
+            }
+        }, errorHandler);
 
         multiPartRequest.setRetryPolicy(SocketTimeout.getRetryPolicy());
 
