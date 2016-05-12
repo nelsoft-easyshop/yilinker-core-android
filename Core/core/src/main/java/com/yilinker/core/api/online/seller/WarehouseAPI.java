@@ -10,6 +10,8 @@ import com.yilinker.core.constants.SellerAPIConstants;
 import com.yilinker.core.helper.VolleyPostHelper;
 import com.yilinker.core.interfaces.ResponseHandler;
 import com.yilinker.core.model.APIResponse;
+import com.yilinker.core.model.seller.Inventory;
+import com.yilinker.core.model.seller.InventoryFilter;
 import com.yilinker.core.model.seller.Warehouse;
 import com.yilinker.core.model.seller.request.WarehouseUpdateInventory;
 import com.yilinker.core.utility.GsonUtility;
@@ -280,13 +282,12 @@ public class WarehouseAPI {
                 Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
                 APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
 
+                gson = GsonUtility.createGsonBuilder(Inventory.class, new Inventory.InventoryInstance()).create();
+                String jsonString = new Gson().toJson(apiResponse.getData());
+
+                Inventory obj = gson.fromJson(jsonString, Inventory.class);
+
                 if (apiResponse.isSuccessful()) {
-
-                    gson = GsonUtility.createGsonBuilder(Case.class, new InventoryProduct.InventoryProductInstance()).create();
-                    String jsonString = new Gson().toJson(apiResponse.getData());
-                    Type listType = new TypeToken<ArrayList<InventoryProduct>>(){}.getType();
-
-                    List<InventoryProduct> obj = gson.fromJson(jsonString, listType);
 
                     responseHandler.onSuccess(requestCode, obj);
 
@@ -304,13 +305,12 @@ public class WarehouseAPI {
 
     }
 
-    //TODO for revision
     public static Request getInventoryFilter (final int requestCode,  final ResponseHandler responseHandler, final Response.ErrorListener errorHandler){
 
         String url = String.format("%s/%s/%s/%s",
                 APIConstants.DOMAIN,
                 APIConstants.AUTH_API,
-                APIConstants.SELLER_INVENTORY_API);//TODO add requirement for filter
+                APIConstants.SELLER_INVENTORY_API,APIConstants.SELLER_INVENTORY_FILTER_API);
 
 
         BaseApplication app = BaseApplication.getInstance();
@@ -326,9 +326,14 @@ public class WarehouseAPI {
                 Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
                 APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
 
+                gson = GsonUtility.createGsonBuilder(InventoryFilter.class, new InventoryFilter.InventoryFilterInstance()).create();
+                String jsonString = new Gson().toJson(apiResponse.getData());
+
+                InventoryFilter obj = gson.fromJson(jsonString, InventoryFilter.class);
+
                 if (apiResponse.isSuccessful()) {
 
-                    responseHandler.onSuccess(requestCode, apiResponse.getMessage());
+                    responseHandler.onSuccess(requestCode, obj);
                 } else {
 
                     responseHandler.onFailed(requestCode, apiResponse.getMessage());

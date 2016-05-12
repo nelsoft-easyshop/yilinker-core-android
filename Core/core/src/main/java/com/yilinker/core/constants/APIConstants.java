@@ -721,6 +721,9 @@ public class APIConstants {
     public final static String SELLER_INVENTORY_QUERY                                               = "query";
     public final static String SELLER_INVENTORY_GROUP                                               = "group";
 
+    //INVENTORY FILTER
+    public final static String SELLER_INVENTORY_FILTER_API                                          ="inventory-filter";
+
 
 
 }
