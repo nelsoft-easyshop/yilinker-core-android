@@ -12,7 +12,7 @@ import java.util.List;
 public class Inventory {
 
     private final static String KEY_INVENTORY_PRODUCTS = "inventoryProducts";
-    private final static  String KEY_TOTAL_ITEM_COUNT = "totalItemCount";
+    private final static  String KEY_TOTAL_ITEM_COUNT = "totalpage";
 
     @SerializedName(KEY_INVENTORY_PRODUCTS)
     private List<InventoryProduct> inventoryProducts;

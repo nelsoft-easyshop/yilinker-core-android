@@ -7,8 +7,8 @@ import com.google.gson.annotations.SerializedName;
  */
 public class InventoryFilterStatus {
 
-    private final static String KEY_STATUS_ID = "statusId";
-    private final static String KEY_STATUS_NAME = "statusName";
+    private final static String KEY_STATUS_ID = "id";
+    private final static String KEY_STATUS_NAME = "name";
 
     @SerializedName(KEY_STATUS_ID)
     private int id;

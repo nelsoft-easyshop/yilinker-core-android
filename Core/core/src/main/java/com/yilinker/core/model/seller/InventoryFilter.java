@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class InventoryFilter {
 
-    private final static String KEY_PRODUCT_STATUSES = "productStatuses";
+    private final static String KEY_PRODUCT_STATUSES = "status";
     private final static String KEY_CATEGORIES = "categories";
     private final static String KEY_PRODUCT_GROUPS = "productGroups";
 
