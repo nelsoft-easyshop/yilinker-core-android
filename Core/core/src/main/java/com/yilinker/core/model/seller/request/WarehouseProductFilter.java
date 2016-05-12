@@ -9,7 +9,8 @@ public class WarehouseProductFilter {
 
     private int warehouseId;
     private int pageId;
-    private HashMap<String, String> filter;
+    private HashMap<String, String[]> filter;
+    private String query;/***for searched product*/
 
     public int getWarehouseId() {
         return warehouseId;
@@ -27,12 +28,19 @@ public class WarehouseProductFilter {
         this.pageId = pageId;
     }
 
-    public HashMap<String, String> getFilter() {
+    public HashMap<String, String[]> getFilter() {
         return filter;
     }
 
-    public void setFilter(HashMap<String, String> filter) {
+    public void setFilter(HashMap<String, String[]> filter) {
         this.filter = filter;
     }
 
+    public String getQuery() {
+        return query;
+    }
+
+    public void setQuery(String query) {
+        this.query = query;
+    }
 }
