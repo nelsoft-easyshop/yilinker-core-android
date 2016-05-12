@@ -11,6 +11,7 @@ import com.yilinker.core.helper.VolleyPostHelper;
 import com.yilinker.core.interfaces.ResponseHandler;
 import com.yilinker.core.model.APIResponse;
 import com.yilinker.core.model.seller.Warehouse;
+import com.yilinker.core.model.seller.request.WarehouseUpdateInventory;
 import com.yilinker.core.utility.GsonUtility;
 import com.yilinker.core.helper.VolleyPostHelper;
 import com.yilinker.core.interfaces.ResponseHandler;
@@ -209,8 +210,7 @@ public class WarehouseAPI {
     }
 
 
-    public static Request updateInventory (final int requestCode, int warehouseId,int productUnit,
-                                           int quantity, final ResponseHandler responseHandler, final Response.ErrorListener errorHandler){
+    public static Request updateInventory (final int requestCode, final WarehouseUpdateInventory inventory, final ResponseHandler responseHandler, final Response.ErrorListener errorHandler){
 
         String url = String.format("%s/%s/%s/%s",
                 APIConstants.DOMAIN,
@@ -222,9 +222,9 @@ public class WarehouseAPI {
 
         Map<String,String> params = new HashMap<String,String>();
         params.put(APIConstants.ACCESS_TOKEN, app.getAccessToken());
-        params.put(APIConstants.SELLER_UPDATE_INVENTORY_WAREHOUSE_ID, String.valueOf(warehouseId));
-        params.put(APIConstants.SELLER_UPDATE_INVENTORY_PRODUCT_UNIT, String.valueOf(productUnit));
-        params.put(APIConstants.SELLER_UPDATE_INVENTORY_QUANTITY, String.valueOf(quantity));
+        params.put(APIConstants.SELLER_UPDATE_INVENTORY_WAREHOUSE_ID, String.valueOf(inventory.getWarehouseId()));
+        params.put(APIConstants.SELLER_UPDATE_INVENTORY_PRODUCT_UNIT, String.valueOf(inventory.getProductUnit()));
+        params.put(APIConstants.SELLER_UPDATE_INVENTORY_QUANTITY, String.valueOf(inventory.getQuantity()));
 
 
         VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
