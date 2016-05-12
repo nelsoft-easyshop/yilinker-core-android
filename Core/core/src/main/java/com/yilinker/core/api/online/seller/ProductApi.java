@@ -13,8 +13,11 @@ import com.yilinker.core.helper.VolleyPostHelper;
 import com.yilinker.core.interfaces.ResponseHandler;
 import com.yilinker.core.model.APIResponse;
 import com.yilinker.core.model.seller.ProductBrand;
+import com.yilinker.core.model.seller.ProductCategory;
 import com.yilinker.core.model.seller.ProductCondition;
+import com.yilinker.core.model.seller.ProductGroup;
 import com.yilinker.core.model.seller.ProductShippingCategory;
+import com.yilinker.core.model.seller.ProductUploadDetails;
 import com.yilinker.core.model.seller.request.Product;
 import com.yilinker.core.utility.GsonUtility;
 import com.yilinker.core.utility.SocketTimeout;
@@ -28,6 +31,51 @@ import java.util.List;
  * Created by jaybryantc on 5/11/16.
  */
 public class ProductApi {
+
+    /**
+     * Called to get product upload details
+     * @param requestCode
+     * @param productId
+     * @param handler
+     * @param errorListener
+     * @return
+     */
+    public static Request getUploadDetails(final int requestCode, int productId, final ResponseHandler handler, Response.ErrorListener errorListener) {
+
+        String endpoint = String.format("%s/%s/%s/%s?%s=%s&%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API,
+                PRODUCT_API, GET_BRANDS,
+                APIConstants.ACCESS_TOKEN, BaseApplication.getInstance().getAccessToken(),
+                PRODUCT_PARAM_ID, productId
+        );
+
+        Request request = new JsonObjectRequest(endpoint, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                APIResponse api = gson.fromJson(response.toString(), APIResponse.class);
+
+                if (api.isSuccessful()) {
+
+                    gson = GsonUtility.createGsonBuilder(ProductUploadDetails.class, new ProductUploadDetails.ProductUploadDetailsInstance()).create();
+
+                    handler.onSuccess(requestCode,
+                            gson.fromJson(gson.toJson(api.getData()), ProductUploadDetails.class));
+
+                } else {
+
+                    handler.onFailed(requestCode, api.getMessage());
+
+                }
+
+            }
+        }, errorListener);
+
+        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
+
+        return request;
+    }
+
 
     /**
      * Called to get product brands
@@ -118,8 +166,48 @@ public class ProductApi {
 
     }
 
-    public static void getCategories() {
+    /**
+     * Called to get product categories
+     * @param requestCode
+     * @param handler
+     * @param errorListener
+     * @return
+     */
+    public static Request getCategories(final int requestCode, final ResponseHandler handler, Response.ErrorListener errorListener) {
 
+        String endpoint = String.format("%s/%s/%s?%s=%s", APIConstants.DOMAIN,
+                PRODUCT_API, GET_CATEGORIES,
+                APIConstants.ACCESS_TOKEN, BaseApplication.getInstance().getAccessToken()
+        );
+
+        JsonObjectRequest request = new JsonObjectRequest(endpoint, new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+
+                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                APIResponse api = gson.fromJson(response.toString(), APIResponse.class);
+
+                if (api.isSuccessful()) {
+
+                    gson = GsonUtility.createGsonBuilder(ProductCategory.class, new ProductCategory.ProductCategoryInstance()).create();
+
+                    handler.onSuccess(requestCode,
+                            gson.fromJson(gson.toJson(api.getData()), new TypeToken<List<ProductCategory>>(){}.getType()));
+
+                } else {
+
+                    handler.onFailed(requestCode, api.getMessage());
+
+                }
+
+            }
+
+        }, errorListener);
+
+        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
+
+        return request;
     }
 
     /**
@@ -167,12 +255,59 @@ public class ProductApi {
 
     }
 
-    public static void getProductGroups() {
+    /**
+     * Called to get product groups
+     * @param requestCode
+     * @param handler
+     * @param errorListener
+     * @return
+     */
+    public static Request getProductGroups(final int requestCode, final ResponseHandler handler, Response.ErrorListener errorListener) {
 
+        String endpoint = String.format("%s/%s/%s/%s?%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API,
+                PRODUCT_API, GET_PRODUCT_GROUPS,
+                APIConstants.ACCESS_TOKEN, BaseApplication.getInstance().getAccessToken()
+        );
 
+        JsonObjectRequest request = new JsonObjectRequest(endpoint, new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+
+                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                APIResponse api = gson.fromJson(response.toString(), APIResponse.class);
+
+                if (api.isSuccessful()) {
+
+                    gson = GsonUtility.createGsonBuilder(ProductGroup.class, new ProductGroup.ProductGroupInstance()).create();
+
+                    handler.onSuccess(requestCode,
+                            gson.fromJson(gson.toJson(api.getData()), new TypeToken<List<ProductGroup>>(){}.getType()));
+
+                } else {
+
+                    handler.onFailed(requestCode, api.getMessage());
+
+                }
+
+            }
+
+        }, errorListener);
+
+        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
+
+        return request;
 
     }
 
+    /**
+     * Called to request product upload
+     * @param requestCode
+     * @param product
+     * @param handler
+     * @param errorListener
+     * @return
+     */
     public static Request createProduct(final int requestCode, Product product, final ResponseHandler handler, Response.ErrorListener errorListener) {
 
         String endpoint = String.format("%s/%s/%s/%s?%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API,
@@ -219,6 +354,14 @@ public class ProductApi {
 
     }
 
+    /**
+     * Called to request product edit
+     * @param requestCode
+     * @param product
+     * @param handler
+     * @param errorListener
+     * @return
+     */
     public static Request editProduct(final int requestCode, Product product, final ResponseHandler handler, Response.ErrorListener errorListener) {
 
         String endpoint = String.format("%s/%s/%s/%s?%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API,

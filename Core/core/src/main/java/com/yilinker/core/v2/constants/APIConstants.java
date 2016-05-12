@@ -20,6 +20,7 @@ public class APIConstants {
     public static final String GET_PRODUCT_GROUPS                                                   = "get-product-groups";
     public static final String GET_SHIPPING_CATEGORIES                                              = "get-shipping-categories";
     public static final String GET_BRANDS                                                           = "get-brands";
+    public static final String GET_CATEGORIES                                                       = "get-categories";
     public static final String PRODUCT_PARAM_ID                                                     = "productId";
     public static final String PRODUCT_PARAM_NAME                                                   = "name";
     public static final String PRODUCT_PARAM_SHORT_DESCRIPTION                                      = "shortDescription";
