@@ -14,8 +14,8 @@ public class APIConstants {
 
     //Create Product
     public static final String PRODUCT_API                                                          = "product";
-    public static final String PRODUCT_CREATE                                                       = "create";
-    public static final String PRODUCT_EDIT                                                         = "edit";
+    public static final String CREATE_PRODUCT                                                       = "create";
+    public static final String EDIT_PRODUCT                                                         = "edit";
     public static final String GET_PRODUCT_CONDITIONS                                               = "get-product-conditions";
     public static final String GET_PRODUCT_GROUPS                                                   = "get-product-groups";
     public static final String GET_SHIPPING_CATEGORIES                                              = "get-shipping-categories";
