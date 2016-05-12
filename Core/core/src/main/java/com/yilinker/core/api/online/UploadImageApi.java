@@ -102,12 +102,12 @@ public class UploadImageApi {
 
     }
 
-    public static Request uploadImageV2 (final int requestCode, String token, File image, String type,
+    public static Request uploadImageV2 (final int requestCode, File image, String type,
                                        final ResponseHandler responseHandler, final Response.ErrorListener errorHandler) {
 
         String url = String.format("%s/%s/%s/%s?%s=%s",
                 BaseApplication.getDomainURL(), APIConstants.AUTH_API, APIConstants.IMAGE, APIConstants.UPLOAD,
-                APIConstants.ACCESS_TOKEN, token);
+                APIConstants.ACCESS_TOKEN, BaseApplication.getInstance().getAccessToken());
 
         Map<String, String> params = new HashMap<String, String>();
         params.put(APIConstants.TYPE, type);
