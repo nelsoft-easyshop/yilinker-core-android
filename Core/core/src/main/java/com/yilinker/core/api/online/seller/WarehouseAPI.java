@@ -12,14 +12,9 @@ import com.yilinker.core.interfaces.ResponseHandler;
 import com.yilinker.core.model.APIResponse;
 import com.yilinker.core.model.seller.Warehouse;
 import com.yilinker.core.utility.GsonUtility;
-import com.yilinker.core.helper.VolleyPostHelper;
-import com.yilinker.core.interfaces.ResponseHandler;
-import com.yilinker.core.model.APIResponse;
 import com.yilinker.core.model.Case;
-import com.yilinker.core.model.express.internal.Bank;
 import com.yilinker.core.model.seller.InventoryProduct;
 import com.yilinker.core.model.seller.request.WarehouseProductFilter;
-import com.yilinker.core.utility.GsonUtility;
 import com.yilinker.core.utility.SocketTimeout;
 
 import org.json.JSONObject;
@@ -84,12 +79,13 @@ public class WarehouseAPI {
 
         String url = String.format("%s/%s",
                 BaseApplication.getDomainURL(),
-                SellerAPIConstants.GET_WAREHOUSE_LIST);
+                SellerAPIConstants.DELETE_WAREHOUSE);
 
         BaseApplication app = BaseApplication.getInstance();
 
         Map<String,String> params = new HashMap<String,String>();
-        params.put(SellerAPIConstants.GET_WAREHOUSE_LIST_TOKEN, app.getAccessToken());
+        params.put(SellerAPIConstants.DELETE_WAREHOUSE_PARAM_TOKEN, app.getAccessToken());
+        params.put(SellerAPIConstants.DELETE_WAREHOUSE_PARAM_ID, String.valueOf(warehouseId));
 
         VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>(){
 
@@ -101,15 +97,7 @@ public class WarehouseAPI {
 
                 if(apiResponse.isSuccessful()){
 
-                    gson = GsonUtility.createGsonBuilder(Warehouse.class, new Warehouse.WarehouseInstance()).create();
-                    String jsonString = new Gson().toJson(apiResponse.getData());
-
-                    Type listType = new TypeToken<ArrayList<Warehouse>>() {
-                    }.getType();
-
-                    List<Warehouse> obj = gson.fromJson(jsonString, listType);
-
-                    responseHandler.onSuccess(requestCode, obj);
+                    responseHandler.onSuccess(requestCode, apiResponse.getMessage());
 
                 }
                 else{
@@ -125,7 +113,7 @@ public class WarehouseAPI {
         return request;
     }
 
-    public static Request addWarehouse(final int requestCode, final Warehouse warehouse, final ResponseHandler responseHandler, Response.ErrorListener errorHandler){
+    public static Request addWarehouse(final int requestCode, final com.yilinker.core.model.seller.request.Warehouse warehouse, final ResponseHandler responseHandler, Response.ErrorListener errorHandler){
 
         String url = String.format("%s/%s",
                 BaseApplication.getDomainURL(),
@@ -135,6 +123,11 @@ public class WarehouseAPI {
 
         Map<String,String> params = new HashMap<String,String>();
         params.put(SellerAPIConstants.ADD_UPDATE_WAREHOUSE_PARAM_TOKEN, app.getAccessToken());
+        params.put(SellerAPIConstants.ADD_UPDATE_WAREHOUSE_PARAM_NAME, warehouse.getName());
+        params.put(SellerAPIConstants.ADD_UPDATE_WAREHOUSE_PARAM_ADDRESS, warehouse.getAddress());
+        params.put(SellerAPIConstants.ADD_UPDATE_WAREHOUSE_PARAM_LOCATION, String.valueOf(warehouse.getSelectedLocation()));
+        params.put(SellerAPIConstants.ADD_UPDATE_WAREHOUSE_PARAM_ZIPCODE, warehouse.getZipCode());
+
 
         VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>(){
 
@@ -146,15 +139,8 @@ public class WarehouseAPI {
 
                 if(apiResponse.isSuccessful()){
 
-                    gson = GsonUtility.createGsonBuilder(Warehouse.class, new Warehouse.WarehouseInstance()).create();
-                    String jsonString = new Gson().toJson(apiResponse.getData());
 
-                    Type listType = new TypeToken<ArrayList<Warehouse>>() {
-                    }.getType();
-
-                    List<Warehouse> obj = gson.fromJson(jsonString, listType);
-
-                    responseHandler.onSuccess(requestCode, obj);
+                    responseHandler.onSuccess(requestCode, apiResponse.getMessage());
 
                 }
                 else{
@@ -175,7 +161,7 @@ public class WarehouseAPI {
         String url = String.format("%s/%s/%d",
                 BaseApplication.getDomainURL(),
                 SellerAPIConstants.ADD_UPDATE_WAREHOUSE,
-                warehouse.getId());
+                warehouse.getWarehouse().getId());
 
         BaseApplication app = BaseApplication.getInstance();
 
