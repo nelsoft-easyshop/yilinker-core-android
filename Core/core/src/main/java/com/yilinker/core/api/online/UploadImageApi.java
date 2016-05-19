@@ -105,8 +105,11 @@ public class UploadImageApi {
     public static Request uploadImageV2 (final int requestCode, File image, String type,
                                        final ResponseHandler responseHandler, final Response.ErrorListener errorHandler) {
 
+        //temp
+        String domain = String.format("%s/%s/%s", BaseApplication.getDomainURL().replace("v1", "v3"), "PH", "en");
+
         String url = String.format("%s/%s/%s/%s?%s=%s",
-                BaseApplication.getDomainURL(), APIConstants.AUTH_API, APIConstants.IMAGE, APIConstants.UPLOAD,
+                domain, APIConstants.AUTH_API, APIConstants.IMAGE, APIConstants.UPLOAD,
                 APIConstants.ACCESS_TOKEN, BaseApplication.getInstance().getAccessToken());
 
         Map<String, String> params = new HashMap<String, String>();
@@ -118,10 +121,11 @@ public class UploadImageApi {
 
                 Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
                 APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+                String jsonString = new Gson().toJson(apiResponse.getData());
 
                 if (apiResponse.isSuccessful()) {
 
-                    responseHandler.onSuccess(requestCode, apiResponse.getData());
+                    responseHandler.onSuccess(requestCode, jsonString);
 
                 } else {
 
