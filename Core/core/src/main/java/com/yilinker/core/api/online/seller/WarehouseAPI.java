@@ -1,7 +1,10 @@
 package com.yilinker.core.api.online.seller;
 
+import android.util.Log;
+
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.yilinker.core.base.BaseApplication;
@@ -10,17 +13,22 @@ import com.yilinker.core.constants.SellerAPIConstants;
 import com.yilinker.core.helper.VolleyPostHelper;
 import com.yilinker.core.interfaces.ResponseHandler;
 import com.yilinker.core.model.APIResponse;
+import com.yilinker.core.model.seller.InventoryProductFilter;
+import com.yilinker.core.model.seller.InventoryProductList;
 import com.yilinker.core.model.seller.Warehouse;
+import com.yilinker.core.model.seller.request.WarehouseInventory;
 import com.yilinker.core.utility.GsonUtility;
 import com.yilinker.core.model.Case;
 import com.yilinker.core.model.seller.InventoryProduct;
 import com.yilinker.core.model.seller.request.WarehouseProductFilter;
 import com.yilinker.core.utility.SocketTimeout;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,14 +40,15 @@ public class WarehouseAPI {
 
     public static Request getWarehouseList(final int requestCode, final ResponseHandler responseHandler, Response.ErrorListener errorHandler){
 
-        String url = String.format("%s/%s",
+        String url = String.format("%s/%s/%s",
                 BaseApplication.getDomainURL(),
+                APIConstants.AUTH_API,
                 SellerAPIConstants.GET_WAREHOUSE_LIST);
 
         BaseApplication app = BaseApplication.getInstance();
 
         Map<String,String> params = new HashMap<String,String>();
-        params.put(SellerAPIConstants.GET_WAREHOUSE_LIST_TOKEN, app.getAccessToken());
+        params.put(APIConstants.ACCESS_TOKEN, app.getAccessToken());
 
         VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>(){
 
@@ -77,14 +86,15 @@ public class WarehouseAPI {
 
     public static Request deleteWarehouse(final int requestCode, final int warehouseId, final ResponseHandler responseHandler, Response.ErrorListener errorHandler){
 
-        String url = String.format("%s/%s",
+        String url = String.format("%s/%s/%s",
                 BaseApplication.getDomainURL(),
+                APIConstants.AUTH_API,
                 SellerAPIConstants.DELETE_WAREHOUSE);
 
         BaseApplication app = BaseApplication.getInstance();
 
         Map<String,String> params = new HashMap<String,String>();
-        params.put(SellerAPIConstants.DELETE_WAREHOUSE_PARAM_TOKEN, app.getAccessToken());
+        params.put(APIConstants.ACCESS_TOKEN, app.getAccessToken());
         params.put(SellerAPIConstants.DELETE_WAREHOUSE_PARAM_ID, String.valueOf(warehouseId));
 
         VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>(){
@@ -115,14 +125,15 @@ public class WarehouseAPI {
 
     public static Request addWarehouse(final int requestCode, final com.yilinker.core.model.seller.request.Warehouse warehouse, final ResponseHandler responseHandler, Response.ErrorListener errorHandler){
 
-        String url = String.format("%s/%s",
+        String url = String.format("%s/%s/%s",
                 BaseApplication.getDomainURL(),
+                APIConstants.AUTH_API,
                 SellerAPIConstants.ADD_UPDATE_WAREHOUSE);
 
         BaseApplication app = BaseApplication.getInstance();
 
         Map<String,String> params = new HashMap<String,String>();
-        params.put(SellerAPIConstants.ADD_UPDATE_WAREHOUSE_PARAM_TOKEN, app.getAccessToken());
+        params.put(APIConstants.ACCESS_TOKEN, app.getAccessToken());
         params.put(SellerAPIConstants.ADD_UPDATE_WAREHOUSE_PARAM_NAME, warehouse.getName());
         params.put(SellerAPIConstants.ADD_UPDATE_WAREHOUSE_PARAM_ADDRESS, warehouse.getAddress());
         params.put(SellerAPIConstants.ADD_UPDATE_WAREHOUSE_PARAM_LOCATION, String.valueOf(warehouse.getSelectedLocation()));
@@ -156,17 +167,22 @@ public class WarehouseAPI {
         return request;
     }
 
-    public static Request updateWarehouse(final int requestCode, final Warehouse warehouse, final ResponseHandler responseHandler, Response.ErrorListener errorHandler){
+    public static Request updateWarehouse(final int requestCode, final com.yilinker.core.model.seller.request.Warehouse warehouse, final ResponseHandler responseHandler, Response.ErrorListener errorHandler){
 
-        String url = String.format("%s/%s/%d",
+        String url = String.format("%s/%s/%s",
                 BaseApplication.getDomainURL(),
-                SellerAPIConstants.ADD_UPDATE_WAREHOUSE,
-                warehouse.getWarehouse().getId());
+                APIConstants.AUTH_API,
+                SellerAPIConstants.ADD_UPDATE_WAREHOUSE);
 
         BaseApplication app = BaseApplication.getInstance();
 
         Map<String,String> params = new HashMap<String,String>();
-        params.put(SellerAPIConstants.ADD_UPDATE_WAREHOUSE_PARAM_TOKEN, app.getAccessToken());
+        params.put(APIConstants.ACCESS_TOKEN, app.getAccessToken());
+        params.put(SellerAPIConstants.ADD_UPDATE_WAREHOUSE_PARAM_ID, String.valueOf(warehouse.getId()));
+        params.put(SellerAPIConstants.ADD_UPDATE_WAREHOUSE_PARAM_NAME, warehouse.getName());
+        params.put(SellerAPIConstants.ADD_UPDATE_WAREHOUSE_PARAM_ADDRESS, warehouse.getAddress());
+        params.put(SellerAPIConstants.ADD_UPDATE_WAREHOUSE_PARAM_LOCATION, String.valueOf(warehouse.getSelectedLocation()));
+        params.put(SellerAPIConstants.ADD_UPDATE_WAREHOUSE_PARAM_ZIPCODE, warehouse.getZipCode());
 
         VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>(){
 
@@ -195,22 +211,21 @@ public class WarehouseAPI {
     }
 
 
-    public static Request updateInventory (final int requestCode, int warehouseId,int productUnit,
-                                           int quantity, final ResponseHandler responseHandler, final Response.ErrorListener errorHandler){
+    public static Request updateInventory (final int requestCode, WarehouseInventory product, final ResponseHandler responseHandler, final Response.ErrorListener errorHandler){
 
-        String url = String.format("%s/%s/%s/%s",
+        String url = String.format("%s/%s/%s",
                 APIConstants.DOMAIN,
                 APIConstants.AUTH_API,
-                APIConstants.SELLER_INVENTORY_API, APIConstants.SELLER_INVENTORY_UPDATE);
+                SellerAPIConstants.UPDATE_WAREHOUSE_INVENTORY);
 
 
         BaseApplication app = BaseApplication.getInstance();
 
         Map<String,String> params = new HashMap<String,String>();
         params.put(APIConstants.ACCESS_TOKEN, app.getAccessToken());
-        params.put(APIConstants.SELLER_UPDATE_INVENTORY_WAREHOUSE_ID, String.valueOf(warehouseId));
-        params.put(APIConstants.SELLER_UPDATE_INVENTORY_PRODUCT_UNIT, String.valueOf(productUnit));
-        params.put(APIConstants.SELLER_UPDATE_INVENTORY_QUANTITY, String.valueOf(quantity));
+        params.put(SellerAPIConstants.UPDATE_WAREHOUSE_INVENTORY_PARAM_WAREHOUSE_ID, String.valueOf(product.getWarehouseId()));
+        params.put(SellerAPIConstants.UPDATE_WAREHOUSE_INVENTORY_PARAM_PRODUCT_UNIT, String.valueOf(product.getId()));
+        params.put(SellerAPIConstants.UPDATE_WAREHOUSE_INVENTORY_PARAM_QUANTITY, String.valueOf(product.getQuantity()));
 
 
         VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
@@ -240,25 +255,8 @@ public class WarehouseAPI {
 
     public static Request getInventoryProducts (final int requestCode, final WarehouseProductFilter filter, final ResponseHandler responseHandler, final Response.ErrorListener errorHandler){
 
-        String url = String.format("%s/%s/%s/%s",
-                APIConstants.DOMAIN,APIConstants.AUTH_API,
-                APIConstants.SELLER_INVENTORY_API, APIConstants.SELLER_INVENTORY_UPDATE);
 
-        BaseApplication app = BaseApplication.getInstance();
-
-        Map<String,String> params = new HashMap<String,String>();
-        params.put(APIConstants.ACCESS_TOKEN, app.getAccessToken());
-        params.put(APIConstants.SELLER_UPDATE_INVENTORY_WAREHOUSE_ID, String.valueOf(filter.getWarehouseId()));
-        params.put(APIConstants.SELLER_INVENTORY_PAGE_ID, String.valueOf(filter.getPageId()));
-
-        if (filter.getFilter()!=null){
-
-            for (Map.Entry<String, String[]> entry : filter.getFilter().entrySet() ){
-                params.put(entry.getKey(), String.valueOf(entry.getValue()));
-            }
-        }
-
-        VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
+        JsonObjectRequest request =  new JsonObjectRequest( formarGetInventoryProductURL(filter), new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject response) {
@@ -268,11 +266,10 @@ public class WarehouseAPI {
 
                 if (apiResponse.isSuccessful()) {
 
-                    gson = GsonUtility.createGsonBuilder(Case.class, new InventoryProduct.InventoryProductInstance()).create();
+                    gson = GsonUtility.createGsonBuilder(InventoryProductList.class, new InventoryProductList.InventoryProductListInstance()).create();
                     String jsonString = new Gson().toJson(apiResponse.getData());
-                    Type listType = new TypeToken<ArrayList<InventoryProduct>>(){}.getType();
 
-                    List<InventoryProduct> obj = gson.fromJson(jsonString, listType);
+                    InventoryProductList obj = gson.fromJson(jsonString, InventoryProductList.class);
 
                     responseHandler.onSuccess(requestCode, obj);
 
@@ -290,13 +287,41 @@ public class WarehouseAPI {
 
     }
 
-    //TODO for revision
+    private static String formarGetInventoryProductURL(WarehouseProductFilter filter){
+
+        String url = String.format("%s/%s/%s?",
+                APIConstants.DOMAIN,APIConstants.AUTH_API,
+                SellerAPIConstants.WAREHOUSE_INVENTORY_API);
+
+        //Format GET URL
+        StringBuilder builder = new StringBuilder();
+
+        BaseApplication app = BaseApplication.getInstance();
+
+        builder.append(url);
+        builder.append(String.format("%s=%s&", APIConstants.ACCESS_TOKEN, app.getAccessToken()));
+        builder.append(String.format("%s=%d&", SellerAPIConstants.GET_WAREHOUSE_INVENTORY_PARAM_ID, filter.getWarehouseId()));
+        builder.append(String.format("%s=%d", SellerAPIConstants.GET_WAREHOUSE_INVENTORY_PARAM_PAGE_ID, filter.getPageId()));
+
+        if (filter.getFilter()!=null){
+
+            for (Map.Entry<String, Integer[]> entry : filter.getFilter().entrySet() ){
+
+                builder.append("&");
+                builder.append(String.format("%s=%s", entry.getKey(), new Gson().toJson(entry.getValue())));
+            }
+        }
+
+        return builder.toString();
+    }
+
+
     public static Request getInventoryFilter (final int requestCode,  final ResponseHandler responseHandler, final Response.ErrorListener errorHandler){
 
-        String url = String.format("%s/%s/%s/%s",
+        String url = String.format("%s/%s/%s",
                 APIConstants.DOMAIN,
                 APIConstants.AUTH_API,
-                APIConstants.SELLER_INVENTORY_API);//TODO add requirement for filter
+                SellerAPIConstants.GET_WAREHOUSE_INVENTORY_FILTER);
 
 
         BaseApplication app = BaseApplication.getInstance();
@@ -314,7 +339,13 @@ public class WarehouseAPI {
 
                 if (apiResponse.isSuccessful()) {
 
-                    responseHandler.onSuccess(requestCode, apiResponse.getMessage());
+                    gson = GsonUtility.createGsonBuilder(InventoryProductFilter.class, new InventoryProductFilter.InventoryProductFilterInstance()).create();
+                    String jsonString = new Gson().toJson(apiResponse.getData());
+
+                    InventoryProductFilter obj = gson.fromJson(jsonString, InventoryProductFilter.class);
+
+                    responseHandler.onSuccess(requestCode, obj);
+
                 } else {
 
                     responseHandler.onFailed(requestCode, apiResponse.getMessage());
