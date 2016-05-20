@@ -1,7 +1,5 @@
 package com.yilinker.core.api.online.seller;
 
-import android.util.Log;
-
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -18,17 +16,13 @@ import com.yilinker.core.model.seller.InventoryProductList;
 import com.yilinker.core.model.seller.Warehouse;
 import com.yilinker.core.model.seller.request.WarehouseInventory;
 import com.yilinker.core.utility.GsonUtility;
-import com.yilinker.core.model.Case;
-import com.yilinker.core.model.seller.InventoryProduct;
 import com.yilinker.core.model.seller.request.WarehouseProductFilter;
 import com.yilinker.core.utility.SocketTimeout;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -211,6 +205,7 @@ public class WarehouseAPI {
     }
 
 
+
     public static Request updateInventory (final int requestCode, WarehouseInventory product, final ResponseHandler responseHandler, final Response.ErrorListener errorHandler){
 
         String url = String.format("%s/%s/%s",
@@ -266,10 +261,12 @@ public class WarehouseAPI {
 
                 if (apiResponse.isSuccessful()) {
 
+
                     gson = GsonUtility.createGsonBuilder(InventoryProductList.class, new InventoryProductList.InventoryProductListInstance()).create();
                     String jsonString = new Gson().toJson(apiResponse.getData());
 
                     InventoryProductList obj = gson.fromJson(jsonString, InventoryProductList.class);
+
 
                     responseHandler.onSuccess(requestCode, obj);
 
@@ -286,6 +283,7 @@ public class WarehouseAPI {
         return request;
 
     }
+
 
     private static String formarGetInventoryProductURL(WarehouseProductFilter filter){
 
@@ -314,7 +312,6 @@ public class WarehouseAPI {
 
         return builder.toString();
     }
-
 
     public static Request getInventoryFilter (final int requestCode,  final ResponseHandler responseHandler, final Response.ErrorListener errorHandler){
 
@@ -345,6 +342,7 @@ public class WarehouseAPI {
                     InventoryProductFilter obj = gson.fromJson(jsonString, InventoryProductFilter.class);
 
                     responseHandler.onSuccess(requestCode, obj);
+
 
                 } else {
 

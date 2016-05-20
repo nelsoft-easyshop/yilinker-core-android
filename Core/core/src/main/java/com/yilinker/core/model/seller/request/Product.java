@@ -19,6 +19,49 @@ public class Product {
     private String productUnits;
     private boolean isDraft;
 
+    public Product() {
+        //empty constructor
+    }
+
+    public Product(String name, String shortDescription, String completeDescription,
+                   String videoUrl, int conditionId, int categoryId, int shippingCategoryId,
+                   String brand, String productGroups, String productImages, String productUnits) {
+
+        this.name = name;
+        this.shortDescription = shortDescription;
+        this.completeDescription = completeDescription;
+        this.videoUrl = videoUrl;
+        this.conditionId = conditionId;
+        this.categoryId = categoryId;
+        this.shippingCategoryId = shippingCategoryId;
+        this.brand = brand;
+        this.productGroups = productGroups;
+        this.productImages = productImages;
+        this.productUnits = productUnits;
+
+    }
+
+    public Product(int productId, String name, String shortDescription, String completeDescription,
+                   String videoUrl, int conditionId, int categoryId, int shippingCategoryId,
+                   String brand, String productGroups, String productImages, String productUnits,
+                   boolean isDraft) {
+
+        this.productId = productId;
+        this.name = name;
+        this.shortDescription = shortDescription;
+        this.completeDescription = completeDescription;
+        this.videoUrl = videoUrl;
+        this.conditionId = conditionId;
+        this.categoryId = categoryId;
+        this.shippingCategoryId = shippingCategoryId;
+        this.brand = brand;
+        this.productGroups = productGroups;
+        this.productImages = productImages;
+        this.productUnits = productUnits;
+        this.isDraft = isDraft;
+
+    }
+
     public int getProductId() {
         return productId;
     }
