@@ -240,6 +240,7 @@ public class APIConstants {
     public static final String PRODUCT_UPLOAD_GET_BRAND_PARAM_BRAND_KEYWORD = "brandKeyword";
     public static final String PRODUCT_UPLOAD_GET_CATEGORIES = "getCategories";
     public static final String PRODUCT_UPLOAD_GET_CATEGORIES_PARAM_PARENT_ID = "parentId";
+    public static final String PRODUCT_UPLOAD_GET_CATEGORIES_PARAM_CATEGORY_ID = "productCategoryId";
     public static final String PRODUCT_UPLOAD_GET_CATEGORIES_PARAM_QUERY_STRING = "queryString";
     public static final String PRODUCT_UPLOAD_GET_CONDITIONS = "getProductConditions";
 

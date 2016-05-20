@@ -32,6 +32,9 @@ import java.util.List;
  */
 public class ProductApi {
 
+    //temp
+    private static final String domain = String.format("%s/%s/%s", BaseApplication.getDomainURL().replace("v1", "v3"), "PH", "en");
+
     /**
      * Called to get product upload details
      * @param requestCode
@@ -86,7 +89,7 @@ public class ProductApi {
      */
     public static Request getBrands(final int requestCode, final ResponseHandler handler, Response.ErrorListener errorListener) {
 
-        String endpoint = String.format("%s/%s/%s?%s=%s", APIConstants.DOMAIN,
+        String endpoint = String.format("%s/%s/%s?%s=%s", domain,
                 PRODUCT_API, GET_BRANDS,
                 APIConstants.ACCESS_TOKEN, BaseApplication.getInstance().getAccessToken()
         );
@@ -130,7 +133,7 @@ public class ProductApi {
      */
     public static Request getConditions(final int requestCode, final ResponseHandler handler, Response.ErrorListener errorListener) {
 
-        String endpoint = String.format("%s/%s/%s?%s=%s", APIConstants.DOMAIN,
+        String endpoint = String.format("%s/%s/%s?%s=%s", domain,
                 PRODUCT_API, GET_PRODUCT_CONDITIONS,
                 APIConstants.ACCESS_TOKEN, BaseApplication.getInstance().getAccessToken()
         );
@@ -173,10 +176,11 @@ public class ProductApi {
      * @param errorListener
      * @return
      */
-    public static Request getCategories(final int requestCode, final ResponseHandler handler, Response.ErrorListener errorListener) {
+    public static Request getCategories(final int requestCode, int parentId, final ResponseHandler handler, Response.ErrorListener errorListener) {
 
-        String endpoint = String.format("%s/%s/%s?%s=%s", APIConstants.DOMAIN,
+        String endpoint = String.format("%s/%s/%s?%s=%s&%s=%d", domain,
                 PRODUCT_API, GET_CATEGORIES,
+                APIConstants.PRODUCT_UPLOAD_GET_CATEGORIES_PARAM_CATEGORY_ID, parentId,
                 APIConstants.ACCESS_TOKEN, BaseApplication.getInstance().getAccessToken()
         );
 
