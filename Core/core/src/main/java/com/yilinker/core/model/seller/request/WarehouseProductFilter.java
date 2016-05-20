@@ -9,7 +9,7 @@ public class WarehouseProductFilter {
 
     private int warehouseId;
     private int pageId;
-    private HashMap<String, String[]> filter;
+    private HashMap<String, Integer[]> filter;
     private String query;/***for searched product*/
 
     public int getWarehouseId() {
@@ -28,11 +28,11 @@ public class WarehouseProductFilter {
         this.pageId = pageId;
     }
 
-    public HashMap<String, String[]> getFilter() {
+    public HashMap<String, Integer[]> getFilter() {
         return filter;
     }
 
-    public void setFilter(HashMap<String, String[]> filter) {
+    public void setFilter(HashMap<String, Integer[]> filter) {
         this.filter = filter;
     }
 
