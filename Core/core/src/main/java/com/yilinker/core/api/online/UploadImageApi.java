@@ -106,10 +106,10 @@ public class UploadImageApi {
                                        final ResponseHandler responseHandler, final Response.ErrorListener errorHandler) {
 
         //temp
-        String domain = String.format("%s/%s/%s", BaseApplication.getDomainURL().replace("v1", "v3"), "PH", "en");
+//        String domain = String.format("%s/%s/%s", BaseApplication.getDomainURL().replace("v1", "v3"), "PH", "en");
 
         String url = String.format("%s/%s/%s/%s?%s=%s",
-                domain, APIConstants.AUTH_API, APIConstants.IMAGE, APIConstants.UPLOAD,
+                BaseApplication.getDomainURL(), APIConstants.AUTH_API, APIConstants.IMAGE, APIConstants.UPLOAD,
                 APIConstants.ACCESS_TOKEN, BaseApplication.getInstance().getAccessToken());
 
         Map<String, String> params = new HashMap<String, String>();

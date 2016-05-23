@@ -34,16 +34,16 @@ public class UserAPI {
      */
     public static Request login (final int requestCode, com.yilinker.core.model.request.Login login, final ResponseHandler responseHandler, final Response.ErrorListener errorListener){
 
-//        String url = String.format("%s/%s",
-//                BaseApplication.getDomainURL(),
-//                APIConstants.LOGIN_API);
-
-        //TODO Add setting of language and country code in the app project
-        String url = String.format("%s/v3/EN/PH/%s",
+        String url = String.format("%s/%s",
                 BaseApplication.getDomainURL(),
                 APIConstants.LOGIN_API);
 
-        url = url.replace("/v1", "");
+//        //TODO Add setting of language and country code in the app project
+//        String url = String.format("%s/v3/EN/PH/%s",
+//                BaseApplication.getDomainURL(),
+//                APIConstants.LOGIN_API);
+//
+//        url = url.replace("/v1", "");
 
         Map<String,String> params = new HashMap<String,String>();
         params.put(APIConstants.LOGIN_PARAM_CLIENT_ID, login.getClientId());
