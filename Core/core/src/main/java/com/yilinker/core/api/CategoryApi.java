@@ -9,7 +9,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.yilinker.core.base.BaseApplication;
 import com.yilinker.core.constants.APIConstants;
 import com.yilinker.core.interfaces.ResponseHandler;
 import com.yilinker.core.model.APIResponse;
@@ -35,7 +34,7 @@ public class CategoryApi {
     public static Request getCategories(final int requestCode, int id, final ResponseHandler responseHandler) {
 
         String url = String.format("%s/%s/%s?%s=%s",
-                BaseApplication.getDomainURL(), APIConstants.PRODUCT_API, APIConstants.GET_CATEGORY,
+                APIConstants.DOMAIN, APIConstants.PRODUCT_API, APIConstants.GET_CATEGORY,
                 APIConstants.PARENT_ID, id);
 
         Request request = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
@@ -73,7 +72,7 @@ public class CategoryApi {
     public static Request getCustomizedCategories(final int requestCode, int sellerId, final ResponseHandler responseHandler) {
 
         String url = String.format("%s/%s/%s?%s=%s",
-                BaseApplication.getDomainURL(), APIConstants.CATEGORY_API, APIConstants.GET_CUSTOM_CATEGORIES,
+                APIConstants.DOMAIN, APIConstants.CATEGORY_API, APIConstants.GET_CUSTOM_CATEGORIES,
                 APIConstants.PRODUCT_lIST_SELLER_ID, sellerId);
 
         Request request = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {

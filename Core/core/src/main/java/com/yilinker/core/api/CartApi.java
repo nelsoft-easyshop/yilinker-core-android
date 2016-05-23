@@ -8,7 +8,6 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
-import com.yilinker.core.base.BaseApplication;
 import com.yilinker.core.constants.APIConstants;
 import com.yilinker.core.helper.VolleyPostHelper;
 import com.yilinker.core.interfaces.ResponseHandler;
@@ -34,7 +33,7 @@ public class CartApi {
         //POST
 
 //        String url = String.format("%s/%s/%s",
-//                BaseApplication.getDomainURL(), APIConstants.CART_API, APIConstants.CART_GET_ITEMS);
+//                APIConstants.DOMAIN, APIConstants.CART_API, APIConstants.CART_GET_ITEMS);
 
 //        Map<String,String> params = new HashMap<>();
 //        params.put(APIConstants.ACCESS_TOKEN, token);
@@ -68,17 +67,17 @@ public class CartApi {
         if(!isGuest) {
             if (!isWishList) {
                 url = String.format("%s/%s/%s/%s?%s=%s",
-                        BaseApplication.getDomainURL(), APIConstants.AUTH_API, APIConstants.CART_API, APIConstants.CART_GET_ITEMS,
+                        APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.CART_API, APIConstants.CART_GET_ITEMS,
                         APIConstants.ACCESS_TOKEN, token);
             }
             else {
                 url = String.format("%s/%s/%s/%s?%s=%s&%s=%s",
-                        BaseApplication.getDomainURL(), APIConstants.AUTH_API, APIConstants.CART_API, APIConstants.CART_GET_ITEMS,
+                        APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.CART_API, APIConstants.CART_GET_ITEMS,
                         APIConstants.ACCESS_TOKEN, token, APIConstants.WISH_LIST_GET_ITEMS, true);
             }
         } else {
             url = String.format("%s/%s/%s",
-                    BaseApplication.getDomainURL(), APIConstants.CART_API, APIConstants.CART_GET_ITEMS);
+                    APIConstants.DOMAIN, APIConstants.CART_API, APIConstants.CART_GET_ITEMS);
         }
 
 
@@ -147,17 +146,17 @@ public class CartApi {
         if(!isGuest){
             if (!isWishList) {
                 url = String.format("%s/%s/%s/%s?%s=%s",
-                        BaseApplication.getDomainURL(), APIConstants.AUTH_API, APIConstants.CART_API, APIConstants.CART_UPDATE_DETAILS,
+                        APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.CART_API, APIConstants.CART_UPDATE_DETAILS,
                         APIConstants.ACCESS_TOKEN, token);
             }
             else {
                 url = String.format("%s/%s/%s/%s?%s=%s&%s=%s",
-                        BaseApplication.getDomainURL(), APIConstants.AUTH_API, APIConstants.CART_API, APIConstants.CART_UPDATE_DETAILS,
+                        APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.CART_API, APIConstants.CART_UPDATE_DETAILS,
                         APIConstants.ACCESS_TOKEN, token, APIConstants.WISH_LIST_GET_ITEMS, true);
             }
         } else {
             url = String.format("%s/%s/%s",
-                    BaseApplication.getDomainURL(), APIConstants.CART_API, APIConstants.CART_UPDATE_DETAILS);
+                    APIConstants.DOMAIN, APIConstants.CART_API, APIConstants.CART_UPDATE_DETAILS);
         }
 
 
@@ -228,7 +227,7 @@ public class CartApi {
         Map<String, String> params = new HashMap<String, String>();
 
         url = String.format("%s/%s/%s?%s=%s",
-                BaseApplication.getDomainURL(), APIConstants.AUTH_API, APIConstants.WISH_LIST_TO_CART,
+                APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.WISH_LIST_TO_CART,
                 APIConstants.ACCESS_TOKEN, token);
 
 

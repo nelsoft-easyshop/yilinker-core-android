@@ -14,7 +14,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
-import com.yilinker.core.base.BaseApplication;
 import com.yilinker.core.constants.APIConstants;
 import com.yilinker.core.interfaces.ResponseHandler;
 import com.yilinker.core.model.APIResponse;
@@ -36,11 +35,11 @@ public class VoucherApi {
         String endpoint = null;
 
         if (accessToken == null) {
-            endpoint = String.format("%s/%s/%s?%s=%s", BaseApplication.getDomainURL(), APIConstants.CART_API,
+            endpoint = String.format("%s/%s/%s?%s=%s", APIConstants.DOMAIN.replace("v1", "v2"), APIConstants.CART_API,
                     APIConstants.APPLY_VOUCHER_API,
                     APIConstants.APPLY_VOUCHER_PARAMS_VOUCHER_CODE, voucherCode);
         } else {
-            endpoint = String.format("%s/%s/%s/%s?%s=%s&%s=%s", BaseApplication.getDomainURL(), APIConstants.AUTH_API,
+            endpoint = String.format("%s/%s/%s/%s?%s=%s&%s=%s", APIConstants.DOMAIN.replace("v1", "v2"), APIConstants.AUTH_API,
                     APIConstants.CART_API, APIConstants.APPLY_VOUCHER_API,
                     APIConstants.ACCESS_TOKEN, accessToken,
                     APIConstants.APPLY_VOUCHER_PARAMS_VOUCHER_CODE, voucherCode);

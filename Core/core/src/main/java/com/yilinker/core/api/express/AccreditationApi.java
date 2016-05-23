@@ -108,7 +108,7 @@ public class AccreditationApi {
         params.put(ExpressAPIConstants.ACCREDITATION_SUBMIT_PARAM_FIRSTNAME, accreditation.getFirstName());
         params.put(ExpressAPIConstants.ACCREDITATION_SUBMIT_PARAM_LASTNAME, accreditation.getLastName());
         params.put(ExpressAPIConstants.ACCREDITATION_SUBMIT_PARAM_BIRTHDAY, accreditation.getBirthday());
-        params.put(ExpressAPIConstants.ACCREDITATION_SUBMIT_PARAM_GENDER, accreditation.getGender());
+        params.put(ExpressAPIConstants.ACCREDITATION_SUBMIT_PARAM_GENDER, accreditation.getFirstName());
         params.put(ExpressAPIConstants.ACCREDITATION_SUBMIT_PARAM_REQUIREMENTS, accreditation.getRequirements());
 
 
