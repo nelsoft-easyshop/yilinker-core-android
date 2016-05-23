@@ -238,6 +238,7 @@ public class APIConstants {
     public static final String PRODUCT_UPLOAD_GET_BRAND_PARAM_BRAND_KEYWORD = "brandKeyword";
     public static final String PRODUCT_UPLOAD_GET_CATEGORIES = "getCategories";
     public static final String PRODUCT_UPLOAD_GET_CATEGORIES_PARAM_PARENT_ID = "parentId";
+    public static final String PRODUCT_UPLOAD_GET_CATEGORIES_PARAM_CATEGORY_ID = "productCategoryId";
     public static final String PRODUCT_UPLOAD_GET_CATEGORIES_PARAM_QUERY_STRING = "queryString";
     public static final String PRODUCT_UPLOAD_GET_CONDITIONS = "getProductConditions";
 
@@ -701,5 +702,16 @@ public class APIConstants {
     public final static String SEND_FEEDBACK_PARAMS_PHONE_MODEL                                     = "phoneModel";
     public final static String SEND_FEEDBACK_PARAMS_OS_VERSION                                      = "osVersion";
     public final static String SEND_FEEDBACK_PARAMS_OS_NAME                                         = "osName";
+
+
+    //GET COUNTRY
+    public final static String ADDRESS_GET_COUNTRY = "getAllCountries";
+    public final static String ADDRESS_GET_COUNTRY_PARAM_TOKEN = "access_token";
+
+
+    //GET CHILD PROVINCES
+    public final static String ADDRESS_GET_CHILD_PROVINCES = "getChildProvinces";
+    public final static String ADDRESS_GET_CHILD_PROVINCES_PARAM_TOKEN = "access_token";
+    public final static String ADDRESS_GET_CHILD_PROVINCES_PARAM_REGIONID = "regionId";
 
 }

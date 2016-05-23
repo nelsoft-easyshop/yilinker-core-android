@@ -14,6 +14,8 @@ public class Products {
     private String category;
     private String image;
     private int status;
+    private String[] languages;
+    private String[] countries;
 
     public int getId() {
         return id;
@@ -53,6 +55,22 @@ public class Products {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public String[] getLanguages() {
+        return languages;
+    }
+
+    public void setLanguages(String[] languages) {
+        this.languages = languages;
+    }
+
+    public String[] getCountries() {
+        return countries;
+    }
+
+    public void setCountries(String[] countries) {
+        this.countries = countries;
     }
 
     public static class ProductManagementListInstance implements InstanceCreator<Products> {
