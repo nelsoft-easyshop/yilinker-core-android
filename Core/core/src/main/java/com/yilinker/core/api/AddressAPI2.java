@@ -31,11 +31,11 @@ public class AddressAPI2 {
 
     public static Request getAllCountries(final int requestCode, final ResponseHandler responseHandler, final Response.ErrorListener errorListener) {
 
-        String url = String.format("%s/%s/%s", BaseApplication.getDomainURL(),
-                APIConstants.LOCATION_API, APIConstants.ADDRESS_GET_COUNTRY);
+        String url = String.format("%s/%s/%s/%s", BaseApplication.getDomainURL(),
+                APIConstants.AUTH_API,
+                APIConstants.LOCATION_API,
+                APIConstants.ADDRESS_GET_COUNTRY);
 
-        //temp
-        url = url.replace("v3/PH/EN", "v1");
 
         String token = BaseApplication.getInstance().getAccessToken();
 
@@ -77,7 +77,8 @@ public class AddressAPI2 {
 
     public static Request getAllProvinces(final int requestCode, final ResponseHandler responseHandler, final Response.ErrorListener errorListener) {
 
-        String url = String.format("%s/%s/%s", BaseApplication.getDomainURL(),
+        String url = String.format("%s/%s/%s/%s", BaseApplication.getDomainURL(),
+                APIConstants.AUTH_API,
                 APIConstants.LOCATION_API, APIConstants.ADDRESS_GET_ALL_PROVINCES);
 
         String token = BaseApplication.getInstance().getAccessToken();
@@ -120,11 +121,10 @@ public class AddressAPI2 {
 
     public static Request getChildProvinces(final int requestCode, int countryId,final ResponseHandler responseHandler, final Response.ErrorListener errorListener) {
 
-        String url = String.format("%s/%s/%s", BaseApplication.getDomainURL(),
+        String url = String.format("%s/%s/%s/%s", BaseApplication.getDomainURL(),
+                APIConstants.AUTH_API,
                 APIConstants.LOCATION_API, APIConstants.ADDRESS_GET_CHILD_PROVINCES);
 
-        //temp
-        url = url.replace("v3/PH/EN", "v1");
 
         String token = BaseApplication.getInstance().getAccessToken();
 
@@ -169,11 +169,10 @@ public class AddressAPI2 {
     public static Request getChildCities(final int requestCode,
                                          int provinceId, final ResponseHandler responseHandler, final Response.ErrorListener errorListener) {
 
-        String url = String.format("%s/%s/%s", BaseApplication.getDomainURL(),
+        String url = String.format("%s/%s/%s/%s", BaseApplication.getDomainURL(),
+                APIConstants.AUTH_API,
                 APIConstants.LOCATION_API, APIConstants.ADDRESS_GET_CHILD_CITIES);
 
-        //temp
-        url = url.replace("v3/PH/EN", "v1");
 
         String token = BaseApplication.getInstance().getAccessToken();
 
@@ -219,11 +218,10 @@ public class AddressAPI2 {
     public static Request getChildBaranggay(final int requestCode,
                                             int cityId, final ResponseHandler responseHandler, final Response.ErrorListener errorListener) {
 
-        String url = String.format("%s/%s/%s", BaseApplication.getDomainURL(),
+        String url = String.format("%s/%s/%s/%s", BaseApplication.getDomainURL(),
+                APIConstants.AUTH_API,
                 APIConstants.LOCATION_API, APIConstants.ADDRESS_GET_CHILD_BARANGGAY);
 
-        //temp
-        url = url.replace("v3/PH/EN", "v1");
 
         String token = BaseApplication.getInstance().getAccessToken();
 
