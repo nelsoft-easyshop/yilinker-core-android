@@ -6,7 +6,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.yilinker.core.base.BaseApplication;
 import com.yilinker.core.constants.APIConstants;
 import com.yilinker.core.interfaces.ResponseHandler;
 import com.yilinker.core.model.APIResponse;
@@ -28,7 +27,7 @@ public class HomeApi {
 
     public static Request getHomeDetails (final int requestCode, String id, final ResponseHandler responseHandler){
 
-        String url = String.format("%s/%s/%s", BaseApplication.getDomainURL(), APIConstants.HOME_API, APIConstants.HOME_GET_ITEMS);
+        String url = String.format("%s/%s/%s", APIConstants.DOMAIN, APIConstants.HOME_API, APIConstants.HOME_GET_ITEMS);
 
         Request request = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
             @Override
@@ -60,7 +59,7 @@ public class HomeApi {
 
     public static Request getHomeDataV2 (final int requestCode, final ResponseHandler responseHandler) {
 
-        String url = String.format("%s/%s/%s", BaseApplication.getDomainURL(), APIConstants.HOME_API, APIConstants.HOME_GET_ITEMS);
+        String url = String.format("%s/%s/%s", APIConstants.DOMAIN.replaceAll("v1","v2"), APIConstants.HOME_API, APIConstants.HOME_GET_ITEMS);
 
         Request request = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
             @Override

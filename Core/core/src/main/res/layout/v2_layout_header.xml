@@ -3,11 +3,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:onlinebuyer="http://schemas.android.com/apk/res-auto"
     android:minHeight="@dimen/abc_action_bar_default_height_material"
     android:background="@color/purple_light">
 
     <com.yilinker.core.v2.customview.CustomTextView
         style="@style/HeaderStyle"
-        android:id="@+id/tvHeaderName"/>
+        android:id="@+id/tvHeaderName"
+        onlinebuyer:fontName="HelveticaWorld-Regular.ttf"/>
 
 </android.support.v7.widget.Toolbar>
