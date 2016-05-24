@@ -12,7 +12,7 @@ public class APIConstants {
     //Countries
     public static final String COUNTRIES_API                                                        = "get-countries";
 
-    //Create Product
+    //Product
     public static final String PRODUCT_API                                                          = "product";
     public static final String CREATE_PRODUCT                                                       = "create";
     public static final String EDIT_PRODUCT                                                         = "edit";
@@ -21,6 +21,9 @@ public class APIConstants {
     public static final String GET_SHIPPING_CATEGORIES                                              = "get-shipping-categories";
     public static final String GET_BRANDS                                                           = "get-brands";
     public static final String GET_CATEGORIES                                                       = "get-categories";
+    public static final String GET_TRANSLATION                                                      = "get-translation";
+    public static final String TRANSLATE                                                            = "translate";
+    public static final String GET_LANGUAGES                                                        = "get-languages";
     public static final String PRODUCT_PARAM_ID                                                     = "productId";
     public static final String PRODUCT_PARAM_NAME                                                   = "name";
     public static final String PRODUCT_PARAM_SHORT_DESCRIPTION                                      = "shortDescription";
@@ -32,7 +35,10 @@ public class APIConstants {
     public static final String PRODUCT_PARAM_BRAND                                                  = "brand";
     public static final String PRODUCT_PARAM_GROUPS                                                 = "productGroups";
     public static final String PRODUCT_PARAM_IMAGES                                                 = "productImages";
+    public static final String PRODUCT_PARAM_VARIANTS                                               = "productVariants";
     public static final String PRODUCT_PARAM_UNITS                                                  = "productUnits";
     public static final String PRODUCT_PARAM_IS_DRAFT                                               = "isDraft";
+
+
 
 }
