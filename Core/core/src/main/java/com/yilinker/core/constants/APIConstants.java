@@ -240,6 +240,7 @@ public class APIConstants {
     public static final String PRODUCT_UPLOAD_GET_BRAND_PARAM_BRAND_KEYWORD = "brandKeyword";
     public static final String PRODUCT_UPLOAD_GET_CATEGORIES = "getCategories";
     public static final String PRODUCT_UPLOAD_GET_CATEGORIES_PARAM_PARENT_ID = "parentId";
+    public static final String PRODUCT_UPLOAD_GET_CATEGORIES_PARAM_CATEGORY_ID = "productCategoryId";
     public static final String PRODUCT_UPLOAD_GET_CATEGORIES_PARAM_QUERY_STRING = "queryString";
     public static final String PRODUCT_UPLOAD_GET_CONDITIONS = "getProductConditions";
 
@@ -705,24 +706,10 @@ public class APIConstants {
     public final static String SEND_FEEDBACK_PARAMS_OS_VERSION                                      = "osVersion";
     public final static String SEND_FEEDBACK_PARAMS_OS_NAME                                         = "osName";
 
-//  <-----Seller V2 API
 
-    //UPDATE INVENTORY
-    public final static String SELLER_INVENTORY_API                                                 = "inventory";
-    public final static String SELLER_INVENTORY_UPDATE                                              = "update";
-    public final static String SELLER_UPDATE_INVENTORY_WAREHOUSE_ID                                 = "warehouseId";
-    public final static String SELLER_UPDATE_INVENTORY_PRODUCT_UNIT                                 = "warehouseId";
-    public final static String SELLER_UPDATE_INVENTORY_QUANTITY                                     = "quantity";
-
-    //GET SELLER INVENTORY
-    public final static String SELLER_INVENTORY_PAGE_ID                                             = "page";
-    public final static String SELLER_INVENTORY_CATEGORY                                            = "category";
-    public final static String SELLER_INVENTORY_STATUS                                              = "status";
-    public final static String SELLER_INVENTORY_QUERY                                               = "query";
-    public final static String SELLER_INVENTORY_GROUP                                               = "group";
-
-    //INVENTORY FILTER
-    public final static String SELLER_INVENTORY_FILTER_API                                          ="inventory-filter";
+    //GET COUNTRY
+    public final static String ADDRESS_GET_COUNTRY = "getAllCountries";
+    public final static String ADDRESS_GET_COUNTRY_PARAM_TOKEN = "access_token";
 
     //COUNTRY STORE
     public final static String SELLER_COUNTRY_STORE_PARAMS_CODE                                     ="code";
@@ -740,5 +727,10 @@ public class APIConstants {
     public final static String SELLER_COUNTRY_STORE_PARAMS_COMMISSION                               ="commission";
     public final static String SELLER_COUNTRY_STORE_PARAMS_STATUS                                   ="status";
     public final static String SELLER_COUNTRY_STORE_API                                             ="country-store";
+
+    //GET CHILD PROVINCES
+    public final static String ADDRESS_GET_CHILD_PROVINCES = "getChildProvinces";
+    public final static String ADDRESS_GET_CHILD_PROVINCES_PARAM_TOKEN = "access_token";
+    public final static String ADDRESS_GET_CHILD_PROVINCES_PARAM_REGIONID = "regionId";
 
 }

@@ -39,13 +39,9 @@ public class DateUtility {
      */
     public static String convertDateToString(Date date, String format){
 
-        String strDate = "";
+        DateFormat formatter = new SimpleDateFormat(format, Locale.ENGLISH);
 
-        if(date != null) {
-
-            DateFormat formatter = new SimpleDateFormat(format, Locale.ENGLISH);
-            strDate = formatter.format(date);
-        }
+        String strDate = formatter.format(date);
 
         return strDate;
     }

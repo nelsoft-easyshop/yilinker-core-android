@@ -8,7 +8,6 @@ import android.preference.PreferenceManager;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
-import com.yilinker.core.BuildConfig;
 import com.yilinker.core.R;
 import com.yilinker.core.helper.HurlCookieStack;
 import com.yilinker.core.imageloader.ImageCacheManager;
@@ -45,7 +44,6 @@ public class BaseApplication extends Application{
     private static final String REFRESH_TOKEN = "refreshToken";
     private static final String USER_FULLNAME = "fullname";
     private static final String KEEP_LOGGED_IN = "keepLoggedIn";
-    private static final String DOMAIN = "domain";
 
     private RequestQueue requestQueue;
     private String domain, clientId, clientSecret;
@@ -98,15 +96,6 @@ public class BaseApplication extends Application{
     }
 
     public String getDomain() {
-
-        if(domain == null){
-
-            SharedPreferences pref = PreferenceManager
-                    .getDefaultSharedPreferences(getApplicationContext());
-
-            domain = pref.getString(DOMAIN, null);
-        }
-
         return domain;
     }
 
@@ -119,8 +108,6 @@ public class BaseApplication extends Application{
     }
 
     public void setDomain(String domain) {
-
-        saveDomain(domain);
         this.domain = domain;
     }
 
@@ -342,15 +329,4 @@ public class BaseApplication extends Application{
 
     }
 
-    private void saveDomain(String domain){
-
-        SharedPreferences pref = PreferenceManager
-                .getDefaultSharedPreferences(getApplicationContext());
-
-        SharedPreferences.Editor editor = pref.edit();
-
-        editor.putString(DOMAIN, domain);
-
-        editor.commit();
-    }
 }

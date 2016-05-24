@@ -9,41 +9,23 @@ import java.lang.reflect.Type;
  */
 public class Warehouse {
 
-    private int id;
-    private String name;
-    private String address;
-    private boolean isDelete;
+    private WarehouseDetails warehouse;
+    private Location location;
 
-    public int getId() {
-        return id;
+    public WarehouseDetails getWarehouse() {
+        return warehouse;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setWarehouse(WarehouseDetails warehouse) {
+        this.warehouse = warehouse;
     }
 
-    public String getName() {
-        return name;
+    public Location getLocation() {
+        return location;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public boolean isDelete() {
-        return isDelete;
-    }
-
-    public void setIsDelete(boolean isDelete) {
-        this.isDelete = isDelete;
+    public void setLocation(Location location) {
+        this.location = location;
     }
 
     public static class WarehouseInstance implements InstanceCreator<Warehouse> {

@@ -14,7 +14,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.yilinker.core.base.BaseApplication;
 import com.yilinker.core.constants.APIConstants;
 import com.yilinker.core.interfaces.ResponseHandler;
 import com.yilinker.core.model.APIResponse;
@@ -45,7 +44,7 @@ public class SearchApi {
     public static Request getSearchKeywords(final int requestCode, String keyword, final ResponseHandler responseHandler) {
 
         String url = String.format("%s/%s/%s?%s=%s",
-                BaseApplication.getDomainURL(), APIConstants.PRODUCT_API, APIConstants.GET_SEARCH_PRODUCT,
+                APIConstants.DOMAIN, APIConstants.PRODUCT_API, APIConstants.GET_SEARCH_PRODUCT,
                 APIConstants.SEARCH_QUERY, keyword);
 
 //        String sample = "http://online.api.easydeal.ph/api/v1/product/getSearchKeywords?queryString=adu";
@@ -123,12 +122,12 @@ public class SearchApi {
         String url="";
         if (accessToken == null || accessToken.isEmpty()){
             url = String.format("%s/%s/%s?%s=%s",
-                    BaseApplication.getDomainURL(), APIConstants.STORE_API, APIConstants.GET_SEARCH,
+                    APIConstants.DOMAIN, APIConstants.STORE_API, APIConstants.GET_SEARCH,
                     APIConstants.SEARCH_QUERY, keyword);
         }else{
 
             url = String.format("%s/%s/%s?%s=%s&%s=%s",
-                BaseApplication.getDomainURL(), APIConstants.STORE_API, APIConstants.GET_SEARCH,
+                APIConstants.DOMAIN, APIConstants.STORE_API, APIConstants.GET_SEARCH,
                 APIConstants.SEARCH_QUERY, keyword,APIConstants.ACCESS_TOKEN,accessToken);
 
         }
@@ -198,7 +197,7 @@ public class SearchApi {
     public static Request searchTransaction(final int requestCode, String token, String query, final ResponseHandler responseHandler) {
 
         String url = String.format("%s/%s/%s/%s?%s=%s&%s=%s",
-                BaseApplication.getDomainURL(), APIConstants.AUTH_API, APIConstants.SEARCH_TRANSACTION_API, APIConstants.SELLER_PARAMS_SEARCH_KEYWORD,
+                APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.SEARCH_TRANSACTION_API, APIConstants.SELLER_PARAMS_SEARCH_KEYWORD,
                 APIConstants.ACCESS_TOKEN, token,
                 APIConstants.SEARCH_QUERY_TRANSACTION, query);
 
@@ -245,7 +244,7 @@ public class SearchApi {
     public static Request searchProductNameSuggestion(final int requestCode, String token, String query, int page, int perPage, final ResponseHandler responseHandler) {
 
         String url = String.format("%s/%s/%s/%s?%s=%s&%s=%s&%s=%s&%s=%s",
-                BaseApplication.getDomainURL(), APIConstants.AUTH_API, APIConstants.PRODUCT_MANAGEMENT_API, APIConstants.PRODUCT_NAME_API,
+                APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.PRODUCT_MANAGEMENT_API, APIConstants.PRODUCT_NAME_API,
                 APIConstants.ACCESS_TOKEN, token,
                 APIConstants.SEARCH_QUERY, query,
                 APIConstants.SEARCH_PAGE, page,
@@ -297,7 +296,7 @@ public class SearchApi {
                                                     String query, int perPage, int pageNo, final ResponseHandler responseHandler) {
 
         String url = String.format("%s/%s/%s?%s=%s&%s=%s&%s=%s&%s=%s",
-                BaseApplication.getDomainURL(), APIConstants.AUTH_API, APIConstants.RIDER_NAME_API,
+                APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.RIDER_NAME_API,
                 APIConstants.ACCESS_TOKEN, token,
                 APIConstants.SEARCH_QUERY, query,
                 APIConstants.SEARCH_PER_PAGE, perPage,
@@ -349,11 +348,11 @@ public class SearchApi {
         String endpoint =  "";
         if(riderName.isEmpty()) {
             if(dateFrom.isEmpty() && dateTo.isEmpty()) {
-                endpoint = String.format("%s/%s/%s?%s=%s&%s=%s&%s=%s", BaseApplication.getDomainURL(), APIConstants.AUTH_API, APIConstants.SELLER_TRANSACTION_LIST_API,
+                endpoint = String.format("%s/%s/%s?%s=%s&%s=%s&%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.SELLER_TRANSACTION_LIST_API,
                         APIConstants.ACCESS_TOKEN, accessToken, APIConstants.PRODUCT_PARAMS_PRODUCT_NAME, productName,
                         APIConstants.PRODUCT_LIST_SORT_DIRECTION, sortDirection);
             }else{
-                endpoint = String.format("%s/%s/%s?%s=%s&%s=%s&%s=%s&%s=%s&%s=%s", BaseApplication.getDomainURL(), APIConstants.AUTH_API, APIConstants.SELLER_TRANSACTION_LIST_API,
+                endpoint = String.format("%s/%s/%s?%s=%s&%s=%s&%s=%s&%s=%s&%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.SELLER_TRANSACTION_LIST_API,
                         APIConstants.ACCESS_TOKEN, accessToken, APIConstants.PRODUCT_PARAMS_PRODUCT_NAME, productName,
                         APIConstants.PRODUCT_LIST_SORT_DIRECTION, sortDirection,
                         APIConstants.SALES_REPORT_PARAM_DATE_FROM, dateFrom,
@@ -361,11 +360,11 @@ public class SearchApi {
             }
         }else if(productName.isEmpty()){
             if(dateFrom.isEmpty() && dateTo.isEmpty()) {
-                endpoint = String.format("%s/%s/%s?%s=%s&%s=%s&%s=%s", BaseApplication.getDomainURL(), APIConstants.AUTH_API, APIConstants.SELLER_TRANSACTION_LIST_API,
+                endpoint = String.format("%s/%s/%s?%s=%s&%s=%s&%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.SELLER_TRANSACTION_LIST_API,
                         APIConstants.ACCESS_TOKEN, accessToken, APIConstants.RIDER_NAME_PARAMS, riderName,
                         APIConstants.PRODUCT_LIST_SORT_DIRECTION, sortDirection);
             }else{
-                endpoint = String.format("%s/%s/%s?%s=%s&%s=%s&%s=%s&%s=%s&%s=%s", BaseApplication.getDomainURL(), APIConstants.AUTH_API, APIConstants.SELLER_TRANSACTION_LIST_API,
+                endpoint = String.format("%s/%s/%s?%s=%s&%s=%s&%s=%s&%s=%s&%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.SELLER_TRANSACTION_LIST_API,
                         APIConstants.ACCESS_TOKEN, accessToken, APIConstants.RIDER_NAME_PARAMS, riderName,
                         APIConstants.PRODUCT_LIST_SORT_DIRECTION, sortDirection,
                         APIConstants.SALES_REPORT_PARAM_DATE_FROM, dateFrom,

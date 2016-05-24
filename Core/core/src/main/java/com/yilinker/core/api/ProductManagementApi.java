@@ -36,11 +36,13 @@ public class ProductManagementApi {
     public static Request getProductList(final int requestCode, String token, int status, String keyword,
                                          final ResponseHandler responseHandler) {
 
-        String url = String.format("%s/%s/%s/%s",
+        String url = String.format("%s/ph/en/%s/%s/%s",
                 APIConstants.DOMAIN,
                 APIConstants.AUTH_API,
                 APIConstants.PRODUCT_MANAGEMENT_API,
                 APIConstants.GET_PRODUCT_LIST);
+
+        url = url.replace("v1","v3");
 
         Map<String,String> params = new HashMap<String,String>();
         params.put(APIConstants.ACCESS_TOKEN, token);
@@ -52,6 +54,7 @@ public class ProductManagementApi {
         if (keyword != null && !keyword.isEmpty()) {
             params.put(APIConstants.PRODUCT_MANAGEMENT_PARAMS_KEYWORD, keyword);
         }
+
         VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {

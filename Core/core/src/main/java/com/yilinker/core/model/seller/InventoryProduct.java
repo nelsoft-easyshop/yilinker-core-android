@@ -16,19 +16,19 @@ public class InventoryProduct {
     private final static String KEY_QUANTITY = "quantity";
 
     @SerializedName(KEY_PRODUCT_UNIT_ID)
-    private int productUnitId;
+    private String productUnitId;
     @SerializedName(KEY_NAME)
     private String name;
     @SerializedName(KEY_SKU)
     private String sku;
     @SerializedName(KEY_QUANTITY)
-    private String quantity;
+    private int quantity;
 
-    public int getProductUnitId() {
+    public String getProductUnitId() {
         return productUnitId;
     }
 
-    public void setProductUnitId(int productUnitId) {
+    public void setProductUnitId(String productUnitId) {
         this.productUnitId = productUnitId;
     }
 
@@ -48,11 +48,11 @@ public class InventoryProduct {
         this.sku = sku;
     }
 
-    public String getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(String quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 
