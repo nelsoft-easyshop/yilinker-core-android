@@ -202,6 +202,8 @@ public class TranslationProductDetails {
         private ImageSize size;
         @SerializedName("isSelected")
         private boolean selected;
+        @SerializedName("isPrimary")
+        private boolean primary;
 
         public String getName() {
             return name;
@@ -233,6 +235,14 @@ public class TranslationProductDetails {
 
         public void setSelected(boolean selected) {
             this.selected = selected;
+        }
+
+        public boolean isPrimary() {
+            return primary;
+        }
+
+        public void setPrimary(boolean primary) {
+            this.primary = primary;
         }
     }
 
