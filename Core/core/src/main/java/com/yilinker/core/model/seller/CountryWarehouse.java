@@ -11,7 +11,7 @@ public class CountryWarehouse {
     private boolean is_cod;
     private boolean is_local;
     private CountryLogistic logistic;
-    private Warehouse user_warehouse;
+    private CountryUserWarehouse user_warehouse;
 
     public String getId() {
         return id;
@@ -61,11 +61,11 @@ public class CountryWarehouse {
         this.logistic = logistic;
     }
 
-    public Warehouse getUser_warehouse() {
+    public CountryUserWarehouse getUser_warehouse() {
         return user_warehouse;
     }
 
-    public void setUser_warehouse(Warehouse user_warehouse) {
+    public void setUser_warehouse(CountryUserWarehouse user_warehouse) {
         this.user_warehouse = user_warehouse;
     }
 }

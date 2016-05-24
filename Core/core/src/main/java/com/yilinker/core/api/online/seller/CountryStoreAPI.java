@@ -3,13 +3,14 @@ package com.yilinker.core.api.online.seller;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.yilinker.core.base.BaseApplication;
 import com.yilinker.core.constants.APIConstants;
 import com.yilinker.core.helper.VolleyPostHelper;
 import com.yilinker.core.interfaces.ResponseHandler;
 import com.yilinker.core.model.APIResponse;
 import com.yilinker.core.model.seller.CountrySetup;
-import com.yilinker.core.model.seller.InventoryFilter;
+import com.yilinker.core.model.seller.CountryStore;
 import com.yilinker.core.model.seller.request.CountryStoreSaveCombination;
 import com.yilinker.core.model.seller.request.CountryStoreSetInventoryLocation;
 import com.yilinker.core.utility.GsonUtility;
@@ -17,7 +18,10 @@ import com.yilinker.core.utility.SocketTimeout;
 
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -27,22 +31,18 @@ public class CountryStoreAPI {
 
     public static Request getCountrySetUp (final int requestCode,int productId, String code, final ResponseHandler responseHandler, final Response.ErrorListener errorHandler){
 
-        //Todo to be edited
-        String url = String.format("%s/ph/en/%s/%s",
+        String url = String.format("%s/%s/%s",
                 APIConstants.DOMAIN,
                 APIConstants.AUTH_API,
                 APIConstants.SELLER_COUNTRY_STORE_SETUP_API);
 
-        //Todo to be deleted
-        url = url.replace("v1","v3");
-
         BaseApplication app = BaseApplication.getInstance();
 
         Map<String,String> params = new HashMap<String,String>();
-//        params.put(APIConstants.ACCESS_TOKEN, app.getAccessToken());
+        params.put(APIConstants.ACCESS_TOKEN, app.getAccessToken());
 //        params.put(APIConstants.PRODUCT_ID, String.valueOf(productId));
 //        params.put(APIConstants.SELLER_COUNTRY_STORE_PARAMS_CODE, code);
-        params.put(APIConstants.ACCESS_TOKEN, "NzFmNDJlOTcxOWY5MTE1OTc0MjlmZTQ4ZWE4MzdlYmZiMTc3ZTc4ZDJmMDgxYjdlZDUxOTljOGUzOTg2Njc5Ng");
+//        params.put(APIConstants.ACCESS_TOKEN, "M2RkMjZkZjg1NjFhNTlhNzIxNTk5YTU4ZGJlYWY2YzIxMTJiZDhlYTgyY2Q3MWQxZDZkNTEzMTVkNzg2NGY0Yg");
         params.put(APIConstants.PRODUCT_ID, "30571");
         params.put(APIConstants.SELLER_COUNTRY_STORE_PARAMS_CODE, "ph");
 
@@ -79,21 +79,16 @@ public class CountryStoreAPI {
     public static Request setWarehouse(final int requestCode, final CountryStoreSetInventoryLocation location,
                                 final ResponseHandler responseHandler,final Response.ErrorListener errorHandler){
 
-
-        //todo to be edited
-        String url = String.format("%s/ph/en/%s/%s/%s",
+        String url = String.format("%s/%s/%s/%s",
                 APIConstants.DOMAIN,
                 APIConstants.AUTH_API,
                 APIConstants.SELLER_COUNTRY_STORE_SETUP_API,APIConstants.SELLER_COUNTRY_STORE_SET_WAREHOUSE);
 
-        //todo to be deleted
-        url = url.replace("v1","v3");
-
         BaseApplication app = BaseApplication.getInstance();
 
         Map<String,String> params = new HashMap<String,String>();
-//        params.put(APIConstants.ACCESS_TOKEN, app.getAccessToken());
-        params.put(APIConstants.ACCESS_TOKEN, "NzFmNDJlOTcxOWY5MTE1OTc0MjlmZTQ4ZWE4MzdlYmZiMTc3ZTc4ZDJmMDgxYjdlZDUxOTljOGUzOTg2Njc5Ng");
+        params.put(APIConstants.ACCESS_TOKEN, app.getAccessToken());
+//        params.put(APIConstants.ACCESS_TOKEN, "M2RkMjZkZjg1NjFhNTlhNzIxNTk5YTU4ZGJlYWY2YzIxMTJiZDhlYTgyY2Q3MWQxZDZkNTEzMTVkNzg2NGY0Yg");
         params.put(APIConstants.SELLER_COUNTRY_STORE_PARAMS_CODE, location.getCode());
         params.put(APIConstants.SELLER_COUNTRY_STORE_PARAMS_PRODUCT_ID, location.getProductId());
         params.put(APIConstants.SELLER_COUNTRY_STORE_PARAMS_USER_WAREHOUSE, location.getUserWarehouse());
@@ -132,20 +127,16 @@ public class CountryStoreAPI {
                                        final ResponseHandler responseHandler,final Response.ErrorListener errorHandler){
 
 
-        //todo to be edited
-        String url = String.format("%s/ph/en/%s/%s/%s",
+        String url = String.format("%s/%s/%s/%s",
                 APIConstants.DOMAIN,
                 APIConstants.AUTH_API,
-                APIConstants.SELLER_COUNTRY_STORE_SETUP_API,APIConstants.SELLER_COUNTRY_STORE_SET_WAREHOUSE);
-
-        //todo to be deleted
-        url = url.replace("v1","v3");
+                APIConstants.SELLER_COUNTRY_STORE_SETUP_API,APIConstants.SELLER_COUNTRY_STORE_SAVE_COMBINATIONS_API);
 
         BaseApplication app = BaseApplication.getInstance();
 
         Map<String,String> params = new HashMap<String,String>();
-//        params.put(APIConstants.ACCESS_TOKEN, app.getAccessToken());
-        params.put(APIConstants.ACCESS_TOKEN, "NzFmNDJlOTcxOWY5MTE1OTc0MjlmZTQ4ZWE4MzdlYmZiMTc3ZTc4ZDJmMDgxYjdlZDUxOTljOGUzOTg2Njc5Ng");
+        params.put(APIConstants.ACCESS_TOKEN, app.getAccessToken());
+//        params.put(APIConstants.ACCESS_TOKEN, "M2RkMjZkZjg1NjFhNTlhNzIxNTk5YTU4ZGJlYWY2YzIxMTJiZDhlYTgyY2Q3MWQxZDZkNTEzMTVkNzg2NGY0Yg");
         params.put(APIConstants.SELLER_COUNTRY_STORE_PARAMS_CODE, combination.getCode());
         params.put(APIConstants.SELLER_COUNTRY_STORE_PARAMS_PRODUCT_ID, combination.getProductId());
         params.put(APIConstants.SELLER_COUNTRY_STORE_PARAMS_PRODUCT_UNIT_ID, String.valueOf(combination.getProductUnitId()));
@@ -183,22 +174,18 @@ public class CountryStoreAPI {
 
     public static Request getCountryStore (final int requestCode,int productId, final ResponseHandler responseHandler, final Response.ErrorListener errorHandler){
 
-        //Todo to be edited
-        String url = String.format("%s/ph/en/%s/%s/%s",
+        String url = String.format("%s/%s/%s/%s",
                 APIConstants.DOMAIN,
                 APIConstants.AUTH_API,
                 APIConstants.SELLER_COUNTRY_STORE_SETUP_API,
                 APIConstants.SELLER_COUNTRY_STORE_API);
 
-        //Todo to be deleted
-        url = url.replace("v1","v3");
-
         BaseApplication app = BaseApplication.getInstance();
 
         Map<String,String> params = new HashMap<String,String>();
-//        params.put(APIConstants.ACCESS_TOKEN, app.getAccessToken());
+        params.put(APIConstants.ACCESS_TOKEN, app.getAccessToken());
 //        params.put(APIConstants.PRODUCT_ID, String.valueOf(productId));
-        params.put(APIConstants.ACCESS_TOKEN, "NzFmNDJlOTcxOWY5MTE1OTc0MjlmZTQ4ZWE4MzdlYmZiMTc3ZTc4ZDJmMDgxYjdlZDUxOTljOGUzOTg2Njc5Ng");
+//        params.put(APIConstants.ACCESS_TOKEN, "M2RkMjZkZjg1NjFhNTlhNzIxNTk5YTU4ZGJlYWY2YzIxMTJiZDhlYTgyY2Q3MWQxZDZkNTEzMTVkNzg2NGY0Yg");
         params.put(APIConstants.PRODUCT_ID, "30571");
 
         VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
@@ -209,14 +196,14 @@ public class CountryStoreAPI {
                 Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
                 APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
 
-                gson = GsonUtility.createGsonBuilder(CountrySetup.class, new CountrySetup.CountrySetupInstance()).create();
-                String jsonString = new Gson().toJson(apiResponse.getData());
+                gson = GsonUtility.createGsonBuilder(CountryStore.class, new CountryStore.CountryStoreInstance()).create();
+                Type listType = new TypeToken<ArrayList<CountryStore>>(){}.getType();
 
-                CountrySetup obj = gson.fromJson(jsonString, CountrySetup.class);
+                List<CountryStore> countryStores = gson.fromJson(gson.toJson(apiResponse.getData()),listType);
 
                 if (apiResponse.isSuccessful()) {
 
-                    responseHandler.onSuccess(requestCode, obj);
+                    responseHandler.onSuccess(requestCode, countryStores);
                 } else {
 
                     responseHandler.onFailed(requestCode, apiResponse.getMessage());

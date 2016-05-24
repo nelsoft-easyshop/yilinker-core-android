@@ -727,6 +727,7 @@ public class APIConstants {
     public final static String SELLER_COUNTRY_STORE_PARAMS_COMMISSION                               ="commission";
     public final static String SELLER_COUNTRY_STORE_PARAMS_STATUS                                   ="status";
     public final static String SELLER_COUNTRY_STORE_API                                             ="country-store";
+    public final static String SELLER_COUNTRY_STORE_SAVE_COMBINATIONS_API                            ="save-combinations";
 
     //GET CHILD PROVINCES
     public final static String ADDRESS_GET_CHILD_PROVINCES = "getChildProvinces";
