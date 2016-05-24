@@ -724,6 +724,21 @@ public class APIConstants {
     //INVENTORY FILTER
     public final static String SELLER_INVENTORY_FILTER_API                                          ="inventory-filter";
 
-
+    //COUNTRY STORE
+    public final static String SELLER_COUNTRY_STORE_PARAMS_CODE                                     ="code";
+    public final static String SELLER_COUNTRY_STORE_SETUP_API                                       ="country-setup";
+    public final static String SELLER_COUNTRY_STORE_SET_WAREHOUSE                                   ="setwarehouse";
+    public final static String SELLER_COUNTRY_STORE_PARAMS_PRODUCT_ID                               ="productId";
+    public final static String SELLER_COUNTRY_STORE_PARAMS_USER_WAREHOUSE                           ="userWarehouse";
+    public final static String SELLER_COUNTRY_STORE_PARAMS_LOGISTICS                                ="logistics";
+    public final static String SELLER_COUNTRY_STORE_PARAMS_IS_COD                                   ="isCod";
+    public final static String SELLER_COUNTRY_STORE_PARAMS_HANDLING_FEE                             ="handlingFee";
+    public final static String SELLER_COUNTRY_STORE_PARAMS_PRIORITY                                 ="priority";
+    public final static String SELLER_COUNTRY_STORE_PARAMS_PRODUCT_UNIT_ID                          ="productUnitId";
+    public final static String SELLER_COUNTRY_STORE_PARAMS_PRICE                                    ="price";
+    public final static String SELLER_COUNTRY_STORE_PARAMS_DISCOUNTED_PRICE                         ="discountedPrice";
+    public final static String SELLER_COUNTRY_STORE_PARAMS_COMMISSION                               ="commission";
+    public final static String SELLER_COUNTRY_STORE_PARAMS_STATUS                                   ="status";
+    public final static String SELLER_COUNTRY_STORE_API                                             ="country-store";
 
 }
