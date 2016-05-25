@@ -40,11 +40,8 @@ public class CountryStoreAPI {
 
         Map<String,String> params = new HashMap<String,String>();
         params.put(APIConstants.ACCESS_TOKEN, app.getAccessToken());
-//        params.put(APIConstants.PRODUCT_ID, String.valueOf(productId));
-//        params.put(APIConstants.SELLER_COUNTRY_STORE_PARAMS_CODE, code);
-//        params.put(APIConstants.ACCESS_TOKEN, "M2RkMjZkZjg1NjFhNTlhNzIxNTk5YTU4ZGJlYWY2YzIxMTJiZDhlYTgyY2Q3MWQxZDZkNTEzMTVkNzg2NGY0Yg");
-        params.put(APIConstants.PRODUCT_ID, "30571");
-        params.put(APIConstants.SELLER_COUNTRY_STORE_PARAMS_CODE, "ph");
+        params.put(APIConstants.PRODUCT_ID, String.valueOf(productId));
+        params.put(APIConstants.SELLER_COUNTRY_STORE_PARAMS_CODE, code);
 
         VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
 
@@ -88,7 +85,6 @@ public class CountryStoreAPI {
 
         Map<String,String> params = new HashMap<String,String>();
         params.put(APIConstants.ACCESS_TOKEN, app.getAccessToken());
-//        params.put(APIConstants.ACCESS_TOKEN, "M2RkMjZkZjg1NjFhNTlhNzIxNTk5YTU4ZGJlYWY2YzIxMTJiZDhlYTgyY2Q3MWQxZDZkNTEzMTVkNzg2NGY0Yg");
         params.put(APIConstants.SELLER_COUNTRY_STORE_PARAMS_CODE, location.getCode());
         params.put(APIConstants.SELLER_COUNTRY_STORE_PARAMS_PRODUCT_ID, location.getProductId());
         params.put(APIConstants.SELLER_COUNTRY_STORE_PARAMS_USER_WAREHOUSE, location.getUserWarehouse());
@@ -136,7 +132,6 @@ public class CountryStoreAPI {
 
         Map<String,String> params = new HashMap<String,String>();
         params.put(APIConstants.ACCESS_TOKEN, app.getAccessToken());
-//        params.put(APIConstants.ACCESS_TOKEN, "M2RkMjZkZjg1NjFhNTlhNzIxNTk5YTU4ZGJlYWY2YzIxMTJiZDhlYTgyY2Q3MWQxZDZkNTEzMTVkNzg2NGY0Yg");
         params.put(APIConstants.SELLER_COUNTRY_STORE_PARAMS_CODE, combination.getCode());
         params.put(APIConstants.SELLER_COUNTRY_STORE_PARAMS_PRODUCT_ID, combination.getProductId());
         params.put(APIConstants.SELLER_COUNTRY_STORE_PARAMS_PRODUCT_UNIT_ID, String.valueOf(combination.getProductUnitId()));
@@ -184,9 +179,7 @@ public class CountryStoreAPI {
 
         Map<String,String> params = new HashMap<String,String>();
         params.put(APIConstants.ACCESS_TOKEN, app.getAccessToken());
-//        params.put(APIConstants.PRODUCT_ID, String.valueOf(productId));
-//        params.put(APIConstants.ACCESS_TOKEN, "M2RkMjZkZjg1NjFhNTlhNzIxNTk5YTU4ZGJlYWY2YzIxMTJiZDhlYTgyY2Q3MWQxZDZkNTEzMTVkNzg2NGY0Yg");
-        params.put(APIConstants.PRODUCT_ID, "30571");
+        params.put(APIConstants.PRODUCT_ID, String.valueOf(productId));
 
         VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
 

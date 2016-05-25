@@ -1,17 +1,26 @@
 package com.yilinker.core.model.seller;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by patVillanueva on 5/17/2016.
  */
 public class CountryWarehouse {
 
+    private final static String KEY_IS_COD = "is_cod";
+    private final static String KEY_IS_LOCAL = "is_local";
+    private final static String KEY_USER_WAREHOUSE = "user_warehouse";
+
     private String id;
     private int priority;
     private String handlingFee;
-    private boolean is_cod;
-    private boolean is_local;
+    @SerializedName(KEY_IS_COD)
+    private boolean isCod;
+    @SerializedName(KEY_IS_LOCAL)
+    private boolean isLocal;
     private CountryLogistic logistic;
-    private CountryUserWarehouse user_warehouse;
+    @SerializedName(KEY_USER_WAREHOUSE)
+    private CountryUserWarehouse userWarehouse;
 
     public String getId() {
         return id;
@@ -37,20 +46,20 @@ public class CountryWarehouse {
         this.handlingFee = handlingFee;
     }
 
-    public boolean is_cod() {
-        return is_cod;
+    public boolean isCod() {
+        return isCod;
     }
 
-    public void setIs_cod(boolean is_cod) {
-        this.is_cod = is_cod;
+    public void setCod(boolean cod) {
+        isCod = cod;
     }
 
-    public boolean is_local() {
-        return is_local;
+    public boolean isLocal() {
+        return isLocal;
     }
 
-    public void setIs_local(boolean is_local) {
-        this.is_local = is_local;
+    public void setLocal(boolean local) {
+        isLocal = local;
     }
 
     public CountryLogistic getLogistic() {
@@ -61,11 +70,11 @@ public class CountryWarehouse {
         this.logistic = logistic;
     }
 
-    public CountryUserWarehouse getUser_warehouse() {
-        return user_warehouse;
+    public CountryUserWarehouse getUserWarehouse() {
+        return userWarehouse;
     }
 
-    public void setUser_warehouse(CountryUserWarehouse user_warehouse) {
-        this.user_warehouse = user_warehouse;
+    public void setUserWarehouse(CountryUserWarehouse userWarehouse) {
+        this.userWarehouse = userWarehouse;
     }
 }
