@@ -34,6 +34,8 @@ public class UserAPI {
      */
     public static Request login (final int requestCode, com.yilinker.core.model.request.Login login, final ResponseHandler responseHandler, final Response.ErrorListener errorListener){
 
+        //TODO Add setting of language and country code in the app project
+
         String url = String.format("%s/%s",
                 BaseApplication.getDomainURL(),
                 APIConstants.LOGIN_API);
