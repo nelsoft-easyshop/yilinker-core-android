@@ -36,7 +36,7 @@ public class ProductManagementApi {
     public static Request getProductList(final int requestCode, String token, int status, String keyword,
                                          final ResponseHandler responseHandler) {
 
-        String url = String.format("%s/ph/en/%s/%s/%s",
+        String url = String.format("%s/%s/%s/%s",
                 APIConstants.DOMAIN,
                 APIConstants.AUTH_API,
                 APIConstants.PRODUCT_MANAGEMENT_API,

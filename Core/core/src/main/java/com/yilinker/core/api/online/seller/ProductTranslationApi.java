@@ -32,7 +32,7 @@ public class ProductTranslationApi {
     public static Request getTranslation(final int requestCode, int productId, String countryCode, String languageCode, final ResponseHandler handler, Response.ErrorListener errorListener) {
 
         String endpoint = String.format("%s/%s/%s/%s/%s/%s?%s=%s&%s=%s",
-                APIConstants.DOMAIN.replaceAll("v1","v3"),
+                APIConstants.DOMAIN.substring(0, APIConstants.DOMAIN.indexOf("3")+1),
                 countryCode,
                 languageCode,
                 APIConstants.AUTH_API,
@@ -68,7 +68,8 @@ public class ProductTranslationApi {
     public static Request translateProduct(final int requestCode, com.yilinker.core.model.seller.request.ProductTranslation product,
                                            final ResponseHandler handler, Response.ErrorListener errorListener) {
 
-        String endpoint = String.format("%s/%s/%s/%s/%s/%s?%s=%s", APIConstants.DOMAIN, product.getCountryCode(),
+        String endpoint = String.format("%s/%s/%s/%s/%s/%s?%s=%s", APIConstants.DOMAIN.substring(0, APIConstants.DOMAIN.indexOf("3")+1),
+                product.getCountryCode(),
                 product.getLanguageCode(), APIConstants.AUTH_API, PRODUCT_API, TRANSLATE,
                 APIConstants.ACCESS_TOKEN, BaseApplication.getInstance().getAccessToken());
 
@@ -110,7 +111,7 @@ public class ProductTranslationApi {
 
     public static Request getLanguages(final int requestCode, int productId, final ResponseHandler handler, Response.ErrorListener errorListener) {
 
-        String endpoint = String.format("%s/ph/en/%s/%s/%s?%s=%s&%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API,
+        String endpoint = String.format("%s/%s/%s/%s?%s=%s&%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API,
                 PRODUCT_API, GET_LANGUAGES,
                 APIConstants.ACCESS_TOKEN, BaseApplication.getInstance().getAccessToken(),
                 PRODUCT_PARAM_ID, String.valueOf(productId));
