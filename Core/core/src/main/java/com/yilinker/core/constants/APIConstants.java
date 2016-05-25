@@ -734,4 +734,7 @@ public class APIConstants {
     public final static String ADDRESS_GET_CHILD_PROVINCES_PARAM_TOKEN = "access_token";
     public final static String ADDRESS_GET_CHILD_PROVINCES_PARAM_REGIONID = "regionId";
 
+    //GET INTERNATIONAL PRODUCTS
+    public final static String GET_INTERNATIONAL_PRODUCT = "internationalProduct";
+
 }

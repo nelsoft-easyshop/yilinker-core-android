@@ -77,8 +77,8 @@ public class ProductTranslationApi {
         params.put(PRODUCT_PARAM_NAME, product.getProductName());
         params.put(PRODUCT_PARAM_SHORT_DESCRIPTION, product.getShortDescription());
         params.put(PRODUCT_PARAM_COMPLETE_DESCRIPTION, product.getCompleteDescription());
-        params.put(PRODUCT_PARAM_BRAND, product.getBrand());
-        params.put(PRODUCT_PARAM_GROUPS, product.getProductGroups());
+//        params.put(PRODUCT_PARAM_BRAND, product.getBrand());
+//        params.put(PRODUCT_PARAM_GROUPS, product.getProductGroups());
         params.put(PRODUCT_PARAM_IMAGES, product.getProductImages());
         params.put(PRODUCT_PARAM_VARIANTS, product.getProductVariants());
 
