@@ -11,6 +11,7 @@ public class CountryProduct {
 
     private String id;
     private String title;
+    private String store;
     private List<ProductImages> images;
     private String shortDescription;
     private String brand;
@@ -31,6 +32,14 @@ public class CountryProduct {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getStore() {
+        return store;
+    }
+
+    public void setStore(String store) {
+        this.store = store;
     }
 
     public List<ProductImages> getImages() {
