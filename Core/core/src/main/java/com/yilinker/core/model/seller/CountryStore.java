@@ -11,9 +11,9 @@ public class CountryStore {
 
     private int countryId;
     private String name;
-    private String countryCode;
+    private String code;
     private String domain;
-    private String flagUrl;
+    private String flag;
     private boolean isAvailable;
     private Currency currency;
     private Currency defaultLanguage;
@@ -35,11 +35,11 @@ public class CountryStore {
     }
 
     public String getCountryCode() {
-        return countryCode;
+        return code;
     }
 
     public void setCountryCode(String countryCode) {
-        this.countryCode = countryCode;
+        this.code = countryCode;
     }
 
     public String getDomain() {
@@ -50,12 +50,12 @@ public class CountryStore {
         this.domain = domain;
     }
 
-    public String getFlagUrl() {
-        return flagUrl;
+    public String getFlag() {
+        return flag;
     }
 
-    public void setFlagUrl(String flagUrl) {
-        this.flagUrl = flagUrl;
+    public void setFlag(String flag) {
+        this.flag = flag;
     }
 
     public boolean isAvailable() {
