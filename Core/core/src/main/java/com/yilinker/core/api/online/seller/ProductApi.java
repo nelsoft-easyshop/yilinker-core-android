@@ -87,11 +87,12 @@ public class ProductApi {
      * @param errorListener
      * @return
      */
-    public static Request getBrands(final int requestCode, final ResponseHandler handler, Response.ErrorListener errorListener) {
+    public static Request getBrands(final int requestCode, String brandKeyword, final ResponseHandler handler, Response.ErrorListener errorListener) {
 
-        String endpoint = String.format("%s/%s/%s?%s=%s", BaseApplication.getDomainURL(),
+        String endpoint = String.format("%s/%s/%s?%s=%s&%s=%s", BaseApplication.getDomainURL(),
                 PRODUCT_API, GET_BRANDS,
-                APIConstants.ACCESS_TOKEN, BaseApplication.getInstance().getAccessToken()
+                APIConstants.ACCESS_TOKEN, BaseApplication.getInstance().getAccessToken(),
+                APIConstants.PRODUCT_UPLOAD_GET_BRAND_PARAM_BRAND_KEYWORD, brandKeyword
         );
 
         JsonObjectRequest request = new JsonObjectRequest(endpoint, new Response.Listener<JSONObject>() {

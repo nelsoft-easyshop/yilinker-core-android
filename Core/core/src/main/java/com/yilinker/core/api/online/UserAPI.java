@@ -1,11 +1,7 @@
 package com.yilinker.core.api.online;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.NoConnectionError;
 import com.android.volley.Request;
 import com.android.volley.Response;
-import com.android.volley.TimeoutError;
-import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 import com.yilinker.core.base.BaseApplication;
 import com.yilinker.core.constants.APIConstants;
