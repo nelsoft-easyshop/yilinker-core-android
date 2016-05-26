@@ -2,21 +2,18 @@ package com.yilinker.core.v2.customview;
 
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
-import com.yilinker.core.R;
-
 /**
  * Created by Adur Urbano on 3/18/2016.
  */
-public class CustomTextView extends TextView
+public class CustomTextViewBold extends TextView
 {
 
-    public CustomTextView(Context context)
+    public CustomTextViewBold(Context context)
     {
 
         super(context);
@@ -24,7 +21,7 @@ public class CustomTextView extends TextView
 
     }
 
-    public CustomTextView(Context context, AttributeSet attrs)
+    public CustomTextViewBold(Context context, AttributeSet attrs)
     {
 
         super(context, attrs);
@@ -32,7 +29,7 @@ public class CustomTextView extends TextView
 
     }
 
-    public CustomTextView(Context context, AttributeSet attrs, int defStyleAttr)
+    public CustomTextViewBold(Context context, AttributeSet attrs, int defStyleAttr)
     {
 
         super(context, attrs, defStyleAttr);
@@ -41,7 +38,7 @@ public class CustomTextView extends TextView
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public CustomTextView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes)
+    public CustomTextViewBold(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes)
     {
 
         super(context, attrs, defStyleAttr, defStyleRes);
@@ -52,7 +49,7 @@ public class CustomTextView extends TextView
     private void init()
     {
 
-        Typeface myTypeface = Typeface.createFromAsset(getContext().getAssets(), "fonts/" + "HelveticaWorld-Regular.ttf");
+        Typeface myTypeface = Typeface.createFromAsset(getContext().getAssets(), "fonts/" + "HelveticaWorld-Bold.ttf");
         setTypeface(myTypeface);
 
     }

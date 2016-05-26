@@ -161,6 +161,8 @@ public class APIConstants {
     public static final String PROFILE_ISSUBSCRIBE = "isSubscribe";
     public static final String PROFILE_SUBSCRIPTION_API = "subscription";
     public static final String PROFILE_REFERRAL_CODE = "referralCode";
+    public static final String PROFILE_LANGUAGE_ID = "languageId";
+    public static final String PROFILE_COUNTRY_ID = "countryId";
 
     //For Activity Log
     public static final String ACTIVITY_LOG_GET_ITEMS = "activityLog";
@@ -238,6 +240,7 @@ public class APIConstants {
     public static final String PRODUCT_UPLOAD_GET_BRAND_PARAM_BRAND_KEYWORD = "brandKeyword";
     public static final String PRODUCT_UPLOAD_GET_CATEGORIES = "getCategories";
     public static final String PRODUCT_UPLOAD_GET_CATEGORIES_PARAM_PARENT_ID = "parentId";
+    public static final String PRODUCT_UPLOAD_GET_CATEGORIES_PARAM_CATEGORY_ID = "productCategoryId";
     public static final String PRODUCT_UPLOAD_GET_CATEGORIES_PARAM_QUERY_STRING = "queryString";
     public static final String PRODUCT_UPLOAD_GET_CONDITIONS = "getProductConditions";
 
@@ -489,6 +492,7 @@ public class APIConstants {
     public static final String RIDER_CALCULATE_PACKAGE_TYPE = "packageType";
     public static final String RIDER_IS_UPDATE_PACKAGE = "isUpdate";
 
+    public static final String RIDER_GET_BANK_DETAILS = "get-bank-details";
 
     //TODO to move to express rider constant
     public static final String RIDER_REGISTRATION_MOBILE_NO = "mobileNumber";
@@ -701,5 +705,19 @@ public class APIConstants {
     public final static String SEND_FEEDBACK_PARAMS_PHONE_MODEL                                     = "phoneModel";
     public final static String SEND_FEEDBACK_PARAMS_OS_VERSION                                      = "osVersion";
     public final static String SEND_FEEDBACK_PARAMS_OS_NAME                                         = "osName";
+
+
+    //GET COUNTRY
+    public final static String ADDRESS_GET_COUNTRY = "getAllCountries";
+    public final static String ADDRESS_GET_COUNTRY_PARAM_TOKEN = "access_token";
+
+
+    //GET CHILD PROVINCES
+    public final static String ADDRESS_GET_CHILD_PROVINCES = "getChildProvinces";
+    public final static String ADDRESS_GET_CHILD_PROVINCES_PARAM_TOKEN = "access_token";
+    public final static String ADDRESS_GET_CHILD_PROVINCES_PARAM_REGIONID = "regionId";
+
+    //GET INTERNATIONAL PRODUCTS
+    public final static String GET_INTERNATIONAL_PRODUCT = "internationalProduct";
 
 }

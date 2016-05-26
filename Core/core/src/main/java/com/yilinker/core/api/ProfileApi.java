@@ -11,6 +11,7 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
+import com.yilinker.core.base.BaseApplication;
 import com.yilinker.core.constants.APIConstants;
 import com.yilinker.core.helper.MultiPartRequest;
 import com.yilinker.core.helper.VolleyPostHelper;
@@ -40,14 +41,14 @@ public class ProfileApi {
 
         if(token != null) {
             url = String.format("%s/%s/%s/%s?%s=%s",
-                    APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.PROFILE_API, APIConstants.PROFILE_GET_DETAILS,
+                    BaseApplication.getDomainURL(), APIConstants.AUTH_API, APIConstants.PROFILE_API, APIConstants.PROFILE_GET_DETAILS,
                     APIConstants.ACCESS_TOKEN, token);
         } else {
            url = String.format("%s/%s/%s/%s",
-                    APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.PROFILE_API, APIConstants.PROFILE_GET_DETAILS);
+                    BaseApplication.getDomainURL(), APIConstants.AUTH_API, APIConstants.PROFILE_API, APIConstants.PROFILE_GET_DETAILS);
         }
 
-        Request requestGetCart = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
+        Request request = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
 
@@ -94,9 +95,9 @@ public class ProfileApi {
         });
 
 
-        requestGetCart.setRetryPolicy(SocketTimeout.getRetryPolicy());
+        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
 
-        return requestGetCart;
+        return request;
 
     }
 
@@ -111,7 +112,7 @@ public class ProfileApi {
                                              boolean isUserDocumentsEmpty, boolean isReferralPersonEmpty, final ResponseHandler responseHandler){
 
         String url = String.format("%s/%s/%s/%s",
-                APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.PROFILE_API, APIConstants.PROFILE_EDIT_DETAILS);
+                BaseApplication.getDomainURL(), APIConstants.AUTH_API, APIConstants.PROFILE_API, APIConstants.PROFILE_EDIT_DETAILS);
 
         Map<String, String> params = new HashMap<String, String>();
         //params.put(APIConstants.ACCESS_TOKEN, token);
@@ -283,10 +284,11 @@ public class ProfileApi {
     }
 
     public static Request updateUserDetails (final int requestCode, String token, File profilePhoto, File userDocuments, Profile profile,
+                                             int languageId, int countryId,
                                              final ResponseHandler responseHandler){
 
         String url = String.format("%s/%s/%s/%s",
-                APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.PROFILE_API, APIConstants.PROFILE_EDIT_DETAILS);
+                BaseApplication.getDomainURL(), APIConstants.AUTH_API, APIConstants.PROFILE_API, APIConstants.PROFILE_EDIT_DETAILS);
 
         Map<String, String> params = new HashMap<String, String>();
         if (profilePhoto != null)
@@ -300,6 +302,9 @@ public class ProfileApi {
         if (profile.getReferrerName() == null || profile.getReferrerName().trim().isEmpty()) {
             params.put(APIConstants.PROFILE_REFERRAL_CODE, profile.getReferrerCode());
         }
+        params.put(APIConstants.PROFILE_LANGUAGE_ID, String.valueOf(languageId));
+        params.put(APIConstants.PROFILE_COUNTRY_ID, String.valueOf(countryId));
+
 
         StringBuilder stringBuilder = new StringBuilder();
 
