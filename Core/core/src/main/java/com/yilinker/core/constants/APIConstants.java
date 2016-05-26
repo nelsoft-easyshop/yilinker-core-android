@@ -245,7 +245,7 @@ public class APIConstants {
     public static final String PRODUCT_UPLOAD_GET_CONDITIONS = "getProductConditions";
 
     //Get Product Edit Details
-    public static final String PRODUCT_EDIT_DETAILS_API = "upload-details";
+    public static final String PRODUCT_EDIT_DETAILS_API = "get-upload-details";
     public static final String PRODUCT_EDIT_DETAILS_PARAMS_PRODUCT_ID = "productId";
 
     //Edit Product
