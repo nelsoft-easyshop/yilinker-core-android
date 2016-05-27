@@ -15,58 +15,45 @@ import com.yilinker.core.R;
  */
 public class CustomTextView extends TextView
 {
-    private AttributeSet attrs;
 
     public CustomTextView(Context context)
     {
-        super(context);
-        init(null);
 
-        this.attrs = null;
+        super(context);
+        init();
+
     }
 
     public CustomTextView(Context context, AttributeSet attrs)
     {
-        super(context, attrs);
-        init(attrs);
 
-        this.attrs = attrs;
+        super(context, attrs);
+        init();
+
     }
 
     public CustomTextView(Context context, AttributeSet attrs, int defStyleAttr)
     {
-        super(context, attrs, defStyleAttr);
-        init(attrs);
 
-        this.attrs = attrs;
+        super(context, attrs, defStyleAttr);
+        init();
+
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public CustomTextView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes)
     {
-        super(context, attrs, defStyleAttr, defStyleRes);
-        init(attrs);
 
-        this.attrs = attrs;
+        super(context, attrs, defStyleAttr, defStyleRes);
+        init();
+
     }
 
-    /**
-     * @param attrs
-     */
-    private void init(AttributeSet attrs)
+    private void init()
     {
-        if (attrs!=null)
-        {
-            TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.CustomFont);
 
-            String fontName = a.getString(R.styleable.CustomFont_fontName);
+        Typeface myTypeface = Typeface.createFromAsset(getContext().getAssets(), "fonts/" + "HelveticaWorld-Regular.ttf");
+        setTypeface(myTypeface);
 
-            if (fontName!=null)
-            {
-                Typeface myTypeface = Typeface.createFromAsset(getContext().getAssets(), "fonts/"+fontName);
-                setTypeface(myTypeface);
-            }
-            a.recycle();
-        }
     }
 }

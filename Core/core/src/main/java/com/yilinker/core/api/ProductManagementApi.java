@@ -42,6 +42,8 @@ public class ProductManagementApi {
                 APIConstants.PRODUCT_MANAGEMENT_API,
                 APIConstants.GET_PRODUCT_LIST);
 
+        url = url.replace("v1","v3");
+
         Map<String,String> params = new HashMap<String,String>();
         params.put(APIConstants.ACCESS_TOKEN, token);
         if (status != 7) {
@@ -52,6 +54,7 @@ public class ProductManagementApi {
         if (keyword != null && !keyword.isEmpty()) {
             params.put(APIConstants.PRODUCT_MANAGEMENT_PARAMS_KEYWORD, keyword);
         }
+
         VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
