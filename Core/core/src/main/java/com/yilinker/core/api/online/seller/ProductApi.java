@@ -105,10 +105,10 @@ public class ProductApi {
 
                 if (api.isSuccessful()) {
 
-                    gson = GsonUtility.createGsonBuilder(ProductBrand.class, new ProductBrand.BrandInstance()).create();
+                    gson = GsonUtility.createGsonBuilder(com.yilinker.core.model.ProductBrand.class, new com.yilinker.core.model.ProductBrand.ProductBrandInstance()).create();
 
                     handler.onSuccess(requestCode,
-                            gson.fromJson(gson.toJson(api.getData()), new TypeToken<List<ProductBrand>>(){}.getType()));
+                            gson.fromJson(gson.toJson(api.getData()), new TypeToken<List<com.yilinker.core.model.ProductBrand>>(){}.getType()));
 
                 } else {
 
@@ -149,10 +149,10 @@ public class ProductApi {
 
                 if (api.isSuccessful()) {
 
-                    gson = GsonUtility.createGsonBuilder(ProductCondition.class, new ProductCondition.ProductConditionInstance()).create();
+                    gson = GsonUtility.createGsonBuilder(com.yilinker.core.model.ProductCondition.class, new com.yilinker.core.model.ProductCondition.ProductConditionInstance()).create();
 
                     handler.onSuccess(requestCode,
-                            gson.fromJson(gson.toJson(api.getData()), new TypeToken<List<ProductCondition>>(){}.getType()));
+                            gson.fromJson(gson.toJson(api.getData()), new TypeToken<List<com.yilinker.core.model.ProductCondition>>(){}.getType()));
 
                 } else {
 
