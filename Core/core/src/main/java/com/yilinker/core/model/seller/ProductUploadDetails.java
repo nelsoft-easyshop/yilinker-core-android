@@ -446,7 +446,7 @@ public class ProductUploadDetails {
         @SerializedName("name")
         private String name;
         @SerializedName("values")
-        private String[] values;
+        private Value[] values;
 
         public String getName() {
             return name;
@@ -456,14 +456,38 @@ public class ProductUploadDetails {
             this.name = name;
         }
 
-        public String[] getValues() {
+        public Value[] getValues() {
             return values;
         }
 
-        public void setValues(String[] values) {
+        public void setValues(Value[] values) {
             this.values = values;
         }
 
+    }
+
+    public class Value {
+
+        @SerializedName("id")
+        private String id;
+        @SerializedName("name")
+        private String name;
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
     }
 
     public static class ProductUploadDetailsInstance implements InstanceCreator<ProductUploadDetails> {
