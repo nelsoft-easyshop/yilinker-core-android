@@ -46,7 +46,7 @@ public class ProductApi {
     public static Request getUploadDetails(final int requestCode, int productId, final ResponseHandler handler, Response.ErrorListener errorListener) {
 
         String endpoint = String.format("%s/%s/%s/%s?%s=%s&%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API,
-                PRODUCT_API, GET_BRANDS,
+                PRODUCT_API, GET_UPLOAD_DETAILS,
                 APIConstants.ACCESS_TOKEN, BaseApplication.getInstance().getAccessToken(),
                 PRODUCT_PARAM_ID, productId
         );
