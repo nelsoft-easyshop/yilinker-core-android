@@ -22,6 +22,7 @@ public class APIConstants {
     public static final String GET_BRANDS                                                           = "get-brands";
     public static final String GET_CATEGORIES                                                       = "get-categories";
     public static final String GET_TRANSLATION                                                      = "get-translation";
+    public static final String GET_UPLOAD_DETAILS                                                   = "get-upload-details";
     public static final String TRANSLATE                                                            = "translate";
     public static final String GET_LANGUAGES                                                        = "get-languages";
     public static final String PRODUCT_PARAM_ID                                                     = "productId";
