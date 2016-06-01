@@ -12,6 +12,7 @@ public class WarehouseDetails {
     private int id;
     private String name;
     private String address;
+    private String fullAddress;
     private boolean isDelete;
     private String zipCode;
 
@@ -53,6 +54,14 @@ public class WarehouseDetails {
 
     public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
+    }
+
+    public String getFullAddress() {
+        return fullAddress;
+    }
+
+    public void setFullAddress(String fullAddress) {
+        this.fullAddress = fullAddress;
     }
 
     public static class WarehouseDetailsInstance implements InstanceCreator<WarehouseDetails> {
