@@ -2,6 +2,7 @@ package com.yilinker.core.api.online.seller;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -89,7 +90,7 @@ public class ProductApi {
      */
     public static Request getBrands(final int requestCode, final ResponseHandler handler, Response.ErrorListener errorListener) {
 
-        String endpoint = String.format("%s/%s/%s?%s=%s&%s=%s", BaseApplication.getDomainURL(),
+        String endpoint = String.format("%s/%s/%s?%s=%s", BaseApplication.getDomainURL(),
                 PRODUCT_API, GET_BRANDS,
                 APIConstants.ACCESS_TOKEN, BaseApplication.getInstance().getAccessToken()
         );
@@ -180,9 +181,52 @@ public class ProductApi {
 
         String endpoint = String.format("%s/%s/%s?%s=%s&%s=%d", BaseApplication.getDomainURL(),
                 PRODUCT_API, GET_CATEGORIES,
-                APIConstants.PRODUCT_UPLOAD_GET_CATEGORIES_PARAM_CATEGORY_ID, parentId,
-                APIConstants.ACCESS_TOKEN, BaseApplication.getInstance().getAccessToken()
+                APIConstants.ACCESS_TOKEN, BaseApplication.getInstance().getAccessToken(),
+                APIConstants.PRODUCT_UPLOAD_GET_CATEGORIES_PARAM_CATEGORY_ID, parentId
         );
+
+        JsonObjectRequest request = new JsonObjectRequest(endpoint, new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+
+                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                APIResponse api = gson.fromJson(response.toString(), APIResponse.class);
+
+                if (api.isSuccessful()) {
+
+                    gson = GsonUtility.createGsonBuilder(ProductCategory.class, new ProductCategory.ProductCategoryInstance()).create();
+
+                    handler.onSuccess(requestCode,
+                            gson.fromJson(gson.toJson(api.getData()), new TypeToken<List<ProductCategory>>(){}.getType()));
+
+                } else {
+
+                    handler.onFailed(requestCode, api.getMessage());
+
+                }
+
+            }
+
+        }, errorListener);
+
+        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
+
+        return request;
+    }
+
+    public static Request searchCategory(final int requestCode, String keyword, final ResponseHandler handler, Response.ErrorListener errorListener) {
+
+
+        String endpoint = String.format("%s/%s/%s?%s=%s&%s=%s", BaseApplication.getDomainURL(),
+                PRODUCT_API, GET_CATEGORIES,
+                APIConstants.ACCESS_TOKEN, BaseApplication.getInstance().getAccessToken(),
+                APIConstants.PRODUCT_UPLOAD_GET_CATEGORIES_PARAM_QUERY_STRING, keyword
+        );
+
+        if (endpoint.contains(" ")) {
+            endpoint = endpoint.replaceAll(" ", "%20");
+        }
 
         JsonObjectRequest request = new JsonObjectRequest(endpoint, new Response.Listener<JSONObject>() {
 
@@ -326,7 +370,8 @@ public class ProductApi {
         params.put(PRODUCT_PARAM_VIDEO_URL, product.getVideoUrl());
         params.put(PRODUCT_PARAM_CONDITION_ID, String.valueOf(product.getConditionId()));
         params.put(PRODUCT_PARAM_CATEGORY_ID, String.valueOf(product.getCategoryId()));
-        params.put(PRODUCT_PARAM_SHIPPING_CATEGORY_ID, String.valueOf(product.getShippingCategoryId()));
+//        params.put(PRODUCT_PARAM_SHIPPING_CATEGORY_ID, String.valueOf(product.getShippingCategoryId()));
+        params.put(PRODUCT_PARAM_SHIPPING_CATEGORY_ID, String.valueOf(1));
         params.put(PRODUCT_PARAM_BRAND, product.getBrand());
         params.put(PRODUCT_PARAM_GROUPS, product.getProductGroups());
         params.put(PRODUCT_PARAM_IMAGES, product.getProductImages());
