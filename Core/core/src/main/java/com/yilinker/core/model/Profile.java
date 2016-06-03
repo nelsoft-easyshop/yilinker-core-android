@@ -1,6 +1,7 @@
 package com.yilinker.core.model;
 
 import com.google.gson.InstanceCreator;
+import com.google.gson.annotations.SerializedName;
 import com.yilinker.core.v2.model.countryselection.Countries;
 import com.yilinker.core.v2.model.countryselection.Language;
 
