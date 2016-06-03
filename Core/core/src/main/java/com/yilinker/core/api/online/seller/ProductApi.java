@@ -13,6 +13,7 @@ import static com.yilinker.core.v2.constants.APIConstants.*;
 import com.yilinker.core.helper.VolleyPostHelper;
 import com.yilinker.core.interfaces.ResponseHandler;
 import com.yilinker.core.model.APIResponse;
+import com.yilinker.core.model.Login;
 import com.yilinker.core.model.seller.ProductBrand;
 import com.yilinker.core.model.seller.ProductCategory;
 import com.yilinker.core.model.seller.ProductCondition;
@@ -367,7 +368,8 @@ public class ProductApi {
         params.put(PRODUCT_PARAM_NAME, product.getName());
         params.put(PRODUCT_PARAM_SHORT_DESCRIPTION, product.getShortDescription());
         params.put(PRODUCT_PARAM_COMPLETE_DESCRIPTION, product.getCompleteDescription());
-        params.put(PRODUCT_PARAM_VIDEO_URL, product.getVideoUrl());
+        if (product.getVideoUrl() != null)
+            params.put(PRODUCT_PARAM_VIDEO_URL, product.getVideoUrl());
         params.put(PRODUCT_PARAM_CONDITION_ID, String.valueOf(product.getConditionId()));
         params.put(PRODUCT_PARAM_CATEGORY_ID, String.valueOf(product.getCategoryId()));
 //        params.put(PRODUCT_PARAM_SHIPPING_CATEGORY_ID, String.valueOf(product.getShippingCategoryId()));
@@ -378,7 +380,7 @@ public class ProductApi {
         params.put(PRODUCT_PARAM_UNITS, product.getProductUnits());
         params.put(PRODUCT_PARAM_IS_DRAFT, String.valueOf(product.isDraft()));
 
-        Request request = new VolleyPostHelper(Request.Method.POST, endpoint, params, new Response.Listener<JSONObject>() {
+        VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, endpoint, params, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject json) {
 
@@ -386,18 +388,12 @@ public class ProductApi {
 
                 APIResponse response = gson.fromJson(json.toString(), APIResponse.class);
 
-                if (response.isSuccessful()) {
-
-                    handler.onSuccess(requestCode, null);
-
-                } else {
-
-                    handler.onFailed(requestCode, response.getMessage());
-
-                }
+                handler.onSuccess(requestCode, response);
 
             }
         }, errorListener);
+
+        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
 
         return request;
 
@@ -452,6 +448,8 @@ public class ProductApi {
 
             }
         }, errorListener);
+
+        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
 
         return request;
     }
