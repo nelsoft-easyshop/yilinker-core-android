@@ -314,59 +314,17 @@ public class ProfileApi {
 
         url = String.format("%s?%s=%s",url,APIConstants.ACCESS_TOKEN, token);
 
-        if (profilePhoto != null) {
-            MultiPartRequest multiPartRequest = new MultiPartRequest(url, profilePhoto.getPath(), true, APIResponse.class, params, new Response.Listener<JSONObject>() {
-                @Override
-                public void onResponse(JSONObject response) {
+        String pathProfilePhoto = "";
+        String pathUserDocument = "";
+        if (profilePhoto!=null){
+            pathProfilePhoto = profilePhoto.getPath();
+        }
+        if(userDocuments != null){
+            pathUserDocument = userDocuments.getPath();
+        }
 
-                    Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
-                    APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
-
-                    if (apiResponse.isSuccessful()) {
-                        responseHandler.onSuccess(requestCode, apiResponse.isSuccessful());
-                    } else {
-                        responseHandler.onFailed(requestCode, apiResponse.getMessage());
-                    }
-
-                }
-            }, new Response.ErrorListener() {
-
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    String message = "An error occured.";
-                    if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                        message = "No connection available.";
-                    } else if (error instanceof AuthFailureError) {
-                        message = "Authentication Failure.";
-                    } else if (error instanceof ServerError) {
-                        message = "Server error.";
-
-                        try {
-                            String responseBody = new String(error.networkResponse.data, "utf-8" );
-                            JSONObject jsonObject = new JSONObject( responseBody );
-                            jsonObject = jsonObject.getJSONObject("data");
-                            JSONArray var = jsonObject.getJSONArray("errors");
-                            message = var.get(0).toString();
-
-                        } catch ( Exception e ) {
-                            //Handle a malformed json response
-                        }
-
-                    } else if (error instanceof NetworkError) {
-                        message = "Network Error.";
-                    } else if (error instanceof ParseError) {
-                        message = "Parse error.";
-                    }
-
-                    responseHandler.onFailed(requestCode, message);
-                }
-            });
-
-            multiPartRequest.setRetryPolicy(SocketTimeout.getRetryPolicy());
-
-            return multiPartRequest;
-        } else if (userDocuments != null) {
-            MultiPartRequest multiPartRequest = new MultiPartRequest(url, userDocuments.getPath(), false, APIResponse.class, params, new Response.Listener<JSONObject>() {
+        if (!pathProfilePhoto.equals("") || !pathUserDocument.equals("")){
+            MultiPartRequest multiPartRequest = new MultiPartRequest(url,pathProfilePhoto, pathUserDocument, APIResponse.class, params, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
 
@@ -416,7 +374,8 @@ public class ProfileApi {
             multiPartRequest.setRetryPolicy(SocketTimeout.getRetryPolicy());
 
             return multiPartRequest;
-        } else {
+        }
+        else {
             VolleyPostHelper requestUpdateCart = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
 
                 @Override
@@ -469,4 +428,159 @@ public class ProfileApi {
             return requestUpdateCart;
         }
     }
+//        if (profilePhoto != null) {
+//            MultiPartRequest multiPartRequest = new MultiPartRequest(url, profilePhoto.getPath(), true, APIResponse.class, params, new Response.Listener<JSONObject>() {
+//                @Override
+//                public void onResponse(JSONObject response) {
+//
+//                    Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+//                    APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+//
+//                    if (apiResponse.isSuccessful()) {
+//                        responseHandler.onSuccess(requestCode, apiResponse.isSuccessful());
+//                    } else {
+//                        responseHandler.onFailed(requestCode, apiResponse.getMessage());
+//                    }
+//
+//                }
+//            }, new Response.ErrorListener() {
+//
+//                @Override
+//                public void onErrorResponse(VolleyError error) {
+//                    String message = "An error occured.";
+//                    if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+//                        message = "No connection available.";
+//                    } else if (error instanceof AuthFailureError) {
+//                        message = "Authentication Failure.";
+//                    } else if (error instanceof ServerError) {
+//                        message = "Server error.";
+//
+//                        try {
+//                            String responseBody = new String(error.networkResponse.data, "utf-8" );
+//                            JSONObject jsonObject = new JSONObject( responseBody );
+//                            jsonObject = jsonObject.getJSONObject("data");
+//                            JSONArray var = jsonObject.getJSONArray("errors");
+//                            message = var.get(0).toString();
+//
+//                        } catch ( Exception e ) {
+//                            //Handle a malformed json response
+//                        }
+//
+//                    } else if (error instanceof NetworkError) {
+//                        message = "Network Error.";
+//                    } else if (error instanceof ParseError) {
+//                        message = "Parse error.";
+//                    }
+//
+//                    responseHandler.onFailed(requestCode, message);
+//                }
+//            });
+//
+//            multiPartRequest.setRetryPolicy(SocketTimeout.getRetryPolicy());
+//
+//            return multiPartRequest;
+//        } else if (userDocuments != null) {
+//            MultiPartRequest multiPartRequest = new MultiPartRequest(url, userDocuments.getPath(), false, APIResponse.class, params, new Response.Listener<JSONObject>() {
+//                @Override
+//                public void onResponse(JSONObject response) {
+//
+//                    Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+//                    APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+//
+//                    if (apiResponse.isSuccessful()) {
+//                        responseHandler.onSuccess(requestCode, apiResponse.isSuccessful());
+//                    } else {
+//                        responseHandler.onFailed(requestCode, apiResponse.getMessage());
+//                    }
+//
+//                }
+//            }, new Response.ErrorListener() {
+//
+//                @Override
+//                public void onErrorResponse(VolleyError error) {
+//
+//                    String message = "An error occured.";
+//                    if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+//                        message = "No connection available.";
+//                    } else if (error instanceof AuthFailureError) {
+//                        message = "Authentication Failure.";
+//                    } else if (error instanceof ServerError) {
+//                        message = "Server error.";
+//
+//                        try {
+//                            String responseBody = new String(error.networkResponse.data, "utf-8" );
+//                            JSONObject jsonObject = new JSONObject( responseBody );
+//                            jsonObject = jsonObject.getJSONObject("data");
+//                            JSONArray var = jsonObject.getJSONArray("errors");
+//                            message = var.get(0).toString();
+//
+//                        } catch ( Exception e ) {
+//                            //Handle a malformed json response
+//                        }
+//
+//                    } else if (error instanceof NetworkError) {
+//                        message = "Network Error.";
+//                    } else if (error instanceof ParseError) {
+//                        message = "Parse error.";
+//                    }
+//                    responseHandler.onFailed(requestCode, message);
+//                }
+//            });
+//
+//            multiPartRequest.setRetryPolicy(SocketTimeout.getRetryPolicy());
+//
+//            return multiPartRequest;
+//        } else {
+//            VolleyPostHelper requestUpdateCart = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
+//
+//                @Override
+//                public void onResponse(JSONObject response) {
+//
+//                    Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+//                    APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+//
+//                    if (apiResponse.isSuccessful()) {
+//                        responseHandler.onSuccess(requestCode, apiResponse.isSuccessful());
+//                    } else {
+//                        responseHandler.onFailed(requestCode, apiResponse.getMessage());
+//                    }
+//
+//                }
+//            }, new Response.ErrorListener() {
+//
+//                @Override
+//                public void onErrorResponse(VolleyError error) {
+//                    String message = "An error occured.";
+//                    if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+//                        message = "No connection available.";
+//                    } else if (error instanceof AuthFailureError) {
+//                        message = "Authentication Failure.";
+//                    } else if (error instanceof ServerError) {
+//                        message = "Server error.";
+//
+//                        try {
+//                            String responseBody = new String(error.networkResponse.data, "utf-8" );
+//                            JSONObject jsonObject = new JSONObject( responseBody );
+//                            jsonObject = jsonObject.getJSONObject("data");
+//                            JSONArray var = jsonObject.getJSONArray("errors");
+//                            message = var.get(0).toString();
+//
+//                        } catch ( Exception e ) {
+//                            //Handle a malformed json response
+//                        }
+//
+//                    } else if (error instanceof NetworkError) {
+//                        message = "Network Error.";
+//                    } else if (error instanceof ParseError) {
+//                        message = "Parse error.";
+//                    }
+//                    responseHandler.onFailed(requestCode, message);
+//                }
+//            });
+//
+//            requestUpdateCart.setRetryPolicy(SocketTimeout.getRetryPolicy());
+//
+//            return requestUpdateCart;
+//        }
+//    }
 }
