@@ -20,6 +20,7 @@ import com.yilinker.core.model.Address;
 import com.yilinker.core.model.AuthenticatedOTP;
 import com.yilinker.core.model.buyer.Cart;
 import com.yilinker.core.model.buyer.CartItem2;
+import com.yilinker.core.model.buyer.CartSummary;
 import com.yilinker.core.model.buyer.CheckoutOverview;
 import com.yilinker.core.model.buyer.CheckoutPayment;
 import com.yilinker.core.model.buyer.CheckoutTransactionOverview;
@@ -349,12 +350,12 @@ public class CheckoutApi {
                 Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
                 APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
 
-                gson = GsonUtility.createGsonBuilder(Cart.class, new Cart.CartInstance()).create();
                 String jsonString = new Gson().toJson(apiResponse.getData());
 
                 if(apiResponse.isSuccessful()){
-                    Type listType = new TypeToken<ArrayList<CartItem2>>(){}.getType();
-                    List<CartItem2> obj = gson.fromJson(jsonString, listType);
+
+                    gson = GsonUtility.createGsonBuilder(CartSummary.class, new CartSummary.CartSummaryInstance()).create();
+                    CartSummary obj = gson.fromJson(jsonString, CartSummary.class);
 
                     responseHandler.onSuccess(requestCode, obj);
 
