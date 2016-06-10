@@ -363,7 +363,7 @@ public class AddressAPI {
 
     public static Request getAllProvinces(final int requestCode, String token, final ResponseHandler responseHandler) {
 
-        String url = String.format("%s/%s/%s", APIConstants.DOMAIN,
+        String url = String.format("%s/%s/%s/%s", APIConstants.DOMAIN, APIConstants.AUTH_API,
                  APIConstants.LOCATION_API, APIConstants.ADDRESS_GET_ALL_PROVINCES);
 
         Map<String, String> params = new HashMap<String,String>();
@@ -414,7 +414,7 @@ public class AddressAPI {
     public static Request getChildCities(final int requestCode, String token,
                                          int provinceId, final ResponseHandler responseHandler) {
 
-        String url = String.format("%s/%s/%s", APIConstants.DOMAIN,
+        String url = String.format("%s/%s/%s/%s", APIConstants.DOMAIN, APIConstants.AUTH_API,
                 APIConstants.LOCATION_API, APIConstants.ADDRESS_GET_CHILD_CITIES);
 
         Map<String, String> params = new HashMap<String,String>();
@@ -465,7 +465,7 @@ public class AddressAPI {
     public static Request getChildBaranggay(final int requestCode, String token,
                                          int cityId, final ResponseHandler responseHandler) {
 
-        String url = String.format("%s/%s/%s", APIConstants.DOMAIN,
+        String url = String.format("%s/%s/%s/%s", APIConstants.DOMAIN, APIConstants.AUTH_API,
                 APIConstants.LOCATION_API, APIConstants.ADDRESS_GET_CHILD_BARANGGAY);
 
         Map<String, String> params = new HashMap<String,String>();
