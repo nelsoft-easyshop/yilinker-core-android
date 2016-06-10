@@ -90,6 +90,43 @@ public class MultiPartRequest extends Request {
         mHttpEntity = buildMultipartEntityStoreInfo();
     }
 
+    /***Edit profile MultiPart*/
+    public MultiPartRequest(String url, String profilePhotoPath, String userDocumentsPath,
+                            Class clazz,
+                            Map<String, String> headers,
+                            Response.Listener listener,
+                            Response.ErrorListener errorListener) {
+        super(Request.Method.POST, url, errorListener);
+        mHeaders = headers;
+        mClass = clazz;
+        mListener = listener;
+        gson = new Gson();
+
+        MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+        if (!profilePhotoPath.equals("")){
+            File file  = new File(profilePhotoPath);
+            String fileName = file.getName();
+            builder.addBinaryBody("profilePhoto", file, ContentType.create("image/*"), fileName);
+
+        }
+        if (!userDocumentsPath.equals("")){
+            File file  = new File(userDocumentsPath);
+            String fileName = file.getName();
+            builder.addBinaryBody("userDocument", file, ContentType.create("image/*"), fileName);
+        }
+
+        for (Map.Entry<String, String> entry : mHeaders.entrySet()) {
+            builder.addTextBody(entry.getKey(), entry.getValue());
+        }
+
+        builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
+        builder.setBoundary("BOUNDARY");
+
+        mHttpEntity = builder.build();
+
+    }
+
+
     public MultiPartRequest(String url, String path, boolean isProfilePhoto,
                             Class clazz,
                             Map<String, String> headers,
