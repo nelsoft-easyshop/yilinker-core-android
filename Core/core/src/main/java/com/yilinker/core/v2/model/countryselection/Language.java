@@ -1,6 +1,7 @@
 package com.yilinker.core.v2.model.countryselection;
 
 import com.google.gson.InstanceCreator;
+import com.google.gson.annotations.SerializedName;
 
 import java.lang.reflect.Type;
 
@@ -9,6 +10,9 @@ import java.lang.reflect.Type;
  */
 public class Language {
 
+    private final static String KEY_LANGUAGE_ID = "id";
+
+    @SerializedName(KEY_LANGUAGE_ID)
     private int languageId;
     private String name;
     private String code;
