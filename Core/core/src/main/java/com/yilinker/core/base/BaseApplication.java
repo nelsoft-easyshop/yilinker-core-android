@@ -47,6 +47,7 @@ public class BaseApplication extends Application{
 
     private RequestQueue requestQueue;
     private String domain, clientId, clientSecret;
+    private String baseDomain;
 
     @Override
     public void onCreate() {
@@ -119,6 +120,13 @@ public class BaseApplication extends Application{
         this.clientSecret = clientSecret;
     }
 
+    public String getBaseDomain() {
+        return baseDomain;
+    }
+
+    public void setBaseDomain(String baseDomain) {
+        this.baseDomain = baseDomain;
+    }
 
     public RequestQueue getRequestQueue() {
 

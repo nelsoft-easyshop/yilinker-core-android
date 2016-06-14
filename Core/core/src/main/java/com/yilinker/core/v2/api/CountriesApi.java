@@ -33,7 +33,8 @@ public class CountriesApi {
 
         //String url = String.format("%s/%s", APIConstants.DOMAIN.replace("v1", "v3"), com.yilinker.core.v2.constants.APIConstants.COUNTRIES_API);
 
-        String url = String.format("%s/%s", BaseApplication.getDomainURL(), com.yilinker.core.v2.constants.APIConstants.COUNTRIES_API);
+
+        String url = String.format("%s/%s", BaseApplication.getInstance().getBaseDomain(), com.yilinker.core.v2.constants.APIConstants.COUNTRIES_API);
 
 
         Map<String, String> params = new HashMap<String,String>();
