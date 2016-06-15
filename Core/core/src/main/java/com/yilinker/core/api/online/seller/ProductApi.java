@@ -368,7 +368,8 @@ public class ProductApi {
         params.put(PRODUCT_PARAM_NAME, product.getName());
         params.put(PRODUCT_PARAM_SHORT_DESCRIPTION, product.getShortDescription());
         params.put(PRODUCT_PARAM_COMPLETE_DESCRIPTION, product.getCompleteDescription());
-        params.put(PRODUCT_PARAM_VIDEO_URL, product.getVideoUrl());
+        if (!product.getVideoUrl().isEmpty())
+            params.put(PRODUCT_PARAM_VIDEO_URL, product.getVideoUrl());
         params.put(PRODUCT_PARAM_CONDITION_ID, String.valueOf(product.getConditionId()));
         params.put(PRODUCT_PARAM_CATEGORY_ID, String.valueOf(product.getCategoryId()));
 //        params.put(PRODUCT_PARAM_SHIPPING_CATEGORY_ID, String.valueOf(product.getShippingCategoryId()));
@@ -418,7 +419,8 @@ public class ProductApi {
         params.put(PRODUCT_PARAM_NAME, product.getName());
         params.put(PRODUCT_PARAM_SHORT_DESCRIPTION, product.getShortDescription());
         params.put(PRODUCT_PARAM_COMPLETE_DESCRIPTION, product.getCompleteDescription());
-        params.put(PRODUCT_PARAM_VIDEO_URL, product.getVideoUrl());
+        if (!product.getVideoUrl().isEmpty())
+            params.put(PRODUCT_PARAM_VIDEO_URL, product.getVideoUrl());
         params.put(PRODUCT_PARAM_CONDITION_ID, String.valueOf(product.getConditionId()));
         params.put(PRODUCT_PARAM_CATEGORY_ID, String.valueOf(product.getCategoryId()));
         params.put(PRODUCT_PARAM_SHIPPING_CATEGORY_ID, String.valueOf(product.getShippingCategoryId()));
@@ -435,15 +437,7 @@ public class ProductApi {
 
                 APIResponse response = gson.fromJson(json.toString(), APIResponse.class);
 
-                if (response.isSuccessful()) {
-
-                    handler.onSuccess(requestCode, null);
-
-                } else {
-
-                    handler.onFailed(requestCode, response.getMessage());
-
-                }
+                handler.onSuccess(requestCode, response);
 
             }
         }, errorListener);
