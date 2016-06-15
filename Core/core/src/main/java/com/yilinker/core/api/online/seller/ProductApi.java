@@ -220,7 +220,7 @@ public class ProductApi {
 
 
         String endpoint = String.format("%s/%s/%s?%s=%s&%s=%s", BaseApplication.getDomainURL(),
-                PRODUCT_API, GET_CATEGORIES,
+                PRODUCT_API, APIConstants.PRODUCT_UPLOAD_GET_CATEGORIES,
                 APIConstants.ACCESS_TOKEN, BaseApplication.getInstance().getAccessToken(),
                 APIConstants.PRODUCT_UPLOAD_GET_CATEGORIES_PARAM_QUERY_STRING, keyword
         );
@@ -368,8 +368,7 @@ public class ProductApi {
         params.put(PRODUCT_PARAM_NAME, product.getName());
         params.put(PRODUCT_PARAM_SHORT_DESCRIPTION, product.getShortDescription());
         params.put(PRODUCT_PARAM_COMPLETE_DESCRIPTION, product.getCompleteDescription());
-        if (product.getVideoUrl() != null)
-            params.put(PRODUCT_PARAM_VIDEO_URL, product.getVideoUrl());
+        params.put(PRODUCT_PARAM_VIDEO_URL, product.getVideoUrl());
         params.put(PRODUCT_PARAM_CONDITION_ID, String.valueOf(product.getConditionId()));
         params.put(PRODUCT_PARAM_CATEGORY_ID, String.valueOf(product.getCategoryId()));
 //        params.put(PRODUCT_PARAM_SHIPPING_CATEGORY_ID, String.valueOf(product.getShippingCategoryId()));
