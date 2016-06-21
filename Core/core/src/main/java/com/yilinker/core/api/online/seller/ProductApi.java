@@ -370,8 +370,10 @@ public class ProductApi {
         params.put(PRODUCT_PARAM_COMPLETE_DESCRIPTION, product.getCompleteDescription());
         if (!product.getVideoUrl().isEmpty())
             params.put(PRODUCT_PARAM_VIDEO_URL, product.getVideoUrl());
-        params.put(PRODUCT_PARAM_CONDITION_ID, String.valueOf(product.getConditionId()));
-        params.put(PRODUCT_PARAM_CATEGORY_ID, String.valueOf(product.getCategoryId()));
+        if (product.getConditionId() != 0)
+            params.put(PRODUCT_PARAM_CONDITION_ID, String.valueOf(product.getConditionId()));
+        if (product.getCategoryId() != 0)
+            params.put(PRODUCT_PARAM_CATEGORY_ID, String.valueOf(product.getCategoryId()));
 //        params.put(PRODUCT_PARAM_SHIPPING_CATEGORY_ID, String.valueOf(product.getShippingCategoryId()));
         if (product.getShippingCategoryId() != 0)
             params.put(PRODUCT_PARAM_SHIPPING_CATEGORY_ID, String.valueOf(1));
