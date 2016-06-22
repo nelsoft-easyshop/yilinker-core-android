@@ -7,10 +7,12 @@ import com.android.volley.Response;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
+import com.yilinker.core.base.BaseApplication;
 import com.yilinker.core.constants.APIConstants;
 import com.yilinker.core.helper.VolleyPostHelper;
 import com.yilinker.core.interfaces.ResponseHandler;
 import com.yilinker.core.model.APIResponse;
+import com.yilinker.core.model.request.Feedback;
 import com.yilinker.core.utility.GsonUtility;
 import com.yilinker.core.utility.SocketTimeout;
 
@@ -22,32 +24,37 @@ import java.util.Map;
 
 /**
  * Created by bryan on 3/17/2016.
+ * Updated by J.Bautista - Changed the parameters of sendFeedback method
  */
 public class SendFeedbackApi {
 
-    public static Request sendFeedback (final int requestCode, String accessToken, String title,
-                                             String description, String phoneModel, String osVersion, String osName,
-                                             final ResponseHandler responseHandler){
+    public static Request sendFeedback (final int requestCode, Feedback feedback,
+                                        final ResponseHandler responseHandler, Response.ErrorListener errorListener){
+
+        String accessToken = BaseApplication.getInstance().getAccessToken();
 
         String url;
-                if(!accessToken.isEmpty()) {
-                    url = String.format("%s/%s/%s/%s",
-                            APIConstants.DOMAIN.replace("v1", "v2"), APIConstants.AUTH_API, APIConstants.MOBILE_FEEDBACK,
-                            APIConstants.SEND_FEEDBACK_API);
-                }else{
-                    url = String.format("%s/%s/%s",
-                            APIConstants.DOMAIN.replace("v1", "v2"), APIConstants.MOBILE_FEEDBACK,
-                            APIConstants.SEND_FEEDBACK_API);
-                }
+        if(!accessToken.isEmpty()) {
+
+            url = String.format("%s/%s/%s/%s",
+                    APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.MOBILE_FEEDBACK,
+                    APIConstants.SEND_FEEDBACK_API);
+        }else{
+
+            url = String.format("%s/%s/%s",
+                    APIConstants.DOMAIN, APIConstants.MOBILE_FEEDBACK,
+                    APIConstants.SEND_FEEDBACK_API);
+        }
 
 
         Map<String, String> params = new HashMap<String, String>();
         params.put(APIConstants.ACCESS_TOKEN, accessToken);
-        params.put(APIConstants.SEND_FEEDBACK_PARAMS_TITLE, title);
-        params.put(APIConstants.SEND_FEEDBACK_PARAMS_DESCRIPTION, description);
-        params.put(APIConstants.SEND_FEEDBACK_PARAMS_PHONE_MODEL, phoneModel);
-        params.put(APIConstants.SEND_FEEDBACK_PARAMS_OS_VERSION, osVersion);
-        params.put(APIConstants.SEND_FEEDBACK_PARAMS_OS_NAME, osName);
+        params.put(APIConstants.SEND_FEEDBACK_PARAMS_TITLE, feedback.getTitle());
+        params.put(APIConstants.SEND_FEEDBACK_PARAMS_DESCRIPTION, feedback.getDescription());
+        params.put(APIConstants.SEND_FEEDBACK_PARAMS_PHONE_MODEL, feedback.getPhoneModel());
+        params.put(APIConstants.SEND_FEEDBACK_PARAMS_OS_VERSION, feedback.getOsVersion());
+        params.put(APIConstants.SEND_FEEDBACK_PARAMS_OS_NAME, feedback.getOsName());
+        //TODO include user type
 
         VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
 
@@ -57,40 +64,18 @@ public class SendFeedbackApi {
                 Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
                 APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
 
-                responseHandler.onSuccess(requestCode, apiResponse);
+                if(apiResponse.isSuccessful()){
 
-            }
-        }, new Response.ErrorListener() {
+                    responseHandler.onSuccess(requestCode, apiResponse.getMessage());
+                }
+                else{
 
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                String message = APIConstants.API_CONNECTION_PROBLEM;
-
-                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-
-                    message = APIConstants.API_CONNECTION_PROBLEM;
-
-                } else if (error instanceof AuthFailureError) {
-
-                    message = APIConstants.API_CONNECTION_AUTH_ERROR;
-
-                } else {
-
-                    try {
-                        String responseBody = new String(error.networkResponse.data, "utf-8" );
-                        JSONObject jsonObject = new JSONObject( responseBody );
-                        jsonObject = jsonObject.getJSONObject("data");
-                        JSONArray var = jsonObject.getJSONArray("error");
-                        message = var.get(0).toString();
-
-                    } catch ( Exception e ) {
-                        //Handle a malformed json response
-                    }
+                    responseHandler.onFailed(requestCode, apiResponse.getMessage());
                 }
 
-                responseHandler.onFailed(requestCode, message);
+
             }
-        });
+        }, errorListener);
 
         request.setRetryPolicy(SocketTimeout.getRetryPolicy());
 

@@ -11,6 +11,7 @@ import com.android.volley.toolbox.Volley;
 import com.yilinker.core.R;
 import com.yilinker.core.helper.HurlCookieStack;
 import com.yilinker.core.imageloader.ImageCacheManager;
+import com.yilinker.core.model.request.Feedback;
 
 import java.io.IOException;
 import java.io.InputStream;
