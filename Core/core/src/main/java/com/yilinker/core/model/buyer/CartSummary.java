@@ -15,6 +15,8 @@ public class CartSummary {
         private String totalShippingCost;
         @SerializedName("totalAmount")
         private String totalCost;
+        @SerializedName("hasFlashSaleItem")
+        private boolean hasFlashSaleItem;
 
 
         public List<CartItem2> getItems() {
@@ -39,6 +41,14 @@ public class CartSummary {
 
     public void setTotalCost(String totalCost) {
         this.totalCost = totalCost;
+    }
+
+    public boolean isHasFlashSaleItem() {
+        return hasFlashSaleItem;
+    }
+
+    public void setHasFlashSaleItem(boolean hasFlashSaleItem) {
+        this.hasFlashSaleItem = hasFlashSaleItem;
     }
 
     public static class CartSummaryInstance implements InstanceCreator<CartSummary> {
