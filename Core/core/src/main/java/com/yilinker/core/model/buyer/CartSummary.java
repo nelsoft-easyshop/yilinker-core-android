@@ -16,6 +16,9 @@ public class CartSummary {
         @SerializedName("totalAmount")
         private String totalCost;
 
+        @SerializedName("hasFlashSaleItem")
+        private boolean hasSaleItems;
+
 
         public List<CartItem2> getItems() {
             return items;
@@ -40,6 +43,16 @@ public class CartSummary {
     public void setTotalCost(String totalCost) {
         this.totalCost = totalCost;
     }
+
+
+    public boolean hasSaleItems() {
+        return hasSaleItems;
+    }
+
+    public void setIsVoucherAllowed(boolean isVoucherAllowed) {
+        this.hasSaleItems = isVoucherAllowed;
+    }
+
 
     public static class CartSummaryInstance implements InstanceCreator<CartSummary> {
 
