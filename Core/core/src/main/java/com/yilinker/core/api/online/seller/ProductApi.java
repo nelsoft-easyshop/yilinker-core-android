@@ -376,7 +376,7 @@ public class ProductApi {
             params.put(PRODUCT_PARAM_CATEGORY_ID, String.valueOf(product.getCategoryId()));
 //        params.put(PRODUCT_PARAM_SHIPPING_CATEGORY_ID, String.valueOf(product.getShippingCategoryId()));
         if (product.getShippingCategoryId() != 0)
-            params.put(PRODUCT_PARAM_SHIPPING_CATEGORY_ID, String.valueOf(1));
+            params.put(PRODUCT_PARAM_SHIPPING_CATEGORY_ID, String.valueOf(product.getShippingCategoryId()));
         params.put(PRODUCT_PARAM_BRAND, product.getBrand());
         params.put(PRODUCT_PARAM_GROUPS, product.getProductGroups());
         params.put(PRODUCT_PARAM_IMAGES, product.getProductImages());
