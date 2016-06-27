@@ -10,7 +10,7 @@ import java.lang.reflect.Type;
  */
 public class ProductGroup {
 
-    @SerializedName("userProductGroupId")
+    @SerializedName("id")
     private int id;
     @SerializedName("name")
     private String name;
