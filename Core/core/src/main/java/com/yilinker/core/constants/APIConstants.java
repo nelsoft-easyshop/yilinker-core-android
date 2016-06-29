@@ -262,6 +262,7 @@ public class APIConstants {
     public static final String API_CONNECTION_PROBLEM = "Problem connecting to the server. Try again later.";
     public static final String API_CONNECTION_AUTH_ERROR = "OAuth Error";
     public static final String API_AUTHENTICATION_ERROR = "Authentication Failed";
+    public static final String API_AUTHENTICATION_FAILURE_2 = "Authentication Failure.";
     public static final String API_GRANT_TYPE_REFRESH_TOKEN = "refresh_token";
 
     //Address
