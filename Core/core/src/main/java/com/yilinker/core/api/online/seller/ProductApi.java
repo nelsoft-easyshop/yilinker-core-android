@@ -2,7 +2,6 @@ package com.yilinker.core.api.online.seller;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -13,10 +12,7 @@ import static com.yilinker.core.v2.constants.APIConstants.*;
 import com.yilinker.core.helper.VolleyPostHelper;
 import com.yilinker.core.interfaces.ResponseHandler;
 import com.yilinker.core.model.APIResponse;
-import com.yilinker.core.model.Login;
-import com.yilinker.core.model.seller.ProductBrand;
 import com.yilinker.core.model.seller.ProductCategory;
-import com.yilinker.core.model.seller.ProductCondition;
 import com.yilinker.core.model.seller.ProductGroup;
 import com.yilinker.core.model.seller.ProductShippingCategory;
 import com.yilinker.core.model.seller.ProductUploadDetails;
@@ -220,7 +216,7 @@ public class ProductApi {
 
 
         String endpoint = String.format("%s/%s/%s?%s=%s&%s=%s", BaseApplication.getDomainURL(),
-                PRODUCT_API, APIConstants.PRODUCT_UPLOAD_GET_CATEGORIES,
+                PRODUCT_API, GET_CATEGORIES,
                 APIConstants.ACCESS_TOKEN, BaseApplication.getInstance().getAccessToken(),
                 APIConstants.PRODUCT_UPLOAD_GET_CATEGORIES_PARAM_QUERY_STRING, keyword
         );
