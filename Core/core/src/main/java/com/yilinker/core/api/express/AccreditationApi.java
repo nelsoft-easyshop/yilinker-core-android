@@ -15,7 +15,6 @@ import com.yilinker.core.interfaces.ResponseHandler;
 import com.yilinker.core.model.APIResponse;
 import com.yilinker.core.model.Address;
 import com.yilinker.core.model.express.internal.AccreditationRequirement;
-import com.yilinker.core.model.express.internal.JobOrder;
 import com.yilinker.core.model.express.internal.request.Accreditation;
 import com.yilinker.core.utility.GsonUtility;
 import com.yilinker.core.utility.SocketTimeout;

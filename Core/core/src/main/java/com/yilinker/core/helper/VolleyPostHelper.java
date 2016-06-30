@@ -4,12 +4,10 @@ package com.yilinker.core.helper;
  * Created by rlcoronado on 8/12/15.
  */
 import java.io.UnsupportedEncodingException;
-import java.util.HashMap;
 import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
 import com.android.volley.ParseError;
 import com.android.volley.Request;

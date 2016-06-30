@@ -16,7 +16,6 @@ import com.yilinker.core.serializers.DateSerializer;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 

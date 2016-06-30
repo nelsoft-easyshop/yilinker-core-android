@@ -14,9 +14,7 @@ import com.yilinker.core.constants.APIConstants;
 import com.yilinker.core.helper.VolleyPostHelper;
 import com.yilinker.core.interfaces.ResponseHandler;
 import com.yilinker.core.model.APIResponse;
-import com.yilinker.core.model.seller.CustomizedCategory;
 import com.yilinker.core.model.seller.Points;
-import com.yilinker.core.model.seller.PointsDateAdded;
 import com.yilinker.core.utility.GsonUtility;
 import com.yilinker.core.utility.SocketTimeout;
 

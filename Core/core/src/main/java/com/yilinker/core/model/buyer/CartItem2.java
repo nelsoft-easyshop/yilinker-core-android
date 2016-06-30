@@ -1,7 +1,6 @@
 package com.yilinker.core.model.buyer;
 
 import com.google.gson.InstanceCreator;
-import com.google.gson.annotations.SerializedName;
 
 import java.lang.reflect.Type;
 import java.util.List;

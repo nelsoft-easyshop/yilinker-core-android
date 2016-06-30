@@ -2,7 +2,6 @@ package com.yilinker.core.api;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkError;
-import com.android.volley.NetworkResponse;
 import com.android.volley.NoConnectionError;
 import com.android.volley.ParseError;
 import com.android.volley.Request;
@@ -582,7 +581,8 @@ public class AddressAPI {
         params.put(APIConstants.ADDRESS_PARAMS_SUBDIVISION, String.valueOf(address.getSubdivision()));
         /*params.put(APIConstants.ADDRESS_PARAMS_CITY, city);
         params.put(APIConstants.ADDRESS_PARAMS_PROVINCE, province);*/
-        params.put(APIConstants.ADDRESS_PARAMS_ZIPCODE, String.valueOf(address.getZipCode()));
+        if (address.getZipCode() != null)
+            params.put(APIConstants.ADDRESS_PARAMS_ZIPCODE, String.valueOf(address.getZipCode()));
 
         VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
 

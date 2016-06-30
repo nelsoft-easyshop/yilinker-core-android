@@ -21,7 +21,6 @@ import android.net.Uri;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.util.AttributeSet;
-import android.widget.ImageView;
 
 import com.android.volley.toolbox.NetworkImageView;
 import com.yilinker.core.R;

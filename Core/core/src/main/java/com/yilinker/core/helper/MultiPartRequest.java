@@ -1,7 +1,6 @@
 package com.yilinker.core.helper;
 
 import android.os.Environment;
-import android.util.Log;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
@@ -13,7 +12,6 @@ import com.android.volley.toolbox.HttpHeaderParser;
 import com.google.gson.Gson;
 import com.yilinker.core.constants.APIConstants;
 import com.yilinker.core.model.UpdateUserInfo;
-import com.yilinker.core.model.seller.ProductUpload;
 import com.yilinker.core.model.seller.AttributeCombinationUpload;
 import com.yilinker.core.model.seller.ProductUpload;
 

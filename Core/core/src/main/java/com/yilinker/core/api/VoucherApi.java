@@ -1,7 +1,5 @@
 package com.yilinker.core.api;
 
-import android.support.v4.app.NavUtils;
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkError;
 import com.android.volley.NoConnectionError;

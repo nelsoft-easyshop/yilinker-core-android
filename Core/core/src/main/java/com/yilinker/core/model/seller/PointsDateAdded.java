@@ -1,7 +1,5 @@
 package com.yilinker.core.model.seller;
 
-import java.util.Date;
-
 /**
  * Created by Bryan on 9/7/2015.
  */

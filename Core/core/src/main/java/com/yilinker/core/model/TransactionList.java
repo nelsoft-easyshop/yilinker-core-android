@@ -1,7 +1,6 @@
 package com.yilinker.core.model;
 
 import com.google.gson.InstanceCreator;
-import com.yilinker.core.model.seller.Transaction;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
