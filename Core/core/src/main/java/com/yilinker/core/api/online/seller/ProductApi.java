@@ -216,7 +216,7 @@ public class ProductApi {
 
 
         String endpoint = String.format("%s/%s/%s?%s=%s&%s=%s", BaseApplication.getDomainURL(),
-                PRODUCT_API, APIConstants.PRODUCT_UPLOAD_GET_CATEGORIES,
+                PRODUCT_API, GET_CATEGORIES,
                 APIConstants.ACCESS_TOKEN, BaseApplication.getInstance().getAccessToken(),
                 APIConstants.PRODUCT_UPLOAD_GET_CATEGORIES_PARAM_QUERY_STRING, keyword
         );
