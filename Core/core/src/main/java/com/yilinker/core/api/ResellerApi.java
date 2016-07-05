@@ -21,7 +21,6 @@ import com.yilinker.core.model.APIResponse;
 import com.yilinker.core.model.seller.ManufacturerProduct;
 import com.yilinker.core.utility.GsonUtility;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;

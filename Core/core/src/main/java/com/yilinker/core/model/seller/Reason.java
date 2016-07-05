@@ -1,13 +1,9 @@
 package com.yilinker.core.model.seller;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import com.google.gson.InstanceCreator;
 import com.google.gson.annotations.SerializedName;
 
 import java.lang.reflect.Type;
-import java.util.List;
 
 /**
  * Created by jaybr_000 on 9/10/2015.

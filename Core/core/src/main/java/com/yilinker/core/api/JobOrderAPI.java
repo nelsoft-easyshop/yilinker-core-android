@@ -1,7 +1,6 @@
 package com.yilinker.core.api;
 
 import android.net.Uri;
-import android.text.Html;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -22,7 +21,6 @@ import com.yilinker.core.model.Address;
 import com.yilinker.core.model.express.internal.JobOrder;
 import com.yilinker.core.model.express.internal.PackageType;
 import com.yilinker.core.model.express.internal.ProblematicJobOrder;
-import com.yilinker.core.model.express.internal.Rider;
 import com.yilinker.core.model.express.internal.ShippingFee;
 import com.yilinker.core.model.express.internal.Warehouse;
 import com.yilinker.core.utility.GsonUtility;
@@ -33,11 +31,9 @@ import org.apache.http.HttpStatus;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;

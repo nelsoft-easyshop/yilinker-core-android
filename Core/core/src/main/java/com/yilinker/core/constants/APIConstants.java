@@ -2,8 +2,6 @@ package com.yilinker.core.constants;
 
 import com.yilinker.core.base.BaseApplication;
 
-import org.apache.http.entity.StringEntity;
-
 /**
  * Created by J.Bautista
  */

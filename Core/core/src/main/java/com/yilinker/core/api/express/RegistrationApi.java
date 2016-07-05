@@ -2,21 +2,15 @@ package com.yilinker.core.api.express;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 import com.yilinker.core.base.BaseApplication;
 import com.yilinker.core.constants.APIConstants;
-import com.yilinker.core.constants.ErrorMessages;
 import com.yilinker.core.helper.VolleyPostHelper;
 import com.yilinker.core.interfaces.ResponseHandler;
 import com.yilinker.core.model.APIResponse;
-import com.yilinker.core.model.Address;
-import com.yilinker.core.model.express.internal.CashDetail;
-import com.yilinker.core.model.express.internal.JobOrder;
 import com.yilinker.core.utility.GsonUtility;
 import com.yilinker.core.utility.SocketTimeout;
 
-import org.apache.http.HttpStatus;
 import org.json.JSONObject;
 
 import java.util.HashMap;

@@ -2,13 +2,10 @@ package com.yilinker.core.v2.customview;
 
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.widget.TextView;
-
-import com.yilinker.core.R;
 
 /**
  * Created by Adur Urbano on 3/18/2016.

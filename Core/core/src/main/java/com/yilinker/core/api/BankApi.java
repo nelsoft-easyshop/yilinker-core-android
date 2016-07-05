@@ -14,7 +14,6 @@ import com.yilinker.core.constants.APIConstants;
 import com.yilinker.core.helper.VolleyPostHelper;
 import com.yilinker.core.interfaces.ResponseHandler;
 import com.yilinker.core.model.APIResponse;
-import com.yilinker.core.model.Address;
 import com.yilinker.core.model.AddressList;
 import com.yilinker.core.model.seller.Bank;
 import com.yilinker.core.utility.GsonUtility;

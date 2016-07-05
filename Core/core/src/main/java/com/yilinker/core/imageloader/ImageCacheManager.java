@@ -8,7 +8,6 @@ import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.ImageLoader.ImageCache;
 import com.android.volley.toolbox.ImageLoader.ImageListener;
 import com.android.volley.toolbox.Volley;
-import com.yilinker.core.base.BaseApplication;
 
 /**
  * Implementation of volley's ImageCache interface. This manager tracks the application image loader and cache. 

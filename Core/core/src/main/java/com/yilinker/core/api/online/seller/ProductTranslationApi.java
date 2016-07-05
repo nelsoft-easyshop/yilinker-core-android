@@ -19,7 +19,6 @@ import com.yilinker.core.utility.SocketTimeout;
 
 import org.json.JSONObject;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
