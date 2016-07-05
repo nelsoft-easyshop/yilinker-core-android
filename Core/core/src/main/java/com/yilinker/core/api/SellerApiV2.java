@@ -59,7 +59,7 @@ public class SellerApiV2 {
                     gson = GsonUtility.createGsonBuilder(Seller.class, new Seller.SellerInstance()).create();
 
                     handler.onSuccess(requestCode,
-                            gson.fromJson(gson.toJson(api.getData()), Product.class));
+                            gson.fromJson(gson.toJson(api.getData()), Seller.class));
 
                 } else {
 

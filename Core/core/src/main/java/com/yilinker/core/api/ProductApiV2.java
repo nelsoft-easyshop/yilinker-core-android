@@ -80,7 +80,7 @@ public class ProductApiV2 {
                     gson = GsonUtility.createGsonBuilder(ProductReview.class, new ProductReview.ProductReviewInstance()).create();
 
                     handler.onSuccess(requestCode,
-                            gson.fromJson(gson.toJson(api.getData()), Product.class));
+                            gson.fromJson(gson.toJson(api.getData()), ProductReview.class));
 
                 } else {
 
