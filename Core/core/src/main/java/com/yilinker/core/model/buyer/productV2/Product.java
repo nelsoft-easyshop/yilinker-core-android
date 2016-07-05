@@ -55,9 +55,9 @@ public class Product {
     private boolean isInternationalWarehouse;
 
     @SerializedName("dateCreated")
-    private Date dateCreated;
+    private Date dateCreated = new Date();
     @SerializedName("dateLastModified")
-    private Date dateLastModified;
+    private Date dateLastModified = new Date();
 
     @SerializedName("images")
     private List<Images> images;
