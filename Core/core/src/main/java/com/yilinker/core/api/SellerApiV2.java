@@ -23,7 +23,7 @@ import java.util.Map;
  */
 public class SellerApiV2 {
 
-    public static Request getSellerDetails(final int requestCode, String id,
+    public static Request getSellerDetails(final int requestCode, String id, boolean isAuthorize,
                                             final ResponseHandler handler, Response.ErrorListener errorListener) {
 
         String endpoint;
@@ -33,7 +33,7 @@ public class SellerApiV2 {
 
         params.put(APIConstants.SELLER_USER_ID, id);
 
-        if (!accessToken.isEmpty()) {
+        if (accessToken != null && isAuthorize) {
 
             endpoint = String.format("%s/%s/%s/%s", APIConstants.DOMAIN, APIConstants.AUTH_API,
                                         APIConstants.USER_API, APIConstants.SELLER_GET_STORE_INFO);
