@@ -1,4 +1,4 @@
-package com.yilinker.core.parsing;
+package com.yilinker.core.model.buyer.home;
 
 /**
  * Created by jaybryantc on 7/4/16.

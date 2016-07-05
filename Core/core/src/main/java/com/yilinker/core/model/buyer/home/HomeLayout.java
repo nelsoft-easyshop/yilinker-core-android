@@ -1,28 +1,29 @@
-package com.yilinker.core.parsing;
+package com.yilinker.core.model.buyer.home;
 
+import com.google.gson.InstanceCreator;
 import com.google.gson.annotations.SerializedName;
-import com.yilinker.core.constants.APIConstants;
-import com.yilinker.core.model.home.v2.Target;
+import com.yilinker.core.constants.HomeAPIConstants;
 
+import java.lang.reflect.Type;
 import java.util.List;
 
 /**
  * Created by jaybryantc on 7/4/16.
  */
 public class HomeLayout {
+
     /**
      * Usual response
      */
-
-    @SerializedName(APIConstants.API_HOME_V2_LAYOUT_ID)
+    @SerializedName(HomeAPIConstants.KEY_LAYOUT_ID)
     private int layoutId;
-    @SerializedName(APIConstants.API_HOME_V2_SECTION_TITLE)
+    @SerializedName(HomeAPIConstants.KEY_SECTION_TITLE)
     private String sectionTitle;
-    @SerializedName(APIConstants.API_HOME_V2_VIEW_MORE_AVAILABLE)
+    @SerializedName(HomeAPIConstants.KEY_IS_VIEW_MORE_AVAILABLE)
     private boolean isViewMoreAvailable;
-    @SerializedName(APIConstants.API_HOME_V2_VIEW_MORE_TARGET)
+    @SerializedName(HomeAPIConstants.KEY_VIEW_MORE_TARGET)
     private HomeTarget viewMoreTarget;
-    @SerializedName(APIConstants.API_HOME_V2_DATA)
+    @SerializedName(HomeAPIConstants.KEY_DATA)
     private List<HomeData> data;
 
     public int getLayoutId() {
@@ -61,7 +62,6 @@ public class HomeLayout {
         this.viewMoreTarget = viewMoreTarget;
     }
 
-
     public List<HomeData> getData() {
         return data;
     }
@@ -70,5 +70,13 @@ public class HomeLayout {
         this.data = data;
     }
 
+    public static class HomeLayoutInstance implements InstanceCreator<HomeLayout> {
+
+        @Override
+        public HomeLayout createInstance(Type type) {
+            return new HomeLayout();
+        }
+
+    }
 
 }

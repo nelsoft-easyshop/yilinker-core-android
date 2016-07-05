@@ -1,4 +1,4 @@
-package com.yilinker.core.parsing;
+package com.yilinker.core.model.buyer.home;
 
 import com.google.gson.InstanceCreator;
 
@@ -7,7 +7,7 @@ import java.lang.reflect.Type;
 /**
  * Created by jaybryantc on 7/4/16.
  */
-public class HomeData1 extends HomeData {
+public class ImageHomeData extends HomeData {
 
     String image;
 
@@ -19,11 +19,11 @@ public class HomeData1 extends HomeData {
         this.image = image;
     }
 
-    public static class HomeData1Instance implements InstanceCreator<HomeData1> {
+    public static class HomeData1Instance implements InstanceCreator<ImageHomeData> {
 
         @Override
-        public HomeData1 createInstance(Type type) {
-            return new HomeData1();
+        public ImageHomeData createInstance(Type type) {
+            return new ImageHomeData();
         }
     }
 

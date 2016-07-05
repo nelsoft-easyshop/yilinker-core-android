@@ -1,8 +1,8 @@
-package com.yilinker.core.parsing;
+package com.yilinker.core.model.buyer.home;
 
 import com.google.gson.InstanceCreator;
 import com.google.gson.annotations.SerializedName;
-import com.yilinker.core.constants.APIConstants;
+import com.yilinker.core.constants.HomeAPIConstants;
 
 import java.lang.reflect.Type;
 
@@ -11,11 +11,11 @@ import java.lang.reflect.Type;
  */
 public class HomeTarget {
 
-    @SerializedName(APIConstants.API_HOME_V2_TARGET_URL)
+    @SerializedName(HomeAPIConstants.KEY_TARGET_URL)
     private String targetUrl;
-    @SerializedName(APIConstants.API_HOME_V2_TARGET_TYPE)
+    @SerializedName(HomeAPIConstants.KEY_TARGET_TYPE)
     private String targetType;
-    @SerializedName(APIConstants.API_HOME_V2_TARGET_IS_AUTHENTICATED)
+    @SerializedName(HomeAPIConstants.KEY_IS_AUTHENTICATED)
     private boolean isAuthenticated;
 
     public String getTargetUrl() {
