@@ -15,10 +15,7 @@ import com.yilinker.core.imageloader.ImageCacheManager;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.InetAddress;
-import java.net.Socket;
 import java.net.URL;
-import java.net.UnknownHostException;
 import java.security.KeyStore;
 
 import javax.net.ssl.HostnameVerifier;
@@ -47,6 +44,7 @@ public class BaseApplication extends Application{
 
     private RequestQueue requestQueue;
     private String domain, clientId, clientSecret;
+    private String baseDomain;
 
     @Override
     public void onCreate() {
@@ -119,6 +117,13 @@ public class BaseApplication extends Application{
         this.clientSecret = clientSecret;
     }
 
+    public String getBaseDomain() {
+        return baseDomain;
+    }
+
+    public void setBaseDomain(String baseDomain) {
+        this.baseDomain = baseDomain;
+    }
 
     public RequestQueue getRequestQueue() {
 

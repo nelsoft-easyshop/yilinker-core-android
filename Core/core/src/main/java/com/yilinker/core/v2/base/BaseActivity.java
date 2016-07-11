@@ -1,6 +1,5 @@
 package com.yilinker.core.v2.base;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -101,7 +100,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Response
 
             inflateView(((FrameLayout) findViewById(R.id.flBaseContainer)), layoutId);
 
-            initViews(findViewById(R.id.flBaseContainer), savedInstanceState);
+            initViews(findViewById(layoutId), savedInstanceState);
 
         }
 
@@ -327,19 +326,6 @@ public abstract class BaseActivity extends AppCompatActivity implements Response
     public void changeProgressBarVisibility(boolean isLoading) {
 
         (findViewById(R.id.rlProgressBar)).setVisibility(isLoading ? View.VISIBLE : View.GONE);
-
-    }
-
-    /**
-     * Enables intent
-     * @param context
-     * @param activityClass
-     */
-    public void enableIntent(Context context, Class activityClass) {
-
-        Intent intent = new Intent(context, activityClass);
-        context.startActivity(intent);
-        overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
 
     }
 

@@ -2,8 +2,6 @@ package com.yilinker.core.constants;
 
 import com.yilinker.core.base.BaseApplication;
 
-import org.apache.http.entity.StringEntity;
-
 /**
  * Created by J.Bautista
  */
@@ -161,6 +159,8 @@ public class APIConstants {
     public static final String PROFILE_ISSUBSCRIBE = "isSubscribe";
     public static final String PROFILE_SUBSCRIPTION_API = "subscription";
     public static final String PROFILE_REFERRAL_CODE = "referralCode";
+    public static final String PROFILE_LANGUAGE_ID = "languageId";
+    public static final String PROFILE_COUNTRY_ID = "countryId";
 
     //For Activity Log
     public static final String ACTIVITY_LOG_GET_ITEMS = "activityLog";
@@ -238,11 +238,12 @@ public class APIConstants {
     public static final String PRODUCT_UPLOAD_GET_BRAND_PARAM_BRAND_KEYWORD = "brandKeyword";
     public static final String PRODUCT_UPLOAD_GET_CATEGORIES = "getCategories";
     public static final String PRODUCT_UPLOAD_GET_CATEGORIES_PARAM_PARENT_ID = "parentId";
+    public static final String PRODUCT_UPLOAD_GET_CATEGORIES_PARAM_CATEGORY_ID = "productCategoryId";
     public static final String PRODUCT_UPLOAD_GET_CATEGORIES_PARAM_QUERY_STRING = "queryString";
     public static final String PRODUCT_UPLOAD_GET_CONDITIONS = "getProductConditions";
 
     //Get Product Edit Details
-    public static final String PRODUCT_EDIT_DETAILS_API = "upload-details";
+    public static final String PRODUCT_EDIT_DETAILS_API = "get-upload-details";
     public static final String PRODUCT_EDIT_DETAILS_PARAMS_PRODUCT_ID = "productId";
 
     //Edit Product
@@ -259,6 +260,7 @@ public class APIConstants {
     public static final String API_CONNECTION_PROBLEM = "Problem connecting to the server. Try again later.";
     public static final String API_CONNECTION_AUTH_ERROR = "OAuth Error";
     public static final String API_AUTHENTICATION_ERROR = "Authentication Failed";
+    public static final String API_AUTHENTICATION_FAILURE_2 = "Authentication Failure.";
     public static final String API_GRANT_TYPE_REFRESH_TOKEN = "refresh_token";
 
     //Address
@@ -489,6 +491,7 @@ public class APIConstants {
     public static final String RIDER_CALCULATE_PACKAGE_TYPE = "packageType";
     public static final String RIDER_IS_UPDATE_PACKAGE = "isUpdate";
 
+    public static final String RIDER_GET_BANK_DETAILS = "get-bank-details";
 
     //TODO to move to express rider constant
     public static final String RIDER_REGISTRATION_MOBILE_NO = "mobileNumber";
@@ -701,5 +704,36 @@ public class APIConstants {
     public final static String SEND_FEEDBACK_PARAMS_PHONE_MODEL                                     = "phoneModel";
     public final static String SEND_FEEDBACK_PARAMS_OS_VERSION                                      = "osVersion";
     public final static String SEND_FEEDBACK_PARAMS_OS_NAME                                         = "osName";
+
+
+    //GET COUNTRY
+    public final static String ADDRESS_GET_COUNTRY = "getAllCountries";
+    public final static String ADDRESS_GET_COUNTRY_PARAM_TOKEN = "access_token";
+
+    //COUNTRY STORE
+    public final static String SELLER_COUNTRY_STORE_PARAMS_CODE                                     ="code";
+    public final static String SELLER_COUNTRY_STORE_SETUP_API                                       ="country-setup";
+    public final static String SELLER_COUNTRY_STORE_SET_WAREHOUSE                                   ="setwarehouse";
+    public final static String SELLER_COUNTRY_STORE_PARAMS_PRODUCT_ID                               ="productId";
+    public final static String SELLER_COUNTRY_STORE_PARAMS_USER_WAREHOUSE                           ="userWarehouse";
+    public final static String SELLER_COUNTRY_STORE_PARAMS_LOGISTICS                                ="logistics";
+    public final static String SELLER_COUNTRY_STORE_PARAMS_IS_COD                                   ="isCod";
+    public final static String SELLER_COUNTRY_STORE_PARAMS_HANDLING_FEE                             ="handlingFee";
+    public final static String SELLER_COUNTRY_STORE_PARAMS_PRIORITY                                 ="priority";
+    public final static String SELLER_COUNTRY_STORE_PARAMS_PRODUCT_UNIT_ID                          ="productUnitId";
+    public final static String SELLER_COUNTRY_STORE_PARAMS_PRICE                                    ="price";
+    public final static String SELLER_COUNTRY_STORE_PARAMS_DISCOUNTED_PRICE                         ="discountedPrice";
+    public final static String SELLER_COUNTRY_STORE_PARAMS_COMMISSION                               ="commission";
+    public final static String SELLER_COUNTRY_STORE_PARAMS_STATUS                                   ="status";
+    public final static String SELLER_COUNTRY_STORE_API                                             ="country-store";
+    public final static String SELLER_COUNTRY_STORE_SAVE_COMBINATIONS_API                            ="save-combinations";
+
+    //GET CHILD PROVINCES
+    public final static String ADDRESS_GET_CHILD_PROVINCES = "getChildProvinces";
+    public final static String ADDRESS_GET_CHILD_PROVINCES_PARAM_TOKEN = "access_token";
+    public final static String ADDRESS_GET_CHILD_PROVINCES_PARAM_REGIONID = "regionId";
+
+    //GET INTERNATIONAL PRODUCTS
+    public final static String GET_INTERNATIONAL_PRODUCT = "internationalProduct";
 
 }

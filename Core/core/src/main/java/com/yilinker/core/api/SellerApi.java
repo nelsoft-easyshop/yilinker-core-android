@@ -23,7 +23,6 @@ import com.yilinker.core.model.APIResponse;
 import com.yilinker.core.model.CategoryList;
 import com.yilinker.core.model.FollowedSeller;
 import com.yilinker.core.model.Address;
-import com.yilinker.core.model.Login;
 import com.yilinker.core.model.Seller;
 import com.yilinker.core.model.UpdateUserInfo;
 import com.yilinker.core.model.buyer.ProductReview;
@@ -508,14 +507,13 @@ public class SellerApi {
 
 
 
-    public static Request getAllFollowers(final int requestCode, String token, int page, int perPage, String keyword, final ResponseHandler responseHandler) {
+    public static Request getAllFollowers(final int requestCode, String token, int page, int perPage, final ResponseHandler responseHandler) {
 
-        String url = String.format("%s/%s/%s/%s?%s=%s&%s=%s&%s=%s&%s=%s",
+        String url = String.format("%s/%s/%s/%s?%s=%s&%s=%s&%s=%s",
                 APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.MERCHANT_API, APIConstants.SELLER_GET_FOLLOWERS,
                 APIConstants.ACCESS_TOKEN, token,
                 APIConstants.SELLER_PARAMS_PAGE, page,
-                APIConstants.SEARCH_PER_PAGE, perPage,
-                APIConstants.SELLER_PARAMS_SEARCH_KEYWORD, keyword);
+                APIConstants.SEARCH_PER_PAGE, perPage);
 
         url = url.replace(" ", "%20");
 
@@ -561,10 +559,13 @@ public class SellerApi {
 
     public static Request searchFollowers(final int requestCode, String token, String keyword, final ResponseHandler responseHandler) {
 
-        String url = String.format("%s/%s/%s/%s?%s=%s&%s=%s",
+        String url = String.format("%s/%s/%s/%s?%s=%s",
                 APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.MERCHANT_API, APIConstants.SELLER_GET_FOLLOWERS,
-                APIConstants.ACCESS_TOKEN, token,
-                APIConstants.SELLER_PARAMS_SEARCH_KEYWORD, keyword);
+                APIConstants.ACCESS_TOKEN, token);
+
+        if (keyword != null && !keyword.isEmpty()) {
+            url = String.format("%s&%s=%s", url, APIConstants.SELLER_PARAMS_SEARCH_KEYWORD, keyword);
+        }
 
         url = url.replace(" ", "%20");
 

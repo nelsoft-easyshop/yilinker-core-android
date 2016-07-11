@@ -1,11 +1,7 @@
 package com.yilinker.core.api.express;
 
-import com.android.volley.NoConnectionError;
 import com.android.volley.Request;
 import com.android.volley.Response;
-import com.android.volley.ServerError;
-import com.android.volley.TimeoutError;
-import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 import com.yilinker.core.base.BaseApplication;
 import com.yilinker.core.constants.APIConstants;
@@ -22,11 +18,8 @@ import com.yilinker.core.model.express.internal.Rider;
 import com.yilinker.core.utility.GsonUtility;
 import com.yilinker.core.utility.SocketTimeout;
 
-import org.apache.http.HttpStatus;
 import org.json.JSONObject;
-import org.xml.sax.ErrorHandler;
 
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 

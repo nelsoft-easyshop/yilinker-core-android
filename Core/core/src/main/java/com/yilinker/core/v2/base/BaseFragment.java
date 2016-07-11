@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -63,7 +62,6 @@ public abstract class BaseFragment extends Fragment implements ResponseHandler, 
      */
     private String toolbarTitle = null;
 
-
     /**
      * Reference of Frame Layout to be inflated
      */
@@ -91,6 +89,7 @@ public abstract class BaseFragment extends Fragment implements ResponseHandler, 
         //declaration of application to be used by classes extending this base class
         baseApplication = (BaseApplication) getActivity().getApplicationContext();
 
+        //initialization of request queue
         requestQueue = Volley.newRequestQueue(getActivity());
 
         //passing of data through arguments
@@ -211,6 +210,7 @@ public abstract class BaseFragment extends Fragment implements ResponseHandler, 
         //hid progress bar
         changeProgressBarVisibility(false);
 
+        //remove request from requestList
         removeFromRequestQueue(requestCode);
 
     }

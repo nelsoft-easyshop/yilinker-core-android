@@ -18,11 +18,9 @@ import com.yilinker.core.interfaces.ResponseHandler;
 import com.yilinker.core.model.APIResponse;
 import com.yilinker.core.model.Case;
 import com.yilinker.core.model.seller.DisputeReasonList;
-import com.yilinker.core.model.seller.Reason;
 import com.yilinker.core.utility.GsonUtility;
 import com.yilinker.core.utility.SocketTimeout;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
