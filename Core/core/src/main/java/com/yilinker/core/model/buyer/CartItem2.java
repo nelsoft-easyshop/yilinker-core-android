@@ -32,6 +32,7 @@ public class CartItem2 {
     private int quantity;
     private  int itemId;
 
+    @SerializedName("hasCOD")
     private boolean isCODAvailble;
 
 
