@@ -1,7 +1,5 @@
 package com.yilinker.core.api;
 
-import android.util.Log;
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkError;
 import com.android.volley.NoConnectionError;
@@ -18,8 +16,6 @@ import com.yilinker.core.constants.APIConstants;
 import com.yilinker.core.interfaces.ResponseHandler;
 import com.yilinker.core.model.APIResponse;
 import com.yilinker.core.model.Search;
-import com.yilinker.core.model.Seller;
-import com.yilinker.core.model.TransactionList;
 import com.yilinker.core.model.buyer.SellerList;
 import com.yilinker.core.model.seller.CategoryProducts;
 import com.yilinker.core.model.seller.SearchTransaction;

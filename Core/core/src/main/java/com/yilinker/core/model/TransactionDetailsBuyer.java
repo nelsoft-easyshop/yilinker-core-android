@@ -2,7 +2,6 @@ package com.yilinker.core.model;
 
 import com.google.gson.InstanceCreator;
 import com.google.gson.annotations.SerializedName;
-import com.yilinker.core.model.buyer.Voucher;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;

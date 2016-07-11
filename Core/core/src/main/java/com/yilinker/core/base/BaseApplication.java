@@ -11,15 +11,11 @@ import com.android.volley.toolbox.Volley;
 import com.yilinker.core.R;
 import com.yilinker.core.helper.HurlCookieStack;
 import com.yilinker.core.imageloader.ImageCacheManager;
-import com.yilinker.core.model.request.Feedback;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.InetAddress;
-import java.net.Socket;
 import java.net.URL;
-import java.net.UnknownHostException;
 import java.security.KeyStore;
 
 import javax.net.ssl.HostnameVerifier;

@@ -1,8 +1,6 @@
 package com.yilinker.core.utility;
 
 import android.content.Context;
-import android.content.CursorLoader;
-import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -18,13 +16,11 @@ import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.LruCache;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;

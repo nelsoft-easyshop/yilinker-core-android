@@ -23,7 +23,6 @@ import com.yilinker.core.model.APIResponse;
 import com.yilinker.core.model.CategoryList;
 import com.yilinker.core.model.FollowedSeller;
 import com.yilinker.core.model.Address;
-import com.yilinker.core.model.Login;
 import com.yilinker.core.model.Seller;
 import com.yilinker.core.model.UpdateUserInfo;
 import com.yilinker.core.model.buyer.ProductReview;
