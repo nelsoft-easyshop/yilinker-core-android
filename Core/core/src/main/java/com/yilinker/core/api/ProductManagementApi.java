@@ -15,8 +15,6 @@ import com.yilinker.core.constants.APIConstants;
 import com.yilinker.core.helper.VolleyPostHelper;
 import com.yilinker.core.interfaces.ResponseHandler;
 import com.yilinker.core.model.APIResponse;
-import com.yilinker.core.model.buyer.Product;
-import com.yilinker.core.model.seller.CategoryProductList;
 import com.yilinker.core.model.seller.ProductList;
 import com.yilinker.core.utility.GsonUtility;
 import com.yilinker.core.utility.SocketTimeout;
@@ -42,6 +40,8 @@ public class ProductManagementApi {
                 APIConstants.PRODUCT_MANAGEMENT_API,
                 APIConstants.GET_PRODUCT_LIST);
 
+        url = url.replace("v1","v3");
+
         Map<String,String> params = new HashMap<String,String>();
         params.put(APIConstants.ACCESS_TOKEN, token);
         if (status != 7) {
@@ -52,6 +52,7 @@ public class ProductManagementApi {
         if (keyword != null && !keyword.isEmpty()) {
             params.put(APIConstants.PRODUCT_MANAGEMENT_PARAMS_KEYWORD, keyword);
         }
+
         VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {

@@ -19,7 +19,7 @@ public class ExpressAPIConstants {
     public static final String ACCREDITATION_SUBMIT_PARAM_LASTNAME = "lastName";
     public static final String ACCREDITATION_SUBMIT_PARAM_BIRTHDAY = "birthday";
     public static final String ACCREDITATION_SUBMIT_PARAM_GENDER = "gender";
-    public static final String ACCREDITATION_SUBMIT_PARAM_REQUIREMENTS = "requirements";
+    public static final String ACCREDITATION_SUBMIT_PARAM_REQUIREMENTS = "access_token";
     public static final String ACCREDITATION_SUBMIT_PARAM_REQUIREMENT_ID = "id";
     public static final String ACCREDITATION_SUBMIT_PARAM_REQUIREMENT_DATA = "data";
     public static final String ACCREDITATION_SUBMIT_PARAM_REQUIREMENT_IMAGES = "images";

@@ -14,7 +14,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.yilinker.core.base.BaseApplication;
 import com.yilinker.core.constants.APIConstants;
 import com.yilinker.core.helper.VolleyPostHelper;
 import com.yilinker.core.interfaces.ResponseHandler;
@@ -27,7 +26,6 @@ import com.yilinker.core.model.seller.TransactionConsignee;
 import com.yilinker.core.model.seller.TransactionList;
 import com.yilinker.core.utility.GsonUtility;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -58,7 +56,7 @@ public class SellerTransactionApi {
                                              String dates, String status, int paymentMethod, final ResponseHandler responseHandler) {
 
 
-        String endpoint = String.format("%s/%s/%s?%s=%s", BaseApplication.getDomainURL(),APIConstants.AUTH_API, APIConstants.SELLER_TRANSACTION_LIST_API,
+        String endpoint = String.format("%s/%s/%s?%s=%s", APIConstants.DOMAIN,APIConstants.AUTH_API, APIConstants.SELLER_TRANSACTION_LIST_API,
                 APIConstants.ACCESS_TOKEN, accessToken);
 
         if (page > 0)
@@ -150,7 +148,7 @@ public class SellerTransactionApi {
 
     public static Request getTransaction(final int requestCode, String accessToken, String transactionId, final ResponseHandler responseHandler) {
 
-        String url = String.format("%s/%s/%s?%s=%s&%s=%s", BaseApplication.getDomainURL(), APIConstants.AUTH_API,
+        String url = String.format("%s/%s/%s?%s=%s&%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API,
                 APIConstants.SELLER_TRANSACTION_API, APIConstants.ACCESS_TOKEN, accessToken,
                 APIConstants.SELLER_TRANSACTION_PARAMS_TRANSACTION_ID, transactionId);
 
@@ -194,7 +192,7 @@ public class SellerTransactionApi {
 
     public static Request getCancellationReasons(final int requestCode, String accessToken, final ResponseHandler responseHandler) {
 
-        String endpoint = String.format("%s/%s/%s/%s?%s=%s", BaseApplication.getDomainURL(), APIConstants.AUTH_API,
+        String endpoint = String.format("%s/%s/%s/%s?%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API,
                 APIConstants.CANCELLATION_API, APIConstants.SELLER_TRANSACTION_REASONS_API,
                 APIConstants.ACCESS_TOKEN, accessToken);
 
@@ -241,7 +239,7 @@ public class SellerTransactionApi {
     public static Request cancelTransactionRequest(final int requestCode, String accessToken, String transactionId,
                                                    String reasonId, String remark, final ResponseHandler responseHandler) {
 
-        String endpoint = String.format("%s/%s/%s/%s", BaseApplication.getDomainURL(), APIConstants.AUTH_API,
+        String endpoint = String.format("%s/%s/%s/%s", APIConstants.DOMAIN, APIConstants.AUTH_API,
                 APIConstants.TRANSACTION_API, APIConstants.SELLER_TRANSACTION_CANCEL_API);
 
         Map<String, String> params = new HashMap<>();
@@ -287,7 +285,7 @@ public class SellerTransactionApi {
     public static Request cancelOrderProduct(final int requestCode, String accessToken, String transactionId,
                                                    String reasonId, String remark, String orderProductId, final ResponseHandler responseHandler) {
 
-        String endpoint = String.format("%s/%s/%s/%s", BaseApplication.getDomainURL(), APIConstants.AUTH_API,
+        String endpoint = String.format("%s/%s/%s/%s", APIConstants.DOMAIN, APIConstants.AUTH_API,
                 APIConstants.TRANSACTION_API, APIConstants.SELLER_TRANSACTION_CANCEL_API);
 
         Map<String, String> params = new HashMap<>();
@@ -334,7 +332,7 @@ public class SellerTransactionApi {
     public static Request scheduleForPickup(final int requestCode, String accessToken, String transactionId, ArrayList<String> orderProductIds,
                                             String pickupSchedule, String pickupRemark, final ResponseHandler responseHandler) {
 
-        String endpoint = String.format("%s/%s/%s/%s", BaseApplication.getDomainURL(), APIConstants.AUTH_API,
+        String endpoint = String.format("%s/%s/%s/%s", APIConstants.DOMAIN, APIConstants.AUTH_API,
                 APIConstants.TRANSACTION_API, APIConstants.SELLER_TRANSACTION_PICKUP_API);
 
         Map<String, String> params = new HashMap<>();
@@ -383,7 +381,7 @@ public class SellerTransactionApi {
     public static Request getConsigneeDetails(final int requestCode, String accessToken, String transactionId,
                                               final ResponseHandler responseHandler) {
 
-        String endpoint = String.format("%s/%s/%s?%s=%s&%s=%s", BaseApplication.getDomainURL(), APIConstants.AUTH_API,
+        String endpoint = String.format("%s/%s/%s?%s=%s&%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API,
                 APIConstants.SELLER_TRANSACTION_GET_CONSIGNEE_API,
                 APIConstants.ACCESS_TOKEN, accessToken,
                 APIConstants.SELLER_TRANSACTION_GET_CONSIGNEE_PARAMS_TRANSACTION_ID, transactionId);
@@ -431,7 +429,7 @@ public class SellerTransactionApi {
     public static Request getDeliveryLogs(final int requestCode, String accessToken, String transactionId,
                                           final ResponseHandler responseHandler) {
 
-        String endpoint = String.format("%s/%s/%s?%s=%s&%s=%s", BaseApplication.getDomainURL(), APIConstants.AUTH_API,
+        String endpoint = String.format("%s/%s/%s?%s=%s&%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API,
                 APIConstants.SELLER_TRANSACTION_DELIVERY_LOGS_API,
                 APIConstants.ACCESS_TOKEN, accessToken,
                 APIConstants.SELLER_TRANSACTION_DELIVERY_LOGS_PARAMS_ORDER_PRODUCT_ID, transactionId);
@@ -477,7 +475,7 @@ public class SellerTransactionApi {
     public static Request getOrderProductDetails(final int requestCode, String accessToken, String orderProductId,
                                                  final ResponseHandler responseHandler) {
 
-        String endpoint = String.format("%s/%s/%s?%s=%s&%s=%s", BaseApplication.getDomainURL(), APIConstants.AUTH_API, APIConstants.ORDER_PRODUCT_DETAIL_API,
+        String endpoint = String.format("%s/%s/%s?%s=%s&%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.ORDER_PRODUCT_DETAIL_API,
                 APIConstants.ACCESS_TOKEN, accessToken,
                 APIConstants.ORDER_PRODUCT_DETAIL_PARAMS_ORDER_PRODUCT_ID, orderProductId);
 

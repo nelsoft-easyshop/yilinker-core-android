@@ -1,13 +1,10 @@
 package com.yilinker.core.imageloader;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.util.LruCache;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
-import com.yilinker.core.base.BaseApplication;
 
 /**
  * Created by rlcoronado on 8/5/15.

@@ -14,7 +14,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.yilinker.core.base.BaseApplication;
 import com.yilinker.core.constants.APIConstants;
 import com.yilinker.core.helper.MultiPartRequest;
 
@@ -24,7 +23,6 @@ import com.yilinker.core.model.APIResponse;
 import com.yilinker.core.model.CategoryList;
 import com.yilinker.core.model.FollowedSeller;
 import com.yilinker.core.model.Address;
-import com.yilinker.core.model.Login;
 import com.yilinker.core.model.Seller;
 import com.yilinker.core.model.UpdateUserInfo;
 import com.yilinker.core.model.buyer.ProductReview;
@@ -67,12 +65,12 @@ public class SellerApi {
 
         if (!accessToken.isEmpty()) {
 
-            url = String.format("%s/%s/%s/%s", BaseApplication.getDomainURL(), APIConstants.AUTH_API, APIConstants.USER_API, APIConstants.SELLER_GET_STORE_INFO);
+            url = String.format("%s/%s/%s/%s", APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.USER_API, APIConstants.SELLER_GET_STORE_INFO);
             params.put(APIConstants.ACCESS_TOKEN, accessToken);
 
         } else {
 
-            url = String.format("%s/%s/%s", BaseApplication.getDomainURL(), APIConstants.USER_API, APIConstants.SELLER_GET_STORE_INFO);
+            url = String.format("%s/%s/%s", APIConstants.DOMAIN, APIConstants.USER_API, APIConstants.SELLER_GET_STORE_INFO);
 
         }
 
@@ -132,7 +130,7 @@ public class SellerApi {
     }
     public static Request followSeller(final int requestCode, int id,String accessToken,String follow, final ResponseHandler responseHandler) {
 
-        String url = String.format("%s/%s/%s", BaseApplication.getDomainURL(), "auth", follow);
+        String url = String.format("%s/%s/%s", APIConstants.DOMAIN, "auth", follow);
 
         Map<String, String > params = new HashMap<>();
         params.put( APIConstants.SELLER_GET_DETAILS_PARAM_ID,String.valueOf(id));
@@ -187,7 +185,7 @@ public class SellerApi {
 
     public static Request getSellerReview(final int requestCode, String user, final ResponseHandler responseHandler){
 
-        String url = String.format("%s/%s/%s?%s=%s", BaseApplication.getDomainURL(), APIConstants.PRODUCT_FEEDBACK, APIConstants.PRODUCT_GET_SELLER_REVIEW, APIConstants.SELLER_GET_DETAILS_PARAM_ID, user);
+        String url = String.format("%s/%s/%s?%s=%s", APIConstants.DOMAIN, APIConstants.PRODUCT_FEEDBACK, APIConstants.PRODUCT_GET_SELLER_REVIEW, APIConstants.SELLER_GET_DETAILS_PARAM_ID, user);
 
         Map<String,String> params = new HashMap<>();
         params.put(APIConstants.SELLER_GET_DETAILS_PARAM_ID,user);
@@ -248,7 +246,7 @@ public class SellerApi {
     public static Request getStoreInfo (final int requestCode, String token,  final ResponseHandler responseHandler){
 
         String url = String.format("%s/%s/%s/%s",
-                BaseApplication.getDomainURL(),
+                APIConstants.DOMAIN,
                 APIConstants.AUTH_API,
                 APIConstants.STORE_INFO_MERCHANT,
                 APIConstants.GET_STORE_INFO);
@@ -318,7 +316,7 @@ public class SellerApi {
                                           String accessToken, String selectedCategories, boolean isReferralCodeEmpty,
                                           final ResponseHandler responseHandler) {
 
-        String url = String.format("%s/%s/%s/%s", BaseApplication.getDomainURL(), APIConstants.AUTH_API,
+        String url = String.format("%s/%s/%s/%s", APIConstants.DOMAIN, APIConstants.AUTH_API,
                 APIConstants.STORE_INFO_MERCHANT, APIConstants.UPDATE_STORE_INFO_API);
 
         Map<String,String> params = new HashMap<String,String>();
@@ -396,7 +394,7 @@ public class SellerApi {
     public static Request getFollowedSellers(final int requestCode, String token, int page, int limit, String keyword, final ResponseHandler responseHandler){
 
         String url = String.format("%s/%s/%s",
-                BaseApplication.getDomainURL(),
+                APIConstants.DOMAIN,
                 APIConstants.AUTH_API,
                 APIConstants.SELLER_GET_FOLLOWED_SELLERS);
 
@@ -438,7 +436,7 @@ public class SellerApi {
                                           String newPasswordConfirm, final ResponseHandler responseHandler) {
 
         String url = String.format("%s/%s/%s/%s?%s=%s",
-                BaseApplication.getDomainURL(),
+                APIConstants.DOMAIN,
                 APIConstants.AUTH_API,
                 APIConstants.USER_API,
                 APIConstants.CHANGE_PASSWORD_API,
@@ -509,14 +507,13 @@ public class SellerApi {
 
 
 
-    public static Request getAllFollowers(final int requestCode, String token, int page, int perPage, String keyword, final ResponseHandler responseHandler) {
+    public static Request getAllFollowers(final int requestCode, String token, int page, int perPage, final ResponseHandler responseHandler) {
 
-        String url = String.format("%s/%s/%s/%s?%s=%s&%s=%s&%s=%s&%s=%s",
-                BaseApplication.getDomainURL(), APIConstants.AUTH_API, APIConstants.MERCHANT_API, APIConstants.SELLER_GET_FOLLOWERS,
+        String url = String.format("%s/%s/%s/%s?%s=%s&%s=%s&%s=%s",
+                APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.MERCHANT_API, APIConstants.SELLER_GET_FOLLOWERS,
                 APIConstants.ACCESS_TOKEN, token,
                 APIConstants.SELLER_PARAMS_PAGE, page,
-                APIConstants.SEARCH_PER_PAGE, perPage,
-                APIConstants.SELLER_PARAMS_SEARCH_KEYWORD, keyword);
+                APIConstants.SEARCH_PER_PAGE, perPage);
 
         url = url.replace(" ", "%20");
 
@@ -562,10 +559,13 @@ public class SellerApi {
 
     public static Request searchFollowers(final int requestCode, String token, String keyword, final ResponseHandler responseHandler) {
 
-        String url = String.format("%s/%s/%s/%s?%s=%s&%s=%s",
-                BaseApplication.getDomainURL(), APIConstants.AUTH_API, APIConstants.MERCHANT_API, APIConstants.SELLER_GET_FOLLOWERS,
-                APIConstants.ACCESS_TOKEN, token,
-                APIConstants.SELLER_PARAMS_SEARCH_KEYWORD, keyword);
+        String url = String.format("%s/%s/%s/%s?%s=%s",
+                APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.MERCHANT_API, APIConstants.SELLER_GET_FOLLOWERS,
+                APIConstants.ACCESS_TOKEN, token);
+
+        if (keyword != null && !keyword.isEmpty()) {
+            url = String.format("%s&%s=%s", url, APIConstants.SELLER_PARAMS_SEARCH_KEYWORD, keyword);
+        }
 
         url = url.replace(" ", "%20");
 
@@ -612,7 +612,7 @@ public class SellerApi {
     public static Request generateQrCode(final int requestCode, String token, final ResponseHandler responseHandler) {
 
         String url = String.format("%s/%s/%s/%s?%s=%s",
-                BaseApplication.getDomainURL(), APIConstants.AUTH_API, APIConstants.MERCHANT_API, APIConstants.GENERATE_QR_CODE_API,
+                APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.MERCHANT_API, APIConstants.GENERATE_QR_CODE_API,
                 APIConstants.ACCESS_TOKEN, token);
 
         url = url.replace(" ", "%20");

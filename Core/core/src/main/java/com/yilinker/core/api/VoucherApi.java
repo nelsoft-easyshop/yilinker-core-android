@@ -1,7 +1,5 @@
 package com.yilinker.core.api;
 
-import android.support.v4.app.NavUtils;
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkError;
 import com.android.volley.NoConnectionError;
@@ -31,22 +29,24 @@ import java.io.UnsupportedEncodingException;
  */
 public class VoucherApi {
 
-    public static Request addVoucher(final int requestCode, String accessToken, String voucherCode, final ResponseHandler responseHandler) {
+    public static Request updateVoucher(final int requestCode, String voucherCode, final ResponseHandler responseHandler) {
 
-        String endpoint = null;
+        String accessToken = BaseApplication.getInstance().getAccessToken();
+
+        String url = null;
 
         if (accessToken == null) {
-            endpoint = String.format("%s/%s/%s?%s=%s", BaseApplication.getDomainURL(), APIConstants.CART_API,
+            url = String.format("%s/%s/%s?%s=%s", APIConstants.DOMAIN.replace("v1", "v2"), APIConstants.CART_API,
                     APIConstants.APPLY_VOUCHER_API,
                     APIConstants.APPLY_VOUCHER_PARAMS_VOUCHER_CODE, voucherCode);
         } else {
-            endpoint = String.format("%s/%s/%s/%s?%s=%s&%s=%s", BaseApplication.getDomainURL(), APIConstants.AUTH_API,
+            url = String.format("%s/%s/%s/%s?%s=%s&%s=%s", APIConstants.DOMAIN.replace("v1", "v2"), APIConstants.AUTH_API,
                     APIConstants.CART_API, APIConstants.APPLY_VOUCHER_API,
                     APIConstants.ACCESS_TOKEN, accessToken,
                     APIConstants.APPLY_VOUCHER_PARAMS_VOUCHER_CODE, voucherCode);
         }
 
-        Request request = new JsonObjectRequest(endpoint, new Response.Listener<JSONObject>() {
+        Request request = new JsonObjectRequest(url, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
 

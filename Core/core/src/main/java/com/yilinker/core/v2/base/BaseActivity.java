@@ -1,6 +1,5 @@
 package com.yilinker.core.v2.base;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

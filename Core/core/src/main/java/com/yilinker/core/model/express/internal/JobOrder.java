@@ -3,7 +3,6 @@ package com.yilinker.core.model.express.internal;
 import com.google.gson.InstanceCreator;
 
 import java.lang.reflect.Type;
-import java.util.Date;
 import java.util.List;
 
 /**

@@ -2,10 +2,7 @@ package com.yilinker.core.model;
 
 import com.google.gson.InstanceCreator;
 
-import org.json.JSONObject;
-
 import java.lang.reflect.Type;
-import java.util.List;
 
 /**
  * Created by J.Bautista

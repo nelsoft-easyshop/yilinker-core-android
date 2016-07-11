@@ -15,7 +15,6 @@ import com.yilinker.core.interfaces.ResponseHandler;
 import com.yilinker.core.model.APIResponse;
 import com.yilinker.core.model.Address;
 import com.yilinker.core.model.express.internal.AccreditationRequirement;
-import com.yilinker.core.model.express.internal.JobOrder;
 import com.yilinker.core.model.express.internal.request.Accreditation;
 import com.yilinker.core.utility.GsonUtility;
 import com.yilinker.core.utility.SocketTimeout;
@@ -108,7 +107,7 @@ public class AccreditationApi {
         params.put(ExpressAPIConstants.ACCREDITATION_SUBMIT_PARAM_FIRSTNAME, accreditation.getFirstName());
         params.put(ExpressAPIConstants.ACCREDITATION_SUBMIT_PARAM_LASTNAME, accreditation.getLastName());
         params.put(ExpressAPIConstants.ACCREDITATION_SUBMIT_PARAM_BIRTHDAY, accreditation.getBirthday());
-        params.put(ExpressAPIConstants.ACCREDITATION_SUBMIT_PARAM_GENDER, accreditation.getGender());
+        params.put(ExpressAPIConstants.ACCREDITATION_SUBMIT_PARAM_GENDER, accreditation.getFirstName());
         params.put(ExpressAPIConstants.ACCREDITATION_SUBMIT_PARAM_REQUIREMENTS, accreditation.getRequirements());
 
 

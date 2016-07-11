@@ -2,7 +2,6 @@ package com.yilinker.core.api;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkError;
-import com.android.volley.NetworkResponse;
 import com.android.volley.NoConnectionError;
 import com.android.volley.ParseError;
 import com.android.volley.Request;
@@ -12,7 +11,6 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.yilinker.core.base.BaseApplication;
 import com.yilinker.core.constants.APIConstants;
 import com.yilinker.core.helper.VolleyPostHelper;
 import com.yilinker.core.interfaces.ResponseHandler;
@@ -45,7 +43,7 @@ public class AddressAPI {
                                       final ResponseHandler responseHandler){
 
         String url = String.format("%s/%s/%s/%s",
-                BaseApplication.getDomainURL(), APIConstants.AUTH_API, APIConstants.ADDRESS_API, APIConstants.STORE_ADDRESS_ADD);
+                APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.ADDRESS_API, APIConstants.STORE_ADDRESS_ADD);
 
         Map<String, String> params = new HashMap<String, String>();
         params.put(APIConstants.ACCESS_TOKEN, token);
@@ -121,7 +119,7 @@ public class AddressAPI {
                                       final ResponseHandler responseHandler){
 
         String url = String.format("%s/%s/%s/%s",
-                BaseApplication.getDomainURL(), APIConstants.AUTH_API, APIConstants.ADDRESS_API, APIConstants.EDIT_USER_ADDRESS);
+                APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.ADDRESS_API, APIConstants.EDIT_USER_ADDRESS);
 
         Map<String, String> params = new HashMap<String, String>();
         params.put(APIConstants.ACCESS_TOKEN, token);
@@ -190,7 +188,7 @@ public class AddressAPI {
 
     public static Request getAddresses(final int requestCode, String token, final ResponseHandler responseHandler) {
 
-        String url = String.format("%s/%s/%s/%s", BaseApplication.getDomainURL(),
+        String url = String.format("%s/%s/%s/%s", APIConstants.DOMAIN,
                 APIConstants.AUTH_API, APIConstants.ADDRESS_API, APIConstants.GET_STORE_ADDRESS);
 
         Map<String, String> params = new HashMap<String,String>();
@@ -235,7 +233,7 @@ public class AddressAPI {
 
     public static Request checkoutGetAddresses(final int requestCode, String token, final ResponseHandler responseHandler) {
 
-        String url = String.format("%s/%s/%s/%s", BaseApplication.getDomainURL(),
+        String url = String.format("%s/%s/%s/%s", APIConstants.DOMAIN,
                 APIConstants.AUTH_API, APIConstants.ADDRESS_API, APIConstants.GET_STORE_ADDRESS);
 
         Map<String, String> params = new HashMap<String,String>();
@@ -271,7 +269,7 @@ public class AddressAPI {
 
     public static Request setDefaultAddress(final int requestCode, String token, String addressId, final ResponseHandler responseHandler){
 
-        String url = String.format("%s/%s/%s/%s", BaseApplication.getDomainURL(), APIConstants.AUTH_API,
+        String url = String.format("%s/%s/%s/%s", APIConstants.DOMAIN, APIConstants.AUTH_API,
                 APIConstants.ADDRESS_API, APIConstants.ADDRESS_SET_ADDRESS);
 
         Map<String, String> params = new HashMap<String, String>();
@@ -306,7 +304,7 @@ public class AddressAPI {
 
     public static Request deleteAddress(final int requestCode, String token, int userAddressId, final ResponseHandler responseHandler) {
 
-        String url = String.format("%s/%s/%s/%s", BaseApplication.getDomainURL(), APIConstants.AUTH_API,
+        String url = String.format("%s/%s/%s/%s", APIConstants.DOMAIN, APIConstants.AUTH_API,
                 APIConstants.ADDRESS_API, APIConstants.ADDRESS_DELETE_ADDRESS);
 
         Map<String, String> params = new HashMap<>();
@@ -364,7 +362,7 @@ public class AddressAPI {
 
     public static Request getAllProvinces(final int requestCode, String token, final ResponseHandler responseHandler) {
 
-        String url = String.format("%s/%s/%s", BaseApplication.getDomainURL(),
+        String url = String.format("%s/%s/%s", APIConstants.DOMAIN,
                  APIConstants.LOCATION_API, APIConstants.ADDRESS_GET_ALL_PROVINCES);
 
         Map<String, String> params = new HashMap<String,String>();
@@ -415,7 +413,7 @@ public class AddressAPI {
     public static Request getChildCities(final int requestCode, String token,
                                          int provinceId, final ResponseHandler responseHandler) {
 
-        String url = String.format("%s/%s/%s", BaseApplication.getDomainURL(),
+        String url = String.format("%s/%s/%s", APIConstants.DOMAIN,
                 APIConstants.LOCATION_API, APIConstants.ADDRESS_GET_CHILD_CITIES);
 
         Map<String, String> params = new HashMap<String,String>();
@@ -466,7 +464,7 @@ public class AddressAPI {
     public static Request getChildBaranggay(final int requestCode, String token,
                                          int cityId, final ResponseHandler responseHandler) {
 
-        String url = String.format("%s/%s/%s", BaseApplication.getDomainURL(),
+        String url = String.format("%s/%s/%s", APIConstants.DOMAIN,
                 APIConstants.LOCATION_API, APIConstants.ADDRESS_GET_CHILD_BARANGGAY);
 
         Map<String, String> params = new HashMap<String,String>();
@@ -519,7 +517,7 @@ public class AddressAPI {
                                           final ResponseHandler responseHandler){
 
         String url = String.format("%s/%s/%s/%s",
-                BaseApplication.getDomainURL(), APIConstants.AUTH_API, APIConstants.ADDRESS_API, APIConstants.SET_DEFAULT_ADDRESS);
+                APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.ADDRESS_API, APIConstants.SET_DEFAULT_ADDRESS);
 
         Map<String, String> params = new HashMap<String, String>();
         params.put(APIConstants.ACCESS_TOKEN, token);
@@ -568,7 +566,7 @@ public class AddressAPI {
                                       final ResponseHandler responseHandler){
 
         String url = String.format("%s/%s/%s/%s",
-                BaseApplication.getDomainURL(), APIConstants.AUTH_API, APIConstants.ADDRESS_API, APIConstants.EDIT_USER_ADDRESS);
+                APIConstants.DOMAIN, APIConstants.AUTH_API, APIConstants.ADDRESS_API, APIConstants.EDIT_USER_ADDRESS);
 
         Map<String, String> params = new HashMap<String, String>();
         params.put(APIConstants.ACCESS_TOKEN, token);
@@ -583,7 +581,8 @@ public class AddressAPI {
         params.put(APIConstants.ADDRESS_PARAMS_SUBDIVISION, String.valueOf(address.getSubdivision()));
         /*params.put(APIConstants.ADDRESS_PARAMS_CITY, city);
         params.put(APIConstants.ADDRESS_PARAMS_PROVINCE, province);*/
-        params.put(APIConstants.ADDRESS_PARAMS_ZIPCODE, String.valueOf(address.getZipCode()));
+        if (address.getZipCode() != null)
+            params.put(APIConstants.ADDRESS_PARAMS_ZIPCODE, String.valueOf(address.getZipCode()));
 
         VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
 
