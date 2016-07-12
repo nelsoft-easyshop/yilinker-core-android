@@ -354,6 +354,8 @@ public class APIConstants {
     public static final String PRODUCT_MANAGEMENT_PARAMS_STATUS = "status";
     public static final String PRODUCT_MANAGEMENT_PARAMS_KEYWORD = "keyword";
     public static final String PRODUCT_MANAGEMENT_PARAMS_PRODUCT_ID = "productId";
+    public static final String PRODUCT_MANAGEMENT_PARAMS_PAGE = "page";
+    public static final String PRODUCT_MANAGEMENT_PARAMS_PER_PAGE = "perPage";
 
 
     //My Points
