@@ -31,8 +31,7 @@ import java.util.Map;
  */
 public class ProductManagementApi {
 
-    public static Request getProductList(final int requestCode, String token, int status, String keyword,
-                                         final ResponseHandler responseHandler) {
+    public static Request getProductList(final int requestCode, String token, int status, String keyword,final ResponseHandler responseHandler) {
 
         String url = String.format("%s/%s/%s/%s",
                 APIConstants.DOMAIN,
@@ -42,7 +41,7 @@ public class ProductManagementApi {
 
         url = url.replace("v1","v3");
 
-        Map<String,String> params = new HashMap<String,String>();
+        Map<String,String> params = new HashMap<>();
         params.put(APIConstants.ACCESS_TOKEN, token);
         if (status != 7) {
             params.put(APIConstants.PRODUCT_MANAGEMENT_PARAMS_STATUS, String.valueOf(status));
@@ -52,6 +51,59 @@ public class ProductManagementApi {
         if (keyword != null && !keyword.isEmpty()) {
             params.put(APIConstants.PRODUCT_MANAGEMENT_PARAMS_KEYWORD, keyword);
         }
+
+        VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+                if (apiResponse.isSuccessful()) {
+                    gson = GsonUtility.createGsonBuilder(ProductList.class, new ProductList.ProductListInstance()).create();
+                    String jsonString = new Gson().toJson(apiResponse.getData());
+                    ProductList obj = gson.fromJson(jsonString, ProductList.class);
+                    responseHandler.onSuccess(requestCode, obj);
+                } else {
+                    responseHandler.onFailed(requestCode, apiResponse.getMessage());
+                }
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                sendErrorMessage(requestCode, error, responseHandler);
+            }
+        });
+
+        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
+
+
+        return request;
+    }
+
+    public static Request getProductList2(final int requestCode, String token, int status, String keyword,
+                                         String pageNo, String perPage, final ResponseHandler responseHandler) {
+
+        String url = String.format("%s/%s/%s/%s",
+                APIConstants.DOMAIN,
+                APIConstants.AUTH_API,
+                APIConstants.PRODUCT_MANAGEMENT_API,
+                APIConstants.GET_PRODUCT_LIST);
+
+        url = url.replace("v1","v3");
+
+        Map<String,String> params = new HashMap<>();
+        params.put(APIConstants.ACCESS_TOKEN, token);
+        if (status != 7) {
+            params.put(APIConstants.PRODUCT_MANAGEMENT_PARAMS_STATUS, String.valueOf(status));
+        } else {
+            params.put(APIConstants.PRODUCT_MANAGEMENT_PARAMS_STATUS, "all");
+        }
+        if (keyword != null && !keyword.isEmpty()) {
+            params.put(APIConstants.PRODUCT_MANAGEMENT_PARAMS_KEYWORD, keyword);
+        }
+        params.put(APIConstants.PRODUCT_MANAGEMENT_PARAMS_PAGE, pageNo);
+        params.put(APIConstants.PRODUCT_MANAGEMENT_PARAMS_PER_PAGE, perPage);
 
         VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
             @Override
