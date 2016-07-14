@@ -10,7 +10,7 @@ public class ProductHomeData extends HomeData {
     private String name;
     private String originalPrice;
     private String discountedPrice;
-    private String discountedPercentage;
+    private String discountPercentage;
     private String currency;
     private String image;
     private String thumbnail;
@@ -58,12 +58,12 @@ public class ProductHomeData extends HomeData {
         this.discountedPrice = discountedPrice;
     }
 
-    public String getDiscountedPercentage() {
-        return discountedPercentage;
+    public String getdiscountPercentage() {
+        return discountPercentage;
     }
 
-    public void setDiscountedPercentage(String discountedPercentage) {
-        this.discountedPercentage = discountedPercentage;
+    public void setdiscountPercentage(String discountPercentage) {
+        this.discountPercentage = discountPercentage;
     }
 
     public String getCurrency() {
