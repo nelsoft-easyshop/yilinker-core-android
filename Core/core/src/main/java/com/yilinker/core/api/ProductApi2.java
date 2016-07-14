@@ -4,14 +4,14 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
-import com.yilinker.core.constants.APIConstants;
 import com.yilinker.core.helper.VolleyPostHelper;
 import com.yilinker.core.interfaces.ResponseHandler;
 import com.yilinker.core.model.APIResponse;
-import com.yilinker.core.model.buyer.productV2.Product;
-import com.yilinker.core.model.buyer.productV2.ProductReview;
+import com.yilinker.core.model.buyer.product2.Product;
+import com.yilinker.core.model.buyer.product2.ProductReview;
 import com.yilinker.core.utility.GsonUtility;
 import com.yilinker.core.utility.SocketTimeout;
+import static com.yilinker.core.constants.ProductAPIConstants.*;
 
 import org.json.JSONObject;
 
@@ -21,13 +21,13 @@ import java.util.Map;
 /**
  * Created by Adur Urbano on 7/1/2016.
  */
-public class ProductApiV2 {
+public class ProductApi2 {
 
     public static Request getProductDetails(final int requestCode, String id,
                                             final ResponseHandler handler, Response.ErrorListener errorListener) {
 
-        String endpoint =  String.format("%s/%s/%s?%s=%s", APIConstants.DOMAIN, APIConstants.PRODUCT_API,
-                APIConstants.PRODUCT_GET_DETAILS, APIConstants.PRODUCT_GET_DETAILS_PARAM_ID, id);
+        String endpoint =  String.format("%s/%s?%s=%s", "http://online.api.easydeal.ph/api/v3/PH/en",
+                                            PRODUCT_DETAIL_API, PRODUCT_ID, id);
 
         Request request = new JsonObjectRequest(endpoint, new Response.Listener<JSONObject>() {
             @Override
@@ -61,11 +61,11 @@ public class ProductApiV2 {
     public static Request getProductReview(final int requestCode, String id,
                                             final ResponseHandler handler, Response.ErrorListener errorListener) {
 
-        String endpoint = String.format("%s/%s/%s", APIConstants.DOMAIN, APIConstants.PRODUCT_API, APIConstants.PRODUCT_GET_PRODUCT_REVIEW);
+        String endpoint = String.format("%s/%s", "http://online.api.easydeal.ph/api/v3/PH/en", PRODUCT_REVIEW_API);
 
         Map<String, String > params = new HashMap<>();
 
-        params.put(APIConstants.PRODUCT_ID, id);
+        params.put(PRODUCT_ID, id);
 
         VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, endpoint, params, new Response.Listener<JSONObject>() {
 

@@ -1,18 +1,20 @@
-package com.yilinker.core.model.buyer.productV2;
+package com.yilinker.core.model.buyer.product2;
 
 import com.google.gson.annotations.SerializedName;
+
+import static com.yilinker.core.constants.ProductAPIConstants.*;
 
 /**
  * Created by Adur Urbano on 7/1/2016.
  */
 public class Date {
 
-    @SerializedName("date")
+    @SerializedName(KEY_DATE)
     private String date;
-    @SerializedName("timezone")
+    @SerializedName(KEY_TIMEZONE)
     private String timezone;
 
-    @SerializedName("timezone_type")
+    @SerializedName(KEY_TIMEZONE_TYPE)
     private int timezone_type;
 
     public String getDate() {

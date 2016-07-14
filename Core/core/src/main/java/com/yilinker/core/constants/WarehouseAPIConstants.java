@@ -3,7 +3,7 @@ package com.yilinker.core.constants;
 /**
  * Created by J.Bautista on 5/11/16.
  */
-public class SellerAPIConstants {
+public class WarehouseAPIConstants {
 
     //Warehouse API
     public static final String WAREHOUSE_API                                                          = "warehouse";
