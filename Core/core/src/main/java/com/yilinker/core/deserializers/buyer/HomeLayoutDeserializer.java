@@ -28,7 +28,7 @@ public class HomeLayoutDeserializer implements JsonDeserializer<HomeLayout> {
         Gson gson = GsonUtility.createGsonBuilder(HomeData.class, new HomeDataDeserializer(layoutId)).create();
 
         switch (layoutId) {
-            case 2:
+            case 4:
                 return gson.fromJson(json, FlashHomeLayout.class);
             default:
                 return gson.fromJson(json, HomeLayout.class);
