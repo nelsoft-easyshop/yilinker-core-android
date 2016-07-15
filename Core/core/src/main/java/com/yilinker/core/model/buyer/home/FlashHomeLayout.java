@@ -9,7 +9,7 @@ import java.lang.reflect.Type;
 /**
  * Created by jaybryantc on 7/4/16.
  */
-public class FlashHomeLayout extends HomeLayout {
+public class FlashHomeLayout extends HomeLayout<HomeData> {
 
     /**
      * Some returned data on other layouts
