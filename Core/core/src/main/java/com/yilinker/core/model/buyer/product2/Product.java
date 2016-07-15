@@ -1,7 +1,9 @@
-package com.yilinker.core.model.buyer.productV2;
+package com.yilinker.core.model.buyer.product2;
 
 import com.google.gson.InstanceCreator;
 import com.google.gson.annotations.SerializedName;
+
+import static com.yilinker.core.constants.ProductAPIConstants.*;
 
 import java.lang.reflect.Type;
 import java.util.List;
@@ -11,59 +13,59 @@ import java.util.List;
  */
 public class Product {
 
-    @SerializedName("id")
+    @SerializedName(KEY_ID)
     private String id;
-    @SerializedName("title")
+    @SerializedName(KEY_TITLE)
     private String title;
-    @SerializedName("slug")
+    @SerializedName(KEY_SLUG)
     private String slug;
-    @SerializedName("image")
+    @SerializedName(KEY_IMAGE)
     private String image;
-    @SerializedName("raw")
+    @SerializedName(KEY_RAW)
     private String raw;
-    @SerializedName("thumbnail")
+    @SerializedName(KEY_THUMBNAIL)
     private String thumbnail;
-    @SerializedName("small")
+    @SerializedName(KEY_SMALL)
     private String small;
-    @SerializedName("medium")
+    @SerializedName(KEY_MEDIUM)
     private String medium;
-    @SerializedName("large")
+    @SerializedName(KEY_LARGE)
     private String large;
-    @SerializedName("shortDescription")
+    @SerializedName(KEY_SHORT_DESCRIPTION)
     private String shortDescription;
-    @SerializedName("fullDescription")
+    @SerializedName(KEY_FULL_DESCRIPTION)
     private String fullDescription;
-    @SerializedName("shippingCost")
+    @SerializedName(KEY_SHIPPING_COST)
     private String shippingCost;
 
-    @SerializedName("status")
+    @SerializedName(KEY_STATUS)
     private int status;
-    @SerializedName("sellerId")
+    @SerializedName(KEY_SELLER_ID)
     private int sellerId;
-    @SerializedName("storeId")
+    @SerializedName(KEY_STORE_ID)
     private int storeId;
-    @SerializedName("brandId")
+    @SerializedName(KEY_BRAND_ID)
     private int brandId;
-    @SerializedName("productCategoryId")
+    @SerializedName(KEY_PRODUCT_CATEGORY_ID)
     private int productCategoryId;
 
-    @SerializedName("isAffiliate")
+    @SerializedName(KEY_IS_AFFILIATE)
     private boolean isAffiliate;
-    @SerializedName("hasCOD")
+    @SerializedName(KEY_HAS_COD)
     private boolean hasCOD;
-    @SerializedName("isInternationalWarehouse")
+    @SerializedName(KEY_IS_INTERNATIONAL_WAREHOUSE)
     private boolean isInternationalWarehouse;
 
-    @SerializedName("dateCreated")
+    @SerializedName(KEY_DATE_CREATED)
     private Date dateCreated = new Date();
-    @SerializedName("dateLastModified")
+    @SerializedName(KEY_DATE_LAST_MODIFIED)
     private Date dateLastModified = new Date();
 
-    @SerializedName("images")
+    @SerializedName(KEY_IMAGES)
     private List<Images> images;
-    @SerializedName("attributes")
+    @SerializedName(KEY_ATTRIBUTES)
     private List<Attributes> attributes;
-    @SerializedName("productUnits")
+    @SerializedName(KEY_PRODUCT_UNITS)
     private List<ProductUnits> productUnits;
 
     public String getId() {

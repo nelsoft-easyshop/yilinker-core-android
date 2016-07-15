@@ -1,7 +1,9 @@
-package com.yilinker.core.model.buyer.productV2;
+package com.yilinker.core.model.buyer.product2;
 
 import com.google.gson.InstanceCreator;
 import com.google.gson.annotations.SerializedName;
+
+import static com.yilinker.core.constants.ProductAPIConstants.*;
 
 import java.lang.reflect.Type;
 import java.util.List;
@@ -11,9 +13,9 @@ import java.util.List;
  */
 public class ProductReview {
 
-    @SerializedName("ratingAverage")
+    @SerializedName(KEY_RATING_AVERAGE)
     private float ratingAverage;
-    @SerializedName("reviews")
+    @SerializedName(KEY_REVIEWS)
     private List<Reviews> reviews;
 
     public float getRatingAverage() {
@@ -34,24 +36,24 @@ public class ProductReview {
 
     public class Reviews {
 
-        @SerializedName("title")
+        @SerializedName(KEY_TITLE)
         private String title;
-        @SerializedName("review")
+        @SerializedName(KEY_REVIEW)
         private String review;
-        @SerializedName("rating")
+        @SerializedName(KEY_RATING)
         private String rating;
-        @SerializedName("fullName")
+        @SerializedName(KEY_FULL_NAME)
         private String fullName;
-        @SerializedName("firstName")
+        @SerializedName(KEY_FIRST_NAME)
         private String firstName;
-        @SerializedName("lastName")
+        @SerializedName(KEY_LAST_NAME)
         private String lastName;
-        @SerializedName("profileImageUrl")
+        @SerializedName(KEY_PROFILE_IMAGE_URL)
         private String profileImageUrl;
-        @SerializedName("dateAdded")
+        @SerializedName(KEY_DATE_ADDED)
         private String dateAdded;
 
-        @SerializedName("userId")
+        @SerializedName(KEY_USER_ID)
         private int id;
 
         public String getTitle() {

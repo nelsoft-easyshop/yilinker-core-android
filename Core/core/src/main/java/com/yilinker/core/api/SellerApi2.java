@@ -8,10 +8,10 @@ import com.yilinker.core.constants.APIConstants;
 import com.yilinker.core.helper.VolleyPostHelper;
 import com.yilinker.core.interfaces.ResponseHandler;
 import com.yilinker.core.model.APIResponse;
-import com.yilinker.core.model.buyer.productV2.Product;
-import com.yilinker.core.model.buyer.sellerV2.Seller;
+import com.yilinker.core.model.buyer.seller2.Seller;
 import com.yilinker.core.utility.GsonUtility;
 import com.yilinker.core.utility.SocketTimeout;
+import static com.yilinker.core.constants.SellerDetailsAPIConstants.*;
 
 import org.json.JSONObject;
 
@@ -21,7 +21,7 @@ import java.util.Map;
 /**
  * Created by Adur Urbano on 7/4/2016.
  */
-public class SellerApiV2 {
+public class SellerApi2 {
 
     public static Request getSellerDetails(final int requestCode, String id, boolean isAuthorize,
                                             final ResponseHandler handler, Response.ErrorListener errorListener) {
@@ -31,18 +31,17 @@ public class SellerApiV2 {
 
         Map<String, String > params = new HashMap<>();
 
-        params.put(APIConstants.SELLER_USER_ID, id);
+        params.put(SELLER_USER_ID, id);
 
         if (accessToken != null && isAuthorize) {
 
-            endpoint = String.format("%s/%s/%s/%s", APIConstants.DOMAIN, APIConstants.AUTH_API,
-                                        APIConstants.USER_API, APIConstants.SELLER_GET_STORE_INFO);
+            endpoint = String.format("%s/%s/%s", "http://online.api.easydeal.ph/api/v3/PH/en", APIConstants.AUTH_API,
+                                        SELLER_DETAIL_API);
             params.put(APIConstants.ACCESS_TOKEN, accessToken);
 
         } else {
 
-            endpoint = String.format("%s/%s/%s", APIConstants.DOMAIN, APIConstants.USER_API,
-                                        APIConstants.SELLER_GET_STORE_INFO);
+            endpoint = String.format("%s/%s", "http://online.api.easydeal.ph/api/v3/PH/en", SELLER_DETAIL_API);
 
         }
 
