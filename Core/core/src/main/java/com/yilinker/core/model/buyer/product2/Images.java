@@ -1,29 +1,31 @@
-package com.yilinker.core.model.buyer.productV2;
+package com.yilinker.core.model.buyer.product2;
 
 import com.google.gson.annotations.SerializedName;
+
+import static com.yilinker.core.constants.ProductAPIConstants.*;
 
 /**
  * Created by Adur Urbano on 7/1/2016.
  */
 public class Images {
 
-    @SerializedName("id")
+    @SerializedName(KEY_ID)
     private String id;
-    @SerializedName("raw")
+    @SerializedName(KEY_RAW)
     private String raw;
-    @SerializedName("imageLocation")
+    @SerializedName(KEY_IMAGE_LOCATION)
     private String imageLocation;
-    @SerializedName("fullImageLocation")
+    @SerializedName(KEY_FULL_IMAGE_LOCATION)
     private String fullImageLocation;
-    @SerializedName("defaultLocale")
+    @SerializedName(KEY_DEFAULT_LOCALE)
     private String defaultLocale;
 
-    @SerializedName("isPrimary")
+    @SerializedName(KEY_IS_PRIMARY)
     private boolean isPrimary;
-    @SerializedName("isDeleted")
+    @SerializedName(KEY_IS_DELETED)
     private boolean isDeleted;
 
-    @SerializedName("sizes")
+    @SerializedName(KEY_SIZES)
     private Sizes sizes;
 
     public String getId() {

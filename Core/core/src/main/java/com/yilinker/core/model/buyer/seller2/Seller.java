@@ -1,7 +1,9 @@
-package com.yilinker.core.model.buyer.sellerV2;
+package com.yilinker.core.model.buyer.seller2;
 
 import com.google.gson.InstanceCreator;
 import com.google.gson.annotations.SerializedName;
+
+import static com.yilinker.core.constants.SellerDetailsAPIConstants.*;
 
 import java.lang.reflect.Type;
 import java.util.List;
@@ -11,53 +13,53 @@ import java.util.List;
  */
 public class Seller {
 
-    @SerializedName("fullName")
+    @SerializedName(KEY_FULL_NAME)
     private String fullName;
-    @SerializedName("firstName")
+    @SerializedName(KEY_FIRST_NAME)
     private String firstName;
-    @SerializedName("lastName")
+    @SerializedName(KEY_LAST_NAME)
     private String lastName;
-    @SerializedName("email")
+    @SerializedName(KEY_EMAIL)
     private String email;
-    @SerializedName("gender")
+    @SerializedName(KEY_GENDER)
     private String gender;
-    @SerializedName("nickname")
+    @SerializedName(KEY_NICKNAME)
     private String nickname;
-    @SerializedName("contactNumber")
+    @SerializedName(KEY_CONTACT_NUMBER)
     private String contactNumber;
-    @SerializedName("specialty")
+    @SerializedName(KEY_SPECIALTY)
     private String specialty;
-    @SerializedName("birthdate")
+    @SerializedName(KEY_BIRTH_DATE)
     private String birthDate;
-    @SerializedName("storeName")
+    @SerializedName(KEY_STORE_NAME)
     private String storeName;
-    @SerializedName("storeDescription")
+    @SerializedName(KEY_STORE_DESCRIPTION)
     private String storeDescription;
-    @SerializedName("profilePhoto")
+    @SerializedName(KEY_PROFILE_PHOTO)
     private String profilePhoto;
-    @SerializedName("coverPhoto")
+    @SerializedName(KEY_COVER_PHOTO)
     private String coverPhoto;
-    @SerializedName("tin")
+    @SerializedName(KEY_TIN)
     private String tin;
-    @SerializedName("referralCode")
+    @SerializedName(KEY_REFERRAL_CODE)
     private String referralCode;
-    @SerializedName("referrerCode")
+    @SerializedName(KEY_REFERRER_CODE)
     private String referrerCode;
-    @SerializedName("referrerName")
+    @SerializedName(KEY_REFERRER_NAME)
     private String referrerName;
 
-    @SerializedName("userId")
+    @SerializedName(KEY_USER_ID)
     private int userId;
 
-    @SerializedName("isFollowed")
+    @SerializedName(KEY_IS_FOLLOWED)
     private boolean isFollowed;
-    @SerializedName("isAffiliate")
+    @SerializedName(KEY_IS_AFFILIATE)
     private boolean isAffiliate;
 
-    @SerializedName("storeAddress")
+    @SerializedName(KEY_STORE_ADDRESS)
     private Address storeAddress;
 
-    @SerializedName("products")
+    @SerializedName(KEY_PRODUCTS)
     private List<Product> products;
 
     public String getFullName() {
@@ -238,18 +240,18 @@ public class Seller {
 
     public class Product {
 
-        @SerializedName("productId")
+        @SerializedName(KEY_PRODUCT_ID)
         private String productId;
-        @SerializedName("productName")
+        @SerializedName(KEY_PRODUCT_NAME)
         private String productName;
-        @SerializedName("originalPrice")
+        @SerializedName(KEY_ORIGINAL_PRICE)
         private String originalPrice;
-        @SerializedName("newPrice")
+        @SerializedName(KEY_NEW_PRICE)
         private String newPrice;
-        @SerializedName("imageUrl")
+        @SerializedName(KEY_IMAGE_URL)
         private String imageUrl;
 
-        @SerializedName("discount")
+        @SerializedName(KEY_DISCOUNT)
         private double discount;
 
         public String getProductId() {

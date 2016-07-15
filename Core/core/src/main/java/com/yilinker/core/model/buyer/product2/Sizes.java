@@ -1,19 +1,21 @@
-package com.yilinker.core.model.buyer.productV2;
+package com.yilinker.core.model.buyer.product2;
 
 import com.google.gson.annotations.SerializedName;
+
+import static com.yilinker.core.constants.ProductAPIConstants.*;
 
 /**
  * Created by Adur Urbano on 7/1/2016.
  */
 public class Sizes {
 
-    @SerializedName("thumbnail")
+    @SerializedName(KEY_THUMBNAIL)
     private String thumbnail;
-    @SerializedName("small")
+    @SerializedName(KEY_SMALL)
     private String small;
-    @SerializedName("medium")
+    @SerializedName(KEY_MEDIUM)
     private String medium;
-    @SerializedName("large")
+    @SerializedName(KEY_LARGE)
     private String large;
 
     public String getThumbnail() {

@@ -1,4 +1,4 @@
-package com.yilinker.core.model.buyer.sellerV2;
+package com.yilinker.core.model.buyer.seller2;
 
 import com.google.gson.annotations.SerializedName;
 

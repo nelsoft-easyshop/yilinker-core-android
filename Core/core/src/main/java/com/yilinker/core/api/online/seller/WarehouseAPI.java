@@ -7,7 +7,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.yilinker.core.base.BaseApplication;
 import com.yilinker.core.constants.APIConstants;
-import com.yilinker.core.constants.SellerAPIConstants;
+import com.yilinker.core.constants.WarehouseAPIConstants;
 import com.yilinker.core.helper.VolleyPostHelper;
 import com.yilinker.core.interfaces.ResponseHandler;
 import com.yilinker.core.model.APIResponse;
@@ -37,7 +37,7 @@ public class WarehouseAPI {
         String url = String.format("%s/%s/%s",
                 BaseApplication.getDomainURL(),
                 APIConstants.AUTH_API,
-                SellerAPIConstants.GET_WAREHOUSE_LIST);
+                WarehouseAPIConstants.GET_WAREHOUSE_LIST);
 
         BaseApplication app = BaseApplication.getInstance();
 
@@ -83,13 +83,13 @@ public class WarehouseAPI {
         String url = String.format("%s/%s/%s",
                 BaseApplication.getDomainURL(),
                 APIConstants.AUTH_API,
-                SellerAPIConstants.DELETE_WAREHOUSE);
+                WarehouseAPIConstants.DELETE_WAREHOUSE);
 
         BaseApplication app = BaseApplication.getInstance();
 
         Map<String,String> params = new HashMap<String,String>();
         params.put(APIConstants.ACCESS_TOKEN, app.getAccessToken());
-        params.put(SellerAPIConstants.DELETE_WAREHOUSE_PARAM_ID, String.valueOf(warehouseId));
+        params.put(WarehouseAPIConstants.DELETE_WAREHOUSE_PARAM_ID, String.valueOf(warehouseId));
 
         VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>(){
 
@@ -122,16 +122,16 @@ public class WarehouseAPI {
         String url = String.format("%s/%s/%s",
                 BaseApplication.getDomainURL(),
                 APIConstants.AUTH_API,
-                SellerAPIConstants.ADD_UPDATE_WAREHOUSE);
+                WarehouseAPIConstants.ADD_UPDATE_WAREHOUSE);
 
         BaseApplication app = BaseApplication.getInstance();
 
         Map<String,String> params = new HashMap<String,String>();
         params.put(APIConstants.ACCESS_TOKEN, app.getAccessToken());
-        params.put(SellerAPIConstants.ADD_UPDATE_WAREHOUSE_PARAM_NAME, warehouse.getName());
-        params.put(SellerAPIConstants.ADD_UPDATE_WAREHOUSE_PARAM_ADDRESS, warehouse.getAddress());
-        params.put(SellerAPIConstants.ADD_UPDATE_WAREHOUSE_PARAM_LOCATION, String.valueOf(warehouse.getSelectedLocation()));
-        params.put(SellerAPIConstants.ADD_UPDATE_WAREHOUSE_PARAM_ZIPCODE, warehouse.getZipCode());
+        params.put(WarehouseAPIConstants.ADD_UPDATE_WAREHOUSE_PARAM_NAME, warehouse.getName());
+        params.put(WarehouseAPIConstants.ADD_UPDATE_WAREHOUSE_PARAM_ADDRESS, warehouse.getAddress());
+        params.put(WarehouseAPIConstants.ADD_UPDATE_WAREHOUSE_PARAM_LOCATION, String.valueOf(warehouse.getSelectedLocation()));
+        params.put(WarehouseAPIConstants.ADD_UPDATE_WAREHOUSE_PARAM_ZIPCODE, warehouse.getZipCode());
 
 
         VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>(){
@@ -166,17 +166,17 @@ public class WarehouseAPI {
         String url = String.format("%s/%s/%s",
                 BaseApplication.getDomainURL(),
                 APIConstants.AUTH_API,
-                SellerAPIConstants.ADD_UPDATE_WAREHOUSE);
+                WarehouseAPIConstants.ADD_UPDATE_WAREHOUSE);
 
         BaseApplication app = BaseApplication.getInstance();
 
         Map<String,String> params = new HashMap<String,String>();
         params.put(APIConstants.ACCESS_TOKEN, app.getAccessToken());
-        params.put(SellerAPIConstants.ADD_UPDATE_WAREHOUSE_PARAM_ID, String.valueOf(warehouse.getId()));
-        params.put(SellerAPIConstants.ADD_UPDATE_WAREHOUSE_PARAM_NAME, warehouse.getName());
-        params.put(SellerAPIConstants.ADD_UPDATE_WAREHOUSE_PARAM_ADDRESS, warehouse.getAddress());
-        params.put(SellerAPIConstants.ADD_UPDATE_WAREHOUSE_PARAM_LOCATION, String.valueOf(warehouse.getSelectedLocation()));
-        params.put(SellerAPIConstants.ADD_UPDATE_WAREHOUSE_PARAM_ZIPCODE, warehouse.getZipCode());
+        params.put(WarehouseAPIConstants.ADD_UPDATE_WAREHOUSE_PARAM_ID, String.valueOf(warehouse.getId()));
+        params.put(WarehouseAPIConstants.ADD_UPDATE_WAREHOUSE_PARAM_NAME, warehouse.getName());
+        params.put(WarehouseAPIConstants.ADD_UPDATE_WAREHOUSE_PARAM_ADDRESS, warehouse.getAddress());
+        params.put(WarehouseAPIConstants.ADD_UPDATE_WAREHOUSE_PARAM_LOCATION, String.valueOf(warehouse.getSelectedLocation()));
+        params.put(WarehouseAPIConstants.ADD_UPDATE_WAREHOUSE_PARAM_ZIPCODE, warehouse.getZipCode());
 
         VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>(){
 
@@ -211,16 +211,16 @@ public class WarehouseAPI {
         String url = String.format("%s/%s/%s",
                 APIConstants.DOMAIN,
                 APIConstants.AUTH_API,
-                SellerAPIConstants.UPDATE_WAREHOUSE_INVENTORY);
+                WarehouseAPIConstants.UPDATE_WAREHOUSE_INVENTORY);
 
 
         BaseApplication app = BaseApplication.getInstance();
 
         Map<String,String> params = new HashMap<String,String>();
         params.put(APIConstants.ACCESS_TOKEN, app.getAccessToken());
-        params.put(SellerAPIConstants.UPDATE_WAREHOUSE_INVENTORY_PARAM_WAREHOUSE_ID, String.valueOf(product.getWarehouseId()));
-        params.put(SellerAPIConstants.UPDATE_WAREHOUSE_INVENTORY_PARAM_PRODUCT_UNIT, String.valueOf(product.getId()));
-        params.put(SellerAPIConstants.UPDATE_WAREHOUSE_INVENTORY_PARAM_QUANTITY, String.valueOf(product.getQuantity()));
+        params.put(WarehouseAPIConstants.UPDATE_WAREHOUSE_INVENTORY_PARAM_WAREHOUSE_ID, String.valueOf(product.getWarehouseId()));
+        params.put(WarehouseAPIConstants.UPDATE_WAREHOUSE_INVENTORY_PARAM_PRODUCT_UNIT, String.valueOf(product.getId()));
+        params.put(WarehouseAPIConstants.UPDATE_WAREHOUSE_INVENTORY_PARAM_QUANTITY, String.valueOf(product.getQuantity()));
 
 
         VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
@@ -289,7 +289,7 @@ public class WarehouseAPI {
 
         String url = String.format("%s/%s/%s?",
                 APIConstants.DOMAIN,APIConstants.AUTH_API,
-                SellerAPIConstants.WAREHOUSE_INVENTORY_API);
+                WarehouseAPIConstants.WAREHOUSE_INVENTORY_API);
 
         //Format GET URL
         StringBuilder builder = new StringBuilder();
@@ -298,8 +298,8 @@ public class WarehouseAPI {
 
         builder.append(url);
         builder.append(String.format("%s=%s&", APIConstants.ACCESS_TOKEN, app.getAccessToken()));
-        builder.append(String.format("%s=%d&", SellerAPIConstants.GET_WAREHOUSE_INVENTORY_PARAM_ID, filter.getWarehouseId()));
-        builder.append(String.format("%s=%d", SellerAPIConstants.GET_WAREHOUSE_INVENTORY_PARAM_PAGE_ID, filter.getPageId()));
+        builder.append(String.format("%s=%d&", WarehouseAPIConstants.GET_WAREHOUSE_INVENTORY_PARAM_ID, filter.getWarehouseId()));
+        builder.append(String.format("%s=%d", WarehouseAPIConstants.GET_WAREHOUSE_INVENTORY_PARAM_PAGE_ID, filter.getPageId()));
 
         if (filter.getFilter()!=null){
 
@@ -318,7 +318,7 @@ public class WarehouseAPI {
         String url = String.format("%s/%s/%s",
                 APIConstants.DOMAIN,
                 APIConstants.AUTH_API,
-                SellerAPIConstants.GET_WAREHOUSE_INVENTORY_FILTER);
+                WarehouseAPIConstants.GET_WAREHOUSE_INVENTORY_FILTER);
 
 
         BaseApplication app = BaseApplication.getInstance();
