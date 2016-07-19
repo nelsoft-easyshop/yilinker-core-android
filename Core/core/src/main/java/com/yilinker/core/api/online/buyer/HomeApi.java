@@ -27,7 +27,8 @@ public class HomeApi {
     public static Request getHome (final int requestCode, final ResponseHandler responseHandler, final Response.ErrorListener errorListener) {
 
         String url = String.format("%s/%s/%s", APIConstants.DOMAIN, APIConstants.HOME_API, APIConstants.HOME_GET_ITEMS);
-//        String url = "http://www.mocky.io/v2/57860a3b0f0000e328c28a8a";
+//        String url = "http://www.mocky.io/v2/57860a3b0f0000e328c28a8a"; new
+//        String url = "http://www.mocky.io/v2/57889df20f00005d1dbd16db";
         Request request = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
 
             @Override

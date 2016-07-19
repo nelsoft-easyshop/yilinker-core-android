@@ -142,7 +142,7 @@ public class ProductManagementApi {
                 APIConstants.PRODUCT_MANAGEMENT_API, APIConstants.UPDATE_PRODUCT_STATUS,
                 APIConstants.ACCESS_TOKEN, token);
 
-        Map<String, String> params = new HashMap<String, String>();
+        Map<String, String> params = new HashMap<String, String>(); 
 //        params.put(APIConstants.ACCESS_TOKEN, token);
         params.put(APIConstants.PRODUCT_MANAGEMENT_PARAMS_PRODUCT_ID, productId.toString());
         params.put(APIConstants.PRODUCT_MANAGEMENT_PARAMS_STATUS, String.valueOf(status));
