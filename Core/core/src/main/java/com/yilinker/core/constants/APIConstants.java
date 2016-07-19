@@ -738,4 +738,7 @@ public class APIConstants {
     //GET INTERNATIONAL PRODUCTS
     public final static String GET_INTERNATIONAL_PRODUCT = "internationalProduct";
 
+    //MOBILE CATEGORIES
+    public static final String CATEGORIES_API = "mobile-category";
+
 }
