@@ -4,6 +4,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
+import com.yilinker.core.base.BaseApplication;
 import com.yilinker.core.helper.VolleyPostHelper;
 import com.yilinker.core.interfaces.ResponseHandler;
 import com.yilinker.core.model.APIResponse;
@@ -26,7 +27,7 @@ public class ProductApi2 {
     public static Request getProductDetails(final int requestCode, String id,
                                             final ResponseHandler handler, Response.ErrorListener errorListener) {
 
-        String endpoint =  String.format("%s/%s?%s=%s", "http://online.api.easydeal.ph/api/v3/PH/en",
+        String endpoint =  String.format("%s/%s?%s=%s", BaseApplication.getDomainURL(),
                                             PRODUCT_DETAIL_API, PRODUCT_ID, id);
 
         Request request = new JsonObjectRequest(endpoint, new Response.Listener<JSONObject>() {
