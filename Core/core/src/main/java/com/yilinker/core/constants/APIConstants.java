@@ -452,6 +452,7 @@ public class APIConstants {
     public static final String RIDER_REPORT_PROBLEMATIC = "submit-problematic-job-order";
     public static final String RIDER_REPORT_PROBLEMATIC_PARAM_TOKEN = "access_token";
     public static final String RIDER_REPORT_PROBLEMATIC_PARAM_TYPE = "problemType";
+    public static final String RIDER_REPORT_PROBLEMATIC_PARAM_TYPE_ID = "problemType";
     public static final String RIDER_REPORT_PROBLEMATIC_PARAM_JONUMBER = "jobOrderNo";
     public static final String RIDER_REPORT_PROBLEMATIC_PARAM_NOTES = "notes";
     public static final String RIDER_REPORT_PROBLEMATIC_PARAM_IMAGE = "images[]";
@@ -461,10 +462,11 @@ public class APIConstants {
     public static final String RIDER_LOGOUT_PARAM_USERNAME = "username";
     public static final String RIDER_LOGOUT_PARAM_PASSWORD = "password";
 
-    public static final String RIDER_UPLOAD_IMAGES = "upload-delivery-images";
+    public static final String RIDER_UPLOAD_IMAGES = "upload-images";
     public static final String RIDER_UPLOAD_IMAGES_ACCESS_TOKEN = "access_token";
     public static final String RIDER_UPLOAD_IMAGES_WAYBILLNO = "waybillNo";
     public static final String RIDER_UPLOAD_IMAGES_IMAGES = "images[]";
+    public static final String RIDER_UPLOAD_IMAGES_TYPE = "type";
 
     public static final String RIDER_EXTEND_CASH_LIMIT = "allow-exceed-cash-limit";
     public static final String RIDER_EXTEND_CASH_LIMIT_PARAM_TOKEN = "access_token";
@@ -488,6 +490,10 @@ public class APIConstants {
     public static final String RIDER_CALCULATE_PACKAGE_TYPE = "packageType";
     public static final String RIDER_IS_UPDATE_PACKAGE = "isUpdate";
 
+    public static final String RIDER_UPDATE_RECEIVED_BY  = "update-received-by";
+    public static final String RIDER_PARAMS_RECEIVED_BY = "receivedBy";
+    public static final String RIDER_PARAMS_RELATION_TO_CONSIGNEE = "relationToConsignee";
+    public static final String RIDER_PARAMS_JOB_ORDER_NO = "jobOrderNo";
 
     ////////////////////////////////////////////////////////////////////////////////
 
