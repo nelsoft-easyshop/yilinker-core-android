@@ -12,6 +12,7 @@ public class ProblematicJobOrder {
     private String image;
     private String problemType;
     private List<String> images;
+    private int problemTypeId;
 
     public String getJobOrderNo() {
         return jobOrderNo;
@@ -51,5 +52,13 @@ public class ProblematicJobOrder {
 
     public void setImages(List<String> images) {
         this.images = images;
+    }
+
+    public int getProblemTypeId() {
+        return problemTypeId;
+    }
+
+    public void setProblemTypeId(int problemTypeId) {
+        this.problemTypeId = problemTypeId;
     }
 }

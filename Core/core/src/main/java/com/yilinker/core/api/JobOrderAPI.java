@@ -435,7 +435,8 @@ public class JobOrderAPI {
      * @param responseHandler
      * @return
      */
-    public static Request updateStatus(final int requestCode, String jobOrderNo, String newStatus, final ResponseHandler responseHandler) {
+    public static Request updateStatus(final int requestCode, String jobOrderNo, String newStatus,
+                                       String relationship, String recipient, final ResponseHandler responseHandler) {
 
         String url = String.format("%s/%s/%s",
                 APIConstants.DOMAIN, APIConstants.RIDER_API, APIConstants.RIDER_UPDATE_STATUS);
@@ -446,6 +447,8 @@ public class JobOrderAPI {
         params.put(APIConstants.RIDER_UPDATE_STATUS_PARAM_TOKEN, app.getAccessToken());
         params.put(APIConstants.RIDER_UPDATE_STATUS_PARAM_STATUS, newStatus);
         params.put(APIConstants.RIDER_UPDATE_STATUS_PARAM_JONUMBER, jobOrderNo);
+        params.put(APIConstants.RIDER_PARAMS_RECEIVED_BY, recipient);
+        params.put(APIConstants.RIDER_PARAMS_RELATION_TO_CONSIGNEE, relationship);
 
         VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
 
@@ -730,6 +733,92 @@ public class JobOrderAPI {
 
     }
 
+
+    public static Request submitReceivedBy(final int requestCode, String jobOrderNo, String receivedBy,
+                                           String relationToConsignee, final ResponseHandler responseHandler) {
+
+        String url = String.format("%s/%s/%s",
+                APIConstants.DOMAIN, APIConstants.RIDER_API, APIConstants.RIDER_UPDATE_RECEIVED_BY);
+
+        BaseApplication app = BaseApplication.getInstance();
+
+        Map<String, String> params = new HashMap<String, String>();
+        params.put(APIConstants.RIDER_PARAMS_RELATION_TO_CONSIGNEE, relationToConsignee);
+        params.put(APIConstants.RIDER_PARAMS_RECEIVED_BY, receivedBy );
+        params.put(APIConstants.RIDER_PARAMS_JOB_ORDER_NO, jobOrderNo);
+        params.put(APIConstants.RIDER_ADD_RATING_PARAM_ACCESS_TOKEN, app.getAccessToken());
+
+        VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+
+                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+
+                if (apiResponse.isSuccessful()) {
+                    responseHandler.onSuccess(requestCode, response);
+                } else {
+                    responseHandler.onFailed(requestCode, response.toString());
+                }
+
+                responseHandler.onSuccess(requestCode, response);
+
+            }
+        },new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                if (error.networkResponse == null) {
+
+                    responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+                    return;
+                }
+
+                int statusCode = error.networkResponse.statusCode;
+                String message = null;
+
+                if (statusCode == HttpStatus.SC_UNAUTHORIZED) {
+
+                    responseHandler.onFailed(requestCode, ErrorMessages.ERR_EXPIRED_TOKEN);
+
+                } else if (statusCode == HttpStatus.SC_BAD_REQUEST) {
+
+                    try {
+
+                        String responseBody = new String(error.networkResponse.data, "utf-8");
+                        Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                        APIResponse apiResponse = gson.fromJson(responseBody, APIResponse.class);
+
+                        if (apiResponse != null) {
+                            message = apiResponse.getMessage();
+                        }
+
+
+                    } catch (Exception e) {
+
+                        message = APIConstants.API_CONNECTION_PROBLEM;
+                    } finally {
+
+                        responseHandler.onFailed(requestCode, message);
+                    }
+
+                } else {
+
+                    responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+                }
+
+            }
+        });
+
+        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
+        return request;
+
+    }
+
+
+
     /**
      * @param requestCode
      * @param jobOrderNo
@@ -912,6 +1001,224 @@ public class JobOrderAPI {
         return request;
 
     }
+
+
+    public static Request uploadJobOrderImages(final int requestCode, String waybillNo, List<String> imageURIs, int type, final ResponseHandler responseHandler) {
+
+        BaseApplication app = BaseApplication.getInstance();
+
+        String url = String.format("%s/%s/%s?%s=%s",
+                APIConstants.DOMAIN, APIConstants.RIDER_API, APIConstants.RIDER_UPLOAD_IMAGES, APIConstants.RIDER_UPLOAD_IMAGES_ACCESS_TOKEN, app.getAccessToken());
+
+
+        Map<String, String> params = new HashMap<String, String>();
+        params.put(APIConstants.RIDER_UPLOAD_IMAGES_WAYBILLNO, waybillNo);
+        params.put(APIConstants.RIDER_UPLOAD_IMAGES_TYPE, String.valueOf(type));
+
+        MultiPartRequest2 request = new MultiPartRequest2<List<String>>(url, params, imageURIs, new Response.Listener() {
+            @Override
+            public void onResponse(Object response) {
+
+                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+
+                if(apiResponse.isSuccessful()){
+
+                    responseHandler.onSuccess(requestCode, response);
+                }
+                else{
+
+                    responseHandler.onFailed(requestCode, apiResponse.getMessage());
+
+                }
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                if(error.networkResponse == null){
+
+                    responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+                    return;
+                }
+
+                int statusCode = error.networkResponse.statusCode;
+                String message = null;
+
+                if(statusCode == HttpStatus.SC_UNAUTHORIZED){
+
+                    responseHandler.onFailed(requestCode, ErrorMessages.ERR_EXPIRED_TOKEN);
+
+                }
+                else if(statusCode == HttpStatus.SC_BAD_REQUEST){
+
+                    try {
+
+                        String responseBody = new String(error.networkResponse.data, "utf-8" );
+                        Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                        APIResponse apiResponse = gson.fromJson(responseBody, APIResponse.class);
+
+                        if(apiResponse != null)
+                        {
+                            message = apiResponse.getMessage();
+                        }
+
+
+                    } catch ( Exception e ) {
+
+                        message = APIConstants.API_CONNECTION_PROBLEM;
+                    }
+                    finally {
+
+                        responseHandler.onFailed(requestCode, message);
+                    }
+
+                }
+                else {
+
+                    responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+                }
+
+            }
+
+        }) {
+            @Override
+            public HttpEntity buildEntity(List<String> objects) {
+
+                MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+
+                List<String> images = objects;
+
+                if (images != null) {
+
+                    File file = null;
+                    Uri uri = null;
+
+                    for (String path : images) {
+
+//                        uri = Uri.parse(path);
+
+                        file = new File(path);
+                        builder.addBinaryBody(APIConstants.RIDER_UPLOAD_IMAGES_IMAGES, file, ContentType.create(CONTENT_TYPE_IMAGE), file.getName());
+
+                    }
+
+
+                }
+
+                Map<String, String> mHeaders = null;
+                try {
+
+                    mHeaders = getHeaders();
+
+                    for (Map.Entry<String, String> entry : mHeaders.entrySet()) {
+                        builder.addTextBody(entry.getKey(), entry.getValue());
+                    }
+
+                    builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
+                    builder.setBoundary("BOUNDARY");
+
+                } catch (AuthFailureError authFailureError) {
+                    authFailureError.printStackTrace();
+                }
+
+                return builder.build();
+            }
+        };
+
+        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
+
+        return request;
+
+    }
+
+
+    /***new report problematic*/
+    public static Request reportProblematicJO(final int requestCode, ProblematicJobOrder problematicJobOrder, final ResponseHandler responseHandler) {
+
+        BaseApplication app = BaseApplication.getInstance();
+
+        String url = String.format("%s/%s/%s?%s=%s",
+                APIConstants.DOMAIN, APIConstants.RIDER_API, APIConstants.RIDER_REPORT_PROBLEMATIC, APIConstants.RIDER_REPORT_PROBLEMATIC_PARAM_TOKEN, app.getAccessToken());
+
+
+        Map<String, String> params = new HashMap<>();
+//        params.put(APIConstants.RIDER_REPORT_PROBLEMATIC_PARAM_TOKEN, app.getAccessToken());
+        params.put(APIConstants.RIDER_REPORT_PROBLEMATIC_PARAM_JONUMBER, problematicJobOrder.getJobOrderNo());
+        params.put(APIConstants.RIDER_REPORT_PROBLEMATIC_PARAM_NOTES, problematicJobOrder.getNotes());
+        params.put(APIConstants.RIDER_REPORT_PROBLEMATIC_PARAM_TYPE, String.valueOf(problematicJobOrder.getProblemTypeId()));
+
+        VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+
+                Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
+
+                if (apiResponse.isSuccessful()) {
+                    responseHandler.onSuccess(requestCode, response);
+                } else {
+                    responseHandler.onFailed(requestCode, response.toString());
+                }
+
+//                responseHandler.onSuccess(requestCode, response);
+
+            }
+        },new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                if (error.networkResponse == null) {
+
+                    responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+                    return;
+                }
+
+                int statusCode = error.networkResponse.statusCode;
+                String message = null;
+
+                if (statusCode == HttpStatus.SC_UNAUTHORIZED) {
+
+                    responseHandler.onFailed(requestCode, ErrorMessages.ERR_EXPIRED_TOKEN);
+
+                } else if (statusCode == HttpStatus.SC_BAD_REQUEST) {
+
+                    try {
+
+                        String responseBody = new String(error.networkResponse.data, "utf-8");
+                        Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                        APIResponse apiResponse = gson.fromJson(responseBody, APIResponse.class);
+
+                        if (apiResponse != null) {
+                            message = apiResponse.getMessage();
+                        }
+
+
+                    } catch (Exception e) {
+
+                        message = APIConstants.API_CONNECTION_PROBLEM;
+                    } finally {
+
+                        responseHandler.onFailed(requestCode, message);
+                    }
+
+                } else {
+
+                    responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+                }
+
+            }
+        });
+
+        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
+        return request;
+
+    }
+
 
     public static Request reportProblematic(final int requestCode, ProblematicJobOrder problematicJobOrder, final ResponseHandler responseHandler) {
 
