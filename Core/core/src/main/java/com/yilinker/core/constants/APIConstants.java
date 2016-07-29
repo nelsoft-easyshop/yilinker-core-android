@@ -741,4 +741,7 @@ public class APIConstants {
     //MOBILE CATEGORIES
     public static final String CATEGORIES_API = "mobile-category";
 
+    //DAILY LOGIN
+    public static final String DAILY_LOGIN_API = String.format("%s/daily-login", AUTH_API);
+
 }
