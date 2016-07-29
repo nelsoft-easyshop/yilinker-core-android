@@ -9,6 +9,7 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
+import com.yilinker.core.base.BaseApplication;
 import com.yilinker.core.constants.APIConstants;
 import com.yilinker.core.helper.VolleyPostHelper;
 import com.yilinker.core.interfaces.ResponseHandler;
@@ -38,7 +39,7 @@ public class UserApi {
                                     final ResponseHandler responseHandler){
 
         String url = String.format("%s/%s/%s",
-        APIConstants.DOMAIN, APIConstants.USER_API, APIConstants.REG_API);
+        BaseApplication.getDomainURL(), APIConstants.USER_API, APIConstants.REG_API);
 
         String fullname = String.format("%s %s",firstName,lastName);
         Map<String, String> params = new HashMap<String, String>();
@@ -99,7 +100,7 @@ public class UserApi {
                                     final ResponseHandler responseHandler){
 
         String url = String.format("%s/%s",
-                APIConstants.DOMAIN, APIConstants.REG_GUEST_API);
+                BaseApplication.getDomainURL(), APIConstants.REG_GUEST_API);
 
         Map<String, String> params = new HashMap<String, String>();
         params.put(String.format("%s[%s][%s]", APIConstants.REG_PARAM_GUEST,
@@ -157,7 +158,7 @@ public class UserApi {
                                  String password, final ResponseHandler responseHandler){
 
         String url = String.format("%s/%s",
-                APIConstants.DOMAIN,
+                BaseApplication.getDomainURL(),
                 APIConstants.LOGIN_API);
 
         Map<String,String> params = new HashMap<String,String>();
@@ -216,7 +217,7 @@ public class UserApi {
     public static Request loginFacebook (final int requestCode, String grantType, String token, final ResponseHandler responseHandler){
 
         String url = String.format("%s/%s/%s",
-                APIConstants.DOMAIN,
+                BaseApplication.getDomainURL(),
                 APIConstants.LOGIN_FACEBOOK_API, APIConstants.AUTH_API);
 
         Map<String,String> params = new HashMap<String,String>();
@@ -269,7 +270,7 @@ public class UserApi {
     public static Request loginGoogle (final int requestCode, String grantType, String token, final ResponseHandler responseHandler){
 
         String url = String.format("%s/%s/%s",
-                APIConstants.DOMAIN,
+                BaseApplication.getDomainURL(),
                 APIConstants.LOGIN_GOOGLE_API, APIConstants.AUTH_API);
 
         Map<String,String> params = new HashMap<String,String>();
@@ -321,7 +322,8 @@ public class UserApi {
 
     public static Request refreshToken(final int requestCode, String refreshToken, final ResponseHandler responseHandler){
 
-        String url = String.format("%s/%s", APIConstants.DOMAIN, APIConstants.LOGIN_API);
+        String url = String.format("%s/%s", BaseApplication.getDomainURL().replace("v1","v2")
+                , APIConstants.LOGIN_API);
 
         Map<String, String> params = new HashMap<>();
         params.put(APIConstants.LOGIN_PARAM_CLIENT_ID, APIConstants.API_CLIENT_ID);
@@ -355,7 +357,7 @@ public class UserApi {
                                        String clientSecret, String grantType, String accountType,
                                        final ResponseHandler responseHandler) {
 
-        String endpoint = String.format("%s/%s/%s", APIConstants.DOMAIN, APIConstants.LOGIN_SOCIAL_MEDIA_API,
+        String endpoint = String.format("%s/%s/%s", BaseApplication.getDomainURL(), APIConstants.LOGIN_SOCIAL_MEDIA_API,
                 APIConstants.LOGIN_MERGE_API);
 
         Map<String, String> params = new HashMap<>();
@@ -425,7 +427,7 @@ public class UserApi {
     public static Request loginByUsername (final int requestCode, OAuthentication oAuth, final ResponseHandler responseHandler){
 
         String url = String.format("%s/%s",
-                APIConstants.DOMAIN,
+                BaseApplication.getDomainURL(),
                 APIConstants.LOGIN_API);
 
         Map<String,String> params = new HashMap<String,String>();
@@ -467,7 +469,7 @@ public class UserApi {
                                          String accessToken, final ResponseHandler responseHandler){
 
 
-        String url = String.format("%s/%s/%s",APIConstants.DOMAIN, APIConstants.UPDATE_USER_API, APIConstants.USER_UPDATE_API);
+        String url = String.format("%s/%s/%s",BaseApplication.getDomainURL(), APIConstants.UPDATE_USER_API, APIConstants.USER_UPDATE_API);
 
         JSONObject params = new JSONObject();
 
@@ -522,7 +524,7 @@ public class UserApi {
                                           String newPasswordConfirm, final ResponseHandler responseHandler) {
 
         String url = String.format("%s/%s/%s/%s?%s=%s",
-                APIConstants.DOMAIN,
+                BaseApplication.getDomainURL(),
                 APIConstants.AUTH_API,
                 APIConstants.USER_API,
                 APIConstants.CHANGE_PASSWORD_API,
@@ -586,7 +588,7 @@ public class UserApi {
     public static Request disableAccount (final int requestCode, String token, String password, final ResponseHandler responseHandler) {
 
         String url = String.format("%s/%s/%s/%s?%s=%s",
-                APIConstants.DOMAIN,
+                BaseApplication.getDomainURL(),
                 APIConstants.AUTH_API,
                 APIConstants.ACCOUNT_API,
                 APIConstants.DISABLE_USER,
@@ -627,7 +629,7 @@ public class UserApi {
     public static Request enableEmailNotifaction (final int requestCode, String accessToken, String isSubscribed, final ResponseHandler responseHandler) {
 
         String url = String.format("%s/%s/%s/%s",
-                APIConstants.DOMAIN,
+                BaseApplication.getDomainURL(),
                 APIConstants.AUTH_API,
                 APIConstants.LOGIN_PARAM_EMAIL,
                 APIConstants.PROFILE_SUBSCRIPTION_API);
@@ -686,7 +688,7 @@ public class UserApi {
     public static Request enableSmsNotification (final int requestCode, String accessToken, String isSubscribed, final ResponseHandler responseHandler) {
 
         String url = String.format("%s/%s/%s/%s",
-                APIConstants.DOMAIN,
+                BaseApplication.getDomainURL(),
                 APIConstants.AUTH_API,
                 APIConstants.SMS_API,
                 APIConstants.PROFILE_SUBSCRIPTION_API);
@@ -761,7 +763,7 @@ public class UserApi {
                                     final ResponseHandler responseHandler){
 
         String url = String.format("%s/%s/%s",
-                APIConstants.DOMAIN.replace("v1","v2"), APIConstants.SMS_API, APIConstants.REG_GET_ACTIVATION_CODE_API);
+                BaseApplication.getDomainURL().replace("v1","v2"), APIConstants.SMS_API, APIConstants.REG_GET_ACTIVATION_CODE_API);
 
 
         Map<String, String> params = new HashMap<String, String>();
@@ -830,19 +832,30 @@ public class UserApi {
      * @return
      */
     public static Request registerSimplified (final int requestCode, String contactNumber, String password,
-                                    String areaCode, String referralCode, String verificationCode,
+                                    String areaCode, int languageId, String referralCode, String verificationCode, String grantType,
+                                    String clientId, String clientSecret,
                                     final ResponseHandler responseHandler){
 
         String url = String.format("%s/%s/%s",
-                APIConstants.DOMAIN.replace("v1","v2"), APIConstants.USER_API, APIConstants.REG_API);
+                BaseApplication.getDomainURL().replace("v1","v2"), APIConstants.USER_API, APIConstants.REG_API);
         //String url = "http://online.api.easydeal.ph/api/v2/user/register";
 
         Map<String, String> params = new HashMap<String, String>();
         params.put(APIConstants.REG_PARAM_MOBILE, contactNumber);
         params.put(APIConstants.REG_PARAM_PASSWORD, password);
         params.put(APIConstants.REG_PARAM_AREA_CODE, areaCode);
+        params.put(com.yilinker.core.v2.constants.APIConstants.LANGUAGE_PARAM_LANGUAGE_ID, String.valueOf(languageId));
         params.put(APIConstants.REG_PARAM_REFERRAL, referralCode);
         params.put(APIConstants.REG_PARAM_VERIFICATION_CODE, verificationCode);
+        params.put(APIConstants.LOGIN_PARAM_GRANT_TYPE, grantType);
+        if(grantType.contains("affiliate")){
+            params.put(APIConstants.LOGIN_PARAM_CLIENT_ID, clientId);
+            params.put(APIConstants.LOGIN_PARAM_CLIENT_SECRET, clientSecret);
+        }else {
+            params.put(APIConstants.LOGIN_PARAM_CLIENT_ID, APIConstants.API_CLIENT_ID);
+            params.put(APIConstants.LOGIN_PARAM_CLIENT_SECRET, APIConstants.API_CLIENT_SECRET);
+        }
+
 
         VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
 
@@ -850,9 +863,16 @@ public class UserApi {
             public void onResponse(JSONObject response) {
 
                 Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
-                Register obj = gson.fromJson(response.toString(), Register.class);
+                APIResponse apiResponse = gson.fromJson(response.toString(), APIResponse.class);
 
-                responseHandler.onSuccess(requestCode, obj);
+                if (apiResponse.isSuccessful()) {
+                    gson = GsonUtility.createGsonBuilder(Login.class, new Login.LoginInstance()).create();
+                    String jsonString = new Gson().toJson(apiResponse.getData());
+                    Login obj = gson.fromJson(jsonString, Login.class);
+                    responseHandler.onSuccess(requestCode, obj);
+                } else {
+                    responseHandler.onFailed(requestCode, apiResponse.getMessage());
+                }
 
             }
         }, new Response.ErrorListener() {
@@ -906,7 +926,7 @@ public class UserApi {
                                  String password, String clientId, String clientSecret, final ResponseHandler responseHandler){
 
         String url = String.format("%s/%s",
-                APIConstants.DOMAIN.replace("v1","v2"),
+                BaseApplication.getDomainURL().replace("v1","v2"),
                 APIConstants.LOGIN_API);
 
         Map<String,String> params = new HashMap<String,String>();
@@ -971,7 +991,7 @@ public class UserApi {
                                               final ResponseHandler responseHandler){
 
         String url = String.format("%s/%s/%s",
-                APIConstants.DOMAIN.replace("v1","v2"), APIConstants.USER_API, APIConstants.RESET_PASSWORD_API);
+                BaseApplication.getDomainURL().replace("v1","v2"), APIConstants.USER_API, APIConstants.RESET_PASSWORD_API);
         //String url = "http://online.api.easydeal.ph/api/v2/user/resetPassword";
 
         Map<String, String> params = new HashMap<String, String>();

@@ -1,6 +1,7 @@
 package com.yilinker.core.model.buyer;
 
 import com.google.gson.InstanceCreator;
+import com.google.gson.annotations.SerializedName;
 
 import java.lang.reflect.Type;
 import java.util.List;
@@ -9,12 +10,6 @@ import java.util.List;
  * Created by Adur Urbano on 8/5/2015.
  */
 public class CartItem2 {
-
-    private static final String OBJ_NAME = "CartItem";
-    private static final String KEY_PRODUCT = "product";
-    private static final String KEY_SELECTED_ATTRIBUTES = "selectedAttributes";
-    private static final String KEY_UNIT_ID = "unitId";
-    private static final String KEY_QUANTITY = "quantity";
 
     private int id;
     private String productName;
@@ -37,6 +32,9 @@ public class CartItem2 {
     private int unitId;
     private int quantity;
     private  int itemId;
+
+    @SerializedName("hasCOD")
+    private boolean isCODAvailble;
 
 
     public int getId() {
@@ -166,11 +164,6 @@ public class CartItem2 {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
-    //    @Override
-//    public String toString() {
-//        return OBJ_NAME + "[" + KEY_PRODUCT + product + ", " + KEY_UNIT_ID + unitId + ", " + KEY_QUANTITY + quantity + "]";
-//    }
-
 
     public int getItemId() {
         return itemId;
@@ -178,6 +171,14 @@ public class CartItem2 {
 
     public void setItemId(int itemId) {
         this.itemId = itemId;
+    }
+
+    public boolean isCODAvailble() {
+        return isCODAvailble;
+    }
+
+    public void setIsCODAvailble(boolean isCODAvailble) {
+        this.isCODAvailble = isCODAvailble;
     }
 
     public static class CartItemInstance2 implements InstanceCreator<CartItem2> {

@@ -3,7 +3,6 @@ package com.yilinker.core.model;
 import com.google.gson.InstanceCreator;
 
 import java.lang.reflect.Type;
-import java.util.List;
 
 /**
  * Created by jaybr_000 on 9/2/2015.

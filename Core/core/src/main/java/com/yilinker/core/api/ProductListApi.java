@@ -21,9 +21,15 @@ import org.json.JSONObject;
 public class ProductListApi {
 
     public static Request getProductList(final int requestCode, String target,final ResponseHandler responseHandler) {
-        String url= String.format("%s/%s" ,
+
+        String url = target;
+        if(!target.contains("http")){
+
+            url= String.format("%s/%s" ,
                     APIConstants.DOMAIN,
                     target);
+
+        }
 
         url = url.replaceAll(" ","%20");
 

@@ -14,12 +14,11 @@ import com.yilinker.core.constants.APIConstants;
 import com.yilinker.core.helper.VolleyPostHelper;
 import com.yilinker.core.interfaces.ResponseHandler;
 import com.yilinker.core.model.APIResponse;
-import com.yilinker.core.model.seller.CustomizedCategory;
 import com.yilinker.core.model.seller.Points;
-import com.yilinker.core.model.seller.PointsDateAdded;
 import com.yilinker.core.utility.GsonUtility;
 import com.yilinker.core.utility.SocketTimeout;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -102,10 +101,20 @@ public class PointsApi {
 
                 gson = GsonUtility.createGsonBuilder(Points.class, new Points.PointsInstance()).create();
                 String jsonString = new Gson().toJson(apiResponse.getData());
-                Points[] obj = gson.fromJson(jsonString, Points[].class);
+                JSONArray jsonObject = null;
+                String json = null;
+                try {
+                    jsonObject = new JSONArray(jsonString);
+                    json = jsonObject.getJSONObject(0).getJSONArray("points").toString();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                Points[] obj = gson.fromJson(json, Points[].class);
 
 
-                    responseHandler.onSuccess(requestCode, obj);
+
+
+                responseHandler.onSuccess(requestCode, obj);
 
             }
         }, new Response.ErrorListener() {

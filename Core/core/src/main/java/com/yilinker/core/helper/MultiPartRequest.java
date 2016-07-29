@@ -1,7 +1,6 @@
 package com.yilinker.core.helper;
 
 import android.os.Environment;
-import android.util.Log;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
@@ -13,7 +12,6 @@ import com.android.volley.toolbox.HttpHeaderParser;
 import com.google.gson.Gson;
 import com.yilinker.core.constants.APIConstants;
 import com.yilinker.core.model.UpdateUserInfo;
-import com.yilinker.core.model.seller.ProductUpload;
 import com.yilinker.core.model.seller.AttributeCombinationUpload;
 import com.yilinker.core.model.seller.ProductUpload;
 
@@ -90,6 +88,43 @@ public class MultiPartRequest extends Request {
         mHttpEntity = buildMultipartEntityStoreInfo();
     }
 
+    /***Edit profile MultiPart*/
+    public MultiPartRequest(String url, String profilePhotoPath, String userDocumentsPath,
+                            Class clazz,
+                            Map<String, String> headers,
+                            Response.Listener listener,
+                            Response.ErrorListener errorListener) {
+        super(Request.Method.POST, url, errorListener);
+        mHeaders = headers;
+        mClass = clazz;
+        mListener = listener;
+        gson = new Gson();
+
+        MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+        if (!profilePhotoPath.equals("")){
+            File file  = new File(profilePhotoPath);
+            String fileName = file.getName();
+            builder.addBinaryBody("profilePhoto", file, ContentType.create("image/*"), fileName);
+
+        }
+        if (!userDocumentsPath.equals("")){
+            File file  = new File(userDocumentsPath);
+            String fileName = file.getName();
+            builder.addBinaryBody("userDocument", file, ContentType.create("image/*"), fileName);
+        }
+
+        for (Map.Entry<String, String> entry : mHeaders.entrySet()) {
+            builder.addTextBody(entry.getKey(), entry.getValue());
+        }
+
+        builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
+        builder.setBoundary("BOUNDARY");
+
+        mHttpEntity = builder.build();
+
+    }
+
+
     public MultiPartRequest(String url, String path, boolean isProfilePhoto,
                             Class clazz,
                             Map<String, String> headers,
@@ -121,6 +156,41 @@ public class MultiPartRequest extends Request {
             mHttpEntity = builder.build();
         } else {
             mHttpEntity = buildMultipartEntity(path);
+        }
+    }
+
+    public MultiPartRequest(String url, String path, Class clazz,
+                            Map<String, String> headers,
+                            Response.Listener listener,
+                            Response.ErrorListener errorListener) {
+        super(Request.Method.POST, url, errorListener);
+        mHeaders = headers;
+        mClass = clazz;
+        mListener = listener;
+        gson = new Gson();
+
+        if (url.contains(APIConstants.UPLOAD)) {
+
+            MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+            File file  = new File(path);
+            String fileName = file.getName();
+            builder.addBinaryBody(APIConstants.IMAGE, file, ContentType.create("image/*"), fileName);
+
+            for (Map.Entry<String, String> entry : mHeaders.entrySet()) {
+
+                builder.addTextBody(entry.getKey(), entry.getValue());
+
+            }
+
+            builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
+            builder.setBoundary("BOUNDARY");
+
+            mHttpEntity = builder.build();
+
+        } else {
+
+            mHttpEntity = buildMultipartEntity(path);
+
         }
     }
 

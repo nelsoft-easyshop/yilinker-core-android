@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Core</string>
 
-    <!-- Begin Error Messages -->
+    <!-- ERROR MESSAGES -->
     <string name="generic_server_down">Server Down</string>
     <string name="no_internet">No Internet</string>
     <string name="error">Error</string>
@@ -11,15 +11,16 @@
     <string name="no_network_connection">No Network Connection</string>
     <string name="parsing_failed">Parsing Failed</string>
     <string name="auth_failed">Authentication Failed</string>
-    <!-- End Error Messages -->
+    <string name="something_went_wrong">Something Went Wrong</string>
+    <!-- END ERROR MESSAGES -->
     
-    <!-- Transaction Types -->
+    <!-- TRANSACTION TYPES -->
     <string name="transaction_type_undefined">Undefined</string>
     <string name="transaction_type_on_delivery">On-Delivery</string>
     <string name="transaction_type_for_feedback">For Feedback</string>
     <string name="transaction_type_completed">Completed</string>
     <string name="transaction_type_cancelled">Cancelled</string>
     <string name="transaction_type_on_going">On Going</string>
-    <!-- End Transaction Types -->
+    <!-- END TRANSACTION TYPES -->
 
 </resources>

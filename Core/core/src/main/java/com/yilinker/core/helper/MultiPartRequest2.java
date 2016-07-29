@@ -1,7 +1,5 @@
 package com.yilinker.core.helper;
 
-import android.os.Environment;
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
 import com.android.volley.ParseError;
@@ -10,19 +8,12 @@ import com.android.volley.Response;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.google.gson.Gson;
-import com.yilinker.core.model.UpdateUserInfo;
-import com.yilinker.core.model.seller.AttributeCombinationUpload;
-import com.yilinker.core.model.seller.ProductUpload;
 
 import org.apache.http.HttpEntity;
-import org.apache.http.entity.ContentType;
-import org.apache.http.entity.mime.HttpMultipartMode;
-import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
@@ -33,6 +24,7 @@ import java.util.Map;
 public abstract class MultiPartRequest2<T> extends Request {
 
     public static final String CONTENT_TYPE_IMAGE = "image/jpeg";
+    public static final String CONTENT_BOUNDARY = "BOUNDARY";
 
     private HttpEntity mHttpEntity;
     private Response.Listener mListener;

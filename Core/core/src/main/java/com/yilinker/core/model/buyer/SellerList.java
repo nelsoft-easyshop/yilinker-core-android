@@ -1,7 +1,6 @@
 package com.yilinker.core.model.buyer;
 
 import com.google.gson.InstanceCreator;
-import com.yilinker.core.model.Category;
 
 import java.lang.reflect.Type;
 import java.util.List;

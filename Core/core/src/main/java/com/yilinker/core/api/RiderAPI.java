@@ -6,7 +6,6 @@ import com.android.volley.Response;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.HttpStack;
 import com.google.gson.Gson;
 import com.yilinker.core.base.BaseApplication;
 import com.yilinker.core.constants.APIConstants;
@@ -17,7 +16,6 @@ import com.yilinker.core.model.APIResponse;
 import com.yilinker.core.model.Address;
 import com.yilinker.core.model.Login;
 import com.yilinker.core.model.express.internal.CashDetail;
-import com.yilinker.core.model.express.internal.CashHistory;
 import com.yilinker.core.model.express.internal.JobOrder;
 import com.yilinker.core.model.express.internal.Rider;
 import com.yilinker.core.model.OAuthentication;
@@ -46,6 +44,42 @@ public class RiderAPI {
      * @param responseHandler
      * @return
      */
+
+    public static Request loginForVerificationCode (final int requestCode, OAuthentication oAuth, final ResponseHandler responseHandler, final Response.ErrorListener errorHandler ) {
+
+        String url = String.format("%s/%s",
+                APIConstants.DOMAIN,
+                APIConstants.RIDER_GET_TOKEN);
+
+        //remove language locale on url for login only
+        url = url.replaceFirst("en/", "");
+        url = url.replaceFirst("cn/", "");
+
+        Map<String,String> params = new HashMap<String,String>();
+        params.put(APIConstants.LOGIN_PARAM_CLIENT_ID, oAuth.getClientId());
+        params.put(APIConstants.LOGIN_PARAM_CLIENT_SECRET, oAuth.getClientSecret());
+        params.put(APIConstants.LOGIN_PARAM_GRANT_TYPE, oAuth.getGrantType());
+
+        VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+
+
+                Gson gson = GsonUtility.createGsonBuilder(Login.class, new Login.LoginInstance()).create();
+                Login obj = gson.fromJson(response.toString(), Login.class);
+
+                responseHandler.onSuccess(requestCode, obj);
+
+
+            }
+        }, errorHandler);
+
+        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
+        return request;
+    }
+
+
     public static Request loginByUsername (final int requestCode, OAuthentication oAuth, final ResponseHandler responseHandler){
 
         String url = String.format("%s/%s",
@@ -54,6 +88,9 @@ public class RiderAPI {
 
         //temp
         url = url.replace("/en/", "/");
+
+//        //remove language locale on url for login only
+//        url = url.replaceFirst(String.format("/%s",locale), "");
 
         Map<String,String> params = new HashMap<String,String>();
         params.put(APIConstants.LOGIN_PARAM_CLIENT_ID, oAuth.getClientId());
@@ -71,6 +108,97 @@ public class RiderAPI {
                     Login obj = gson.fromJson(response.toString(), Login.class);
 
                     responseHandler.onSuccess(requestCode, obj);
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                if(error.networkResponse == null){
+
+                    responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+                    return;
+                }
+
+                int statusCode = error.networkResponse.statusCode;
+                String message = null;
+
+                if(statusCode == HttpStatus.SC_UNAUTHORIZED){
+
+                    responseHandler.onFailed(requestCode, ErrorMessages.ERR_EXPIRED_TOKEN);
+
+                }
+                else if(statusCode == HttpStatus.SC_BAD_REQUEST){
+
+                    try {
+
+                        String responseBody = new String(error.networkResponse.data, "utf-8" );
+                        Gson gson = GsonUtility.createGsonBuilder(APIResponse.class, new APIResponse.APIResponseInstance()).create();
+                        APIResponse apiResponse = gson.fromJson(responseBody, APIResponse.class);
+
+                        if(apiResponse != null)
+                        {
+                            message = apiResponse.getMessage();
+
+                            if(message == null){
+
+                                message = ErrorMessages.ERR_INVALID_CREDENTIALS;
+                            }
+
+                        }
+
+
+                    } catch ( Exception e ) {
+
+                        message = APIConstants.API_CONNECTION_PROBLEM;
+                    }
+                    finally {
+
+                        responseHandler.onFailed(requestCode, message);
+                    }
+
+                }
+                else {
+
+                    responseHandler.onFailed(requestCode, APIConstants.API_CONNECTION_PROBLEM);
+                }
+
+            }
+        });
+
+        request.setRetryPolicy(SocketTimeout.getRetryPolicy());
+        return request;
+    }
+
+    public static Request loginByUsername (final int requestCode, OAuthentication oAuth, String locale, final ResponseHandler responseHandler){
+
+        String url = String.format("%s/%s",
+                APIConstants.DOMAIN,
+                APIConstants.RIDER_GET_TOKEN);
+
+//        //temp
+//        url = url.replace("/en/", "/");
+
+        //remove language locale on url for login only
+        url = url.replaceFirst(String.format("/%s",locale), "");
+
+        Map<String,String> params = new HashMap<String,String>();
+        params.put(APIConstants.LOGIN_PARAM_CLIENT_ID, oAuth.getClientId());
+        params.put(APIConstants.LOGIN_PARAM_CLIENT_SECRET, oAuth.getClientSecret());
+        params.put(APIConstants.LOGIN_PARAM_GRANT_TYPE, oAuth.getGrantType());
+        params.put(APIConstants.LOGIN_PARAM_USERNAME, oAuth.getUsername());
+        params.put(APIConstants.LOGIN_PARAM_PASSWORD, oAuth.getPassword());
+
+        VolleyPostHelper request = new VolleyPostHelper(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+
+                Gson gson = GsonUtility.createGsonBuilder(Login.class, new Login.LoginInstance()).create();
+                Login obj = gson.fromJson(response.toString(), Login.class);
+
+                responseHandler.onSuccess(requestCode, obj);
 
             }
         }, new Response.ErrorListener() {

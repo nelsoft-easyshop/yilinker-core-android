@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="white">#FFFFFF</color>
+    <color name="gray_line">#CDCDCD</color> <!-- default color for lines -->
+    <color name="gray_transparent_80">#CCAAAAAA</color>
+    <color name="gray_text">#666666</color> <!-- default text color -->
+    <color name="black_transparent_20">#33000000</color>
+    <color name="black_transparent_80">#CC000000</color>
+    <color name="purple_light">#75348A</color>
+
+</resources>

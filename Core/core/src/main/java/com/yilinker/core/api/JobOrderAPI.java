@@ -21,7 +21,6 @@ import com.yilinker.core.model.Address;
 import com.yilinker.core.model.express.internal.JobOrder;
 import com.yilinker.core.model.express.internal.PackageType;
 import com.yilinker.core.model.express.internal.ProblematicJobOrder;
-import com.yilinker.core.model.express.internal.Rider;
 import com.yilinker.core.model.express.internal.ShippingFee;
 import com.yilinker.core.model.express.internal.Warehouse;
 import com.yilinker.core.utility.GsonUtility;
@@ -32,11 +31,9 @@ import org.apache.http.HttpStatus;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -1234,7 +1231,7 @@ public class JobOrderAPI {
         Map<String, String> params = new HashMap<String, String>();
         params.put(APIConstants.RIDER_REPORT_PROBLEMATIC_PARAM_TOKEN, app.getAccessToken());
         params.put(APIConstants.RIDER_REPORT_PROBLEMATIC_PARAM_JONUMBER, problematicJobOrder.getJobOrderNo());
-        params.put(APIConstants.RIDER_REPORT_PROBLEMATIC_PARAM_NOTES, problematicJobOrder.getNotes());
+        params.put(APIConstants.RIDER_REPORT_PROBLEMATIC_PARAM_NOTES, problematicJobOrder.getNotes().replace("\n", String.valueOf(" ")));
         params.put(APIConstants.RIDER_REPORT_PROBLEMATIC_PARAM_TYPE, problematicJobOrder.getProblemType());
 //        params.put(APIConstants.RIDER_REPORT_PROBLEMATIC_PARAM_IMAGE, problematicJobOrder.getImage());
 

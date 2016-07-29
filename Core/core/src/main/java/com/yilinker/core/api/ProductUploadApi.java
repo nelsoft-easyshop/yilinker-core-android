@@ -1,7 +1,5 @@
 package com.yilinker.core.api;
 
-import android.graphics.Bitmap;
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
@@ -14,7 +12,6 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
-import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
 import com.yilinker.core.constants.APIConstants;
@@ -289,7 +286,8 @@ public class ProductUploadApi {
     public static Request getProductEditDetails(final int requestCode, String accessToken,
                                                 int productId, final ResponseHandler responseHandler) {
 
-        String endpoint = String.format("%s/%s/%s?%s=%s&%s=%s", APIConstants.DOMAIN, APIConstants.PRODUCT_API, APIConstants.PRODUCT_EDIT_DETAILS_API,
+        String endpoint = String.format("%s/%s/%s/%s?%s=%s&%s=%s", APIConstants.DOMAIN, APIConstants.AUTH_API,
+                APIConstants.PRODUCT_API, APIConstants.PRODUCT_EDIT_DETAILS_API,
                 APIConstants.ACCESS_TOKEN, accessToken, APIConstants.PRODUCT_EDIT_DETAILS_PARAMS_PRODUCT_ID, productId);
 
 

@@ -18,6 +18,7 @@ public class CashHistory {
     private String type;
     @SerializedName("waybillNumber")
     private String waybillNo;
+    private double runningTotal;
 
 //    public String getAction() {
 //        return action;
@@ -34,6 +35,15 @@ public class CashHistory {
 //    public void setJobOrderNo(int jobOrderNo) {
 //        this.jobOrderNo = jobOrderNo;
 //    }
+
+
+    public double getRunningTotal() {
+        return runningTotal;
+    }
+
+    public void setRunningTotal(double runningTotal) {
+        this.runningTotal = runningTotal;
+    }
 
     public double getAmount() {
         return amount;

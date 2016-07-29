@@ -26,7 +26,6 @@ import com.yilinker.core.model.seller.TransactionConsignee;
 import com.yilinker.core.model.seller.TransactionList;
 import com.yilinker.core.utility.GsonUtility;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
