@@ -43,7 +43,7 @@ public class ProductManagementApi {
 
         Map<String,String> params = new HashMap<>();
         params.put(APIConstants.ACCESS_TOKEN, token);
-        if (status != 7) {
+        if (status != 10) {
             params.put(APIConstants.PRODUCT_MANAGEMENT_PARAMS_STATUS, String.valueOf(status));
         } else {
             params.put(APIConstants.PRODUCT_MANAGEMENT_PARAMS_STATUS, "all");
@@ -94,7 +94,7 @@ public class ProductManagementApi {
 
         Map<String,String> params = new HashMap<>();
         params.put(APIConstants.ACCESS_TOKEN, token);
-        if (status != 7) {
+        if (status != 10) {
             params.put(APIConstants.PRODUCT_MANAGEMENT_PARAMS_STATUS, String.valueOf(status));
         } else {
             params.put(APIConstants.PRODUCT_MANAGEMENT_PARAMS_STATUS, "all");
