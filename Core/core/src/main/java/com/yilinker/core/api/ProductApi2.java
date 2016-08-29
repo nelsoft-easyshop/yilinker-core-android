@@ -62,7 +62,7 @@ public class ProductApi2 {
     public static Request getProductReview(final int requestCode, String id,
                                             final ResponseHandler handler, Response.ErrorListener errorListener) {
 
-        String endpoint = String.format("%s/%s", "http://online.api.easydeal.ph/api/v3/PH/en", PRODUCT_REVIEW_API);
+        String endpoint = String.format("%s/%s", "https://www.yilinker.com/api/v4/PH/en", PRODUCT_REVIEW_API);
 
         Map<String, String > params = new HashMap<>();
 
