@@ -1,6 +1,8 @@
-package com.yilinker.core.model.buyer.productV2;
+package com.yilinker.core.model.buyer.product2;
 
 import com.google.gson.annotations.SerializedName;
+
+import static com.yilinker.core.constants.ProductAPIConstants.*;
 
 import java.util.List;
 
@@ -9,14 +11,14 @@ import java.util.List;
  */
 public class Attributes {
 
-    @SerializedName("id")
+    @SerializedName(KEY_ID)
     private String id;
-    @SerializedName("groupName")
+    @SerializedName(KEY_GROUP_NAME)
     private String groupName;
 
-    @SerializedName("items")
+    @SerializedName(KEY_ITEMS)
     private List<Items> items;
-    @SerializedName("choices")
+    @SerializedName(KEY_CHOICES)
     private List<String> choices;
 
     public String getId() {
@@ -53,9 +55,9 @@ public class Attributes {
 
     public class Items {
 
-        @SerializedName("id")
+        @SerializedName(KEY_ID)
         private String id;
-        @SerializedName("name")
+        @SerializedName(KEY_NAME)
         private String name;
 
         public String getId() {

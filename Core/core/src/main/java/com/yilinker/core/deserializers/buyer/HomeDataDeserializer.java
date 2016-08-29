@@ -6,10 +6,13 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import com.yilinker.core.model.buyer.home.CategoryHomeData;
+import com.yilinker.core.model.buyer.home.CountryHomeData;
 import com.yilinker.core.model.buyer.home.HomeData;
+import com.yilinker.core.model.buyer.home.HomeLayout;
 import com.yilinker.core.model.buyer.home.ImageHomeData;
 import com.yilinker.core.model.buyer.home.ProductHomeData;
 import com.yilinker.core.model.buyer.home.SellerHomeData;
+import com.yilinker.core.utility.GsonUtility;
 
 import java.lang.reflect.Type;
 
@@ -36,15 +39,20 @@ public class HomeDataDeserializer implements JsonDeserializer<HomeData> {
             case 2:
             case 3:
             case 6:
+            case 13:
                 return gson.fromJson(json, ImageHomeData.class);
+            case 4:
             case 5:
             case 7:
             case 10:
+            case 14:
                 return gson.fromJson(json, ProductHomeData.class);
             case 8:
                 return gson.fromJson(json, SellerHomeData.class);
             case 9:
                 return gson.fromJson(json, CategoryHomeData.class);
+            case 11:
+                return gson.fromJson(json, CountryHomeData.class);
             default:
                 return gson.fromJson(json, HomeData.class);
         }

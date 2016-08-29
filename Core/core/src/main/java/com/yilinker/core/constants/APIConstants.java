@@ -354,6 +354,8 @@ public class APIConstants {
     public static final String PRODUCT_MANAGEMENT_PARAMS_STATUS = "status";
     public static final String PRODUCT_MANAGEMENT_PARAMS_KEYWORD = "keyword";
     public static final String PRODUCT_MANAGEMENT_PARAMS_PRODUCT_ID = "productId";
+    public static final String PRODUCT_MANAGEMENT_PARAMS_PAGE = "page";
+    public static final String PRODUCT_MANAGEMENT_PARAMS_PER_PAGE = "perPage";
 
 
     //My Points
@@ -742,5 +744,11 @@ public class APIConstants {
 
     //GET INTERNATIONAL PRODUCTS
     public final static String GET_INTERNATIONAL_PRODUCT = "internationalProduct";
+
+    //MOBILE CATEGORIES
+    public static final String CATEGORIES_API = "mobile-category";
+
+    //DAILY LOGIN
+    public static final String DAILY_LOGIN_API = String.format("%s/daily-login", AUTH_API);
 
 }

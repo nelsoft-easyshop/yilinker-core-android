@@ -1,6 +1,8 @@
-package com.yilinker.core.model.buyer.productV2;
+package com.yilinker.core.model.buyer.product2;
 
 import com.google.gson.annotations.SerializedName;
+
+import static com.yilinker.core.constants.ProductAPIConstants.*;
 
 import java.util.List;
 
@@ -9,66 +11,66 @@ import java.util.List;
  */
 public class ProductUnits {
 
-    @SerializedName("productId")
+    @SerializedName(KEY_PRODUCT_ID)
     private String productId;
-    @SerializedName("productUnitId")
+    @SerializedName(KEY_PRODUCT_UNIT_ID)
     private String productUnitId;
-    @SerializedName("sku")
+    @SerializedName(KEY_SKU)
     private String sku;
-    @SerializedName("slug")
+    @SerializedName(KEY_SLUG)
     private String slug;
-    @SerializedName("price")
+    @SerializedName(KEY_PRICE)
     private String price;
-    @SerializedName("discountedPrice")
+    @SerializedName(KEY_DISCOUNTED_PRICE)
     private String discountedPrice;
-    @SerializedName("appliedBaseDiscountPrice")
+    @SerializedName(KEY_APPLIED_BASE_DISCOUNT_PRICE)
     private String appliedBaseDiscountPrice;
-    @SerializedName("appliedDiscountPrice")
+    @SerializedName(KEY_APPLIED_DISCOUNT_PRICE)
     private String appliedDiscountPrice;
-    @SerializedName("primaryImage")
+    @SerializedName(KEY_PRIMARY_IMAGE)
     private String primaryImage;
-    @SerializedName("primaryThumbnailImage")
+    @SerializedName(KEY_PRIMARY_THUMBNAIL_IMAGE)
     private String primaryThumbnailImage;
-    @SerializedName("primarySmallImage")
+    @SerializedName(KEY_PRIMARY_SMALL_IMAGE)
     private String primarySmallImage;
-    @SerializedName("primaryMediumImage")
+    @SerializedName(KEY_PRIMARY_MEDIUM_IMAGE)
     private String primaryMediumImage;
-    @SerializedName("primaryLargeImage")
+    @SerializedName(KEY_PRIMARY_LARGE_IMAGE)
     private String primaryLargeImage;
-    @SerializedName("commission")
+    @SerializedName(KEY_COMMISSION)
     private String commission;
-    @SerializedName("weight")
+    @SerializedName(KEY_WEIGHT)
     private String weight;
-    @SerializedName("length")
+    @SerializedName(KEY_LENGTH)
     private String length;
-    @SerializedName("height")
+    @SerializedName(KEY_HEIGHT)
     private String height;
-    @SerializedName("width")
+    @SerializedName(KEY_WIDTH)
     private String width;
 
-    @SerializedName("quantity")
+    @SerializedName(KEY_QUANTITY)
     private int quantity;
-    @SerializedName("status")
+    @SerializedName(KEY_STATUS)
     private int status;
 
-    @SerializedName("discount")
+    @SerializedName(KEY_DISCOUNT)
     private double discount;
 
-    @SerializedName("inWishlist")
+    @SerializedName(KEY_IN_WISH_LIST)
     private boolean inWishList;
 
-    @SerializedName("dateCreated")
+    @SerializedName(KEY_DATE_CREATED)
     private Date dateCreated;
-    @SerializedName("dateLastModified")
+    @SerializedName(KEY_DATE_LAST_MODIFIED)
     private Date dateLastModified;
 
-    @SerializedName("imageIds")
+    @SerializedName(KEY_IMAGE_IDS)
     private List<String> imageIds;
-    @SerializedName("combination")
+    @SerializedName(KEY_COMBINATION)
     private List<String> combination;
-    @SerializedName("combinationNames")
+    @SerializedName(KEY_COMBINATION_NAMES)
     private List<String> combinationNames;
-    @SerializedName("variantCombination")
+    @SerializedName(KEY_VARIANT_COMBINATION)
     private List<VariantCombination> variantCombination;
 
     public String getProductId() {
@@ -297,9 +299,9 @@ public class ProductUnits {
 
     public class VariantCombination {
 
-        @SerializedName("name")
+        @SerializedName(KEY_NAME)
         private String name;
-        @SerializedName("value")
+        @SerializedName(KEY_VALUE)
         private String value;
 
         public String getName() {

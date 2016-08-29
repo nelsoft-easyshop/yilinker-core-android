@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by jaybryantc on 7/4/16.
  */
-public class HomeLayout {
+public class HomeLayout<T> {
 
     /**
      * Usual response
@@ -24,7 +24,7 @@ public class HomeLayout {
     @SerializedName(HomeAPIConstants.KEY_VIEW_MORE_TARGET)
     private HomeTarget viewMoreTarget;
     @SerializedName(HomeAPIConstants.KEY_DATA)
-    private List<HomeData> data;
+    private List<T> data;
 
     public int getLayoutId() {
         return layoutId;
@@ -62,21 +62,29 @@ public class HomeLayout {
         this.viewMoreTarget = viewMoreTarget;
     }
 
-    public List<HomeData> getData() {
+    public List<T> getData() {
         return data;
     }
 
-    public void setData(List<HomeData> data) {
+    public void setData(List<T> data) {
         this.data = data;
     }
 
-    public static class HomeLayoutInstance implements InstanceCreator<HomeLayout> {
+    public static class HomeLayoutInstance implements InstanceCreator<HomeLayout<HomeData>> {
 
         @Override
-        public HomeLayout createInstance(Type type) {
-            return new HomeLayout();
+        public HomeLayout<HomeData> createInstance(Type type) {
+            return new HomeLayout<>();
         }
 
+    }
+
+    public static class PromoHomeLayoutInstance implements InstanceCreator<HomeLayout<HomeLayout<HomeData>>> {
+
+        @Override
+        public HomeLayout<HomeLayout<HomeData>> createInstance(Type type) {
+            return new HomeLayout<>();
+        }
     }
 
 }
