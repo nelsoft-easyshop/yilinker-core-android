@@ -35,13 +35,13 @@ public class SellerApi2 {
 
         if (accessToken != null && isAuthorize) {
 
-            endpoint = String.format("%s/%s/%s", "http://online.api.easydeal.ph/api/v3/PH/en", APIConstants.AUTH_API,
+            endpoint = String.format("%s/%s/%s", "https://www.yilinker.com/api/v4/PH/en", APIConstants.AUTH_API,
                                         SELLER_DETAIL_API);
             params.put(APIConstants.ACCESS_TOKEN, accessToken);
 
         } else {
 
-            endpoint = String.format("%s/%s", "http://online.api.easydeal.ph/api/v3/PH/en", SELLER_DETAIL_API);
+            endpoint = String.format("%s/%s", "https://www.yilinker.com/api/v4/PH/en", SELLER_DETAIL_API);
 
         }
 
